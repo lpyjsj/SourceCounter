@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="BasCounter.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1303" topLine="47" />
+	</File>
+	<File name="BasCounter.h" open="0" top="0" tabpos="0">
+		<Cursor position="1240" topLine="39" />
+	</File>
+	<File name="CntSettingDlg.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="3207" topLine="18" />
+	</File>
+	<File name="CntSettingDlg.h" open="0" top="0" tabpos="3">
+		<Cursor position="319" topLine="0" />
+	</File>
+	<File name="Counter.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="655" topLine="15" />
+	</File>
+	<File name="Counter.h" open="0" top="0" tabpos="13">
+		<Cursor position="570" topLine="30" />
+	</File>
+	<File name="CounterObserver.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="143" topLine="0" />
+	</File>
+	<File name="CounterObserver.h" open="0" top="0" tabpos="5">
+		<Cursor position="801" topLine="8" />
+	</File>
+	<File name="CountingFileInfo.cpp" open="0" top="0" tabpos="7">
+		<Cursor position="635" topLine="12" />
+	</File>
+	<File name="CountingFileInfo.h" open="0" top="0" tabpos="6">
+		<Cursor position="862" topLine="33" />
+	</File>
+	<File name="CountingInfo.cpp" open="0" top="0" tabpos="8">
+		<Cursor position="117" topLine="0" />
+	</File>
+	<File name="CountingInfo.h" open="0" top="0" tabpos="9">
+		<Cursor position="931" topLine="41" />
+	</File>
+	<File name="CountingManager.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="1240" topLine="34" />
+	</File>
+	<File name="CountingManager.h" open="1" top="0" tabpos="2">
+		<Cursor position="1247" topLine="36" />
+	</File>
+	<File name="CountingParam.cpp" open="0" top="0" tabpos="12">
+		<Cursor position="883" topLine="8" />
+	</File>
+	<File name="CountingParam.h" open="0" top="0" tabpos="3">
+		<Cursor position="1885" topLine="66" />
+	</File>
+	<File name="CppCounter.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="2628" topLine="108" />
+	</File>
+	<File name="CppCounter.h" open="0" top="0" tabpos="0">
+		<Cursor position="866" topLine="3" />
+	</File>
+	<File name="JspCounter.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="928" topLine="28" />
+	</File>
+	<File name="PasCounter.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="706" topLine="17" />
+	</File>
+	<File name="SourceCounterApp.cpp" open="0" top="0" tabpos="13">
+		<Cursor position="426" topLine="11" />
+	</File>
+	<File name="SourceCounterApp.h" open="0" top="0" tabpos="14">
+		<Cursor position="434" topLine="0" />
+	</File>
+	<File name="SourceCounterMain.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="21709" topLine="447" />
+	</File>
+	<File name="SourceCounterMain.h" open="0" top="0" tabpos="16">
+		<Cursor position="4267" topLine="114" />
+	</File>
+	<File name="SrcTypeSelDlg.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="525" topLine="29" />
+	</File>
+	<File name="SrcTypeSelDlg.h" open="0" top="0" tabpos="2">
+		<Cursor position="1054" topLine="30" />
+	</File>
+	<File name="TxtCounter.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="954" topLine="9" />
+	</File>
+	<File name="TxtCounter.h" open="0" top="0" tabpos="4">
+		<Cursor position="227" topLine="12" />
+	</File>
+	<File name="aboutdlg.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="240" topLine="12" />
+	</File>
+	<File name="aboutdlg.h" open="0" top="0" tabpos="5">
+		<Cursor position="38" topLine="0" />
+	</File>
+	<File name="resource.rc" open="0" top="0" tabpos="0">
+		<Cursor position="23" topLine="0" />
+	</File>
+	<File name="wx_pch.h" open="0" top="0" tabpos="19">
+		<Cursor position="279" topLine="0" />
+	</File>
+	<File name="wxsmith\SourceCounterdialog.wxs" open="0" top="0" tabpos="0">
+		<Cursor position="13742" topLine="314" />
+	</File>
+</CodeBlocks_layout_file>

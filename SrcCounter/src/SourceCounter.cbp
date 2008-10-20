@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="SourceCounter" />
+		<Option pch_mode="0" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\SourceCounter" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D__WXDEBUG__" />
+					<Add directory="$(#wx)\lib\gcc_dll\mswud" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="$(#wx)\lib\gcc_dll\mswud" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="libwxmsw28ud.a" />
+					<Add directory="$(#wx)\lib\gcc_dll" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\SourceCounter" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="$(#wx)\lib\gcc_dll\mswu" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="$(#wx)\lib\gcc_dll\mswu" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="libwxmsw28u.a" />
+					<Add directory="$(#wx)\lib\gcc_dll" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-pipe" />
+			<Add option="-mthreads" />
+			<Add option="-D__GNUWIN32__" />
+			<Add option="-D__WXMSW__" />
+			<Add option="-DWXUSINGDLL" />
+			<Add option="-DwxUSE_UNICODE" />
+			<Add option='[[if (PLATFORM == PLATFORM_MSW &amp;&amp; (GetCompilerFactory().GetCompilerVersionString(_T(&quot;gcc&quot;)) &gt;= _T(&quot;4.0.0&quot;))) print(_T(&quot;-Wno-attributes&quot;));]]' />
+			<Add option="-Winvalid-pch" />
+			<Add option="-include wx_pch.h" />
+			<Add option="-DWX_PRECOMP" />
+			<Add option="-Wall" />
+			<Add directory="$(#wx)\include" />
+			<Add directory="$(#wx)\contrib\include" />
+		</Compiler>
+		<ResourceCompiler>
+			<Add directory="$(#wx)\include" />
+		</ResourceCompiler>
+		<Unit filename="BasCounter.cpp" />
+		<Unit filename="BasCounter.h" />
+		<Unit filename="CntSettingDlg.cpp" />
+		<Unit filename="CntSettingDlg.h" />
+		<Unit filename="Counter.cpp" />
+		<Unit filename="Counter.h" />
+		<Unit filename="CounterObserver.cpp" />
+		<Unit filename="CounterObserver.h" />
+		<Unit filename="CountingFileInfo.cpp" />
+		<Unit filename="CountingFileInfo.h" />
+		<Unit filename="CountingInfo.cpp" />
+		<Unit filename="CountingInfo.h" />
+		<Unit filename="CountingManager.cpp" />
+		<Unit filename="CountingManager.h" />
+		<Unit filename="CountingParam.cpp" />
+		<Unit filename="CountingParam.h" />
+		<Unit filename="CppCounter.cpp" />
+		<Unit filename="CppCounter.h" />
+		<Unit filename="JspCounter.cpp" />
+		<Unit filename="JspCounter.h" />
+		<Unit filename="PasCounter.cpp" />
+		<Unit filename="PasCounter.h" />
+		<Unit filename="SourceCounterApp.cpp" />
+		<Unit filename="SourceCounterApp.h" />
+		<Unit filename="SourceCounterMain.cpp" />
+		<Unit filename="SourceCounterMain.h" />
+		<Unit filename="SrcTypeSelDlg.cpp" />
+		<Unit filename="SrcTypeSelDlg.h" />
+		<Unit filename="TxtCounter.cpp" />
+		<Unit filename="TxtCounter.h" />
+		<Unit filename="aboutdlg.cpp" />
+		<Unit filename="aboutdlg.h" />
+		<Unit filename="resource.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="version.h" />
+		<Unit filename="wx_pch.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="wxsmith\AboutDlg.wxs" />
+		<Unit filename="wxsmith\CntSettingDlg.wxs" />
+		<Unit filename="wxsmith\SourceCounterdialog.wxs" />
+		<Unit filename="wxsmith\SrcTypeSelDlg.wxs" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<wxsmith version="1">
+				<gui name="wxWidgets" src="SourceCounterApp.cpp" main="SourceCounterDialog" init_handlers="necessary" language="CPP" />
+				<resources>
+					<wxDialog wxs="wxsmith/SourceCounterdialog.wxs" src="SourceCounterMain.cpp" hdr="SourceCounterMain.h" name="SourceCounterDialog" language="CPP" />
+					<wxDialog wxs="wxsmith/AboutDlg.wxs" src="AboutDlg.cpp" hdr="AboutDlg.h" name="AboutDlg" language="CPP" />
+					<wxDialog wxs="wxsmith/CntSettingDlg.wxs" src="CntSettingDlg.cpp" hdr="CntSettingDlg.h" name="CntSettingDlg" language="CPP" />
+					<wxDialog wxs="wxsmith/SrcTypeSelDlg.wxs" src="SrcTypeSelDlg.cpp" hdr="SrcTypeSelDlg.h" name="SrcTypeSelDlg" language="CPP" />
+				</resources>
+			</wxsmith>
+			<AutoVersioning>
+				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
+				<Settings autoincrement="1" date_declarations="1" do_auto_increment="0" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+			</AutoVersioning>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
