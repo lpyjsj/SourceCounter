@@ -65,11 +65,11 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	BoxSizer3 = new wxBoxSizer(wxVERTICAL);
 	StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("SourceCounter"), wxDefaultPosition, wxSize(214,14), 0, _T("ID_STATICTEXT1"));
 	BoxSizer3->Add(StaticText1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
-	StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Unicode version 1.0.1.0 "), wxDefaultPosition, wxSize(214,14), 0, _T("ID_STATICTEXT2"));
+	StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Unicode version 1.0.1.0"), wxDefaultPosition, wxSize(214,14), 0, _T("ID_STATICTEXT2"));
 	BoxSizer3->Add(StaticText2, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("(C) 1999 - 2008 Boom (BoomWorks.Net)"), wxDefaultPosition, wxSize(214,13), 0, _T("ID_STATICTEXT3"));
 	BoxSizer3->Add(StaticText3, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
-	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("http://code.google.com/p/srccounter/"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
+	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("http://www.boomworks.net/"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
 	BoxSizer3->Add(StaticText5, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("Label"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT4"));
 	BoxSizer3->Add(StaticText4, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);

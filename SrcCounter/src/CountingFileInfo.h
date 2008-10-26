@@ -30,6 +30,8 @@ public:
 	 */
 	CountingFileInfo();
 
+    CountingFileInfo(CountingFileInfo& fileInfo);
+
 	/**
 	 * disconstructor.
 	 */
@@ -45,7 +47,6 @@ public:
 	wxString		m_strFolderPath;		///< current counting folder path
 	wxString		m_strFileName;			///< current counting file name
 	wxString        m_strFileExtName;       ///< Current counting file extend name
-
 
 	int			m_nSize;				///< current counting file size
 

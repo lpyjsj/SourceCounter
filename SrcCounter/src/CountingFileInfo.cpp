@@ -31,5 +31,17 @@ CountingFileInfo::CountingFileInfo() :
         m_nBlankStatement	( 0 )
 {}
 
+CountingFileInfo::CountingFileInfo(CountingFileInfo& fileInfo) :
+        m_strFileFullPath   (fileInfo.m_strFileFullPath),
+        m_strFolderPath		(fileInfo.m_strFolderPath),
+        m_strFileName		(fileInfo.m_strFileName),
+        m_strFileExtName    (fileInfo.m_strFileExtName),
+        m_nSize				(fileInfo.m_nSize),
+        m_nTotalStatement	(fileInfo.m_nTotalStatement),
+        m_nCodeStatement	(fileInfo.m_nCodeStatement),
+        m_nCommentStatement	(fileInfo.m_nCommentStatement),
+        m_nBlankStatement	(fileInfo.m_nBlankStatement)
+{}
+
 CountingFileInfo::~CountingFileInfo()
 {}

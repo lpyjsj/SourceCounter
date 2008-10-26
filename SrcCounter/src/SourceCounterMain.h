@@ -16,6 +16,7 @@
 #include <wx/stattext.h>
 #include <wx/checklst.h>
 #include <wx/checkbox.h>
+#include <wx/filedlg.h>
 #include <wx/button.h>
 #include <wx/dirdlg.h>
 #include <wx/dialog.h>
@@ -48,6 +49,8 @@ private:
     void OnBtnStartClick(wxCommandEvent& event);
     void OnInit(wxInitDialogEvent& event);
     void OnBtnStopClick(wxCommandEvent& event);
+    void OnBtnSaveClick(wxCommandEvent& event);
+    void OnLstItemActivated(wxListEvent& event);
     //*)
 
     void OnLbxSrcFolderItemSelect(wxCommandEvent& evt);
@@ -106,6 +109,7 @@ private:
     wxStaticText* StaticText5;
     wxStaticText* StaticText7;
     wxButton* m_btnStop;
+    wxFileDialog* m_dlgFile;
     wxBoxSizer* BoxSizer1;
     wxStaticText* StaticText12;
     wxButton* m_btnSelSrcType;
@@ -121,13 +125,14 @@ private:
     ///////////////////////////////////////////////////////////////
 
     CountingInfo m_countingInfo;        ///< Counting information collector
-    CountingManager m_countingMgr;      ///< Counting manager
-
+    CountingManager* m_countingMgr;      ///< Counting manager
 
     ///////////////////////////////////////////////////////////////
 
     void updateOptionsCtrls();
     void initCountingCtrls();
+
+    void saveCouningResultToCSV(wxString fileName);
 
     /**
      * update statistic infomation.

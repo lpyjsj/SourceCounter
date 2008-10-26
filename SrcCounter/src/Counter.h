@@ -43,7 +43,7 @@ public:
      * @param countingFileInfo CCountingFileInfo Objcet Preserver Counting file infomation
      * @param nLineCountingType couting method type
      */
-    void Counting( CountingFileInfo& countingFileInfo, CountingParam& countingParam);
+    void Counting( CountingFileInfo* countingFileInfo, CountingParam& countingParam);
 
 protected:
     /**

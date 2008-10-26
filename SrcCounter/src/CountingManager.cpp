@@ -32,11 +32,13 @@ static char THIS_FILE[]=__FILE__;
 CountingManager::CountingManager() :
         m_pObserver( 0 ),
         m_pCounter( 0 ),
-        m_countingStatus( NManagerStatusNormal )
+        m_countingStatus( NManagerStatusNormal ),
+        m_pCurCountingFileInfo(0)
 {}
 
 CountingManager::~CountingManager()
 {
+    // Clear counter objs
     MapStrToCounter::iterator it;
     Counter* pCounter = 0;
     for( it = m_mapStrToCounter.begin(); it != m_mapStrToCounter.end(); ++it )
@@ -46,6 +48,19 @@ CountingManager::~CountingManager()
         pCounter = 0;
     }
 	m_mapStrToCounter.clear();
+
+    // Clear counting file info objs
+    int nCount = m_arrCountingFileInfo.GetCount();
+    CountingFileInfo* pInfo = 0;
+    for(int i=0; i<nCount; i++)
+    {
+        pInfo = m_arrCountingFileInfo[i];
+        delete pInfo;
+        pInfo = 0;
+        //wxMessageBox(_T("delete fileinfo"));
+    }
+    m_arrCountingFileInfo.Clear();
+
 
 }
 
@@ -150,31 +165,49 @@ void CountingManager::GetCountingInfo( CountingInfo& countingInfo )
     //
     // current statistic source file infomation
     //
-    countingInfo.m_countingFileInfo.m_strFileName		= m_curCountingFileInfo.m_strFileName;
-    countingInfo.m_countingFileInfo.m_strFolderPath	    = m_curCountingFileInfo.m_strFolderPath;
-    countingInfo.m_countingFileInfo.m_strFileExtName    = m_curCountingFileInfo.m_strFileExtName;
-    countingInfo.m_countingFileInfo.m_strFileFullPath   = m_curCountingFileInfo.m_strFileFullPath;
+//    countingInfo.m_pCountingFileInfo.m_strFileName		= m_pCurCountingFileInfo->m_strFileName;
+//    countingInfo.m_pCountingFileInfo.m_strFolderPath	    = m_pCurCountingFileInfo->m_strFolderPath;
+//    countingInfo.m_pCountingFileInfo.m_strFileExtName    = m_pCurCountingFileInfo.m_strFileExtName;
+//    countingInfo.m_pCountingFileInfo.m_strFileFullPath   = m_pCurCountingFileInfo.m_strFileFullPath;
+//
+//    countingInfo.m_pCountingFileInfo.m_nTotalStatement		= m_pCurCountingFileInfo.m_nTotalStatement;
+//    countingInfo.m_pCountingFileInfo.m_nCodeStatement		= m_pCurCountingFileInfo.m_nCodeStatement;
+//    countingInfo.m_pCountingFileInfo.m_nCommentStatement	    = m_pCurCountingFileInfo.m_nCommentStatement;
+//    countingInfo.m_pCountingFileInfo.m_nBlankStatement		= m_pCurCountingFileInfo.m_nBlankStatement;
 
-    countingInfo.m_countingFileInfo.m_nTotalStatement		= m_curCountingFileInfo.m_nTotalStatement;
-    countingInfo.m_countingFileInfo.m_nCodeStatement		= m_curCountingFileInfo.m_nCodeStatement;
-    countingInfo.m_countingFileInfo.m_nCommentStatement	    = m_curCountingFileInfo.m_nCommentStatement;
-    countingInfo.m_countingFileInfo.m_nBlankStatement		= m_curCountingFileInfo.m_nBlankStatement;
+    countingInfo.m_pCountingFileInfo        = m_pCurCountingFileInfo;
 
     //
     // total statistic infomation
     //
     countingInfo.m_nTotalFile				+= 1;
-    countingInfo.m_nTotalSize				+= m_curCountingFileInfo.m_nSize / 1000; // kb
+    countingInfo.m_nTotalSize				+= m_pCurCountingFileInfo->m_nSize / 1000; // kb
 
-    countingInfo.m_nTotalStatement			+= m_curCountingFileInfo.m_nTotalStatement;
-    countingInfo.m_nTotalCodeStatement		+= m_curCountingFileInfo.m_nCodeStatement;
-    countingInfo.m_nTotalCommentStatement	+= m_curCountingFileInfo.m_nCommentStatement;
-    countingInfo.m_nTotalBlankStatement	    += m_curCountingFileInfo.m_nBlankStatement;
+    countingInfo.m_nTotalStatement			+= m_pCurCountingFileInfo->m_nTotalStatement;
+    countingInfo.m_nTotalCodeStatement		+= m_pCurCountingFileInfo->m_nCodeStatement;
+    countingInfo.m_nTotalCommentStatement	+= m_pCurCountingFileInfo->m_nCommentStatement;
+    countingInfo.m_nTotalBlankStatement	    += m_pCurCountingFileInfo->m_nBlankStatement;
 }
 
 void CountingManager::Clear()
 {
-    m_curCountingFileInfo.Clear();
+    if(m_pCurCountingFileInfo)
+    {
+        m_pCurCountingFileInfo->Clear();
+    }
+
+    // Clear counting file info objs
+    int nCount = m_arrCountingFileInfo.GetCount();
+    CountingFileInfo* pInfo = 0;
+    for(int i=0; i<nCount; i++)
+    {
+        pInfo = m_arrCountingFileInfo[i];
+        delete pInfo;
+        pInfo = 0;
+        //wxMessageBox(_T("delete fileinfo"));
+    }
+    m_arrCountingFileInfo.Clear();
+
     //	m_bStopCounting = FALSE;
     m_countingStatus = NManagerStatusNormal;
 }
@@ -294,6 +327,7 @@ void CountingManager::StartCounting()
     ///////////////////////////////////////////////////////////////////
 
     int nFolderCount = m_countingParam.m_arrSrcFolderPath.GetCount();
+    //CountingFileInfo* pCountingFileInfo = 0;
 
     for (int i = 0; i < nFolderCount; i++)
     {
@@ -349,21 +383,29 @@ void CountingManager::StartCounting()
             // Check whether counting strFileExtName type source code file
             if (isCountingFile(strFileExtName))
             {
-                m_curCountingFileInfo.m_strFileExtName = strFileExtName;
-                m_curCountingFileInfo.m_strFileFullPath = fname;
+                m_pCurCountingFileInfo = new CountingFileInfo();
+
+                m_pCurCountingFileInfo->m_strFileExtName = strFileExtName;
+                m_pCurCountingFileInfo->m_strFileFullPath = fname;
 
                 getFileNameAndDirFromFullPath(fname,
-                                              m_curCountingFileInfo.m_strFileName,
-                                              m_curCountingFileInfo.m_strFolderPath);
+                                              m_pCurCountingFileInfo->m_strFileName,
+                                              m_pCurCountingFileInfo->m_strFolderPath);
 
                 // Create pCounter
                 m_pCounter = CreateCounter(strFileExtName);
                 assert(m_pCounter);
 
                 // Counting start...
-                m_pCounter->Counting( m_curCountingFileInfo, m_countingParam);
+                m_pCounter->Counting( m_pCurCountingFileInfo, m_countingParam);
 
-                ///////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////
+
+//                pCountingFileInfo = new CountingFileInfo(m_pCurCountingFileInfo);
+                m_arrCountingFileInfo.Add(m_pCurCountingFileInfo);
+
+                ///////////////////////////////////////////////////////
+
                 // Notify UI to update counting info
                 Notify();
             }// if

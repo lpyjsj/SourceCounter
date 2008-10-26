@@ -9,7 +9,7 @@ Counter::~Counter()
 {
     //dtor
 }
-void Counter::Counting(CountingFileInfo& countingFileInfo, CountingParam& countingParam)
+void Counter::Counting(CountingFileInfo* countingFileInfo, CountingParam& countingParam)
 {
 	m_nLineCountingType = countingParam.m_settingParam.m_nCountingMethodType;
 
@@ -22,7 +22,7 @@ void Counter::Counting(CountingFileInfo& countingFileInfo, CountingParam& counti
 
     ///////////////////////////////////////////////////////////////////
     wxTextFile file;
-    if (!file.Open(countingFileInfo.m_strFileFullPath, wxConvISO8859_1))
+    if (!file.Open(countingFileInfo->m_strFileFullPath, wxConvISO8859_1))
     {
         return;
     }
@@ -31,11 +31,11 @@ void Counter::Counting(CountingFileInfo& countingFileInfo, CountingParam& counti
 	countingSourceFile( file, nSize, nLines, nCodeLines, nCommentLines, nBlankLines );
 
 	//////////////////////////////////////////////////////////////////////////
-	countingFileInfo.m_nSize				= nSize;
-	countingFileInfo.m_nTotalStatement		= nLines;
-	countingFileInfo.m_nCodeStatement		= nCodeLines;
-	countingFileInfo.m_nCommentStatement	= nCommentLines;
-	countingFileInfo.m_nBlankStatement		= nBlankLines;
+	countingFileInfo->m_nSize				= nSize;
+	countingFileInfo->m_nTotalStatement		= nLines;
+	countingFileInfo->m_nCodeStatement		= nCodeLines;
+	countingFileInfo->m_nCommentStatement	= nCommentLines;
+	countingFileInfo->m_nBlankStatement		= nBlankLines;
 
 	///////////////////////////////////////////////////////////////////
 	file.Close();

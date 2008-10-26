@@ -179,6 +179,7 @@
 								<object class="wxListCtrl" name="ID_LISTCTRL1" variable="m_lstResult" member="yes">
 									<size>500,160</size>
 									<style>wxLC_REPORT|wxLC_SINGLE_SEL</style>
+									<handler function="OnLstItemActivated" entry="EVT_LIST_ITEM_ACTIVATED" />
 								</object>
 								<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
@@ -333,6 +334,7 @@
 								<object class="wxButton" name="ID_BUTTON7" variable="m_btnSave" member="yes">
 									<label>&amp;Save...</label>
 									<enabled>0</enabled>
+									<handler function="OnBtnSaveClick" entry="EVT_BUTTON" />
 								</object>
 								<flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
@@ -381,6 +383,11 @@
 			<message>Select directory</message>
 			<default_path>W:\\boomworks\\SrcCounter\\TestCase</default_path>
 			<style>wxDD_DIR_MUST_EXIST</style>
+		</object>
+		<object class="wxFileDialog" variable="m_dlgFile" member="yes">
+			<message>Select file</message>
+			<wildcard>CSV files (*.csv)|*.csv</wildcard>
+			<style>wxFD_SAVE|wxFD_OVERWRITE_PROMPT</style>
 		</object>
 	</object>
 </wxsmith>

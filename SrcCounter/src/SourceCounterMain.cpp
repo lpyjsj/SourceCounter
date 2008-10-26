@@ -23,6 +23,30 @@
 #include "CntSettingDlg.h"
 #include "SrcTypeSelDlg.h"
 
+///////////////////////////////////////////////////////////////////////
+
+/* Source types number */
+const int N_COLUMN_NUM = 7;
+
+/* Source type */
+const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
+{
+    _T("File"),
+    _T("Type"),
+    _T("Folder"),
+    _T("Total lines"),
+    _T("Code lines"),
+    _T("Comment lines"),
+    _T("Blank lines"),
+};
+
+const wxChar CSZ_CSV_HEADER_FORMAT_STR[] = _T( "%s,%s,%s,%s,%s,%s,%s\n" );
+
+const wxChar CSZ_CSV_FORMAT_STR[] = _T( "%s,%s,%s,%d,%d,%d,%d\n" );
+
+
+///////////////////////////////////////////////////////////////////////
+
 //(*IdInit(SourceCounterDialog)
 const long SourceCounterDialog::ID_STATICTEXT2 = wxNewId();
 const long SourceCounterDialog::ID_CHECKLISTBOX1 = wxNewId();
@@ -60,7 +84,8 @@ BEGIN_EVENT_TABLE(SourceCounterDialog,wxDialog)
     //*)
 END_EVENT_TABLE()
 
-SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id)
+SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
+        m_countingMgr(0)
 {
     //(*Initialize(SourceCounterDialog)
     wxBoxSizer* BoxSizer4;
@@ -79,7 +104,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id)
     wxBoxSizer* BoxSizer9;
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
-    
+
     Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
@@ -183,10 +208,11 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id)
     BoxSizer1->Add(BoxSizer12, 0, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     SetSizer(BoxSizer1);
     m_dlgAddDir = new wxDirDialog(this, _("Select directory"), _("W:\\boomworks\\SrcCounter\\TestCase"), wxDD_DIR_MUST_EXIST, wxDefaultPosition, wxDefaultSize, _T("wxDirDialog"));
+    m_dlgFile = new wxFileDialog(this, _("Select file"), wxEmptyString, wxEmptyString, _("CSV files (*.csv)|*.csv"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,(wxObjectEventFunction)&SourceCounterDialog::OnLbxSrcFolderCheck);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnAddDirClick);
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnDeleteClick);
@@ -194,6 +220,8 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id)
     Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnMoreSettingsClick);
     Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnStartClick);
     Connect(ID_BUTTON6,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnStopClick);
+    Connect(ID_LISTCTRL1,wxEVT_COMMAND_LIST_ITEM_ACTIVATED,(wxObjectEventFunction)&SourceCounterDialog::OnLstItemActivated);
+    Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnSaveClick);
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnAbout);
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnQuit);
     Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&SourceCounterDialog::OnInit);
@@ -209,12 +237,21 @@ SourceCounterDialog::~SourceCounterDialog()
     //(*Destroy(SourceCounterDialog)
     //*)
 
-
-
+    if (m_countingMgr)
+    {
+        delete m_countingMgr;
+        m_countingMgr = 0;
+        //wxMessageBox(_T("delete dlg"));
+    }
 }
 
 void SourceCounterDialog::OnQuit(wxCommandEvent& event)
 {
+    if(m_countingMgr->GetStatus() == NManagerStatusRunning)
+    {
+        m_countingMgr->SetStatus(NManagerStatusStop);
+    }
+
     Close();
 }
 
@@ -246,7 +283,7 @@ void SourceCounterDialog::OnBtnAddDirClick(wxCommandEvent& event)
     }
     catch (...)
     {
-        wxMessageBox(_T("catch"));
+        wxMessageBox(_T("Unknown error!"));
     }
 }
 
@@ -256,9 +293,10 @@ void SourceCounterDialog::OnBtnDeleteClick(wxCommandEvent& event)
     int nIndex = -1;
     nIndex = m_lbxSrcFolder->GetSelection();
 
+    if (-1 == nIndex)
+        return;
     // Delete item
     m_lbxSrcFolder->Delete(nIndex);
-
     updateOptionsCtrls();
 }
 
@@ -291,8 +329,10 @@ void SourceCounterDialog::OnLbxSrcFolderCheck(wxCommandEvent& event)
 
 void SourceCounterDialog::OnLbxSrcFolderItemSelect(wxCommandEvent& evt)
 {
-    //
-    m_btnDelete->Enable();
+    if ( wxNOT_FOUND != m_lbxSrcFolder->GetSelection())
+    {
+        m_btnDelete->Enable();
+    }
 }
 
 void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
@@ -342,10 +382,10 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
 
     // Clear prev counting info
     m_countingInfo.Clear();
-    m_countingMgr.Clear();
+    m_countingMgr->Clear();
 
     // Update options ctrls and Initial counting ctrls
-    m_countingMgr.SetStatus(NManagerStatusRunning);
+    m_countingMgr->SetStatus(NManagerStatusRunning);
 
     updateOptionsCtrls();
     initCountingCtrls();
@@ -378,21 +418,30 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     // TODO: countingParam.m_settingParam.m_nCountingMethodType = ;
 
     // Set counting parameter to CountingManager
-    m_countingMgr.SetCountingParam( &countingParam );
+    m_countingMgr->SetCountingParam( &countingParam );
 
     //
     // Start counting by call CountingManager
     //
 
     // Attach observer and start counting
-    m_countingMgr.AttachObserver(this);
-    m_countingMgr.StartCounting();
+    m_countingMgr->AttachObserver(this);
+    m_lblStatus->SetLabel(_T("Counting..."));
+	
+    try
+    {
+		m_countingMgr->StartCounting();
+    }
+    catch (...)
+    {
+        wxMessageBox(_T("Unknown error occured! Please start counting again."));
+    }
 
     //
     // finally
     //
 
-    switch ( m_countingMgr.GetStatus())
+    switch ( m_countingMgr->GetStatus())
     {
     case NManagerStatusComplete:
         // SetDlgItemText( IDC_STC_STATISTIC_STATUS, CSZ_STATISTIC_STATUS[3] );
@@ -414,27 +463,27 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
 void SourceCounterDialog::updateOptionsCtrls()
 {
     //
-    m_lbxSrcFolder->Enable(m_countingMgr.GetStatus() == NManagerStatusRunning ? false : true );
-    m_btnAdd->Enable(m_countingMgr.GetStatus() == NManagerStatusRunning ? false : true );
+    m_lbxSrcFolder->Enable(m_countingMgr->GetStatus() == NManagerStatusRunning ? false : true );
+    m_btnAdd->Enable(m_countingMgr->GetStatus() == NManagerStatusRunning ? false : true );
 
-    if (m_countingMgr.GetStatus() == NManagerStatusRunning || m_lstResult->GetItemCount() == 0)
+    if (m_countingMgr->GetStatus() == NManagerStatusRunning || m_lbxSrcFolder->GetSelection() == wxNOT_FOUND)
     {
         m_btnDelete->Enable(false);
     }
 
 
-    m_cmbSrcTypes->Enable(m_countingMgr.GetStatus() == NManagerStatusRunning ? false : true );
-    m_btnSelSrcType->Enable(m_countingMgr.GetStatus() == NManagerStatusRunning ? false : true );
+    m_cmbSrcTypes->Enable(m_countingMgr->GetStatus() == NManagerStatusRunning ? false : true );
+    m_btnSelSrcType->Enable(m_countingMgr->GetStatus() == NManagerStatusRunning ? false : true );
 
-    m_chbRecursiveCouting->Enable(m_countingMgr.GetStatus() == NManagerStatusRunning ? false : true);
-    m_btnMoreSetting->Enable(m_countingMgr.GetStatus() == NManagerStatusRunning ? false : true);
+    m_chbRecursiveCouting->Enable(m_countingMgr->GetStatus() == NManagerStatusRunning ? false : true);
+    m_btnMoreSetting->Enable(m_countingMgr->GetStatus() == NManagerStatusRunning ? false : true);
 
-    m_btnStart->Enable(m_countingMgr.GetStatus() == NManagerStatusRunning ? false : true);
-    m_btnStop->Enable(m_countingMgr.GetStatus() == NManagerStatusRunning ? true : false);
+    m_btnStart->Enable(m_countingMgr->GetStatus() == NManagerStatusRunning ? false : true);
+    m_btnStop->Enable(m_countingMgr->GetStatus() == NManagerStatusRunning ? true : false);
 
     // Save btn
     bool bEnableBtnSave = false;
-    if (m_lstResult->GetItemCount() >0 && m_countingMgr.GetStatus() != NManagerStatusRunning)
+    if (m_lstResult->GetItemCount() >0 && m_countingMgr->GetStatus() != NManagerStatusRunning)
     {
         bEnableBtnSave = true;
     }
@@ -448,8 +497,6 @@ void SourceCounterDialog::initCountingCtrls()
     // Initial labels
 
     m_lblStatus->SetLabel(_T("Ready."));
-
-
 }
 
 void SourceCounterDialog::UpdateCountingInfoCtrls()
@@ -457,28 +504,32 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
     //
     // wxMessageBox(_T("Notified"));
     //
-    m_countingMgr.GetCountingInfo( m_countingInfo );
+    m_countingMgr->GetCountingInfo( m_countingInfo );
 
+    CountingFileInfo* pCountingFileInfo = m_countingInfo.m_pCountingFileInfo;
     //
     // Insert item to resutl listctrl
     //
-    long nIndex = m_lstResult->InsertItem(m_lstResult->GetItemCount(), m_countingInfo.m_countingFileInfo.m_strFileName);
-    m_lstResult->SetItem(nIndex, 1, m_countingInfo.m_countingFileInfo.m_strFileExtName);
-    m_lstResult->SetItem(nIndex, 2, m_countingInfo.m_countingFileInfo.m_strFolderPath);
+    long nIndex = m_lstResult->InsertItem(m_lstResult->GetItemCount(), pCountingFileInfo->m_strFileName);
+    m_lstResult->SetItem(nIndex, 1, pCountingFileInfo->m_strFileExtName);
+    m_lstResult->SetItem(nIndex, 2, pCountingFileInfo->m_strFolderPath);
 
     wxString strTemp;
 
-    strTemp.Printf(_T("%d"), m_countingInfo.m_countingFileInfo.m_nTotalStatement);
+    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nTotalStatement);
     m_lstResult->SetItem(nIndex, 3, strTemp);
 
-    strTemp.Printf(_T("%d"), m_countingInfo.m_countingFileInfo.m_nCodeStatement);
+    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nCodeStatement);
     m_lstResult->SetItem(nIndex, 4, strTemp);
 
-    strTemp.Printf(_T("%d"), m_countingInfo.m_countingFileInfo.m_nCommentStatement);
+    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nCommentStatement);
     m_lstResult->SetItem(nIndex, 5, strTemp);
 
-    strTemp.Printf(_T("%d"), m_countingInfo.m_countingFileInfo.m_nBlankStatement);
+    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nBlankStatement);
     m_lstResult->SetItem(nIndex, 6, strTemp);
+
+    m_lstResult->SetItemData(nIndex, (long)pCountingFileInfo);
+    m_lstResult->EnsureVisible(nIndex);
 
     // Update labels
     strTemp.Printf(_T("%d"), m_countingInfo.m_nTotalFile);
@@ -499,24 +550,134 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
     strTemp.Printf(_T("%d"), m_countingInfo.m_nTotalBlankStatement);
     m_lblBlankLines->SetLabel(strTemp);
 
-//    wxMessageBox(m_countingInfo.m_countingFileInfo.m_strFileFullPath);
-//    wxMessageBox(m_countingInfo.m_countingFileInfo.m_strFileName);
-    m_lblStatus->SetLabel(m_countingInfo.m_countingFileInfo.m_strFileFullPath);
+//    wxMessageBox(pCountingFileInfo->m_strFileFullPath);
+//    wxMessageBox(pCountingFileInfo->m_strFileName);
+    if(nIndex % 11 == 0)
+        m_lblStatus->SetLabel(pCountingFileInfo->m_strFileFullPath);
 
 }
 
 void SourceCounterDialog::OnInit(wxInitDialogEvent& event)
 {
-    m_lstResult->InsertColumn(0, _T("File"));
-    m_lstResult->InsertColumn(1, _T("Type"));
-    m_lstResult->InsertColumn(2, _T("Folder"));
-    m_lstResult->InsertColumn(3, _T("Total lines"));
-    m_lstResult->InsertColumn(4, _T("Code lines"));
-    m_lstResult->InsertColumn(5, _T("Comment lines"));
-    m_lstResult->InsertColumn(6, _T("Blank lines"));
+    m_countingMgr = new CountingManager();
+
+    for (int i=0; i<N_COLUMN_NUM; i++)
+    {
+        m_lstResult->InsertColumn(i, CSZ_COLUMN_NAMES[i]);
+    }
 }
 
 void SourceCounterDialog::OnBtnStopClick(wxCommandEvent& event)
 {
-    m_countingMgr.StopCounting();
+    m_countingMgr->StopCounting();
+}
+
+void SourceCounterDialog::saveCouningResultToCSV( wxString filename )
+{
+    wxTextFile file;
+    file.Create( filename );
+    wxString strText;
+
+    file.AddLine(_T(";*** Generated by BoomWorks.Net(C) SourceCounter *** "));
+    file.AddLine(_T(";*** Author: boomworks@gmail.com *** "));
+    file.AddLine( _T( "\n" ));
+
+    strText.Printf( CSZ_CSV_HEADER_FORMAT_STR, CSZ_COLUMN_NAMES[2], CSZ_COLUMN_NAMES[0], CSZ_COLUMN_NAMES[1],
+                    CSZ_COLUMN_NAMES[3], CSZ_COLUMN_NAMES[4], CSZ_COLUMN_NAMES[5], CSZ_COLUMN_NAMES[6] );
+    file.AddLine( strText );
+
+    ///////////////////////////////////////////////////////////////////
+    ArrayCountingFileInfo* pArrFileInfo = m_countingMgr->GetCountingFileInfoArr();
+
+    int nItemCount = pArrFileInfo->GetCount();
+    CountingFileInfo* pFileInfo = 0;
+    wxString strTemp;
+    for ( int i=0; i<nItemCount; i++ )
+    {
+//        strText.Printf( CSZ_CSV_FORMAT_STR,
+//                        m_lstResult->GetItemText( i), m_lstResult->GetItemText( i ),
+//                        m_lstResult->GetItemText( i ), m_lstResult->GetItemText( i),
+//                        m_lstResult->GetItemText( i ), m_lstResult->GetItemText( i ),
+//                        m_lstResult->GetItemText( i )
+//                      );
+        pFileInfo = pArrFileInfo->Item(i);
+        strText.Empty();
+        strText = pFileInfo->m_strFolderPath +_T(",")+  pFileInfo->m_strFileName +_T(",")+ pFileInfo->m_strFileExtName;
+
+        strTemp.Empty();
+        strTemp.Printf(_T(",%d,%d,%d,%d"), pFileInfo->m_nTotalStatement, pFileInfo->m_nCodeStatement, pFileInfo->m_nCommentStatement, pFileInfo->m_nBlankStatement);
+//        strText.Printf( CSZ_CSV_FORMAT_STR,
+//                        pFileInfo->m_strFileName, pFileInfo->m_strFileExtName, pFileInfo->m_strFolderPath,
+//                        pFileInfo->m_nTotalStatement, pFileInfo->m_nCodeStatement, pFileInfo->m_nCommentStatement,
+//                        pFileInfo->m_nBlankStatement
+//                      );
+        file.AddLine( strText+strTemp );
+    }
+
+    file.AddLine( _T( "\n" ));
+    file.AddLine( _T(";***Total***"));
+
+    wxString str1, str2;
+
+    str2.Printf( _T( ";%s,%d" ), _T("Files"), m_countingInfo.m_nTotalFile);
+    file.AddLine( str2 );
+
+    str2.Printf( _T( ";%s,%d" ), _T("Sizes"), m_countingInfo.m_nTotalSize);
+    file.AddLine( str2 );
+
+    str2.Printf( _T( ";%s,%d,100%%" ), _T("Lines"), m_countingInfo.m_nTotalStatement );
+    file.AddLine( str2 );
+
+    str2.Printf( _T( ";%s,%d,%2.1f%%" ), _T("Code lines"), m_countingInfo.m_nTotalCodeStatement, 100. * m_countingInfo.m_nTotalCodeStatement / m_countingInfo.m_nTotalStatement );
+    file.AddLine( str2 );
+
+    str2.Printf( _T( ";%s,%d,%.1f%%" ), _T("Comment lines"), m_countingInfo.m_nTotalCommentStatement, 100. * m_countingInfo.m_nTotalCommentStatement / m_countingInfo.m_nTotalStatement );
+    file.AddLine( str2 );
+
+    str2.Printf( _T( ";%s,%d,%2.1f%%" ), _T("Blank lines"), m_countingInfo.m_nTotalBlankStatement, 100. * m_countingInfo.m_nTotalBlankStatement / m_countingInfo.m_nTotalStatement  );
+    file.AddLine( str2 );
+
+    // save
+    file.Write();
+}
+
+void SourceCounterDialog::OnBtnSaveClick(wxCommandEvent& event)
+{
+    if ( 0 == m_lstResult->GetItemCount())
+    {
+        return;
+    }
+
+    if ( wxID_CANCEL == m_dlgFile->ShowModal() )
+    {
+        return;
+    }
+
+    wxString strPath = m_dlgFile->GetPath();
+    saveCouningResultToCSV(strPath);
+
+    wxMessageBox(_T("complete!"));
+}
+
+void SourceCounterDialog::OnLstItemActivated(wxListEvent& event)
+{
+    CountingFileInfo* pFileInfo = (CountingFileInfo*)event.GetData();
+
+    // wxMessageBox(pFileInfo->m_strFileFullPath);
+    wxString strCmd;
+    strCmd.Empty();
+    strCmd = _T("notepad \"");
+    strCmd += pFileInfo->m_strFileFullPath;
+    strCmd += _T("\"");
+
+    try
+    {
+        ::wxExecute(strCmd, wxEXEC_ASYNC);
+        // wxExecute(cmd, wxEXEC_ASYNC, this);
+    }
+    catch (...)
+    {
+        wxMessageBox(_T("Unknown error occured!"));
+    }
+
 }

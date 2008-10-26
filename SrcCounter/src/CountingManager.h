@@ -38,6 +38,7 @@ enum NManagerStatus
 //WX_DECLARE_HASH_MAP( int, Counter*, wxIntegerHash, wxIntegerEqual, MapStrToCounter );
 
 WX_DECLARE_STRING_HASH_MAP( Counter*, MapStrToCounter);
+WX_DEFINE_ARRAY(CountingFileInfo*, ArrayCountingFileInfo);
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -99,6 +100,8 @@ public:
      */
     virtual void	GetCountingInfo( CountingInfo& countingInfo );
 
+    ArrayCountingFileInfo* GetCountingFileInfoArr(void) { return &m_arrCountingFileInfo;}
+
     /**
      * get manager status.
      *
@@ -138,15 +141,14 @@ private:
     Counter*				m_pCounter;		///< CCounter Object
 
     CountingInfo			m_countingInfo;			///< preserver statistic infomation
-    CountingFileInfo		m_curCountingFileInfo;		///< current counting file infomation
+    CountingFileInfo*		m_pCurCountingFileInfo;		///< current counting file infomation
+    ArrayCountingFileInfo   m_arrCountingFileInfo;  ///< Array for store counting file info
 
     BOOL					m_bStopCounting;		///< stop statistic flag
     NManagerStatus			m_countingStatus;		///< statistic status
 
     MapStrToCounter		    m_mapStrToCounter;      ///< Hashmap for store counter pointer
 
-    // TODO: add all fileinfo obj to a list
-    // CList m_listFileInfoObjs;
 
     //////////////////////////////////////////////////////////////////////////
 

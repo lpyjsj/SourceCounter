@@ -46,7 +46,7 @@ public:
 
 //	private:
 
-	CountingFileInfo m_countingFileInfo;		///< current counting file infomation
+	CountingFileInfo* m_pCountingFileInfo;		///< current counting file infomation
 
 	//
 	// total statistic info
@@ -73,7 +73,7 @@ inline void CountingInfo::Clear()
 	m_nTotalBlankStatement		= 0;
 
 	// TODO:
-	//	m_countingFileInfo.Clear();
+	//	m_pCountingFileInfo.Clear();
 }
 
 

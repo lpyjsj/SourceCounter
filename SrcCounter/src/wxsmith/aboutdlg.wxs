@@ -35,7 +35,7 @@
 							</object>
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT2" variable="StaticText2" member="yes">
-									<label>Unicode version 1.0.1.0 </label>
+									<label>Unicode version 1.0.1.0</label>
 									<size>214,14</size>
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
@@ -51,7 +51,7 @@
 							</object>
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT5" variable="StaticText5" member="yes">
-									<label>http://code.google.com/p/srccounter/</label>
+									<label>http://www.boomworks.net/</label>
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
