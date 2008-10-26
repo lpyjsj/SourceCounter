@@ -247,7 +247,7 @@ SourceCounterDialog::~SourceCounterDialog()
 
 void SourceCounterDialog::OnQuit(wxCommandEvent& event)
 {
-    if(m_countingMgr->GetStatus() == NManagerStatusRunning)
+    if (m_countingMgr->GetStatus() == NManagerStatusRunning)
     {
         m_countingMgr->SetStatus(NManagerStatusStop);
     }
@@ -427,10 +427,10 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     // Attach observer and start counting
     m_countingMgr->AttachObserver(this);
     m_lblStatus->SetLabel(_T("Counting..."));
-	
+
     try
     {
-		m_countingMgr->StartCounting();
+        m_countingMgr->StartCounting();
     }
     catch (...)
     {
@@ -552,7 +552,7 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
 
 //    wxMessageBox(pCountingFileInfo->m_strFileFullPath);
 //    wxMessageBox(pCountingFileInfo->m_strFileName);
-    if(nIndex % 11 == 0)
+    if (nIndex % 11 == 0)
         m_lblStatus->SetLabel(pCountingFileInfo->m_strFileFullPath);
 
 }
