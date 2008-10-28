@@ -154,7 +154,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Add(BoxSizer11, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer2 = new wxStaticBoxSizer(wxVERTICAL, this, _("Counting result"));
     BoxSizer6 = new wxBoxSizer(wxVERTICAL);
-    m_lstResult = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxSize(500,160), wxLC_REPORT|wxLC_SINGLE_SEL, wxDefaultValidator, _T("ID_LISTCTRL1"));
+    m_lstResult = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxSize(500,160), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_HRULES|wxLC_VRULES, wxDefaultValidator, _T("ID_LISTCTRL1"));
     BoxSizer6->Add(m_lstResult, 1, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer2->Add(BoxSizer6, 1, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer7 = new wxBoxSizer(wxHORIZONTAL);
@@ -480,7 +480,6 @@ void SourceCounterDialog::updateOptionsCtrls()
         m_btnDelete->Enable(false);
     }
 
-
     m_cmbSrcTypes->Enable(m_countingMgr->GetStatus() == NManagerStatusRunning ? false : true );
     m_btnSelSrcType->Enable(m_countingMgr->GetStatus() == NManagerStatusRunning ? false : true );
 
@@ -504,7 +503,6 @@ void SourceCounterDialog::initCountingCtrls()
     // Delete all listctrl items, if exist.
     m_lstResult->DeleteAllItems();
     // Initial labels
-
     m_lblStatus->SetLabel(_T("Ready."));
 }
 

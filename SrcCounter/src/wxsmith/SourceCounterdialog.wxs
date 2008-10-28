@@ -178,7 +178,7 @@
 							<object class="sizeritem">
 								<object class="wxListCtrl" name="ID_LISTCTRL1" variable="m_lstResult" member="yes">
 									<size>500,160</size>
-									<style>wxLC_REPORT|wxLC_SINGLE_SEL</style>
+									<style>wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_HRULES|wxLC_VRULES</style>
 									<handler function="OnLstItemActivated" entry="EVT_LIST_ITEM_ACTIVATED" />
 								</object>
 								<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
