@@ -5,7 +5,7 @@
 		<Cursor position="1303" topLine="47" />
 	</File>
 	<File name="BasCounter.h" open="0" top="0" tabpos="0">
-		<Cursor position="1240" topLine="39" />
+		<Cursor position="1532" topLine="49" />
 	</File>
 	<File name="CntSettingDlg.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="3207" topLine="0" />
@@ -37,8 +37,8 @@
 	<File name="CountingInfo.h" open="0" top="0" tabpos="9">
 		<Cursor position="931" topLine="41" />
 	</File>
-	<File name="CountingManager.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="11926" topLine="347" />
+	<File name="CountingManager.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="4375" topLine="133" />
 	</File>
 	<File name="CountingManager.h" open="0" top="0" tabpos="4">
 		<Cursor position="3017" topLine="93" />
@@ -50,10 +50,10 @@
 		<Cursor position="1885" topLine="66" />
 	</File>
 	<File name="CppCounter.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="2628" topLine="108" />
+		<Cursor position="237" topLine="0" />
 	</File>
 	<File name="CppCounter.h" open="0" top="0" tabpos="0">
-		<Cursor position="866" topLine="3" />
+		<Cursor position="2555" topLine="111" />
 	</File>
 	<File name="JspCounter.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="928" topLine="28" />
@@ -67,11 +67,11 @@
 	<File name="SourceCounterApp.h" open="0" top="0" tabpos="14">
 		<Cursor position="434" topLine="0" />
 	</File>
-	<File name="SourceCounterMain.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="0" topLine="0" />
+	<File name="SourceCounterMain.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="357" topLine="0" />
 	</File>
-	<File name="SourceCounterMain.h" open="0" top="0" tabpos="2">
-		<Cursor position="3950" topLine="108" />
+	<File name="SourceCounterMain.h" open="1" top="0" tabpos="4">
+		<Cursor position="4104" topLine="118" />
 	</File>
 	<File name="SrcTypeSelDlg.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="218" topLine="38" />

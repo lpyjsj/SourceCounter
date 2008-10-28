@@ -424,18 +424,27 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     // Start counting by call CountingManager
     //
 
-    // Attach observer and start counting
+    // Attach observer
     m_countingMgr->AttachObserver(this);
+    // Set wait cursor
+    wxCursor cursor1(wxCURSOR_WAIT);
+    this->SetCursor(cursor1);
+
     m_lblStatus->SetLabel(_T("Counting..."));
 
     try
     {
+        // Start counting
         m_countingMgr->StartCounting();
     }
     catch (...)
     {
         wxMessageBox(_T("Unknown error occured! Please start counting again."));
     }
+
+    // Reset cursor
+    wxCursor cursor2(wxCURSOR_ARROW);
+    this->SetCursor(cursor2);
 
     //
     // finally
