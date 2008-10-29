@@ -351,7 +351,10 @@
 			</object>
 			<object class="sizeritem">
 				<object class="wxBoxSizer" variable="BoxSizer12" member="no">
-					<object class="spacer">
+					<object class="sizeritem">
+						<object class="wxStaticText" name="ID_STATICTEXT17" variable="StaticText4" member="yes">
+							<label>Check for update http://down.boomworks.net</label>
+						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
 						<option>4</option>
@@ -381,7 +384,6 @@
 		</object>
 		<object class="wxDirDialog" variable="m_dlgAddDir" member="yes">
 			<message>Select directory</message>
-			<default_path>W:\\boomworks\\SrcCounter\\TestCase</default_path>
 			<style>wxDD_DIR_MUST_EXIST</style>
 		</object>
 		<object class="wxFileDialog" variable="m_dlgFile" member="yes">

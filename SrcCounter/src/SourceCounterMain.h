@@ -83,6 +83,7 @@ private:
     static const long ID_STATICTEXT9;
     static const long ID_STATICTEXT10;
     static const long ID_BUTTON7;
+    static const long ID_STATICTEXT17;
     static const long ID_BUTTON1;
     static const long ID_BUTTON2;
     //*)
@@ -114,6 +115,7 @@ private:
     wxStaticText* StaticText12;
     wxButton* m_btnSelSrcType;
     wxCheckListBox* m_lbxSrcFolder;
+    wxStaticText* StaticText4;
     wxComboBox* m_cmbSrcTypes;
     wxStaticText* m_lblBlankLines;
     wxStaticText* StaticText16;

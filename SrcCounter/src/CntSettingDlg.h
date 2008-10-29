@@ -4,14 +4,12 @@
 #ifndef WX_PRECOMP
 	//(*HeadersPCH(CntSettingDlg)
 	#include <wx/sizer.h>
-	#include <wx/stattext.h>
-	#include <wx/radiobut.h>
+	#include <wx/radiobox.h>
 	#include <wx/button.h>
 	#include <wx/dialog.h>
 	//*)
 #endif
 //(*Headers(CntSettingDlg)
-#include <wx/statline.h>
 //*)
 
 #include "CountingParam.h"
@@ -24,28 +22,19 @@ class CntSettingDlg: public wxDialog
 		virtual ~CntSettingDlg();
 
 		//(*Declarations(CntSettingDlg)
-		wxRadioButton* RadioButton1;
-		wxStaticText* StaticText2;
-		wxRadioButton* RadioButton2;
 		wxButton* Button1;
 		wxButton* Button2;
-		wxRadioButton* RadioButton3;
-		wxStaticLine* StaticLine1;
+		wxRadioBox* m_rdbCountingMethod;
 		//*)
 
         ///////////////////////////////////////////////////////////////
+        void SetSettingParam(SettingParam* pParam);
         void GetSettingParam(SettingParam& param);
 
 	protected:
 
 		//(*Identifiers(CntSettingDlg)
-		static const long ID_STATICTEXT2;
-		static const long ID_RADIOBUTTON1;
-		static const long ID_RADIOBUTTON2;
-		static const long ID_RADIOBUTTON3;
-		static const long ID_STATICLINE1;
-		static const long ID_BUTTON1;
-		static const long ID_BUTTON2;
+		static const long ID_RADIOBOX1;
 		//*)
 
 	private:
@@ -53,6 +42,8 @@ class CntSettingDlg: public wxDialog
 		//(*Handlers(CntSettingDlg)
 		void OnBtnOkClick(wxCommandEvent& event);
 		void OnBtnCancelClick(wxCommandEvent& event);
+		void OnRdbCountingMethodSelect(wxCommandEvent& event);
+		void OnInit(wxInitDialogEvent& event);
 		//*)
 
         ///////////////////////////////////////////////////////////////

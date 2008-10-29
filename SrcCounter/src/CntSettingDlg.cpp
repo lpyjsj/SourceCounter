@@ -11,13 +11,7 @@
 //*)
 
 //(*IdInit(CntSettingDlg)
-const long CntSettingDlg::ID_STATICTEXT2 = wxNewId();
-const long CntSettingDlg::ID_RADIOBUTTON1 = wxNewId();
-const long CntSettingDlg::ID_RADIOBUTTON2 = wxNewId();
-const long CntSettingDlg::ID_RADIOBUTTON3 = wxNewId();
-const long CntSettingDlg::ID_STATICLINE1 = wxNewId();
-const long CntSettingDlg::ID_BUTTON1 = wxNewId();
-const long CntSettingDlg::ID_BUTTON2 = wxNewId();
+const long CntSettingDlg::ID_RADIOBOX1 = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(CntSettingDlg,wxDialog)
@@ -31,34 +25,34 @@ CntSettingDlg::CntSettingDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
 	//(*Initialize(CntSettingDlg)
 	wxBoxSizer* BoxSizer2;
 	wxBoxSizer* BoxSizer1;
-	
+
 	Create(parent, id, _("More settings"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
 	SetClientSize(wxDefaultSize);
 	Move(wxDefaultPosition);
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
-	StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("When code and comment in same line, please select one counting method:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT2"));
-	BoxSizer1->Add(StaticText2, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	RadioButton1 = new wxRadioButton(this, ID_RADIOBUTTON1, _("Code lines +1, comment lines +1"), wxDefaultPosition, wxDefaultSize, wxRB_GROUP, wxDefaultValidator, _T("ID_RADIOBUTTON1"));
-	BoxSizer1->Add(RadioButton1, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	RadioButton2 = new wxRadioButton(this, ID_RADIOBUTTON2, _("Code lines +1, comment lines +0"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON2"));
-	BoxSizer1->Add(RadioButton2, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	RadioButton3 = new wxRadioButton(this, ID_RADIOBUTTON3, _("Code lines +0, comment lines +1"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_RADIOBUTTON3"));
-	BoxSizer1->Add(RadioButton3, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	StaticLine1 = new wxStaticLine(this, ID_STATICLINE1, wxDefaultPosition, wxSize(10,-1), wxLI_HORIZONTAL, _T("ID_STATICLINE1"));
-	BoxSizer1->Add(StaticLine1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	wxString __wxRadioBoxChoices_1[3] =
+	{
+		_("Code lines +1, comment lines +1"),
+		_("Code lines +1, comment lines +0"),
+		_("Code lines +0, comment lines +1")
+	};
+	m_rdbCountingMethod = new wxRadioBox(this, ID_RADIOBOX1, _("When code and comment in same line, please select one counting method:"), wxDefaultPosition, wxDefaultSize, 3, __wxRadioBoxChoices_1, 1, 0, wxDefaultValidator, _T("ID_RADIOBOX1"));
+	BoxSizer1->Add(m_rdbCountingMethod, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
-	Button1 = new wxButton(this, ID_BUTTON1, _("&Ok"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
+	Button1 = new wxButton(this, wxID_OK, _("&Ok"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_OK"));
 	BoxSizer2->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	Button2 = new wxButton(this, ID_BUTTON2, _("&Cancel"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
+	Button2 = new wxButton(this, wxID_CANCEL, _("&Cancel"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_CANCEL"));
 	BoxSizer2->Add(Button2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer1->Add(BoxSizer2, 0, wxTOP|wxBOTTOM|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	SetSizer(BoxSizer1);
 	BoxSizer1->Fit(this);
 	BoxSizer1->SetSizeHints(this);
 	Center();
-	
-	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CntSettingDlg::OnBtnOkClick);
-	Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CntSettingDlg::OnBtnCancelClick);
+
+	Connect(ID_RADIOBOX1,wxEVT_COMMAND_RADIOBOX_SELECTED,(wxObjectEventFunction)&CntSettingDlg::OnRdbCountingMethodSelect);
+	Connect(wxID_OK,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CntSettingDlg::OnBtnOkClick);
+	Connect(wxID_CANCEL,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CntSettingDlg::OnBtnCancelClick);
+	Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&CntSettingDlg::OnInit);
 	//*)
 }
 
@@ -66,6 +60,16 @@ CntSettingDlg::~CntSettingDlg()
 {
 	//(*Destroy(CntSettingDlg)
 	//*)
+}
+
+void CntSettingDlg::OnInit(wxInitDialogEvent& event)
+{
+    m_rdbCountingMethod->SetSelection(m_settingParam.m_nCountingMethodType);
+}
+
+void CntSettingDlg::SetSettingParam(SettingParam* pParam)
+{
+    m_settingParam.m_nCountingMethodType = pParam->m_nCountingMethodType;
 }
 
 void CntSettingDlg::GetSettingParam(SettingParam& param)
@@ -76,11 +80,16 @@ void CntSettingDlg::GetSettingParam(SettingParam& param)
 
 void CntSettingDlg::OnBtnOkClick(wxCommandEvent& event)
 {
-    m_settingParam.m_nCountingMethodType = 0; //WaitCursor
-    Close();
+	EndModal(wxID_OK);
 }
 
 void CntSettingDlg::OnBtnCancelClick(wxCommandEvent& event)
 {
-    Close();
+	EndModal(wxID_CANCEL);
+}
+
+void CntSettingDlg::OnRdbCountingMethodSelect(wxCommandEvent& event)
+{
+    // wxMessageBox( event.GetString() );
+    m_settingParam.m_nCountingMethodType = event.GetSelection();
 }

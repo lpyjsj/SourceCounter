@@ -41,7 +41,7 @@ const long AboutDlg::ID_STATICBITMAP2 = wxNewId();
 const long AboutDlg::ID_STATICTEXT1 = wxNewId();
 const long AboutDlg::ID_STATICTEXT2 = wxNewId();
 const long AboutDlg::ID_STATICTEXT3 = wxNewId();
-const long AboutDlg::ID_STATICTEXT5 = wxNewId();
+const long AboutDlg::ID_STATICTEXT6 = wxNewId();
 const long AboutDlg::ID_STATICTEXT4 = wxNewId();
 const long AboutDlg::ID_BUTTON1 = wxNewId();
 //*)
@@ -67,10 +67,10 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	BoxSizer3->Add(StaticText1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Unicode version 1.0.1.0"), wxDefaultPosition, wxSize(214,14), 0, _T("ID_STATICTEXT2"));
 	BoxSizer3->Add(StaticText2, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
-	StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("(C) 1999 - 2008 Boom (BoomWorks.Net)"), wxDefaultPosition, wxSize(214,13), 0, _T("ID_STATICTEXT3"));
+	StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("(C) 1999 - 2008 Boom (www.BoomWorks.Net)"), wxDefaultPosition, wxSize(214,13), 0, _T("ID_STATICTEXT3"));
 	BoxSizer3->Add(StaticText3, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
-	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("http://www.boomworks.net/"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
-	BoxSizer3->Add(StaticText5, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("http://down.boomworks.net (Check For Updates)"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT6"));
+	BoxSizer3->Add(StaticText6, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("Label"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT4"));
 	BoxSizer3->Add(StaticText4, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);

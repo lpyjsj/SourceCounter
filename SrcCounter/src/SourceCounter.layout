@@ -7,11 +7,11 @@
 	<File name="BasCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="1532" topLine="49" />
 	</File>
-	<File name="CntSettingDlg.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="3207" topLine="0" />
+	<File name="CntSettingDlg.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="2587" topLine="67" />
 	</File>
-	<File name="CntSettingDlg.h" open="0" top="0" tabpos="3">
-		<Cursor position="319" topLine="0" />
+	<File name="CntSettingDlg.h" open="1" top="0" tabpos="2">
+		<Cursor position="722" topLine="24" />
 	</File>
 	<File name="Counter.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="664" topLine="17" />
@@ -19,7 +19,7 @@
 	<File name="Counter.h" open="0" top="0" tabpos="13">
 		<Cursor position="570" topLine="30" />
 	</File>
-	<File name="CounterObserver.cpp" open="0" top="0" tabpos="4">
+	<File name="CounterObserver.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="143" topLine="0" />
 	</File>
 	<File name="CounterObserver.h" open="0" top="0" tabpos="5">
@@ -37,11 +37,11 @@
 	<File name="CountingInfo.h" open="0" top="0" tabpos="9">
 		<Cursor position="931" topLine="41" />
 	</File>
-	<File name="CountingManager.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="4375" topLine="133" />
+	<File name="CountingManager.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="9415" topLine="443" />
 	</File>
-	<File name="CountingManager.h" open="0" top="0" tabpos="4">
-		<Cursor position="3017" topLine="93" />
+	<File name="CountingManager.h" open="1" top="1" tabpos="4">
+		<Cursor position="4505" topLine="169" />
 	</File>
 	<File name="CountingParam.cpp" open="0" top="0" tabpos="12">
 		<Cursor position="883" topLine="8" />
@@ -62,15 +62,15 @@
 		<Cursor position="706" topLine="17" />
 	</File>
 	<File name="SourceCounterApp.cpp" open="0" top="0" tabpos="13">
-		<Cursor position="426" topLine="11" />
+		<Cursor position="703" topLine="12" />
 	</File>
 	<File name="SourceCounterApp.h" open="0" top="0" tabpos="14">
 		<Cursor position="434" topLine="0" />
 	</File>
-	<File name="SourceCounterMain.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="357" topLine="0" />
+	<File name="SourceCounterMain.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="17117" topLine="262" />
 	</File>
-	<File name="SourceCounterMain.h" open="1" top="0" tabpos="4">
+	<File name="SourceCounterMain.h" open="0" top="0" tabpos="4">
 		<Cursor position="4104" topLine="118" />
 	</File>
 	<File name="SrcTypeSelDlg.cpp" open="0" top="0" tabpos="3">

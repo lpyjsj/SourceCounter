@@ -133,9 +133,11 @@ public:
      */
     void			Notify();
 
+    ///////////////////////////////////////////////////////////////////////
+    CountingParam		    m_countingParam;		///< Counting parametera
 
 private:
-    CountingParam		    m_countingParam;		///< Counting parametera
+
 
     CCounterObserver*		m_pObserver;	///< observer
     Counter*				m_pCounter;		///< CCounter Object

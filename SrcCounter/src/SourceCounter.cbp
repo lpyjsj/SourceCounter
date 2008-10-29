@@ -32,6 +32,9 @@
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
+					<Add option="-march=athlon-fx" />
+					<Add option="-march=pentium-m" />
+					<Add option="-Os" />
 					<Add option="-O2" />
 					<Add directory="$(#wx)\lib\gcc_dll\mswu" />
 				</Compiler>
