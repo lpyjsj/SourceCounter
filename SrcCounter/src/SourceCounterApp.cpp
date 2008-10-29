@@ -19,6 +19,14 @@ IMPLEMENT_APP(SourceCounterApp);
 
 bool SourceCounterApp::OnInit()
 {
+
+    #ifdef __WXMSW__   // Windows Only
+    // wxMSW 2.4.0 does not search the directory of the executable by default.
+    // Catalog path setting
+    m_locale.AddCatalogLookupPathPrefix(wxT("locales\\"));
+    #endif
+    m_locale.AddCatalog(wxT("SrcCounter"));
+
     //(*AppInitialize
     bool wxsOK = true;
     wxInitAllImageHandlers();

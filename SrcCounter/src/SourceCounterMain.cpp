@@ -40,10 +40,16 @@ const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
     _("Blank lines"),
 };
 
+static const wxString SZ_STATUS[] =
+{
+    _("Ready."),
+    _("Counting..."),
+    _("Completed."),
+    _("Canceled."),
+};
+
 const wxChar CSZ_CSV_HEADER_FORMAT_STR[] = _T( "%s,%s,%s,%s,%s,%s,%s\n" );
-
 const wxChar CSZ_CSV_FORMAT_STR[] = _T( "%s,%s,%s,%d,%d,%d,%d\n" );
-
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -118,9 +124,9 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer14->Add(m_lbxSrcFolder, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2->Add(BoxSizer14, 5, wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer13 = new wxBoxSizer(wxVERTICAL);
-    m_btnAdd = new wxButton(this, ID_BUTTON3, _("A&dd..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
+    m_btnAdd = new wxButton(this, ID_BUTTON3, _("&Add..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
     BoxSizer13->Add(m_btnAdd, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    m_btnDelete = new wxButton(this, ID_BUTTON9, _("Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON9"));
+    m_btnDelete = new wxButton(this, ID_BUTTON9, _("&Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON9"));
     m_btnDelete->Disable();
     BoxSizer13->Add(m_btnDelete, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2->Add(BoxSizer13, 0, wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL, 5);
@@ -137,7 +143,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer3->Add(m_btnSelSrcType, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer1->Add(BoxSizer3, 1, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer5 = new wxBoxSizer(wxHORIZONTAL);
-    m_chbRecursiveCouting = new wxCheckBox(this, ID_CHECKBOX1, _("Recursive file counting"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
+    m_chbRecursiveCouting = new wxCheckBox(this, ID_CHECKBOX1, _("&Recursive file counting"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
     m_chbRecursiveCouting->SetValue(true);
     m_chbRecursiveCouting->SetToolTip(_("Check this box if you wish to count all files that located in the subfolders of source code folder."));
     BoxSizer5->Add(m_chbRecursiveCouting, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -203,7 +209,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer12 = new wxBoxSizer(wxHORIZONTAL);
     StaticText4 = new wxStaticText(this, ID_STATICTEXT17, _("Check for update http://down.boomworks.net"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT17"));
     BoxSizer12->Add(StaticText4, 4, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    Button1 = new wxButton(this, ID_BUTTON1, _("&About..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
+    Button1 = new wxButton(this, ID_BUTTON1, _("A&bout..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
     BoxSizer12->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
     Button2 = new wxButton(this, ID_BUTTON2, _("&Quit"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
     BoxSizer12->Add(Button2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
@@ -383,7 +389,7 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     strSrcTypes = m_cmbSrcTypes->GetValue();
     if (strSrcTypes.IsEmpty())
     {
-        wxMessageBox(_T("Please select source types."));
+        wxMessageBox(_("Please select source types."));
         return;
     }
 
@@ -441,7 +447,7 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     wxCursor cursor1(wxCURSOR_WAIT);
     this->SetCursor(cursor1);
 
-    m_lblStatus->SetLabel(_T("Counting..."));
+    m_lblStatus->SetLabel(SZ_STATUS[1]); // Counting
 
     try
     {
@@ -465,12 +471,12 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     {
     case NManagerStatusComplete:
         // SetDlgItemText( IDC_STC_STATISTIC_STATUS, CSZ_STATISTIC_STATUS[3] );
-        m_lblStatus->SetLabel(_T("Completed."));
+        m_lblStatus->SetLabel(SZ_STATUS[2]); // Completed
         break;
 
     case NManagerStatusStop:
         // SetDlgItemText( IDC_STC_STATISTIC_STATUS, CSZ_STATISTIC_STATUS[2] );
-        m_lblStatus->SetLabel(_T("Canceled."));
+        m_lblStatus->SetLabel(SZ_STATUS[3]);  // Canceled
         break;
 
     default:
@@ -514,7 +520,7 @@ void SourceCounterDialog::initCountingCtrls()
     // Delete all listctrl items, if exist.
     m_lstResult->DeleteAllItems();
     // Initial labels
-    m_lblStatus->SetLabel(_T("Ready."));
+    m_lblStatus->SetLabel(SZ_STATUS[0]); // Ready
 }
 
 void SourceCounterDialog::UpdateCountingInfoCtrls()
@@ -633,7 +639,7 @@ void SourceCounterDialog::saveCouningResultToCSV( wxString filename )
     }
 
     file.AddLine( _T( "\n" ));
-    file.AddLine( _("# ***Total***"));
+    file.AddLine( _("# *** Total ***"));
 
     wxString str1, str2;
 
@@ -674,7 +680,7 @@ void SourceCounterDialog::OnBtnSaveClick(wxCommandEvent& event)
     wxString strPath = m_dlgFile->GetPath();
     saveCouningResultToCSV(strPath);
 
-    wxMessageBox(_T("complete!"));
+    wxMessageBox(SZ_STATUS[2]);
 }
 
 void SourceCounterDialog::OnLstItemActivated(wxListEvent& event)

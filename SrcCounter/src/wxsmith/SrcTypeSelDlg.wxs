@@ -24,7 +24,7 @@
 			</object>
 			<object class="sizeritem">
 				<object class="wxCheckBox" name="ID_CHECKBOX1" variable="m_ckbSelAll" member="yes">
-					<label>&amp;Select all file types</label>
+					<label>Select &amp;all file types</label>
 					<handler function="Onm_ckbSelAllClick" entry="EVT_CHECKBOX" />
 				</object>
 				<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>

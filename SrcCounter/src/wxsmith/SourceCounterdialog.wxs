@@ -46,7 +46,7 @@
 											<orient>wxVERTICAL</orient>
 											<object class="sizeritem">
 												<object class="wxButton" name="ID_BUTTON3" variable="m_btnAdd" member="yes">
-													<label>A&amp;dd...</label>
+													<label>&amp;Add...</label>
 													<handler function="OnBtnAddDirClick" entry="EVT_BUTTON" />
 												</object>
 												<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -54,7 +54,7 @@
 											</object>
 											<object class="sizeritem">
 												<object class="wxButton" name="ID_BUTTON9" variable="m_btnDelete" member="yes">
-													<label>Delete</label>
+													<label>&amp;Delete</label>
 													<enabled>0</enabled>
 													<handler function="OnBtnDeleteClick" entry="EVT_BUTTON" />
 												</object>
@@ -114,7 +114,7 @@
 						<object class="wxBoxSizer" variable="BoxSizer5" member="no">
 							<object class="sizeritem">
 								<object class="wxCheckBox" name="ID_CHECKBOX1" variable="m_chbRecursiveCouting" member="yes">
-									<label>Recursive file counting</label>
+									<label>&amp;Recursive file counting</label>
 									<checked>1</checked>
 									<tooltip>Check this box if you wish to count all files that located in the subfolders of source code folder.</tooltip>
 								</object>
@@ -361,7 +361,7 @@
 					</object>
 					<object class="sizeritem">
 						<object class="wxButton" name="ID_BUTTON1" variable="Button1" member="yes">
-							<label>&amp;About...</label>
+							<label>A&amp;bout...</label>
 							<handler function="OnAbout" entry="EVT_BUTTON" />
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>

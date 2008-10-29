@@ -14,8 +14,18 @@
 
 class SourceCounterApp : public wxApp
 {
-    public:
-        virtual bool OnInit();
+
+public:
+
+    // Setting default locale
+    SourceCounterApp() : m_locale(wxLANGUAGE_DEFAULT) {}
+
+    // Initial
+    virtual bool OnInit();
+
+private:
+    wxLocale m_locale;  ///< Locale
+
 };
 
 #endif // SOURCECOUNTERAPP_H
