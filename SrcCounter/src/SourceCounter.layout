@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="BasCounter.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1303" topLine="47" />
+	<File name="BasCounter.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1139" topLine="39" />
 	</File>
 	<File name="BasCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="1532" topLine="49" />
 	</File>
 	<File name="CntSettingDlg.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="2587" topLine="67" />
+		<Cursor position="0" topLine="74" />
 	</File>
-	<File name="CntSettingDlg.h" open="1" top="0" tabpos="2">
-		<Cursor position="722" topLine="24" />
+	<File name="CntSettingDlg.h" open="0" top="0" tabpos="2">
+		<Cursor position="722" topLine="6" />
 	</File>
 	<File name="Counter.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="664" topLine="17" />
@@ -40,8 +40,8 @@
 	<File name="CountingManager.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="9415" topLine="443" />
 	</File>
-	<File name="CountingManager.h" open="1" top="1" tabpos="4">
-		<Cursor position="4840" topLine="0" />
+	<File name="CountingManager.h" open="1" top="0" tabpos="3">
+		<Cursor position="258" topLine="69" />
 	</File>
 	<File name="CountingParam.cpp" open="0" top="0" tabpos="12">
 		<Cursor position="883" topLine="8" />
@@ -67,14 +67,14 @@
 	<File name="SourceCounterApp.h" open="0" top="0" tabpos="14">
 		<Cursor position="434" topLine="0" />
 	</File>
-	<File name="SourceCounterMain.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="17117" topLine="262" />
+	<File name="SourceCounterMain.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="832" topLine="27" />
 	</File>
 	<File name="SourceCounterMain.h" open="0" top="0" tabpos="4">
 		<Cursor position="4104" topLine="118" />
 	</File>
-	<File name="SrcTypeSelDlg.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="218" topLine="38" />
+	<File name="SrcTypeSelDlg.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="4460" topLine="122" />
 	</File>
 	<File name="SrcTypeSelDlg.h" open="0" top="0" tabpos="2">
 		<Cursor position="1054" topLine="30" />
@@ -85,8 +85,8 @@
 	<File name="TxtCounter.h" open="0" top="0" tabpos="4">
 		<Cursor position="227" topLine="12" />
 	</File>
-	<File name="aboutdlg.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="240" topLine="12" />
+	<File name="aboutdlg.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="0" topLine="80" />
 	</File>
 	<File name="aboutdlg.h" open="0" top="0" tabpos="5">
 		<Cursor position="38" topLine="0" />
