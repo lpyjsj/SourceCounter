@@ -98,6 +98,8 @@
 		<Unit filename="TxtCounter.h" />
 		<Unit filename="aboutdlg.cpp" />
 		<Unit filename="aboutdlg.h" />
+		<Unit filename="chooselang.cpp" />
+		<Unit filename="chooselang.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>

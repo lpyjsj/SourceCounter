@@ -7,24 +7,35 @@
  * License:
  **************************************************************/
 
-#include "wx_pch.h"
-#include "SourceCounterApp.h"
-
 //(*AppHeaders
-#include "SourceCounterMain.h"
 #include <wx/image.h>
 //*)
+
+#include "wx_pch.h"
+
+#include "SourceCounterApp.h"
+#include "chooselang.h"
+#include "SourceCounterMain.h"
 
 IMPLEMENT_APP(SourceCounterApp);
 
 bool SourceCounterApp::OnInit()
 {
+    ///////////////////////////////////////////////////////////////////
 
+    //
+    // Add catalog lookup path prefix
+    //
     #ifdef __WXMSW__   // Windows Only
     // wxMSW 2.4.0 does not search the directory of the executable by default.
     // Catalog path setting
     m_locale.AddCatalogLookupPathPrefix(wxT("locales\\"));
     #endif
+
+    // Initial locale
+    m_locale.Init(GetUILanguage());
+
+    // Add catalog
     m_locale.AddCatalog(wxT("SrcCounter"));
 
     //(*AppInitialize

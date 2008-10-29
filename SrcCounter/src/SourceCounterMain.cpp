@@ -17,11 +17,12 @@
 #include <wx/msgdlg.h>
 
 #include "wx_pch.h"
-#include "SourceCounterMain.h"
 
+#include "SourceCounterMain.h"
 #include "aboutdlg.h"
 #include "CntSettingDlg.h"
 #include "SrcTypeSelDlg.h"
+#include "chooselang.h"
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -82,6 +83,7 @@ const long SourceCounterDialog::ID_STATICTEXT9 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT10 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON7 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT17 = wxNewId();
+const long SourceCounterDialog::ID_BUTTON10 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON1 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON2 = wxNewId();
 //*)
@@ -207,12 +209,15 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     StaticBoxSizer2->Add(BoxSizer10, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer2, 1, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer12 = new wxBoxSizer(wxHORIZONTAL);
-    StaticText4 = new wxStaticText(this, ID_STATICTEXT17, _("Check for update http://down.boomworks.net"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT17"));
-    BoxSizer12->Add(StaticText4, 4, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText4 = new wxStaticText(this, ID_STATICTEXT17, _("http://down.boomworks.net (Check for updates)"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT17"));
+    BoxSizer12->Add(StaticText4, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_btnUiLang = new wxButton(this, ID_BUTTON10, _("U&I Language..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON10"));
+    BoxSizer12->Add(m_btnUiLang, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button1 = new wxButton(this, ID_BUTTON1, _("A&bout..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
-    BoxSizer12->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
+    BoxSizer12->Add(Button1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
+    BoxSizer12->Add(-1,-1,0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button2 = new wxButton(this, ID_BUTTON2, _("&Quit"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
-    BoxSizer12->Add(Button2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
+    BoxSizer12->Add(Button2, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
     BoxSizer1->Add(BoxSizer12, 0, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     SetSizer(BoxSizer1);
     m_dlgAddDir = new wxDirDialog(this, _("Select directory"), wxEmptyString, wxDD_DIR_MUST_EXIST, wxDefaultPosition, wxDefaultSize, _T("wxDirDialog"));
@@ -230,6 +235,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     Connect(ID_BUTTON6,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnStopClick);
     Connect(ID_LISTCTRL1,wxEVT_COMMAND_LIST_ITEM_ACTIVATED,(wxObjectEventFunction)&SourceCounterDialog::OnLstItemActivated);
     Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnSaveClick);
+    Connect(ID_BUTTON10,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnUiLangClick);
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnAbout);
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnQuit);
     Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&SourceCounterDialog::OnInit);
@@ -704,4 +710,9 @@ void SourceCounterDialog::OnLstItemActivated(wxListEvent& event)
         wxMessageBox(_T("Unknown error occured!"));
     }
 
+}
+
+void SourceCounterDialog::OnBtnUiLangClick(wxCommandEvent& event)
+{
+    ChangeUILanguage();
 }
