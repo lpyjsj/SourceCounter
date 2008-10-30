@@ -52,6 +52,7 @@ private:
     void OnBtnSaveClick(wxCommandEvent& event);
     void OnLstItemActivated(wxListEvent& event);
     void OnBtnUiLangClick(wxCommandEvent& event);
+    void OnBtnCheckUpdateClick(wxCommandEvent& event);
     //*)
 
     void OnLbxSrcFolderItemSelect(wxCommandEvent& evt);
@@ -84,7 +85,7 @@ private:
     static const long ID_STATICTEXT9;
     static const long ID_STATICTEXT10;
     static const long ID_BUTTON7;
-    static const long ID_STATICTEXT17;
+    static const long ID_BUTTON11;
     static const long ID_BUTTON10;
     static const long ID_BUTTON1;
     static const long ID_BUTTON2;
@@ -110,6 +111,7 @@ private:
     wxButton* m_btnAdd;
     wxStaticText* m_lblTotalSize;
     wxButton* m_btnMoreSetting;
+    wxButton* m_btnCheckUpdate;
     wxStaticText* StaticText5;
     wxStaticText* StaticText7;
     wxButton* m_btnStop;
@@ -118,7 +120,6 @@ private:
     wxStaticText* StaticText12;
     wxButton* m_btnSelSrcType;
     wxCheckListBox* m_lbxSrcFolder;
-    wxStaticText* StaticText4;
     wxComboBox* m_cmbSrcTypes;
     wxStaticText* m_lblBlankLines;
     wxStaticText* StaticText16;

@@ -27,18 +27,19 @@
 ///////////////////////////////////////////////////////////////////////
 
 /* Source types number */
-const int N_COLUMN_NUM = 7;
+const int N_COLUMN_NUM = 8;
 
 /* Source type */
 const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
 {
-    _("File"),
-    _("Type"),
-    _("Folder"),
-    _("Total lines"),
-    _("Code lines"),
-    _("Comment lines"),
-    _("Blank lines"),
+    _("File"),              // 0
+    _("Type"),              // 1
+    _("Folder"),            // 2
+    _("Lines"),             // 3
+    _("Code lines"),        // 4
+    _("Comment lines"),     // 5
+    _("Blank lines"),       // 6
+    _("Size"),              // 7
 };
 
 static const wxString SZ_STATUS[] =
@@ -82,7 +83,7 @@ const long SourceCounterDialog::ID_STATICTEXT8 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT9 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT10 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON7 = wxNewId();
-const long SourceCounterDialog::ID_STATICTEXT17 = wxNewId();
+const long SourceCounterDialog::ID_BUTTON11 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON10 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON1 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON2 = wxNewId();
@@ -209,13 +210,14 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     StaticBoxSizer2->Add(BoxSizer10, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer2, 1, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer12 = new wxBoxSizer(wxHORIZONTAL);
-    StaticText4 = new wxStaticText(this, ID_STATICTEXT17, _("http://down.boomworks.net (Check for updates)"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT17"));
-    BoxSizer12->Add(StaticText4, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_btnCheckUpdate = new wxButton(this, ID_BUTTON11, _("Check for updates..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON11"));
+    m_btnCheckUpdate->SetToolTip(_("Get the latest version from http://down.boomworks.net"));
+    BoxSizer12->Add(m_btnCheckUpdate, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnUiLang = new wxButton(this, ID_BUTTON10, _("U&I Language..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON10"));
     BoxSizer12->Add(m_btnUiLang, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button1 = new wxButton(this, ID_BUTTON1, _("A&bout..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
     BoxSizer12->Add(Button1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
-    BoxSizer12->Add(-1,-1,0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer12->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button2 = new wxButton(this, ID_BUTTON2, _("&Quit"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
     BoxSizer12->Add(Button2, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
     BoxSizer1->Add(BoxSizer12, 0, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -235,6 +237,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     Connect(ID_BUTTON6,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnStopClick);
     Connect(ID_LISTCTRL1,wxEVT_COMMAND_LIST_ITEM_ACTIVATED,(wxObjectEventFunction)&SourceCounterDialog::OnLstItemActivated);
     Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnSaveClick);
+    Connect(ID_BUTTON11,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnCheckUpdateClick);
     Connect(ID_BUTTON10,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnUiLangClick);
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnAbout);
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnQuit);
@@ -649,22 +652,22 @@ void SourceCounterDialog::saveCouningResultToCSV( wxString filename )
 
     wxString str1, str2;
 
-    str2.Printf( _T( "# %s,%d" ), _("Files"), m_countingInfo.m_nTotalFile);
+    str2.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[0], m_countingInfo.m_nTotalFile);
     file.AddLine( str2 );
 
-    str2.Printf( _T( "# %s,%d" ), _("Sizes"), m_countingInfo.m_nTotalSize);
+    str2.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[7], m_countingInfo.m_nTotalSize);
     file.AddLine( str2 );
 
-    str2.Printf( _T( "# %s,%d,100%%" ), _("Lines"), m_countingInfo.m_nTotalStatement );
+    str2.Printf( _T( "# %s,%d,100%%" ), CSZ_COLUMN_NAMES[3], m_countingInfo.m_nTotalStatement );
     file.AddLine( str2 );
 
-    str2.Printf( _T( "# %s,%d,%2.1f%%" ), _("Code lines"), m_countingInfo.m_nTotalCodeStatement, 100. * m_countingInfo.m_nTotalCodeStatement / m_countingInfo.m_nTotalStatement );
+    str2.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[4], m_countingInfo.m_nTotalCodeStatement, 100. * m_countingInfo.m_nTotalCodeStatement / m_countingInfo.m_nTotalStatement );
     file.AddLine( str2 );
 
-    str2.Printf( _T( "# %s,%d,%.1f%%" ), _("Comment lines"), m_countingInfo.m_nTotalCommentStatement, 100. * m_countingInfo.m_nTotalCommentStatement / m_countingInfo.m_nTotalStatement );
+    str2.Printf( _T( "# %s,%d,%.1f%%" ), CSZ_COLUMN_NAMES[5], m_countingInfo.m_nTotalCommentStatement, 100. * m_countingInfo.m_nTotalCommentStatement / m_countingInfo.m_nTotalStatement );
     file.AddLine( str2 );
 
-    str2.Printf( _T( "# %s,%d,%2.1f%%" ), _("Blank lines"), m_countingInfo.m_nTotalBlankStatement, 100. * m_countingInfo.m_nTotalBlankStatement / m_countingInfo.m_nTotalStatement  );
+    str2.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[6], m_countingInfo.m_nTotalBlankStatement, 100. * m_countingInfo.m_nTotalBlankStatement / m_countingInfo.m_nTotalStatement  );
     file.AddLine( str2 );
 
     // save
@@ -686,7 +689,7 @@ void SourceCounterDialog::OnBtnSaveClick(wxCommandEvent& event)
     wxString strPath = m_dlgFile->GetPath();
     saveCouningResultToCSV(strPath);
 
-    wxMessageBox(SZ_STATUS[2]);
+    wxMessageBox(SZ_STATUS[2]); // Completed
 }
 
 void SourceCounterDialog::OnLstItemActivated(wxListEvent& event)
@@ -715,4 +718,17 @@ void SourceCounterDialog::OnLstItemActivated(wxListEvent& event)
 void SourceCounterDialog::OnBtnUiLangClick(wxCommandEvent& event)
 {
     ChangeUILanguage();
+}
+
+void SourceCounterDialog::OnBtnCheckUpdateClick(wxCommandEvent& event)
+{
+    try
+    {
+        wxLaunchDefaultBrowser(_T("http://down.boomworks.net/"), wxBROWSER_NEW_WINDOW);
+    }
+    catch (...)
+    {
+        wxMessageBox(_T("Unknown error occured!"));
+    }
+
 }
