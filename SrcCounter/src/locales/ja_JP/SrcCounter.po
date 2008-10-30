@@ -182,7 +182,7 @@ msgstr "そのた設定...(&M)"
 
 #: src/SourceCounterMain.cpp:159
 msgid "Sta&rt"
-msgstr "スタート(&A)"
+msgstr "スタート(&R)"
 
 #: src/SourceCounterMain.cpp:161
 msgid "Sto&p"

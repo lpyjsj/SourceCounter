@@ -182,7 +182,7 @@ msgstr "更多设定...(&M)"
 
 #: src/SourceCounterMain.cpp:159
 msgid "Sta&rt"
-msgstr "开始(&A)"
+msgstr "开始(&R)"
 
 #: src/SourceCounterMain.cpp:161
 msgid "Sto&p"
