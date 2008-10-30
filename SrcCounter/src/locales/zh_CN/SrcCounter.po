@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SrcCounter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-30 11:40+0800\n"
+"POT-Creation-Date: 2008-10-30 14:21+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: boomworks <boomworks@hotmail.com>\n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgid "About"
 msgstr "关于"
 
 #: src/aboutdlg.cpp:66
-#: src/SourceCounterMain.cpp:118
+#: src/SourceCounterMain.cpp:119
 msgid "SourceCounter"
 msgstr "源代码统计工具（SourceCounter）"
 
@@ -92,188 +92,180 @@ msgstr "注释和代码在同一行的时候，请选择统计的方式:"
 msgid "&Cancel"
 msgstr "&Cancel"
 
-#: src/SourceCounterMain.cpp:35
+#: src/SourceCounterMain.cpp:36
 msgid "File"
 msgstr "文件"
 
-#: src/SourceCounterMain.cpp:36
+#: src/SourceCounterMain.cpp:37
 msgid "Type"
 msgstr "类型"
 
-#: src/SourceCounterMain.cpp:37
+#: src/SourceCounterMain.cpp:38
 msgid "Folder"
 msgstr "文件夹"
 
-#: src/SourceCounterMain.cpp:38
+#: src/SourceCounterMain.cpp:39
 msgid "Lines"
 msgstr "行数"
 
-#: src/SourceCounterMain.cpp:39
-#: src/SourceCounterMain.cpp:175
+#: src/SourceCounterMain.cpp:40
+#: src/SourceCounterMain.cpp:176
 msgid "Code lines"
 msgstr "代码行数"
 
-#: src/SourceCounterMain.cpp:40
-#: src/SourceCounterMain.cpp:185
+#: src/SourceCounterMain.cpp:41
+#: src/SourceCounterMain.cpp:186
 msgid "Comment lines"
 msgstr "注释行数"
 
-#: src/SourceCounterMain.cpp:41
-#: src/SourceCounterMain.cpp:195
+#: src/SourceCounterMain.cpp:42
+#: src/SourceCounterMain.cpp:196
 msgid "Blank lines"
 msgstr "空行数"
 
-#: src/SourceCounterMain.cpp:42
+#: src/SourceCounterMain.cpp:43
 msgid "Size"
 msgstr "大小"
 
-#: src/SourceCounterMain.cpp:47
-#: src/SourceCounterMain.cpp:203
+#: src/SourceCounterMain.cpp:48
+#: src/SourceCounterMain.cpp:204
 msgid "Ready."
 msgstr "就绪."
 
-#: src/SourceCounterMain.cpp:48
+#: src/SourceCounterMain.cpp:49
 msgid "Counting..."
 msgstr "统计中..."
 
-#: src/SourceCounterMain.cpp:49
+#: src/SourceCounterMain.cpp:50
 msgid "Completed."
 msgstr "完成。"
 
-#: src/SourceCounterMain.cpp:50
+#: src/SourceCounterMain.cpp:51
 msgid "Canceled."
 msgstr "已取消。"
 
-#: src/SourceCounterMain.cpp:120
+#: src/SourceCounterMain.cpp:121
 msgid "Options"
 msgstr "统计设置"
 
-#: src/SourceCounterMain.cpp:122
+#: src/SourceCounterMain.cpp:123
 msgid "Source code &folder:"
 msgstr "源代码文件夹(&F):"
 
-#: src/SourceCounterMain.cpp:130
+#: src/SourceCounterMain.cpp:131
 msgid "&Add..."
 msgstr "添加...(&A)"
 
-#: src/SourceCounterMain.cpp:132
+#: src/SourceCounterMain.cpp:133
 msgid "&Delete"
 msgstr "删除(&D)"
 
-#: src/SourceCounterMain.cpp:140
+#: src/SourceCounterMain.cpp:141
 msgid "Source &type:"
 msgstr "源代码类型(&T):"
 
-#: src/SourceCounterMain.cpp:145
+#: src/SourceCounterMain.cpp:146
 msgid "S&elect..."
 msgstr "选择...(&E)"
 
-#: src/SourceCounterMain.cpp:149
+#: src/SourceCounterMain.cpp:150
 msgid "&Recursive file counting"
 msgstr "递归统计子目录(&R)"
 
-#: src/SourceCounterMain.cpp:151
+#: src/SourceCounterMain.cpp:152
 msgid "Check this box if you wish to count all files that located in the subfolders of source code folder."
 msgstr "如果想统计子目录里的代码，请选中这个这个选择框。"
 
-#: src/SourceCounterMain.cpp:153
+#: src/SourceCounterMain.cpp:154
 msgid "&More settings..."
 msgstr "更多设定...(&M)"
 
-#: src/SourceCounterMain.cpp:159
-msgid "Sta&rt"
-msgstr "开始(&R)"
+#: src/SourceCounterMain.cpp:160
+msgid "&Start"
+msgstr "开始(&S)"
 
-#: src/SourceCounterMain.cpp:161
+#: src/SourceCounterMain.cpp:162
 msgid "Sto&p"
 msgstr "停止(&P)"
 
-#: src/SourceCounterMain.cpp:165
+#: src/SourceCounterMain.cpp:166
 msgid "Counting result"
 msgstr "统计结果"
 
-#: src/SourceCounterMain.cpp:171
+#: src/SourceCounterMain.cpp:172
 msgid "Total files"
 msgstr "总文件数"
 
-#: src/SourceCounterMain.cpp:173
-#: src/SourceCounterMain.cpp:177
-#: src/SourceCounterMain.cpp:183
-#: src/SourceCounterMain.cpp:187
-#: src/SourceCounterMain.cpp:193
-#: src/SourceCounterMain.cpp:197
+#: src/SourceCounterMain.cpp:174
+#: src/SourceCounterMain.cpp:178
+#: src/SourceCounterMain.cpp:184
+#: src/SourceCounterMain.cpp:188
+#: src/SourceCounterMain.cpp:194
+#: src/SourceCounterMain.cpp:198
 msgid "0"
 msgstr "0"
 
-#: src/SourceCounterMain.cpp:181
+#: src/SourceCounterMain.cpp:182
 msgid "Total size (KB)"
 msgstr "总文件大小(KB)"
 
-#: src/SourceCounterMain.cpp:191
+#: src/SourceCounterMain.cpp:192
 msgid "Total lines"
 msgstr "总行数"
 
-#: src/SourceCounterMain.cpp:201
+#: src/SourceCounterMain.cpp:202
 msgid "Counting status"
 msgstr "状态"
 
-#: src/SourceCounterMain.cpp:207
-msgid "&Save..."
-msgstr "保存...(&S)"
-
-#: src/SourceCounterMain.cpp:213
-msgid "Check for updates..."
-msgstr "取得最新版..."
+#: src/SourceCounterMain.cpp:208
+msgid "Sa&ve..."
+msgstr "保存...(&V)"
 
 #: src/SourceCounterMain.cpp:214
+msgid "&Check for updates..."
+msgstr "取得最新版...(&C)"
+
+#: src/SourceCounterMain.cpp:215
 msgid "Get the latest version from http://down.boomworks.net"
 msgstr "访问 http://down.boomworks.net 得到最新版本。"
 
-#: src/SourceCounterMain.cpp:216
+#: src/SourceCounterMain.cpp:217
 msgid "U&I Language..."
 msgstr "界面语言...(&I)"
 
-#: src/SourceCounterMain.cpp:218
+#: src/SourceCounterMain.cpp:219
 msgid "A&bout..."
 msgstr "关于...(&B)"
 
-#: src/SourceCounterMain.cpp:221
+#: src/SourceCounterMain.cpp:222
 msgid "&Quit"
 msgstr "退出(&Q)"
 
-#: src/SourceCounterMain.cpp:225
+#: src/SourceCounterMain.cpp:226
 msgid "Select directory"
 msgstr "选择目录"
 
-#: src/SourceCounterMain.cpp:226
+#: src/SourceCounterMain.cpp:227
 msgid "Select file"
 msgstr "选择文件"
 
-#: src/SourceCounterMain.cpp:226
+#: src/SourceCounterMain.cpp:227
 msgid "CSV files (*.csv)|*.csv"
 msgstr "CSV文件 (*.csv)|*.csv"
 
-#: src/SourceCounterMain.cpp:374
+#: src/SourceCounterMain.cpp:375
 msgid "Please add source folder."
 msgstr "请添加要统计的源代码的目录。"
 
-#: src/SourceCounterMain.cpp:391
+#: src/SourceCounterMain.cpp:392
 msgid "Please check counting folder."
 msgstr "请选择要统计的源代码目录。"
 
-#: src/SourceCounterMain.cpp:401
+#: src/SourceCounterMain.cpp:402
 msgid "Please select source types."
 msgstr "请选择要统计的源代码类型。"
 
-#: src/SourceCounterMain.cpp:614
-msgid "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
-msgstr "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
-
-#: src/SourceCounterMain.cpp:615
-msgid "# *** Author: boomworks@gmail.com *** "
-msgstr "# *** Author: boomworks@gmail.com *** "
-
-#: src/SourceCounterMain.cpp:651
+#: src/SourceCounterMain.cpp:659
 msgid "# *** Total ***"
 msgstr "# *** Total ***"
 
@@ -289,6 +281,10 @@ msgstr "请选择要统计的代码类型(&S):"
 msgid "Select &all file types"
 msgstr "选择所有类型(&A)"
 
+#~ msgid "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
+#~ msgstr "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
+#~ msgid "# *** Author: boomworks@gmail.com *** "
+#~ msgstr "# *** Author: boomworks@gmail.com *** "
 #~ msgid "http://down.boomworks.net (Check for updates)"
 #~ msgstr "http://down.boomworks.net (检查更新)"
 #~ msgid "Files"

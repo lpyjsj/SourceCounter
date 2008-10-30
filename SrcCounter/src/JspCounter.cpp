@@ -26,7 +26,7 @@ JspCounter::~JspCounter()
 }
 
 void JspCounter::countingSourceFile(
-		wxTextFile& file,int& nSize, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
+		wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
 {
 	// Get file size
 //	nSize = file.Len();

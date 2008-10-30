@@ -44,13 +44,12 @@ public:
 	 * counting source file.
 	 *
 	 * @param strFilePath source file path
-	 * @param nSize	file size
 	 * @param nLines total lines
 	 * @param nCodeLines total code lines
 	 * @param nCommentLines comment lines
 	 * @param nBlankLines blank lines
 	 */
-	virtual void countingSourceFile( wxTextFile& file, int& nSize, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
+	virtual void countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
 
 private:
 

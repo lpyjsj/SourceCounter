@@ -27,7 +27,7 @@ PascalCounter::PascalCounter()
 PascalCounter::~PascalCounter()
 {}
 
-void PascalCounter::countingSourceFile( wxTextFile& file ,int& nSize, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
+void PascalCounter::countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
 {
     // get file size
 //	nSize = file.Len();

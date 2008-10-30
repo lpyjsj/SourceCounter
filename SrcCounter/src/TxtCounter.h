@@ -38,13 +38,12 @@ public:
 	 * counting source file.
 	 *
 	 * @param strFilePath source file path
-	 * @param nSize	file size
 	 * @param nLines total lines
 	 * @param nCodeLines total code lines
 	 * @param nCommentLines comment lines
 	 * @param nBlankLines blank lines
 	 */
-	virtual void countingSourceFile( wxTextFile& file,int& nSize, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
+	virtual void countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
 };
 
 #endif // !defined(AFX_TXTCOUNTER_H__1F68A35F_E30B_4222_AFA3_4F6E39142801__INCLUDED_)

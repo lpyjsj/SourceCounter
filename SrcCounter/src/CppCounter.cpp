@@ -36,7 +36,7 @@ CppCounter* CppCounter::GetInstance()
     return ms_instance;
 }
 
-void CppCounter::countingSourceFile(wxTextFile& file, int& nSize, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
+void CppCounter::countingSourceFile(wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
 {
     // get file size
     // nSize = file.Len();

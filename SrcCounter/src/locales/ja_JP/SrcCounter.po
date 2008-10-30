@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SrcCounter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-30 11:44+0800\n"
+"POT-Creation-Date: 2008-10-30 14:21+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: boomworks <boomworks@hotmail.com>\n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgid "About"
 msgstr "このプログラムについて"
 
 #: src/aboutdlg.cpp:66
-#: src/SourceCounterMain.cpp:118
+#: src/SourceCounterMain.cpp:119
 msgid "SourceCounter"
 msgstr "ソースコードカウンター（SourceCounter）"
 
@@ -92,188 +92,180 @@ msgstr "コメントとソースコードが一つのラインに書いている
 msgid "&Cancel"
 msgstr "&Cancel"
 
-#: src/SourceCounterMain.cpp:35
+#: src/SourceCounterMain.cpp:36
 msgid "File"
 msgstr "ファイル"
 
-#: src/SourceCounterMain.cpp:36
+#: src/SourceCounterMain.cpp:37
 msgid "Type"
 msgstr "種類"
 
-#: src/SourceCounterMain.cpp:37
+#: src/SourceCounterMain.cpp:38
 msgid "Folder"
 msgstr "フォルダ"
 
-#: src/SourceCounterMain.cpp:38
+#: src/SourceCounterMain.cpp:39
 msgid "Lines"
 msgstr "Lines"
 
-#: src/SourceCounterMain.cpp:39
-#: src/SourceCounterMain.cpp:175
+#: src/SourceCounterMain.cpp:40
+#: src/SourceCounterMain.cpp:176
 msgid "Code lines"
 msgstr "ソースコード行数"
 
-#: src/SourceCounterMain.cpp:40
-#: src/SourceCounterMain.cpp:185
+#: src/SourceCounterMain.cpp:41
+#: src/SourceCounterMain.cpp:186
 msgid "Comment lines"
 msgstr "コメント行数"
 
-#: src/SourceCounterMain.cpp:41
-#: src/SourceCounterMain.cpp:195
+#: src/SourceCounterMain.cpp:42
+#: src/SourceCounterMain.cpp:196
 msgid "Blank lines"
 msgstr "ブランクライン行数"
 
-#: src/SourceCounterMain.cpp:42
+#: src/SourceCounterMain.cpp:43
 msgid "Size"
 msgstr "サイズ"
 
-#: src/SourceCounterMain.cpp:47
-#: src/SourceCounterMain.cpp:203
+#: src/SourceCounterMain.cpp:48
+#: src/SourceCounterMain.cpp:204
 msgid "Ready."
 msgstr "Ready."
 
-#: src/SourceCounterMain.cpp:48
+#: src/SourceCounterMain.cpp:49
 msgid "Counting..."
 msgstr "カウント中..."
 
-#: src/SourceCounterMain.cpp:49
+#: src/SourceCounterMain.cpp:50
 msgid "Completed."
 msgstr "完了しました。"
 
-#: src/SourceCounterMain.cpp:50
+#: src/SourceCounterMain.cpp:51
 msgid "Canceled."
 msgstr "キャンセルしました。"
 
-#: src/SourceCounterMain.cpp:120
+#: src/SourceCounterMain.cpp:121
 msgid "Options"
 msgstr "カウントの設定"
 
-#: src/SourceCounterMain.cpp:122
+#: src/SourceCounterMain.cpp:123
 msgid "Source code &folder:"
 msgstr "ソースコードフォルダ(&F):"
 
-#: src/SourceCounterMain.cpp:130
+#: src/SourceCounterMain.cpp:131
 msgid "&Add..."
 msgstr "追加...(&A)"
 
-#: src/SourceCounterMain.cpp:132
+#: src/SourceCounterMain.cpp:133
 msgid "&Delete"
 msgstr "削除(&D)"
 
-#: src/SourceCounterMain.cpp:140
+#: src/SourceCounterMain.cpp:141
 msgid "Source &type:"
 msgstr "ソースコードの種類(&T):"
 
-#: src/SourceCounterMain.cpp:145
+#: src/SourceCounterMain.cpp:146
 msgid "S&elect..."
 msgstr "選択...(&E)"
 
-#: src/SourceCounterMain.cpp:149
+#: src/SourceCounterMain.cpp:150
 msgid "&Recursive file counting"
 msgstr "サブフォルダにあるソースを再帰的にカウント(&R)"
 
-#: src/SourceCounterMain.cpp:151
+#: src/SourceCounterMain.cpp:152
 msgid "Check this box if you wish to count all files that located in the subfolders of source code folder."
 msgstr "Check this box if you wish to count all files that located in the subfolders of source code folder."
 
-#: src/SourceCounterMain.cpp:153
+#: src/SourceCounterMain.cpp:154
 msgid "&More settings..."
 msgstr "そのた設定...(&M)"
 
-#: src/SourceCounterMain.cpp:159
-msgid "Sta&rt"
-msgstr "スタート(&R)"
+#: src/SourceCounterMain.cpp:160
+msgid "&Start"
+msgstr "スタート(&S)"
 
-#: src/SourceCounterMain.cpp:161
+#: src/SourceCounterMain.cpp:162
 msgid "Sto&p"
 msgstr "停止(&P)"
 
-#: src/SourceCounterMain.cpp:165
+#: src/SourceCounterMain.cpp:166
 msgid "Counting result"
 msgstr "カウント結果"
 
-#: src/SourceCounterMain.cpp:171
+#: src/SourceCounterMain.cpp:172
 msgid "Total files"
 msgstr "トータルファイル数"
 
-#: src/SourceCounterMain.cpp:173
-#: src/SourceCounterMain.cpp:177
-#: src/SourceCounterMain.cpp:183
-#: src/SourceCounterMain.cpp:187
-#: src/SourceCounterMain.cpp:193
-#: src/SourceCounterMain.cpp:197
+#: src/SourceCounterMain.cpp:174
+#: src/SourceCounterMain.cpp:178
+#: src/SourceCounterMain.cpp:184
+#: src/SourceCounterMain.cpp:188
+#: src/SourceCounterMain.cpp:194
+#: src/SourceCounterMain.cpp:198
 msgid "0"
 msgstr "0"
 
-#: src/SourceCounterMain.cpp:181
+#: src/SourceCounterMain.cpp:182
 msgid "Total size (KB)"
 msgstr "トータルサイズ(KB)"
 
-#: src/SourceCounterMain.cpp:191
+#: src/SourceCounterMain.cpp:192
 msgid "Total lines"
 msgstr "トータル行数"
 
-#: src/SourceCounterMain.cpp:201
+#: src/SourceCounterMain.cpp:202
 msgid "Counting status"
 msgstr "ステータス"
 
-#: src/SourceCounterMain.cpp:207
-msgid "&Save..."
-msgstr "保存...(&S)"
-
-#: src/SourceCounterMain.cpp:213
-msgid "Check for updates..."
-msgstr "更新確認..."
+#: src/SourceCounterMain.cpp:208
+msgid "Sa&ve..."
+msgstr "保存...(&V)"
 
 #: src/SourceCounterMain.cpp:214
+msgid "&Check for updates..."
+msgstr "更新確認...(&C)"
+
+#: src/SourceCounterMain.cpp:215
 msgid "Get the latest version from http://down.boomworks.net"
 msgstr "http://down.boomworks.net から新しいバージョンを取得する。"
 
-#: src/SourceCounterMain.cpp:216
+#: src/SourceCounterMain.cpp:217
 msgid "U&I Language..."
 msgstr "U&I言語..."
 
-#: src/SourceCounterMain.cpp:218
+#: src/SourceCounterMain.cpp:219
 msgid "A&bout..."
 msgstr "このプログラムについて...(&B)"
 
-#: src/SourceCounterMain.cpp:221
+#: src/SourceCounterMain.cpp:222
 msgid "&Quit"
 msgstr "終了(&Q)"
 
-#: src/SourceCounterMain.cpp:225
+#: src/SourceCounterMain.cpp:226
 msgid "Select directory"
 msgstr "ディレクトリの選択"
 
-#: src/SourceCounterMain.cpp:226
+#: src/SourceCounterMain.cpp:227
 msgid "Select file"
 msgstr "ファイルの選択"
 
-#: src/SourceCounterMain.cpp:226
+#: src/SourceCounterMain.cpp:227
 msgid "CSV files (*.csv)|*.csv"
 msgstr "CSV ファイル (*.csv)|*.csv"
 
-#: src/SourceCounterMain.cpp:374
+#: src/SourceCounterMain.cpp:375
 msgid "Please add source folder."
 msgstr "カウントするソースコードフォルダを追加してください。"
 
-#: src/SourceCounterMain.cpp:391
+#: src/SourceCounterMain.cpp:392
 msgid "Please check counting folder."
 msgstr "カウントするソースコードフォルダを選択してください。"
 
-#: src/SourceCounterMain.cpp:401
+#: src/SourceCounterMain.cpp:402
 msgid "Please select source types."
 msgstr "カウントするソースコード種類を選択してください。"
 
-#: src/SourceCounterMain.cpp:614
-msgid "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
-msgstr "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
-
-#: src/SourceCounterMain.cpp:615
-msgid "# *** Author: boomworks@gmail.com *** "
-msgstr "# *** Author: boomworks@gmail.com *** "
-
-#: src/SourceCounterMain.cpp:651
+#: src/SourceCounterMain.cpp:659
 msgid "# *** Total ***"
 msgstr "# *** Total ***"
 
@@ -289,6 +281,10 @@ msgstr "カウントするソースコードの種類を選択してください
 msgid "Select &all file types"
 msgstr "すべて選択(&A)"
 
+#~ msgid "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
+#~ msgstr "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
+#~ msgid "# *** Author: boomworks@gmail.com *** "
+#~ msgstr "# *** Author: boomworks@gmail.com *** "
 #~ msgid "http://down.boomworks.net (Check for updates)"
 #~ msgstr "http://down.boomworks.net (更新確認)"
 #~ msgid "Files"

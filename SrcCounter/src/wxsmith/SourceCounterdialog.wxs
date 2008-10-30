@@ -147,7 +147,7 @@
 					</object>
 					<object class="sizeritem">
 						<object class="wxButton" name="ID_BUTTON5" variable="m_btnStart" member="yes">
-							<label>Sta&amp;rt</label>
+							<label>&amp;Start</label>
 							<handler function="OnBtnStartClick" entry="EVT_BUTTON" />
 						</object>
 						<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -332,7 +332,7 @@
 							</object>
 							<object class="sizeritem">
 								<object class="wxButton" name="ID_BUTTON7" variable="m_btnSave" member="yes">
-									<label>&amp;Save...</label>
+									<label>Sa&amp;ve...</label>
 									<enabled>0</enabled>
 									<handler function="OnBtnSaveClick" entry="EVT_BUTTON" />
 								</object>
@@ -353,7 +353,7 @@
 				<object class="wxBoxSizer" variable="BoxSizer12" member="no">
 					<object class="sizeritem">
 						<object class="wxButton" name="ID_BUTTON11" variable="m_btnCheckUpdate" member="yes">
-							<label>Check for updates...</label>
+							<label>&amp;Check for updates...</label>
 							<tooltip>Get the latest version from http://down.boomworks.net</tooltip>
 							<handler function="OnBtnCheckUpdateClick" entry="EVT_BUTTON" />
 						</object>
