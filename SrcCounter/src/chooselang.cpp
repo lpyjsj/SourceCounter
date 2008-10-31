@@ -98,7 +98,7 @@ wxLanguage ChooseLanguage()
 //        { _T("Breton"), wxLANGUAGE_BRETON },
 //        { _T("Bulgarian"), wxLANGUAGE_BULGARIAN },
 //        { _T("Catalan"), wxLANGUAGE_CATALAN },
-//        { _T("Chinese (Traditional)"), wxLANGUAGE_CHINESE_TRADITIONAL },
+        { _T("Chinese (Traditional)"), wxLANGUAGE_CHINESE_TRADITIONAL },
         { _T("Chinese (Simplified)"), wxLANGUAGE_CHINESE_SIMPLIFIED },
 //        { _T("Croatian"), wxLANGUAGE_CROATIAN },
 //        { _T("Czech"), wxLANGUAGE_CZECH },

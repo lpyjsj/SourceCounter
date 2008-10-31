@@ -67,7 +67,7 @@
 	<File name="PasCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="843" topLine="28" />
 	</File>
-	<File name="SourceCounterApp.cpp" open="0" top="0" tabpos="2">
+	<File name="SourceCounterApp.cpp" open="1" top="0" tabpos="1">
 		<Cursor position="1003" topLine="21" />
 	</File>
 	<File name="SourceCounterApp.h" open="0" top="0" tabpos="14">
@@ -97,8 +97,8 @@
 	<File name="aboutdlg.h" open="0" top="0" tabpos="5">
 		<Cursor position="154" topLine="12" />
 	</File>
-	<File name="chooselang.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="6208" topLine="121" />
+	<File name="chooselang.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="2851" topLine="74" />
 	</File>
 	<File name="chooselang.h" open="0" top="0" tabpos="4">
 		<Cursor position="1527" topLine="26" />
