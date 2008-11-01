@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="BasCounter.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="881" topLine="28" />
+	<File name="BasCounter.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="859" topLine="28" />
 	</File>
 	<File name="BasCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="844" topLine="35" />
@@ -67,7 +67,7 @@
 	<File name="PasCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="843" topLine="28" />
 	</File>
-	<File name="SourceCounterApp.cpp" open="1" top="0" tabpos="1">
+	<File name="SourceCounterApp.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="1003" topLine="21" />
 	</File>
 	<File name="SourceCounterApp.h" open="0" top="0" tabpos="14">
@@ -92,12 +92,12 @@
 		<Cursor position="650" topLine="26" />
 	</File>
 	<File name="aboutdlg.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="0" topLine="0" />
+		<Cursor position="194" topLine="54" />
 	</File>
 	<File name="aboutdlg.h" open="0" top="0" tabpos="5">
 		<Cursor position="154" topLine="12" />
 	</File>
-	<File name="chooselang.cpp" open="1" top="1" tabpos="2">
+	<File name="chooselang.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="3729" topLine="89" />
 	</File>
 	<File name="chooselang.h" open="0" top="0" tabpos="4">
