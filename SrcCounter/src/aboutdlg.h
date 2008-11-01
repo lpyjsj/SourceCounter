@@ -29,6 +29,7 @@ class AboutDlg: public wxDialog
 		static const long ID_STATICTEXT2;
 		static const long ID_STATICTEXT3;
 		static const long ID_STATICTEXT6;
+		static const long ID_STATICTEXT5;
 		static const long ID_STATICTEXT4;
 		static const long ID_BUTTON1;
 		//*)
@@ -49,6 +50,7 @@ class AboutDlg: public wxDialog
 		wxStaticText* StaticText1;
 		wxBoxSizer* BoxSizer2;
 		wxStaticText* StaticText3;
+		wxStaticText* StaticText5;
 		wxBoxSizer* BoxSizer1;
 		wxBoxSizer* BoxSizer3;
 		wxStaticText* StaticText4;

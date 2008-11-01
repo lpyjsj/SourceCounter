@@ -42,6 +42,7 @@ const long AboutDlg::ID_STATICTEXT1 = wxNewId();
 const long AboutDlg::ID_STATICTEXT2 = wxNewId();
 const long AboutDlg::ID_STATICTEXT3 = wxNewId();
 const long AboutDlg::ID_STATICTEXT6 = wxNewId();
+const long AboutDlg::ID_STATICTEXT5 = wxNewId();
 const long AboutDlg::ID_STATICTEXT4 = wxNewId();
 const long AboutDlg::ID_BUTTON1 = wxNewId();
 //*)
@@ -71,6 +72,8 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	BoxSizer3->Add(StaticText3, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("http://down.boomworks.net (Check For Updates)"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT6"));
 	BoxSizer3->Add(StaticText6, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("boomworks@hotmail.com"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
+	BoxSizer3->Add(StaticText5, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("Label"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT4"));
 	BoxSizer3->Add(StaticText4, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -81,7 +84,7 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	SetSizer(BoxSizer1);
 	BoxSizer1->SetSizeHints(this);
 	Center();
-	
+
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&AboutDlg::OnButton1Click);
 	//*)
 
