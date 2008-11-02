@@ -69,7 +69,7 @@ SrcTypeSelDlg::SrcTypeSelDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
     //(*Initialize(SrcTypeSelDlg)
     wxBoxSizer* BoxSizer2;
     wxBoxSizer* BoxSizer1;
-    
+
     Create(parent, wxID_ANY, _("Select types dialog"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("&Select source file types for counting:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
@@ -89,7 +89,7 @@ SrcTypeSelDlg::SrcTypeSelDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_CHECKBOX1,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::Onm_ckbSelAllClick);
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::OnBtnOkClick);
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::OnBtnCancelClick);
@@ -139,8 +139,7 @@ void SrcTypeSelDlg::OnBtnOkClick(wxCommandEvent& event)
 
 void SrcTypeSelDlg::OnBtnCancelClick(wxCommandEvent& event)
 {
-    //OnBtnCancelClick
-    Close();
+	EndModal(wxID_CANCEL);
 }
 
 void SrcTypeSelDlg::Onm_ckbSelAllClick(wxCommandEvent& event)

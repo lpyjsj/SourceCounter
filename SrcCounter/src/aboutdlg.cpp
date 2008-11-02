@@ -84,7 +84,7 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	SetSizer(BoxSizer1);
 	BoxSizer1->SetSizeHints(this);
 	Center();
-
+	
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&AboutDlg::OnButton1Click);
 	//*)
 
