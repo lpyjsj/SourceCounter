@@ -49,7 +49,7 @@ msgstr "&Ok"
 #: src/chooselang.cpp:72
 #, c-format
 msgid "Uknown locale code '%s' in registry."
-msgstr "登錄中有未知的當地語系碼 '%s'."
+msgstr "登錄中有未知的當地語系碼 '%s'。"
 
 #: src/chooselang.cpp:89
 msgid "(Use default language)"
@@ -65,7 +65,7 @@ msgstr "選擇語言"
 
 #: src/chooselang.cpp:176
 msgid "You must restart SourceCounter for this change to take effect."
-msgstr "妳得要重新啟動 SourceCounter 後這項變更纔會生效."
+msgstr "妳得要重新啟動 SourceCounter 後這項變更纔會生效。"
 
 #: src/CntSettingDlg.cpp:29
 msgid "More settings"
