@@ -41,9 +41,9 @@ const long AboutDlg::ID_STATICBITMAP2 = wxNewId();
 const long AboutDlg::ID_STATICTEXT1 = wxNewId();
 const long AboutDlg::ID_STATICTEXT2 = wxNewId();
 const long AboutDlg::ID_STATICTEXT3 = wxNewId();
+const long AboutDlg::ID_STATICTEXT4 = wxNewId();
 const long AboutDlg::ID_STATICTEXT6 = wxNewId();
 const long AboutDlg::ID_STATICTEXT5 = wxNewId();
-const long AboutDlg::ID_STATICTEXT4 = wxNewId();
 const long AboutDlg::ID_BUTTON1 = wxNewId();
 //*)
 
@@ -62,7 +62,7 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	BoxSizer1->Add(StaticBitmap1, 0, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0);
 	BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
 	StaticBitmap2 = new wxStaticBitmap(this, ID_STATICBITMAP2, wxBitmap(wxImage(_T("img\\SourceCounter.ico"))), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICBITMAP2"));
-	BoxSizer2->Add(StaticBitmap2, 1, wxTOP|wxBOTTOM|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	BoxSizer2->Add(StaticBitmap2, 1, wxTOP|wxBOTTOM|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL, 5);
 	BoxSizer3 = new wxBoxSizer(wxVERTICAL);
 	StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("SourceCounter"), wxDefaultPosition, wxSize(214,14), 0, _T("ID_STATICTEXT1"));
 	BoxSizer3->Add(StaticText1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
@@ -70,12 +70,13 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	BoxSizer3->Add(StaticText2, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("(C) 1999 - 2008 Boom (www.BoomWorks.Net)"), wxDefaultPosition, wxSize(214,13), 0, _T("ID_STATICTEXT3"));
 	BoxSizer3->Add(StaticText3, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
-	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("http://down.boomworks.net (Check For Updates)"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT6"));
-	BoxSizer3->Add(StaticText6, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("boomworks@hotmail.com"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
-	BoxSizer3->Add(StaticText5, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("Label"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT4"));
 	BoxSizer3->Add(StaticText4, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
+	BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("http://down.boomworks.net (Check For Updates)"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT6"));
+	BoxSizer3->Add(StaticText6, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("mailto:boomworks@hotmail.com"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
+	BoxSizer3->Add(StaticText5, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	Button1 = new wxButton(this, ID_BUTTON1, _("&Ok"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
 	BoxSizer3->Add(Button1, 0, wxALL|wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL, 5);

@@ -18,7 +18,7 @@
 						<object class="wxStaticBitmap" name="ID_STATICBITMAP2" variable="StaticBitmap2" member="yes">
 							<bitmap>img\SourceCounter.ico</bitmap>
 						</object>
-						<flag>wxTOP|wxBOTTOM|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<flag>wxTOP|wxBOTTOM|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
 						<border>5</border>
 						<option>1</option>
 					</object>
@@ -50,6 +50,18 @@
 								<border>5</border>
 							</object>
 							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText4" member="yes">
+									<label>Label</label>
+								</object>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+							</object>
+							<object class="spacer">
+								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT6" variable="StaticText6" member="yes">
 									<label>http://down.boomworks.net (Check For Updates)</label>
 								</object>
@@ -59,18 +71,11 @@
 							</object>
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT5" variable="StaticText5" member="yes">
-									<label>boomworks@hotmail.com</label>
+									<label>mailto:boomworks@hotmail.com</label>
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
-							</object>
-							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText4" member="yes">
-									<label>Label</label>
-								</object>
-								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
-								<border>5</border>
 							</object>
 							<object class="spacer">
 								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
