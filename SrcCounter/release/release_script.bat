@@ -10,8 +10,12 @@ cd release\
 copy /Y *.dll sourcecounter\
 copy /Y *.txt sourcecounter\
 
+REM copy zip to old verison folder
+copy /Y *.zip oldversion\
+copy /Y *.7z oldversion\
+
 REM delete 7z zip files
-del *.7z *.zip
+REM del *.7z *.zip
 
 REM 7z a -t7z Files.7z *.txt -r
 7z a -t7z sourcecounter-2.0.10.61.7z SourceCounter\
