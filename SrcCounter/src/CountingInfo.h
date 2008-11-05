@@ -1,5 +1,5 @@
+//////////////////////////////////////////////////////////////////////
 // CountingInfo.h: interface for the CountingInfo class.
-//
 //////////////////////////////////////////////////////////////////////
 
 #if !defined(AFX_STATISTICINFO_H__67AF96E2_A74A_41C2_BBE5_4D529F218B2E__INCLUDED_)
@@ -11,6 +11,10 @@
 
 #include "CountingFileInfo.h"
 
+///////////////////////////////////////////////////////////////////////
+WX_DEFINE_ARRAY(CountingFileInfo*, ArrayCountingFileInfo);
+///////////////////////////////////////////////////////////////////////
+
 /**
  * @class CountingInfo
  * statistic infomation class.
@@ -21,74 +25,74 @@ class CountingInfo
 {
 public:
 
-	/**
-	 * construtor.
-	 */
-	CountingInfo();
+    /**
+     * construtor.
+     */
+    CountingInfo();
 
-	/**
-	 * distrutor.
-	 */
-	virtual ~CountingInfo();
+    /**
+     * distrutor.
+     */
+    virtual ~CountingInfo();
 
-	/**
-	 * operator reload.
-	 *
-	 * @param srcInfo Source CountingInfo Object
-	 * @return CountingInfo& Des CStatistic Object
-	 */
-	CountingInfo& operator=( CountingInfo& srcInfo );
+    /**
+     * operator reload.
+     *
+     * @param srcInfo Source CountingInfo Object
+     * @return CountingInfo& Des CStatistic Object
+     */
+    CountingInfo& operator=( CountingInfo& srcInfo );
 
-	/**
-	 * clear statistic infomation.
-	 */
-	void Clear();
+public:
 
-//	private:
+    // total statistic info
+    int			m_nTotalFile;		///< total of source files
+    int			m_nTotalSize;		///< total of source files size
 
-	CountingFileInfo* m_pCountingFileInfo;		///< current counting file infomation
+    int			m_nTotalStatement;			///< total of statement
+    int			m_nTotalCodeStatement;		///< total of code statement
+    int			m_nTotalCommentStatement;	///< total of comment statement
+    int			m_nTotalBlankStatement;		///< total of blank of statement
 
-	//
-	// total statistic info
-	//
-	int			m_nTotalFile;		///< total of source files
-	int			m_nTotalSize;		///< total of source files size
+    ///////////////////////////////////////////////////////////////////
 
-	int			m_nTotalStatement;			///< total of statement
-	int			m_nTotalCodeStatement;		///< total of code statement
-	int			m_nTotalCommentStatement;	///< total of comment statement
-	int			m_nTotalBlankStatement;		///< total of blank of statement
+    /**
+     * clear statistic infomation.
+     */
+    void Clear();
 
+	// Add counting file info to array
+    void AddCountingFileInfo(CountingFileInfo* pFileInfo)	{ m_arrCountingFileInfo.Add(pFileInfo); }
 
+	// Get last counting file informaiton
+    CountingFileInfo* GetLastCountingFileInfo(void)			{ return m_arrCountingFileInfo.Last(); }
+
+	// Get counting file info array
+    ArrayCountingFileInfo* GetCountingFileInfoArr(void)		{ return &m_arrCountingFileInfo; }
+
+private:
+
+    ArrayCountingFileInfo   m_arrCountingFileInfo;      ///< Array for store counting file info
+
+    ///////////////////////////////////////////////////////////////////
+
+	// clear counting file information array
+    void clearArrCountingFileInfo();
 };
 
-inline void CountingInfo::Clear()
-{
-	m_nTotalFile = 0;
-	m_nTotalSize = 0;
-
-	m_nTotalStatement			= 0;
-	m_nTotalCodeStatement		= 0;
-	m_nTotalCommentStatement	= 0;
-	m_nTotalBlankStatement		= 0;
-
-	// TODO:
-	//	m_pCountingFileInfo.Clear();
-}
-
-
+// TODO: implement operator =
 inline CountingInfo& CountingInfo::operator =( CountingInfo& srcInfo)
 {
 	//
-	m_nTotalFile		= srcInfo.m_nTotalFile;
-	m_nTotalSize		= srcInfo.m_nTotalSize;
-	//
-	m_nTotalStatement			= srcInfo.m_nTotalStatement;
-	m_nTotalCodeStatement		= srcInfo.m_nTotalCodeStatement;
-	m_nTotalCommentStatement	= srcInfo.m_nTotalCommentStatement;
-	m_nTotalBlankStatement		= srcInfo.m_nTotalBlankStatement;
+    m_nTotalFile		= srcInfo.m_nTotalFile;
+    m_nTotalSize		= srcInfo.m_nTotalSize;
+    //
+    m_nTotalStatement			= srcInfo.m_nTotalStatement;
+    m_nTotalCodeStatement		= srcInfo.m_nTotalCodeStatement;
+    m_nTotalCommentStatement	= srcInfo.m_nTotalCommentStatement;
+    m_nTotalBlankStatement		= srcInfo.m_nTotalBlankStatement;
 
-	return *this;
+    return *this;
 }
 
 #endif // !defined(AFX_STATISTICINFO_H__67AF96E2_A74A_41C2_BBE5_4D529F218B2E__INCLUDED_)

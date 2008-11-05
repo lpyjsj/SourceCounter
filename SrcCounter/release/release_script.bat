@@ -18,8 +18,8 @@ REM delete 7z zip files
 REM del *.7z *.zip
 
 REM 7z a -t7z Files.7z *.txt -r
-7z a -t7z sourcecounter-2.0.10.61.7z SourceCounter\
+7z a -t7z sourcecounter-2.0.11.62.7z SourceCounter\
 REM zip
-7z a -tzip sourcecounter-2.0.10.61.zip SourceCounter\ -mx9
+7z a -tzip sourcecounter-2.0.11.62.zip SourceCounter\ -mx9
 
 REM End

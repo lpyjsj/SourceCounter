@@ -33,12 +33,7 @@ enum NManagerStatus
 //////////////////////////////////////////////////////////////////////////
 
 //typedef CMap<int, int, CCounter*, CCounter*&> MapStrToCounter;
-
-// same, with int keys and MyClass* values
-//WX_DECLARE_HASH_MAP( int, Counter*, wxIntegerHash, wxIntegerEqual, MapStrToCounter );
-
 WX_DECLARE_STRING_HASH_MAP( Counter*, MapStrToCounter);
-WX_DEFINE_ARRAY(CountingFileInfo*, ArrayCountingFileInfo);
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -63,20 +58,55 @@ public:
      */
     virtual ~CountingManager();
 
+public:
+
     /**
      * set statistic condition.
      *
      * @param pParam statistic condition object
      */
-    void			SetCountingParam( CountingParam* pParam );
+    void    SetCountingParam( CountingParam* pParam );
 
     /**
-     * create counter from source file type id .
+     * Get counting parameters
+     */
+    CountingParam*    GetCountingParam(void) {return &m_countingParam;}
+
+    /**
+     * Create counter by source file extend name.
      *
      * @param strFileExtendName counter identify name
      * @return counter object pointer
      */
     Counter*		CreateCounter( wxString strFileExtendName );
+
+    /**
+     * Get counting information.
+     * @return CountingInfo*
+     */
+    virtual CountingInfo*	GetCountingInfo(void);
+
+    /**
+     * clear manager status and preserver data.
+     */
+    void			Clear();
+
+    /**
+     * get manager status.
+     *
+     * @return status flag
+     */
+    NManagerStatus	GetStatus();
+
+    /**
+     * Set manager status.
+     *
+     * @param nStatus manager status
+     */
+    void SetStatus( NManagerStatus nStatus );
+
+	//
+	// Strating and stop counting method
 
     /**
      * start statistic source files.
@@ -88,40 +118,12 @@ public:
      */
     void			StopCounting();
 
-    /**
-     * clear manager.
-     */
-    void			Clear();
-
-    /**
-     * get statistic infomation from CCounter.
-     *
-     * @param countingInfo statistic info object
-     */
-    virtual void	GetCountingInfo( CountingInfo& countingInfo );
-
-    ArrayCountingFileInfo* GetCountingFileInfoArr(void) { return &m_arrCountingFileInfo;}
-
-    /**
-     * get manager status.
-     *
-     * @return status flag
-     */
-    NManagerStatus	GetStatus();
-
-    /**
-     * set manager status.
-     *
-     * @param nStatus manager status
-     */
-    void SetStatus( NManagerStatus nStatus );
-
     //
-    // observer pattern
+    // observer pattern method
     //
 
     /**
-     * add ovserver to subject.
+     * Add obvserver to subject.
      *
      * @param pObserver observer object
      */
@@ -133,38 +135,31 @@ public:
      */
     void			Notify();
 
-    ///////////////////////////////////////////////////////////////////////
-    CountingParam		    m_countingParam;		///< Counting parametera
-
 private:
 
+	// Counter pointer section
+    CCounterObserver*		m_pObserver;		///< observer
+    MapStrToCounter		    m_mapStrToCounter;  ///< Hashmap for store counter pointer
 
-    CCounterObserver*		m_pObserver;	///< observer
-    Counter*				m_pCounter;		///< CCounter Object
+	// Counting parameter and result information section
+    CountingParam		    m_countingParam;	///< Counting parametera
+    CountingInfo			m_countingInfo;		///< preserver statistic infomation
 
-    CountingInfo			m_countingInfo;			///< preserver statistic infomation
-    CountingFileInfo*		m_pCurCountingFileInfo;		///< current counting file infomation
-    ArrayCountingFileInfo   m_arrCountingFileInfo;  ///< Array for store counting file info
-
-    BOOL					m_bStopCounting;		///< stop statistic flag
-    NManagerStatus			m_countingStatus;		///< statistic status
-
-    MapStrToCounter		    m_mapStrToCounter;      ///< Hashmap for store counter pointer
-
+	// Counting status info
+    BOOL					m_bStopCounting;	///< stop statistic flag
+    NManagerStatus			m_countingStatus;	///< statistic status
 
     //////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Add sub folder to arraylist for counting.
+     */
     void addSubSrcFolder();
-    bool isCountingFile(wxString& strFileExtName);
 
     /**
-     * get source file type id.
-     *
-     * @param strFileName file name or file path
-     * @retval NTypeCPP/ NTypeJAVA
-     * @retval -1 when faild
+     * Is counting file
      */
-    int getSourceFileTypeID( wxString strFileName );
+    bool isCountingFile(wxString& strFileExtName);
 
     /**
      * get file ext name string.

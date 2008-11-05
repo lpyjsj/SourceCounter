@@ -295,7 +295,9 @@ void SourceCounterDialog::OnAbout(wxCommandEvent& event)
 void SourceCounterDialog::OnBtnMoreSettingsClick(wxCommandEvent& event)
 {
     CntSettingDlg dlg(this);
-    SettingParam* pParam = &(m_countingMgr->m_countingParam.m_settingParam);
+    // SettingParam* pParam = m_countingMgr->m_countingParam.m_settingParam);
+    CountingParam* pCountingParam = m_countingMgr->GetCountingParam();
+    SettingParam* pParam = &(pCountingParam->m_settingParam);
     dlg.SetSettingParam(pParam);
 
     if (wxID_OK == dlg.ShowModal())
@@ -303,7 +305,7 @@ void SourceCounterDialog::OnBtnMoreSettingsClick(wxCommandEvent& event)
         SettingParam param;
         dlg.GetSettingParam(param);
 
-        m_countingMgr->m_countingParam.m_settingParam.m_nCountingMethodType = param.m_nCountingMethodType;
+        pParam->m_nCountingMethodType = param.m_nCountingMethodType;
     }
 }
 
@@ -418,13 +420,11 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     // Prepare counting
     //
 
-    // Clear prev counting info
-    m_countingInfo.Clear();  // TODO:
-    m_countingMgr->Clear();
+    m_countingMgr->Clear();	    // Clear prev counting info
 
-    // Update options ctrls and Initial counting ctrls
     m_countingMgr->SetStatus(NManagerStatusRunning);
 
+    // Update options ctrls and Initial counting ctrls
     updateOptionsCtrls();
     initCountingCtrls();
 
@@ -464,6 +464,7 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
 
     // Attach observer
     m_countingMgr->AttachObserver(this);
+
     // Set wait cursor
     wxCursor cursor1(wxCURSOR_WAIT);
     this->SetCursor(cursor1);
@@ -491,12 +492,10 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     switch ( m_countingMgr->GetStatus())
     {
     case NManagerStatusComplete:
-        // SetDlgItemText( IDC_STC_STATISTIC_STATUS, CSZ_STATISTIC_STATUS[3] );
         m_lblStatus->SetLabel(SZ_STATUS[2]); // Completed
         break;
 
     case NManagerStatusStop:
-        // SetDlgItemText( IDC_STC_STATISTIC_STATUS, CSZ_STATISTIC_STATUS[2] );
         m_lblStatus->SetLabel(SZ_STATUS[3]);  // Canceled
         break;
 
@@ -551,11 +550,9 @@ void SourceCounterDialog::initCountingCtrls()
 
 void SourceCounterDialog::UpdateCountingInfoCtrls()
 {
-    //
-    // wxMessageBox(_T("Notified"));
-    //
-    m_countingMgr->GetCountingInfo( m_countingInfo );
-    CountingFileInfo* pCountingFileInfo = m_countingInfo.m_pCountingFileInfo;
+	// Get countingInfo
+	CountingInfo* pCountingInfo = m_countingMgr->GetCountingInfo();
+    CountingFileInfo* pCountingFileInfo = pCountingInfo->GetLastCountingFileInfo();
 
     //
     // Insert item to resutl listctrl
@@ -585,22 +582,22 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
     m_lstResult->EnsureVisible(nIndex);
 
     // Update labels
-    strTemp.Printf(_T("%d"), m_countingInfo.m_nTotalFile);
+    strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalFile);
     m_lblTotalFiles->SetLabel(strTemp);
 
-    strTemp.Printf(_T("%d"), m_countingInfo.m_nTotalSize);
+    strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalSize);
     m_lblTotalSize->SetLabel(strTemp);
 
-    strTemp.Printf(_T("%d"), m_countingInfo.m_nTotalStatement);
+    strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalStatement);
     m_lblTotalLines->SetLabel(strTemp);
 
-    strTemp.Printf(_T("%d"), m_countingInfo.m_nTotalCodeStatement);
+    strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalCodeStatement);
     m_lblCodeLines->SetLabel(strTemp);
 
-    strTemp.Printf(_T("%d"), m_countingInfo.m_nTotalCommentStatement);
+    strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalCommentStatement);
     m_lblCommentLines->SetLabel(strTemp);
 
-    strTemp.Printf(_T("%d"), m_countingInfo.m_nTotalBlankStatement);
+    strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalBlankStatement);
     m_lblBlankLines->SetLabel(strTemp);
 
 //    wxMessageBox(pCountingFileInfo->m_strFileFullPath);
@@ -644,7 +641,8 @@ void SourceCounterDialog::saveCouningResultToCSV( wxString filename )
     file.AddLine( strText );
 
     ///////////////////////////////////////////////////////////////////
-    ArrayCountingFileInfo* pArrFileInfo = m_countingMgr->GetCountingFileInfoArr();
+    CountingInfo* pCountingInfo = m_countingMgr->GetCountingInfo();
+    ArrayCountingFileInfo* pArrFileInfo = pCountingInfo->GetCountingFileInfoArr();
 
     int nItemCount = pArrFileInfo->GetCount();
     CountingFileInfo* pFileInfo = 0;
@@ -676,22 +674,22 @@ void SourceCounterDialog::saveCouningResultToCSV( wxString filename )
 
     wxString str1, str2;
 
-    str2.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[0], m_countingInfo.m_nTotalFile);
+    str2.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[0], pCountingInfo->m_nTotalFile);
     file.AddLine( str2 );
 
-    str2.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[7], m_countingInfo.m_nTotalSize);
+    str2.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[7], pCountingInfo->m_nTotalSize);
     file.AddLine( str2 );
 
-    str2.Printf( _T( "# %s,%d,100%%" ), CSZ_COLUMN_NAMES[3], m_countingInfo.m_nTotalStatement );
+    str2.Printf( _T( "# %s,%d,100%%" ), CSZ_COLUMN_NAMES[3], pCountingInfo->m_nTotalStatement );
     file.AddLine( str2 );
 
-    str2.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[4], m_countingInfo.m_nTotalCodeStatement, 100. * m_countingInfo.m_nTotalCodeStatement / m_countingInfo.m_nTotalStatement );
+    str2.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[4], pCountingInfo->m_nTotalCodeStatement, 100. * pCountingInfo->m_nTotalCodeStatement / pCountingInfo->m_nTotalStatement );
     file.AddLine( str2 );
 
-    str2.Printf( _T( "# %s,%d,%.1f%%" ), CSZ_COLUMN_NAMES[5], m_countingInfo.m_nTotalCommentStatement, 100. * m_countingInfo.m_nTotalCommentStatement / m_countingInfo.m_nTotalStatement );
+    str2.Printf( _T( "# %s,%d,%.1f%%" ), CSZ_COLUMN_NAMES[5], pCountingInfo->m_nTotalCommentStatement, 100. * pCountingInfo->m_nTotalCommentStatement / pCountingInfo->m_nTotalStatement );
     file.AddLine( str2 );
 
-    str2.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[6], m_countingInfo.m_nTotalBlankStatement, 100. * m_countingInfo.m_nTotalBlankStatement / m_countingInfo.m_nTotalStatement  );
+    str2.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[6], pCountingInfo->m_nTotalBlankStatement, 100. * pCountingInfo->m_nTotalBlankStatement / pCountingInfo->m_nTotalStatement  );
     file.AddLine( str2 );
 
     // save

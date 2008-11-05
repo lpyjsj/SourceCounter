@@ -134,9 +134,8 @@ private:
     wxStaticText* m_lblCommentLines;
     //*)
 
-    ///////////////////////////////////////////////////////////////
+private:
 
-    CountingInfo m_countingInfo;        ///< Counting information collector
     CountingManager* m_countingMgr;      ///< Counting manager
 
     ///////////////////////////////////////////////////////////////
