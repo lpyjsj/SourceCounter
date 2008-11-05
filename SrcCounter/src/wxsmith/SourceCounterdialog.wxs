@@ -179,7 +179,7 @@
 								<object class="wxListCtrl" name="ID_LISTCTRL1" variable="m_lstResult" member="yes">
 									<size>500,160</size>
 									<style>wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_HRULES|wxLC_VRULES</style>
-									<handler function="OnLstItemActivated" entry="EVT_LIST_ITEM_ACTIVATED" />
+									<handler function="OnLstResultItemRClick" entry="EVT_LIST_ITEM_RIGHT_CLICK" />
 								</object>
 								<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
@@ -402,6 +402,16 @@
 			<message>Select file</message>
 			<wildcard>CSV files (*.csv)|*.csv</wildcard>
 			<style>wxFD_SAVE|wxFD_OVERWRITE_PROMPT</style>
+		</object>
+		<object class="wxMenu" variable="m_pMenu" member="yes">
+			<object class="wxMenuItem" name="ID_MENU_ITEM_OPEN" variable="m_menuItemOpen" member="no">
+				<label>Open file</label>
+				<handler function="OnMenuItemOpenSelected" entry="EVT_MENU" />
+			</object>
+			<object class="wxMenuItem" name="ID_MENU_ITEM_OPENDIR" variable="m_menuItemOpenDir" member="no">
+				<label>Open directory</label>
+				<handler function="OnMenuItemOpenDirSelected" entry="EVT_MENU" />
+			</object>
 		</object>
 	</object>
 </wxsmith>

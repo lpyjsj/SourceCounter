@@ -89,6 +89,8 @@ const long SourceCounterDialog::ID_BUTTON11 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON10 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON1 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON2 = wxNewId();
+const long SourceCounterDialog::ID_MENU_ITEM_OPEN = wxNewId();
+const long SourceCounterDialog::ID_MENU_ITEM_OPENDIR = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(SourceCounterDialog,wxDialog)
@@ -104,6 +106,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxStaticBoxSizer* StaticBoxSizer2;
     wxBoxSizer* BoxSizer6;
     wxBoxSizer* BoxSizer15;
+    wxMenuItem* m_menuItemOpen;
     wxBoxSizer* BoxSizer5;
     wxBoxSizer* BoxSizer10;
     wxBoxSizer* BoxSizer7;
@@ -116,6 +119,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxBoxSizer* BoxSizer9;
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
+    wxMenuItem* m_menuItemOpenDir;
 
     Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
@@ -226,6 +230,10 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     SetSizer(BoxSizer1);
     m_dlgAddDir = new wxDirDialog(this, _("Select directory"), wxEmptyString, wxDD_DIR_MUST_EXIST, wxDefaultPosition, wxDefaultSize, _T("wxDirDialog"));
     m_dlgFile = new wxFileDialog(this, _("Select file"), wxEmptyString, wxEmptyString, _("CSV files (*.csv)|*.csv"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
+    m_menuItemOpen = new wxMenuItem((&m_pMenu), ID_MENU_ITEM_OPEN, _("Open file"), wxEmptyString, wxITEM_NORMAL);
+    m_pMenu.Append(m_menuItemOpen);
+    m_menuItemOpenDir = new wxMenuItem((&m_pMenu), ID_MENU_ITEM_OPENDIR, _("Open directory"), wxEmptyString, wxITEM_NORMAL);
+    m_pMenu.Append(m_menuItemOpenDir);
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
@@ -237,12 +245,14 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnMoreSettingsClick);
     Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnStartClick);
     Connect(ID_BUTTON6,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnStopClick);
-    Connect(ID_LISTCTRL1,wxEVT_COMMAND_LIST_ITEM_ACTIVATED,(wxObjectEventFunction)&SourceCounterDialog::OnLstItemActivated);
+    Connect(ID_LISTCTRL1,wxEVT_COMMAND_LIST_ITEM_RIGHT_CLICK,(wxObjectEventFunction)&SourceCounterDialog::OnLstResultItemRClick);
     Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnSaveClick);
     Connect(ID_BUTTON11,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnCheckUpdateClick);
     Connect(ID_BUTTON10,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnUiLangClick);
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnAbout);
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnQuit);
+    Connect(ID_MENU_ITEM_OPEN,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&SourceCounterDialog::OnMenuItemOpenSelected);
+    Connect(ID_MENU_ITEM_OPENDIR,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&SourceCounterDialog::OnMenuItemOpenDirSelected);
     Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&SourceCounterDialog::OnInit);
     //*)
 
@@ -706,37 +716,37 @@ void SourceCounterDialog::OnBtnSaveClick(wxCommandEvent& event)
     wxMessageBox(SZ_STATUS[2]); // Completed
 }
 
-void SourceCounterDialog::OnLstItemActivated(wxListEvent& event)
+void SourceCounterDialog::OnBtnUiLangClick(wxCommandEvent& event)
 {
-    // CountingFileInfo* pFileInfo = (CountingFileInfo*)event.GetData();
+    ChangeUILanguage();
+}
 
-    ///////////////////////////////////////////////////////////////////
+void SourceCounterDialog::OnBtnCheckUpdateClick(wxCommandEvent& event)
+{
+    try
+    {
+        wxLaunchDefaultBrowser(_T("http://down.boomworks.net/"), wxBROWSER_NEW_WINDOW);
+    }
+    catch (...)
+    {
+        wxMessageBox(_T("Unknown error occured!"));
+    }
 
+}
+
+void SourceCounterDialog::OnLstResultItemRClick(wxListEvent& event)
+{
+    PopupMenu(&m_pMenu);
+}
+
+void SourceCounterDialog::OnMenuItemOpenSelected(wxCommandEvent& event)
+{
     wxListItem listitem;
-
-    listitem.SetMask(wxLIST_MASK_TEXT |  wxLIST_MASK_DATA);
-    int nLast = -1, nLastSelected = -1;
-    while ((nLast = m_lstResult->GetNextItem(nLast, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED)) != -1)
-    {
-        listitem.SetId(nLast);
-        m_lstResult->GetItem(listitem);
-        if ((listitem.GetState() & wxLIST_STATE_FOCUSED) )
-            break;
-        nLastSelected = nLast;
-    }
-
-    if (nLast == -1 && nLastSelected == -1)
-    {
-        return;
-    }
-
-    listitem.SetId(nLastSelected == -1 ? nLast : nLastSelected);
-    m_lstResult->GetItem(listitem);
+    getSelectedItem(listitem);
 
     CountingFileInfo* pFileInfo = (CountingFileInfo*)listitem.GetData();
 
     ///////////////////////////////////////////////////////////////////
-
 
     if (pFileInfo)
     {
@@ -751,8 +761,6 @@ void SourceCounterDialog::OnLstItemActivated(wxListEvent& event)
     {
         wxMessageBox(wxT("No selected item!"));
     }
-
-
 
     ///////////////////////////////////////////////////////////////////
     /*
@@ -797,24 +805,42 @@ void SourceCounterDialog::OnLstItemActivated(wxListEvent& event)
         }
 */
     ///////////////////////////////////////////////////////////////////
-
-    event.Skip();
 }
 
-void SourceCounterDialog::OnBtnUiLangClick(wxCommandEvent& event)
+void SourceCounterDialog::OnMenuItemOpenDirSelected(wxCommandEvent& event)
 {
-    ChangeUILanguage();
+    wxListItem listitem;
+    getSelectedItem(listitem);
+
+    CountingFileInfo* pFileInfo = (CountingFileInfo*)listitem.GetData();
+
+    wxString strCmd;
+    strCmd = _T("explorer /select,") + pFileInfo->m_strFileFullPath;
+
+    #ifdef __WXMSW__
+      wxExecute(strCmd);
+    #endif
+
 }
 
-void SourceCounterDialog::OnBtnCheckUpdateClick(wxCommandEvent& event)
+void SourceCounterDialog::getSelectedItem(wxListItem& listitem)
 {
-    try
+    listitem.SetMask(wxLIST_MASK_TEXT |  wxLIST_MASK_DATA);
+    int nLast = -1, nLastSelected = -1;
+    while ((nLast = m_lstResult->GetNextItem(nLast, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED)) != -1)
     {
-        wxLaunchDefaultBrowser(_T("http://down.boomworks.net/"), wxBROWSER_NEW_WINDOW);
-    }
-    catch (...)
-    {
-        wxMessageBox(_T("Unknown error occured!"));
+        listitem.SetId(nLast);
+        m_lstResult->GetItem(listitem);
+        if ((listitem.GetState() & wxLIST_STATE_FOCUSED) )
+            break;
+        nLastSelected = nLast;
     }
 
+    if (nLast == -1 && nLastSelected == -1)
+    {
+        return;
+    }
+
+    listitem.SetId(nLastSelected == -1 ? nLast : nLastSelected);
+    m_lstResult->GetItem(listitem);
 }

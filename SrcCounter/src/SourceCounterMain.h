@@ -14,6 +14,7 @@
 #include <wx/listctrl.h>
 #include <wx/sizer.h>
 #include <wx/stattext.h>
+#include <wx/menu.h>
 #include <wx/checklst.h>
 #include <wx/checkbox.h>
 #include <wx/filedlg.h>
@@ -50,9 +51,11 @@ private:
     void OnInit(wxInitDialogEvent& event);
     void OnBtnStopClick(wxCommandEvent& event);
     void OnBtnSaveClick(wxCommandEvent& event);
-    void OnLstItemActivated(wxListEvent& event);
     void OnBtnUiLangClick(wxCommandEvent& event);
     void OnBtnCheckUpdateClick(wxCommandEvent& event);
+    void OnLstResultItemRClick(wxListEvent& event);
+    void OnMenuItemOpenSelected(wxCommandEvent& event);
+    void OnMenuItemOpenDirSelected(wxCommandEvent& event);
     //*)
 
     void OnLbxSrcFolderItemSelect(wxCommandEvent& evt);
@@ -89,6 +92,8 @@ private:
     static const long ID_BUTTON10;
     static const long ID_BUTTON1;
     static const long ID_BUTTON2;
+    static const long ID_MENU_ITEM_OPEN;
+    static const long ID_MENU_ITEM_OPENDIR;
     //*)
 
     //(*Declarations(SourceCounterDialog)
@@ -118,6 +123,7 @@ private:
     wxFileDialog* m_dlgFile;
     wxBoxSizer* BoxSizer1;
     wxStaticText* StaticText12;
+    wxMenu m_pMenu;
     wxButton* m_btnSelSrcType;
     wxCheckListBox* m_lbxSrcFolder;
     wxComboBox* m_cmbSrcTypes;
@@ -140,10 +146,13 @@ private:
 
     void saveCouningResultToCSV(wxString fileName);
 
+    void getSelectedItem(wxListItem& listItem);
+
     /**
      * update statistic infomation.
      */
     virtual void UpdateCountingInfoCtrls( void );
+
     ///////////////////////////////////////////////////////////////
 
     DECLARE_EVENT_TABLE()
