@@ -90,8 +90,6 @@ private:
     static const long ID_BUTTON7;
     static const long ID_BUTTON11;
     static const long ID_BUTTON10;
-    static const long ID_BUTTON1;
-    static const long ID_BUTTON2;
     static const long ID_MENU_ITEM_OPEN;
     static const long ID_MENU_ITEM_OPENDIR;
     //*)
@@ -142,8 +140,6 @@ private:
 
     void updateOptionsCtrls();
     void initCountingCtrls();
-
-    void saveCouningResultToCSV(wxString fileName);
 
     void getSelectedItem(wxListItem& listItem);
 

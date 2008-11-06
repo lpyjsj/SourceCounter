@@ -33,7 +33,7 @@
 			<object class="sizeritem">
 				<object class="wxBoxSizer" variable="BoxSizer2" member="no">
 					<object class="sizeritem">
-						<object class="wxButton" name="ID_BUTTON1" variable="m_btnOk" member="yes">
+						<object class="wxButton" name="wxID_OK" variable="m_btnOk" member="yes">
 							<label>&amp;Ok</label>
 							<handler function="OnBtnOkClick" entry="EVT_BUTTON" />
 						</object>
@@ -42,7 +42,7 @@
 						<option>2</option>
 					</object>
 					<object class="sizeritem">
-						<object class="wxButton" name="ID_BUTTON2" variable="m_btnCancel" member="yes">
+						<object class="wxButton" name="wxID_CANCEL" variable="m_btnCancel" member="yes">
 							<label>&amp;Cancel</label>
 							<handler function="OnBtnCancelClick" entry="EVT_BUTTON" />
 						</object>

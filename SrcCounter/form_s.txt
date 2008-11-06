@@ -29,10 +29,10 @@ BOOMWORKS PA049941
 ・SQL
 
 [アーカイブファイルの名前] ←必須
-sourcecounter-2.0.9.54.zip
+sourcecounter-2.0.11.62.zip
 
 [バージョン]
-2.0.9.54
+2.0.11.62
 
 [動作可能機種] ←必須
 汎用

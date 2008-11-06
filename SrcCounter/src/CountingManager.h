@@ -21,6 +21,12 @@
 
 //////////////////////////////////////////////////////////////////////////
 
+/** Source types number */
+extern const int N_COLUMN_NUM;
+
+/** Source type string list */
+extern const wxChar* CSZ_COLUMN_NAMES[];
+
 /** manager status flag */
 enum NManagerStatus
 {
@@ -30,13 +36,10 @@ enum NManagerStatus
     NManagerStatusComplete		///< compeletly
 };
 
-//////////////////////////////////////////////////////////////////////////
-
 //typedef CMap<int, int, CCounter*, CCounter*&> MapStrToCounter;
 WX_DECLARE_STRING_HASH_MAP( Counter*, MapStrToCounter);
 
 //////////////////////////////////////////////////////////////////////////
-
 
 /**
  * @class CountingManager
@@ -135,10 +138,16 @@ public:
      */
     void			Notify();
 
+    //
+    // Save counting result to file.
+    //
+
+    void SaveCountingResultToCSV(wxString strFilePath);
+
 private:
 
 	// Counter pointer section
-    CCounterObserver*		m_pObserver;		///< observer
+    CCounterObserver*		m_pObserver;		///< Observer for counting
     MapStrToCounter		    m_mapStrToCounter;  ///< Hashmap for store counter pointer
 
 	// Counting parameter and result information section

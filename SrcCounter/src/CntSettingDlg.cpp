@@ -32,9 +32,9 @@ CntSettingDlg::CntSettingDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
 	wxString __wxRadioBoxChoices_1[3] = 
 	{
-		_("Code lines +1, comment lines +1"),
-		_("Code lines +1, comment lines +0"),
-		_("Code lines +0, comment lines +1")
+	_("Code lines +1, comment lines +1"),
+	_("Code lines +1, comment lines +0"),
+	_("Code lines +0, comment lines +1")
 	};
 	m_rdbCountingMethod = new wxRadioBox(this, ID_RADIOBOX1, _("When code and comment in same line, please select one counting method:"), wxDefaultPosition, wxDefaultSize, 3, __wxRadioBoxChoices_1, 1, 0, wxDefaultValidator, _T("ID_RADIOBOX1"));
 	BoxSizer1->Add(m_rdbCountingMethod, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);

@@ -41,8 +41,6 @@ protected:
     static const long ID_STATICTEXT1;
     static const long ID_CHECKLISTBOX1;
     static const long ID_CHECKBOX1;
-    static const long ID_BUTTON1;
-    static const long ID_BUTTON2;
     //*)
 
 private:

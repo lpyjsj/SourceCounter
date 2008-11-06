@@ -14,8 +14,8 @@ REM copy zip to old verison folder
 copy /Y *.zip oldversion\
 copy /Y *.7z oldversion\
 
-REM delete 7z zip files
-REM del *.7z *.zip
+delete 7z zip files
+del *.7z *.zip
 
 REM 7z a -t7z Files.7z *.txt -r
 7z a -t7z sourcecounter-2.0.11.62.7z SourceCounter\

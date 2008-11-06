@@ -28,10 +28,10 @@ class AboutDlg: public wxDialog
 		static const long ID_STATICTEXT1;
 		static const long ID_STATICTEXT2;
 		static const long ID_STATICTEXT3;
-		static const long ID_STATICTEXT4;
-		static const long ID_STATICTEXT6;
 		static const long ID_STATICTEXT5;
-		static const long ID_BUTTON1;
+		static const long ID_STATICTEXT6;
+		static const long ID_STATICTEXT4;
+		static const long ID_STATICBITMAP3;
 		//*)
 
 	protected:
@@ -54,6 +54,7 @@ class AboutDlg: public wxDialog
 		wxBoxSizer* BoxSizer1;
 		wxBoxSizer* BoxSizer3;
 		wxStaticText* StaticText4;
+		wxStaticBitmap* StaticBitmap3;
 		//*)
 
 	private:

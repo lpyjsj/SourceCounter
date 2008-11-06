@@ -203,6 +203,7 @@
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT11" variable="m_lblTotalFiles" member="yes">
 									<label>0</label>
+									<fg>wxSYS_COLOUR_ACTIVECAPTION</fg>
 									<style>wxSUNKEN_BORDER</style>
 								</object>
 								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -220,6 +221,7 @@
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT4" variable="m_lblCodeLines" member="yes">
 									<label>0</label>
+									<fg>wxSYS_COLOUR_ACTIVECAPTION</fg>
 									<style>wxSUNKEN_BORDER</style>
 								</object>
 								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -243,6 +245,7 @@
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT14" variable="m_lblTotalSize" member="yes">
 									<label>0</label>
+									<fg>wxSYS_COLOUR_ACTIVECAPTION</fg>
 									<style>wxSUNKEN_BORDER</style>
 								</object>
 								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -260,6 +263,7 @@
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT6" variable="m_lblCommentLines" member="yes">
 									<label>0</label>
+									<fg>wxSYS_COLOUR_ACTIVECAPTION</fg>
 									<style>wxSUNKEN_BORDER</style>
 								</object>
 								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -283,6 +287,7 @@
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT15" variable="m_lblTotalLines" member="yes">
 									<label>0</label>
+									<fg>wxSYS_COLOUR_ACTIVECAPTION</fg>
 									<style>wxSUNKEN_BORDER</style>
 								</object>
 								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -300,6 +305,7 @@
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT8" variable="m_lblBlankLines" member="yes">
 									<label>0</label>
+									<fg>wxSYS_COLOUR_ACTIVECAPTION</fg>
 									<style>wxSUNKEN_BORDER</style>
 								</object>
 								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -323,7 +329,7 @@
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT10" variable="m_lblStatus" member="yes">
 									<label>Ready.</label>
-									<fg>wxSYS_COLOUR_HIGHLIGHT</fg>
+									<fg>wxSYS_COLOUR_ACTIVECAPTION</fg>
 									<bg>wxSYS_COLOUR_INFOBK</bg>
 								</object>
 								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -374,7 +380,7 @@
 						<border>5</border>
 					</object>
 					<object class="sizeritem">
-						<object class="wxButton" name="ID_BUTTON1" variable="Button1" member="yes">
+						<object class="wxButton" name="wxID_ABOUT" variable="Button1" member="yes">
 							<label>A&amp;bout...</label>
 							<handler function="OnAbout" entry="EVT_BUTTON" />
 						</object>
@@ -382,7 +388,7 @@
 						<border>4</border>
 					</object>
 					<object class="sizeritem">
-						<object class="wxButton" name="ID_BUTTON2" variable="Button2" member="yes">
+						<object class="wxButton" name="wxID_EXIT" variable="Button2" member="yes">
 							<label>&amp;Quit</label>
 							<handler function="OnQuit" entry="EVT_BUTTON" />
 						</object>
