@@ -31,12 +31,7 @@ PascalCounter::~PascalCounter()
 
 void PascalCounter::countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
 {
-    // get file size
-//	nSize = file.Len();
-
-    //////////////////////////////////////////////////////////////////////////
-
-    BOOL bHasSettedCommentFlag	= FALSE;	//œA•Ë˜Î—RŽÄ‰Š•´ šo"{"•¯TRUE, "}"•¯FALSE
+	BOOL bHasSettedCommentFlag	= FALSE;	//œA•Ë˜Î—RŽÄ‰Š•´ šo"{"•¯TRUE, "}"•¯FALSE
     BOOL bHasSettedQuatoFlag	= FALSE;	//œuŒ›Š¬—RŽÄ‰Š•´ •ÕŠÌ™¹˜Îšo“ä•ûŒô"•¯TRUE, ˜a™¹˜Îšo“ä•ûŒô"•¯FALSE
 
     wxString bufCurLine;
@@ -140,11 +135,6 @@ void PascalCounter::countingSourceFile( wxTextFile& file, int& nLines, int& nCod
             nCommentLines++;
             continue;
         }
-
-        //////////////////////////////////////////////////////////////////////////
-
-
-        //////////////////////////////////////////////////////////////////////////
-
-    }// End for
+    	
+	}// End for
 }
