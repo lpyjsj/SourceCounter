@@ -1,3 +1,11 @@
+/**
+ * $Author: $
+ * $Date: $
+ * $Revision: $
+ * $ID: $*
+ */
+
+
 #ifndef COUNTER_H
 #define COUNTER_H
 
