@@ -3,8 +3,10 @@
  * @brief implementation of the PascalCounter class.
  * @author Boom( boomworks@hotmail.com )
  * @author Copyright(C) 2004-2005 BoomWorks.Net , All right reserved.
- * @date 2005-12-10
+ * $Author: $
+ * $Date: $
  * $Revision: $
+ * $ID: $
  */
 
 #include <wx/textfile.h>
