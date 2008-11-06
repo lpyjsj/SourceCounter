@@ -2,31 +2,31 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="BasCounter.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="859" topLine="28" />
+		<Cursor position="408" topLine="27" />
 	</File>
 	<File name="BasCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="844" topLine="35" />
 	</File>
 	<File name="CntSettingDlg.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="3028" topLine="68" />
+		<Cursor position="2453" topLine="0" />
 	</File>
 	<File name="CntSettingDlg.h" open="0" top="0" tabpos="2">
 		<Cursor position="722" topLine="6" />
 	</File>
 	<File name="Counter.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="60" topLine="9" />
+		<Cursor position="42" topLine="0" />
 	</File>
 	<File name="Counter.h" open="0" top="0" tabpos="13">
-		<Cursor position="1126" topLine="42" />
+		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="CounterObserver.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="241" topLine="0" />
+		<Cursor position="398" topLine="0" />
 	</File>
 	<File name="CounterObserver.h" open="0" top="0" tabpos="5">
-		<Cursor position="513" topLine="0" />
+		<Cursor position="428" topLine="0" />
 	</File>
 	<File name="CountingFileInfo.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="878" topLine="12" />
+		<Cursor position="247" topLine="0" />
 	</File>
 	<File name="CountingFileInfo.h" open="0" top="0" tabpos="5">
 		<Cursor position="1635" topLine="48" />
@@ -38,10 +38,10 @@
 		<Cursor position="2867" topLine="44" />
 	</File>
 	<File name="CountingManager.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="11340" topLine="288" />
+		<Cursor position="2588" topLine="117" />
 	</File>
 	<File name="CountingManager.h" open="0" top="0" tabpos="3">
-		<Cursor position="4486" topLine="57" />
+		<Cursor position="1174" topLine="14" />
 	</File>
 	<File name="CountingParam.cpp" open="0" top="0" tabpos="12">
 		<Cursor position="852" topLine="19" />
@@ -49,38 +49,35 @@
 	<File name="CountingParam.h" open="0" top="0" tabpos="3">
 		<Cursor position="1832" topLine="80" />
 	</File>
-	<File name="CppCounter.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="736" topLine="18" />
+	<File name="CppCounter.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="642" topLine="36" />
 	</File>
 	<File name="CppCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="980" topLine="44" />
 	</File>
-	<File name="JspCounter.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="533" topLine="17" />
-	</File>
 	<File name="JspCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="503" topLine="12" />
 	</File>
-	<File name="PasCounter.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="827" topLine="85" />
+	<File name="PasCounter.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="1707" topLine="21" />
 	</File>
 	<File name="PasCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="843" topLine="28" />
 	</File>
 	<File name="SourceCounterApp.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="1003" topLine="21" />
+		<Cursor position="630" topLine="17" />
 	</File>
 	<File name="SourceCounterApp.h" open="0" top="0" tabpos="14">
-		<Cursor position="411" topLine="4" />
+		<Cursor position="476" topLine="0" />
 	</File>
 	<File name="SourceCounterMain.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="27958" topLine="618" />
+		<Cursor position="819" topLine="23" />
 	</File>
 	<File name="SourceCounterMain.h" open="0" top="0" tabpos="2">
-		<Cursor position="4759" topLine="115" />
+		<Cursor position="4345" topLine="116" />
 	</File>
-	<File name="SrcTypeSelDlg.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="4347" topLine="127" />
+	<File name="SrcTypeSelDlg.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="4352" topLine="125" />
 	</File>
 	<File name="SrcTypeSelDlg.h" open="0" top="0" tabpos="2">
 		<Cursor position="1054" topLine="30" />
@@ -98,10 +95,10 @@
 		<Cursor position="154" topLine="12" />
 	</File>
 	<File name="chooselang.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="3729" topLine="89" />
+		<Cursor position="1749" topLine="59" />
 	</File>
 	<File name="chooselang.h" open="0" top="0" tabpos="4">
-		<Cursor position="1527" topLine="26" />
+		<Cursor position="1309" topLine="15" />
 	</File>
 	<File name="resource.rc" open="0" top="0" tabpos="0">
 		<Cursor position="23" topLine="0" />

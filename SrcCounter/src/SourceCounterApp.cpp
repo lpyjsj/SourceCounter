@@ -21,16 +21,16 @@ IMPLEMENT_APP(SourceCounterApp);
 
 bool SourceCounterApp::OnInit()
 {
-    ///////////////////////////////////////////////////////////////////
+	this->SetVendorName(_T("BoomWorks"));
 
     //
     // Add catalog lookup path prefix
     //
-    #ifdef __WXMSW__   // Windows Only
+#ifdef __WXMSW__   // Windows Only
     // wxMSW 2.4.0 does not search the directory of the executable by default.
     // Catalog path setting
     m_locale.AddCatalogLookupPathPrefix(wxT("locales\\"));
-    #endif
+#endif
 
     // Initial locale
     m_locale.Init(GetUILanguage());
@@ -54,6 +54,6 @@ bool SourceCounterApp::OnInit()
         wxsOK = false;
     }
     //*)
-    return wxsOK;
 
+    return wxsOK;
 }

@@ -14,7 +14,6 @@
 
 class SourceCounterApp : public wxApp
 {
-
 public:
 
     // Setting default locale
@@ -24,6 +23,7 @@ public:
     virtual bool OnInit();
 
 private:
+
     wxLocale m_locale;  ///< Locale
 
 };

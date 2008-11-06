@@ -28,7 +28,6 @@ static char THIS_FILE[]=__FILE__;
 
 //////////////////////////////////////////////////////////////////////
 
-
 /* Source types number */
 const int N_COLUMN_NUM = 8;
 
@@ -45,7 +44,7 @@ const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
     _("Size"),              // 7
 };
 
-const wxChar CSZ_CSV_HEADER_FORMAT_STR[] = _T( "%s,%s,%s,%s,%s,%s,%s,%s\n" );
+const wxString CSZ_CSV_HEADER_FORMAT = _T( "%s,%s,%s,%s,%s,%s,%s,%s\n" );
 
 //////////////////////////////////////////////////////////////////////
 
@@ -65,6 +64,7 @@ CountingManager::~CountingManager()
         delete pCounter;
         pCounter = 0;
     }
+    //
     m_mapStrToCounter.clear();
 }
 
@@ -487,7 +487,7 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
     file.AddLine(_T("# *** Author: boomworks@hotmail.com *** "));
     file.AddLine(_T( "\n" ));
 
-    strText.Printf( CSZ_CSV_HEADER_FORMAT_STR, CSZ_COLUMN_NAMES[2], CSZ_COLUMN_NAMES[0], CSZ_COLUMN_NAMES[1],
+    strText.Printf( CSZ_CSV_HEADER_FORMAT, CSZ_COLUMN_NAMES[2], CSZ_COLUMN_NAMES[0], CSZ_COLUMN_NAMES[1],
                     CSZ_COLUMN_NAMES[3], CSZ_COLUMN_NAMES[4], CSZ_COLUMN_NAMES[5], CSZ_COLUMN_NAMES[6],
                     CSZ_COLUMN_NAMES[7] );
     file.AddLine( strText );
