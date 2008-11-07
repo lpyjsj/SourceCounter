@@ -35,8 +35,6 @@ const wxString SZ_STATUS[] =
     _("Canceled."),
 };
 
-// const wxChar CSZ_CSV_FORMAT_STR[] = _T( "%s,%s,%s,%d,%d,%d,%d\n" );
-
 ///////////////////////////////////////////////////////////////////////
 
 //(*IdInit(SourceCounterDialog)
@@ -100,7 +98,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
     wxMenuItem* m_menuItemOpenDir;
-
+    
     Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
@@ -223,7 +221,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-
+    
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,(wxObjectEventFunction)&SourceCounterDialog::OnLbxSrcFolderCheck);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnAddDirClick);
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnDeleteClick);
@@ -527,7 +525,16 @@ void SourceCounterDialog::initCountingCtrls()
 {
     // Delete all listctrl items, if exist.
     m_lstResult->DeleteAllItems();
+
     // Initial labels
+	wxString strTemp(_T("0"));
+    m_lblTotalFiles->SetLabel(strTemp);
+    m_lblTotalSize->SetLabel(strTemp);
+    m_lblTotalLines->SetLabel(strTemp);
+    m_lblCodeLines->SetLabel(strTemp);
+    m_lblCommentLines->SetLabel(strTemp);
+    m_lblBlankLines->SetLabel(strTemp);
+
     m_lblStatus->SetLabel(SZ_STATUS[0]); // Ready
 }
 

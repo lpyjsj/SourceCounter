@@ -49,7 +49,7 @@
 	<File name="CountingParam.h" open="0" top="0" tabpos="3">
 		<Cursor position="1832" topLine="80" />
 	</File>
-	<File name="CppCounter.cpp" open="1" top="0" tabpos="1">
+	<File name="CppCounter.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="642" topLine="36" />
 	</File>
 	<File name="CppCounter.h" open="0" top="0" tabpos="0">
@@ -58,7 +58,7 @@
 	<File name="JspCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="503" topLine="12" />
 	</File>
-	<File name="PasCounter.cpp" open="1" top="0" tabpos="2">
+	<File name="PasCounter.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="1707" topLine="21" />
 	</File>
 	<File name="PasCounter.h" open="0" top="0" tabpos="0">
@@ -71,13 +71,13 @@
 		<Cursor position="476" topLine="0" />
 	</File>
 	<File name="SourceCounterMain.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="819" topLine="23" />
+		<Cursor position="23721" topLine="540" />
 	</File>
 	<File name="SourceCounterMain.h" open="0" top="0" tabpos="2">
 		<Cursor position="4345" topLine="116" />
 	</File>
-	<File name="SrcTypeSelDlg.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="4352" topLine="125" />
+	<File name="SrcTypeSelDlg.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="4146" topLine="113" />
 	</File>
 	<File name="SrcTypeSelDlg.h" open="0" top="0" tabpos="2">
 		<Cursor position="1054" topLine="30" />
