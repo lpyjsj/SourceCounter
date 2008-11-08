@@ -7,13 +7,13 @@
 	#include <wx/stattext.h>
 	#include <wx/radiobox.h>
 	#include <wx/textctrl.h>
-	#include <wx/listbox.h>
 	#include <wx/button.h>
 	#include <wx/dialog.h>
 	#include <wx/combobox.h>
 	//*)
 #endif
 //(*Headers(CntSettingDlg)
+#include <wx/spinctrl.h>
 //*)
 
 #include "CountingParam.h"
@@ -28,15 +28,13 @@ class CntSettingDlg: public wxDialog
 		//(*Declarations(CntSettingDlg)
 		wxStaticText* StaticText2;
 		wxButton* Button1;
-		wxStaticText* StaticText1;
 		wxStaticText* StaticText3;
+		wxComboBox* m_cmbLinesPerMM;
 		wxButton* Button2;
-		wxTextCtrl* TextCtrl2;
-		wxComboBox* ComboBox1;
-		wxTextCtrl* TextCtrl1;
+		wxTextCtrl* m_txtCost;
 		wxStaticText* StaticText4;
 		wxRadioBox* m_rdbCountingMethod;
-		wxListBox* ListBox1;
+		wxSpinCtrl* m_spinDays;
 		//*)
 
         ///////////////////////////////////////////////////////////////
@@ -47,12 +45,10 @@ class CntSettingDlg: public wxDialog
 
 		//(*Identifiers(CntSettingDlg)
 		static const long ID_RADIOBOX1;
-		static const long ID_STATICTEXT1;
-		static const long ID_LISTBOX1;
 		static const long ID_STATICTEXT2;
 		static const long ID_COMBOBOX1;
 		static const long ID_STATICTEXT3;
-		static const long ID_TEXTCTRL2;
+		static const long ID_SPINCTRL1;
 		static const long ID_STATICTEXT4;
 		static const long ID_TEXTCTRL1;
 		//*)

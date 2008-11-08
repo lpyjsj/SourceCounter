@@ -51,6 +51,16 @@ void Counter::Counting(CountingFileInfo* countingFileInfo, CountingParam& counti
     countingFileInfo->m_nCommentStatement	= nCommentLines;
     countingFileInfo->m_nBlankStatement		= nBlankLines;
 
+    ///////////////////////////////////////////////////////////////////
+
+	//      (CostMM/Man-Days)*
+	// Man-Day = nCodeLines / (LinesPerMM / Man-DaysPerMM)
+	countingFileInfo->m_nManDay 	= 1.0 * nCodeLines * countingParam.m_settingParam.m_nDaysPerMM /
+			(countingParam.m_settingParam.m_nLinesPerMM * 1.0);
+
+	countingFileInfo->m_nCost 		= 1.0 * nCodeLines *
+			( 1.0 * countingParam.m_settingParam.m_nCostPerMM / (1.0 * countingParam.m_settingParam.m_nLinesPerMM));
+
     // Close
     txtFile.Close();
 }

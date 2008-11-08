@@ -54,6 +54,9 @@ public:
 	int			m_nCodeStatement;		///< current counting file code statement
 	int			m_nCommentStatement;	///< current counting file comment statement
 	int			m_nBlankStatement;		///< current counting file blank statement
+
+	float		m_nManDay;		///< Source code man-days
+	float		m_nCost;		///< Cost of source code
 };
 
 inline void CountingFileInfo::Clear()
@@ -69,6 +72,9 @@ inline void CountingFileInfo::Clear()
 	m_nCodeStatement		= 0;
 	m_nCommentStatement		= 0;
 	m_nBlankStatement		= 0;
+
+	m_nManDay	= 0.0;
+	m_nCost		= 0.0;
 }
 
 

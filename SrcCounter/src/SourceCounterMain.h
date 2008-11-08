@@ -79,10 +79,14 @@ private:
     static const long ID_STATICTEXT14;
     static const long ID_STATICTEXT13;
     static const long ID_STATICTEXT6;
-    static const long ID_STATICTEXT7;
-    static const long ID_STATICTEXT15;
+    static const long ID_STATICTEXT18;
+    static const long ID_STATICTEXT20;
     static const long ID_STATICTEXT16;
     static const long ID_STATICTEXT8;
+    static const long ID_STATICTEXT19;
+    static const long ID_STATICTEXT17;
+    static const long ID_STATICTEXT7;
+    static const long ID_STATICTEXT15;
     static const long ID_STATICTEXT9;
     static const long ID_STATICTEXT10;
     static const long ID_BUTTON7;
@@ -101,6 +105,8 @@ private:
     wxDirDialog* m_dlgAddDir;
     wxButton* Button1;
     wxButton* m_btnDelete;
+    wxStaticText* StaticText6;
+    wxStaticText* StaticText8;
     wxButton* m_btnStart;
     wxButton* m_btnSave;
     wxStaticText* m_lblStatus;
@@ -115,8 +121,10 @@ private:
     wxButton* m_btnCheckUpdate;
     wxStaticText* StaticText5;
     wxStaticText* StaticText7;
+    wxStaticText* m_lblTotalCost;
     wxButton* m_btnStop;
     wxFileDialog* m_dlgFile;
+    wxStaticText* m_lblTotalMM;
     wxBoxSizer* BoxSizer1;
     wxStaticText* StaticText12;
     wxMenu m_pMenu;

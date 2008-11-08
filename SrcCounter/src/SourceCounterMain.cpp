@@ -58,10 +58,14 @@ const long SourceCounterDialog::ID_STATICTEXT5 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT14 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT13 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT6 = wxNewId();
-const long SourceCounterDialog::ID_STATICTEXT7 = wxNewId();
-const long SourceCounterDialog::ID_STATICTEXT15 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT18 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT20 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT16 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT8 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT19 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT17 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT7 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT15 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT9 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT10 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON7 = wxNewId();
@@ -92,13 +96,14 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxBoxSizer* BoxSizer13;
     wxBoxSizer* BoxSizer2;
     wxBoxSizer* BoxSizer11;
+    wxBoxSizer* BoxSizer16;
     wxBoxSizer* BoxSizer12;
     wxBoxSizer* BoxSizer14;
     wxBoxSizer* BoxSizer9;
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
     wxMenuItem* m_menuItemOpenDir;
-    
+
     Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
@@ -176,17 +181,29 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer8->Add(m_lblCommentLines, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer2->Add(BoxSizer8, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer9 = new wxBoxSizer(wxHORIZONTAL);
-    StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Total lines"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT7"));
-    BoxSizer9->Add(StaticText7, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    m_lblTotalLines = new wxStaticText(this, ID_STATICTEXT15, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT15"));
-    m_lblTotalLines->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-    BoxSizer9->Add(m_lblTotalLines, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText6 = new wxStaticText(this, ID_STATICTEXT18, _("Total man-month"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT18"));
+    BoxSizer9->Add(StaticText6, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lblTotalMM = new wxStaticText(this, ID_STATICTEXT20, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT20"));
+    m_lblTotalMM->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
+    BoxSizer9->Add(m_lblTotalMM, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticText16 = new wxStaticText(this, ID_STATICTEXT16, _("Blank lines"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT16"));
     BoxSizer9->Add(StaticText16, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_lblBlankLines = new wxStaticText(this, ID_STATICTEXT8, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT8"));
     m_lblBlankLines->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
     BoxSizer9->Add(m_lblBlankLines, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer2->Add(BoxSizer9, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer16 = new wxBoxSizer(wxHORIZONTAL);
+    StaticText8 = new wxStaticText(this, ID_STATICTEXT19, _("Total cost"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT19"));
+    BoxSizer16->Add(StaticText8, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lblTotalCost = new wxStaticText(this, ID_STATICTEXT17, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT17"));
+    m_lblTotalCost->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
+    BoxSizer16->Add(m_lblTotalCost, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Total lines"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT7"));
+    BoxSizer16->Add(StaticText7, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lblTotalLines = new wxStaticText(this, ID_STATICTEXT15, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT15"));
+    m_lblTotalLines->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
+    BoxSizer16->Add(m_lblTotalLines, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticBoxSizer2->Add(BoxSizer16, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer10 = new wxBoxSizer(wxHORIZONTAL);
     StaticText9 = new wxStaticText(this, ID_STATICTEXT9, _("Counting status"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT9"));
     BoxSizer10->Add(StaticText9, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -221,7 +238,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,(wxObjectEventFunction)&SourceCounterDialog::OnLbxSrcFolderCheck);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnAddDirClick);
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnDeleteClick);
@@ -275,25 +292,22 @@ void SourceCounterDialog::OnAbout(wxCommandEvent& event)
 
 void SourceCounterDialog::OnBtnMoreSettingsClick(wxCommandEvent& event)
 {
-    CntSettingDlg dlg(this);
-    // SettingParam* pParam = m_countingMgr->m_countingParam.m_settingParam);
     CountingParam* pCountingParam = m_countingMgr->GetCountingParam();
     SettingParam* pParam = &(pCountingParam->m_settingParam);
+
+    CntSettingDlg dlg(this);
     dlg.SetSettingParam(pParam);
 
     if (wxID_OK == dlg.ShowModal())
     {
-        SettingParam param;
-        dlg.GetSettingParam(param);
-
-        pParam->m_nCountingMethodType = param.m_nCountingMethodType;
+        dlg.GetSettingParam(pCountingParam->m_settingParam);
     }
 }
 
 void SourceCounterDialog::OnBtnAddDirClick(wxCommandEvent& event)
 {
-    try
-    {
+//    try
+//    {
         if ( wxID_OK == m_dlgAddDir->ShowModal())
         {
             //
@@ -301,11 +315,11 @@ void SourceCounterDialog::OnBtnAddDirClick(wxCommandEvent& event)
             int nIndex = m_lbxSrcFolder->Append(strPath);
             m_lbxSrcFolder->Check(nIndex, true);
         }
-    }
-    catch (...)
-    {
-        wxMessageBox(_T("Unknown error!"));
-    }
+//    }
+//    catch (...)
+//    {
+//        wxMessageBox(_T("Unknown error!"));
+//    }
 }
 
 void SourceCounterDialog::OnBtnDeleteClick(wxCommandEvent& event)
@@ -452,15 +466,15 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
 
     m_lblStatus->SetLabel(SZ_STATUS[1]); // Counting
 
-    try
-    {
+//    try
+//    {
         // Start counting
         m_countingMgr->StartCounting();
-    }
-    catch (...)
-    {
-        wxMessageBox(_T("Unknown error occured! Please start counting again."));
-    }
+//    }
+//    catch (...)
+//    {
+//        wxMessageBox(_T("Unknown error occured! Please start counting again."));
+//    }
 
     // Reset cursor
     wxCursor cursor2(wxCURSOR_ARROW);
@@ -534,6 +548,8 @@ void SourceCounterDialog::initCountingCtrls()
     m_lblCodeLines->SetLabel(strTemp);
     m_lblCommentLines->SetLabel(strTemp);
     m_lblBlankLines->SetLabel(strTemp);
+    m_lblTotalMM->SetLabel(strTemp);
+    m_lblTotalCost->SetLabel(strTemp);
 
     m_lblStatus->SetLabel(SZ_STATUS[0]); // Ready
 }
@@ -568,8 +584,20 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
     strTemp.Printf(_T("%d"), pCountingFileInfo->m_nSize);
     m_lstResult->SetItem(nIndex, 7, strTemp);
 
+	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_nManDay);
+	m_lstResult->SetItem(nIndex, 8, strTemp);
+
+	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_nCost);
+	m_lstResult->SetItem(nIndex, 9, strTemp);
+
+	// Set data to item
     m_lstResult->SetItemData(nIndex, (long)pCountingFileInfo);
-    m_lstResult->EnsureVisible(nIndex);
+
+	// Ensure visible
+	if (nIndex % 3 == 0)
+		m_lstResult->EnsureVisible(nIndex);
+
+	///////////////////////////////////////////////////////////////////
 
     // Update labels
     strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalFile);
@@ -590,10 +618,16 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
     strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalBlankStatement);
     m_lblBlankLines->SetLabel(strTemp);
 
+	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalManMonth);
+	m_lblTotalMM->SetLabel(strTemp);
+
+	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalCost);
+	m_lblTotalCost->SetLabel(strTemp);
+
 //    wxMessageBox(pCountingFileInfo->m_strFileFullPath);
 //    wxMessageBox(pCountingFileInfo->m_strFileName);
-    if (nIndex % 11 == 0)
-        m_lblStatus->SetLabel(pCountingFileInfo->m_strFileFullPath);
+//    if (nIndex % 11 == 0)
+	m_lblStatus->SetLabel(pCountingFileInfo->m_strFileFullPath);
 
 }
 
@@ -611,7 +645,6 @@ void SourceCounterDialog::OnBtnStopClick(wxCommandEvent& event)
 {
     m_countingMgr->StopCounting();
 }
-
 
 void SourceCounterDialog::OnBtnSaveClick(wxCommandEvent& event)
 {
@@ -638,14 +671,14 @@ void SourceCounterDialog::OnBtnUiLangClick(wxCommandEvent& event)
 
 void SourceCounterDialog::OnBtnCheckUpdateClick(wxCommandEvent& event)
 {
-    try
-    {
+//    try
+//    {
         wxLaunchDefaultBrowser(_T("http://down.boomworks.net/"), wxBROWSER_NEW_WINDOW);
-    }
-    catch (...)
-    {
-        wxMessageBox(_T("Unknown error occured!"));
-    }
+//    }
+//    catch (...)
+//    {
+//        wxMessageBox(_T("Unknown error occured!"));
+//    }
 
 }
 

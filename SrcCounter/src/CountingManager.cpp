@@ -29,7 +29,7 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 
 /* Source types number */
-const int N_COLUMN_NUM = 8;
+const int N_COLUMN_NUM = 10;
 
 /* Source type */
 const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
@@ -42,9 +42,11 @@ const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
     _("Comment lines"),     // 5
     _("Blank lines"),       // 6
     _("Size"),              // 7
+    _("Man-Day"),			// 8
+    _("Cost")				// 9
 };
 
-const wxString CSZ_CSV_HEADER_FORMAT = _T( "%s,%s,%s,%s,%s,%s,%s,%s\n" );
+const wxString CSZ_CSV_HEADER_FORMAT = _T( "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" );
 
 //////////////////////////////////////////////////////////////////////
 
@@ -376,6 +378,9 @@ void CountingManager::StartCounting()
                 m_countingInfo.m_nTotalCommentStatement		+= pCountingFileInfoCur->m_nCommentStatement;
                 m_countingInfo.m_nTotalBlankStatement	    += pCountingFileInfoCur->m_nBlankStatement;
 
+                m_countingInfo.m_fTotalManMonth				+= (float)pCountingFileInfoCur->m_nManDay / (float)m_countingParam.m_settingParam.m_nDaysPerMM;
+                m_countingInfo.m_fTotalCost					+= (float)pCountingFileInfoCur->m_nCost;
+
                 ///////////////////////////////////////////////////////
 
                 // Notify UI to update counting info
@@ -489,7 +494,7 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
 
     strText.Printf( CSZ_CSV_HEADER_FORMAT, CSZ_COLUMN_NAMES[2], CSZ_COLUMN_NAMES[0], CSZ_COLUMN_NAMES[1],
                     CSZ_COLUMN_NAMES[3], CSZ_COLUMN_NAMES[4], CSZ_COLUMN_NAMES[5], CSZ_COLUMN_NAMES[6],
-                    CSZ_COLUMN_NAMES[7] );
+                    CSZ_COLUMN_NAMES[7], CSZ_COLUMN_NAMES[8], CSZ_COLUMN_NAMES[9] );
     file.AddLine( strText );
 
     ///////////////////////////////////////////////////////////////////
@@ -511,37 +516,47 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
         strText = pFileInfo->m_strFolderPath +_T(",")+  pFileInfo->m_strFileName +_T(",")+ pFileInfo->m_strFileExtName;
 
         strTemp.Empty();
-        strTemp.Printf(_T(",%d,%d,%d,%d,%d"), pFileInfo->m_nTotalStatement, pFileInfo->m_nCodeStatement, pFileInfo->m_nCommentStatement, pFileInfo->m_nBlankStatement, pFileInfo->m_nSize);
+        strTemp.Printf(_T(",%d,%d,%d,%d,%d,%2.2f,%2.2f"), pFileInfo->m_nTotalStatement, pFileInfo->m_nCodeStatement,
+					pFileInfo->m_nCommentStatement, pFileInfo->m_nBlankStatement, pFileInfo->m_nSize,
+					pFileInfo->m_nManDay, pFileInfo->m_nCost);
+
 //        strText.Printf( CSZ_CSV_FORMAT_STR,
 //                        pFileInfo->m_strFileName, pFileInfo->m_strFileExtName, pFileInfo->m_strFolderPath,
 //                        pFileInfo->m_nTotalStatement, pFileInfo->m_nCodeStatement, pFileInfo->m_nCommentStatement,
 //                        pFileInfo->m_nBlankStatement
 //                      );
+
         file.AddLine( strText+strTemp );
     }
 
     file.AddLine( _T( "\n" ));
     file.AddLine( _("# *** Total ***"));
 
-    wxString str1, str2;
+    wxString strTotal;
 
-    str2.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[0], m_countingInfo.m_nTotalFile);
-    file.AddLine( str2 );
+    strTotal.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[0], m_countingInfo.m_nTotalFile);
+    file.AddLine( strTotal );
 
-    str2.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[7], m_countingInfo.m_nTotalSize);
-    file.AddLine( str2 );
+    strTotal.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[7], m_countingInfo.m_nTotalSize);
+    file.AddLine( strTotal );
 
-    str2.Printf( _T( "# %s,%d,100%%" ), CSZ_COLUMN_NAMES[3], m_countingInfo.m_nTotalStatement );
-    file.AddLine( str2 );
+    strTotal.Printf( _T( "# %s,%d,100%%" ), CSZ_COLUMN_NAMES[3], m_countingInfo.m_nTotalStatement );
+    file.AddLine( strTotal );
 
-    str2.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[4], m_countingInfo.m_nTotalCodeStatement, 100. * m_countingInfo.m_nTotalCodeStatement / m_countingInfo.m_nTotalStatement );
-    file.AddLine( str2 );
+    strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[4], m_countingInfo.m_nTotalCodeStatement, 100. * m_countingInfo.m_nTotalCodeStatement / m_countingInfo.m_nTotalStatement );
+    file.AddLine( strTotal );
 
-    str2.Printf( _T( "# %s,%d,%.1f%%" ), CSZ_COLUMN_NAMES[5], m_countingInfo.m_nTotalCommentStatement, 100. * m_countingInfo.m_nTotalCommentStatement / m_countingInfo.m_nTotalStatement );
-    file.AddLine( str2 );
+    strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[5], m_countingInfo.m_nTotalCommentStatement, 100. * m_countingInfo.m_nTotalCommentStatement / m_countingInfo.m_nTotalStatement );
+    file.AddLine( strTotal );
 
-    str2.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[6], m_countingInfo.m_nTotalBlankStatement, 100. * m_countingInfo.m_nTotalBlankStatement / m_countingInfo.m_nTotalStatement  );
-    file.AddLine( str2 );
+    strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[6], m_countingInfo.m_nTotalBlankStatement, 100. * m_countingInfo.m_nTotalBlankStatement / m_countingInfo.m_nTotalStatement  );
+    file.AddLine( strTotal );
+
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[8], m_countingInfo.m_fTotalManMonth);
+    file.AddLine(strTotal);
+
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[9], m_countingInfo.m_fTotalCost);
+    file.AddLine(strTotal);
 
     // save
     file.Write();

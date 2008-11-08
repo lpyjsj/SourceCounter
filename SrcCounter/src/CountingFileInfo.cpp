@@ -28,7 +28,9 @@ CountingFileInfo::CountingFileInfo() :
         m_nTotalStatement	( 0 ),
         m_nCodeStatement	( 0 ),
         m_nCommentStatement	( 0 ),
-        m_nBlankStatement	( 0 )
+        m_nBlankStatement	( 0 ),
+        m_nManDay			( 0.0 ),
+        m_nCost				( 0.0 )
 {}
 
 CountingFileInfo::CountingFileInfo(CountingFileInfo& fileInfo) :
@@ -40,7 +42,9 @@ CountingFileInfo::CountingFileInfo(CountingFileInfo& fileInfo) :
         m_nTotalStatement	(fileInfo.m_nTotalStatement),
         m_nCodeStatement	(fileInfo.m_nCodeStatement),
         m_nCommentStatement	(fileInfo.m_nCommentStatement),
-        m_nBlankStatement	(fileInfo.m_nBlankStatement)
+        m_nBlankStatement	(fileInfo.m_nBlankStatement),
+        m_nManDay			(fileInfo.m_nManDay),
+        m_nCost				(fileInfo.m_nCost)
 {}
 
 CountingFileInfo::~CountingFileInfo()

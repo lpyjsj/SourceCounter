@@ -30,10 +30,8 @@ BasicCounter::~BasicCounter()
 
 void BasicCounter::countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
 {
-	// nSize = file.Len();
 	wxString bufRead;
 
-	//while( file.ReadString( bufRead ))
     for ( bufRead = file.GetFirstLine(); !file.Eof(); bufRead = file.GetNextLine() )
 	{
 		nLines++;

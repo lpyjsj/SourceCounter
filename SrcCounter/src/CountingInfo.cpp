@@ -25,7 +25,9 @@ CountingInfo::CountingInfo() :
 		m_nTotalStatement( 0 ),
 		m_nTotalCodeStatement( 0 ),
 		m_nTotalCommentStatement( 0 ),
-		m_nTotalBlankStatement( 0 )
+		m_nTotalBlankStatement( 0 ),
+		m_fTotalManMonth(0.0),
+		m_fTotalCost(0.0)
 {}
 
 CountingInfo::~CountingInfo()
@@ -59,6 +61,9 @@ void CountingInfo::Clear()
     m_nTotalCodeStatement		= 0;
     m_nTotalCommentStatement	= 0;
     m_nTotalBlankStatement		= 0;
+
+    m_fTotalManMonth		= 0.0;
+    m_fTotalCost			= 0.0;
 
 	// Clear fileinfo array
 	clearArrCountingFileInfo();

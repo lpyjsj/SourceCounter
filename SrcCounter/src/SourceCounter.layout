@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="BasCounter.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="408" topLine="27" />
+		<Cursor position="948" topLine="27" />
 	</File>
 	<File name="BasCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="844" topLine="35" />
@@ -13,8 +13,8 @@
 	<File name="CntSettingDlg.h" open="0" top="0" tabpos="2">
 		<Cursor position="722" topLine="6" />
 	</File>
-	<File name="Counter.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="42" topLine="0" />
+	<File name="Counter.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="1791" topLine="30" />
 	</File>
 	<File name="Counter.h" open="0" top="0" tabpos="13">
 		<Cursor position="0" topLine="0" />
@@ -32,13 +32,13 @@
 		<Cursor position="1635" topLine="48" />
 	</File>
 	<File name="CountingInfo.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="785" topLine="24" />
+		<Cursor position="1498" topLine="28" />
 	</File>
 	<File name="CountingInfo.h" open="0" top="0" tabpos="9">
-		<Cursor position="2867" topLine="44" />
+		<Cursor position="3177" topLine="63" />
 	</File>
 	<File name="CountingManager.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="2588" topLine="117" />
+		<Cursor position="19044" topLine="516" />
 	</File>
 	<File name="CountingManager.h" open="0" top="0" tabpos="3">
 		<Cursor position="1174" topLine="14" />
@@ -65,13 +65,13 @@
 		<Cursor position="843" topLine="28" />
 	</File>
 	<File name="SourceCounterApp.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="630" topLine="17" />
+		<Cursor position="630" topLine="21" />
 	</File>
 	<File name="SourceCounterApp.h" open="0" top="0" tabpos="14">
 		<Cursor position="476" topLine="0" />
 	</File>
-	<File name="SourceCounterMain.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="23721" topLine="540" />
+	<File name="SourceCounterMain.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="28825" topLine="578" />
 	</File>
 	<File name="SourceCounterMain.h" open="0" top="0" tabpos="2">
 		<Cursor position="4345" topLine="116" />
@@ -104,7 +104,7 @@
 		<Cursor position="23" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="1">
-		<Cursor position="343" topLine="0" />
+		<Cursor position="246" topLine="0" />
 	</File>
 	<File name="wx_pch.h" open="0" top="0" tabpos="19">
 		<Cursor position="279" topLine="0" />

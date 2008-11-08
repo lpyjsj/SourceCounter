@@ -19,10 +19,11 @@ static char THIS_FILE[]=__FILE__;
 ///////////////////////////////////////////////////////////////////////
 
 SettingParam::SettingParam():
-            m_nCountingMethodType(0)
+            m_nCountingMethodType(0),
+            m_nLinesPerMM(4000),
+            m_nDaysPerMM(20),
+            m_nCostPerMM(10000)
 {
-    //
-
 }
 
 SettingParam::~SettingParam()

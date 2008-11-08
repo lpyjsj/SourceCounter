@@ -54,6 +54,9 @@ public:
     int			m_nTotalCommentStatement;	///< total of comment statement
     int			m_nTotalBlankStatement;		///< total of blank of statement
 
+    float		m_fTotalManMonth;
+    float		m_fTotalCost;
+
     ///////////////////////////////////////////////////////////////////
 
     /**
@@ -80,6 +83,10 @@ private:
     void clearArrCountingFileInfo();
 };
 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
 // TODO: implement operator =
 inline CountingInfo& CountingInfo::operator =( CountingInfo& srcInfo)
 {
@@ -91,6 +98,9 @@ inline CountingInfo& CountingInfo::operator =( CountingInfo& srcInfo)
     m_nTotalCodeStatement		= srcInfo.m_nTotalCodeStatement;
     m_nTotalCommentStatement	= srcInfo.m_nTotalCommentStatement;
     m_nTotalBlankStatement		= srcInfo.m_nTotalBlankStatement;
+
+    m_fTotalManMonth		= srcInfo.m_fTotalManMonth;
+    m_fTotalCost			= srcInfo.m_fTotalCost;
 
     return *this;
 }

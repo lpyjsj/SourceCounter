@@ -30,8 +30,8 @@ class AboutDlg: public wxDialog
 		static const long ID_STATICTEXT3;
 		static const long ID_STATICTEXT5;
 		static const long ID_STATICTEXT6;
-		static const long ID_STATICBITMAP3;
 		static const long ID_STATICTEXT4;
+		static const long ID_STATICBITMAP3;
 		//*)
 
 	protected:
