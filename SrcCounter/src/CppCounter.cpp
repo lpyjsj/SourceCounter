@@ -93,7 +93,7 @@ void CppCounter::countingSourceFile(wxTextFile& file, int& nLines, int& nCodeLin
             continue;
         }
 
-        BOOL bDoubleSplashFound = FALSE;
+        BOOL bDoubleSlashFound = FALSE;
         BOOL bSplashStarFound = FALSE;
 
         for (unsigned int i=0; i<bufRead.Len()-1; i++)
@@ -107,7 +107,7 @@ void CppCounter::countingSourceFile(wxTextFile& file, int& nLines, int& nCodeLin
                     bStatedComment = TRUE;
                     nCommentLines++;
                 }
-                bDoubleSplashFound = TRUE;
+                bDoubleSlashFound = TRUE;
                 //i++;//šEŒÁ+1E‹J™°’Zšo•°’SšbŠ¤
                 break;
             }
@@ -163,7 +163,7 @@ void CppCounter::countingSourceFile(wxTextFile& file, int& nLines, int& nCodeLin
             }
         }
 
-        if ( bDoubleSplashFound )
+        if ( bDoubleSlashFound )
         {
             if ( m_nLineCountingType == NStatisticCommentOnly && bStatedCode ) //”å›—RŽÄŒ\ŒG—¨‹y”û›ÔE”q—K•¯šoŠø‘é˜Îš‹œA•Ë˜ÎEšð›¹ŽÄœA•Ë˜Î
             {

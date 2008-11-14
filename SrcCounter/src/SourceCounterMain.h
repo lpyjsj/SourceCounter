@@ -140,7 +140,7 @@ private:
 
 private:
 
-    CountingManager* m_countingMgr;      ///< Counting manager
+    CountingManager* m_pCountingMgr;      ///< Counting manager
 
     ///////////////////////////////////////////////////////////////
 

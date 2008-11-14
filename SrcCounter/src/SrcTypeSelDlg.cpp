@@ -14,12 +14,12 @@
 
 
 /* Source types number */
-const int N_SRC_TYPE_NUM = 23;
+const int N_SRC_TYPE_NUM = 25;
 
 /* Source type */
 const wxChar* CSZ_SRC_TYPES[N_SRC_TYPE_NUM] =
 {
-    //
+    // CppCounter
     _T(".cpp"), // 1
     _T(".cxx"), // 2
     _T(".c"),
@@ -30,24 +30,33 @@ const wxChar* CSZ_SRC_TYPES[N_SRC_TYPE_NUM] =
     _T(".java"),
     _T(".cs"),
 
-    //
+    // JspCounter
     _T(".aspx"),    // 10
-    _T(".asp"), // 11
-    _T(".htm"), // 12
-    _T(".html"),
+    _T(".asp"),     // 11
+    _T(".php"),     // 12
+    _T(".php3"),    // 13
+    _T(".jsp"),		// 14
 
-    _T(".jsp"), // 14
+    // TxtCounter
+    _T(".htm"),		// 15
+    _T(".html"),	// 16
 
-    _T(".vb"),  // 15
-    _T(".bas"), // 16
+
+	// BasCounter
+    _T(".vb"),		// 17
+    _T(".bas"),		// 18
     _T(".frm"),
-    _T(".ctl"),
+    _T(".ctl"),		// 20
     _T(".cls"),
 
-    _T(".pas"), // 20
-    _T(".dfm"), // 21
-    _T(".sql"), // 22
-    _T(".txt"), // 23
+	// PasCounter
+    _T(".pas"), // 22
+    _T(".dfm"), // 23
+
+    // TODO: SqlCounter
+    _T(".sql"), // 24
+
+    _T(".txt"), // 25
 
 };
 

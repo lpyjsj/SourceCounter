@@ -81,7 +81,7 @@ BEGIN_EVENT_TABLE(SourceCounterDialog,wxDialog)
 END_EVENT_TABLE()
 
 SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
-        m_countingMgr(0)
+        m_pCountingMgr(0)
 {
     //(*Initialize(SourceCounterDialog)
     wxBoxSizer* BoxSizer4;
@@ -103,7 +103,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
     wxMenuItem* m_menuItemOpenDir;
-    
+
     Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
@@ -238,7 +238,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,(wxObjectEventFunction)&SourceCounterDialog::OnLbxSrcFolderCheck);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnAddDirClick);
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnDeleteClick);
@@ -267,18 +267,18 @@ SourceCounterDialog::~SourceCounterDialog()
     //(*Destroy(SourceCounterDialog)
     //*)
 
-    if (m_countingMgr)
+    if (m_pCountingMgr)
     {
-        delete m_countingMgr;
-        m_countingMgr = 0;
+        delete m_pCountingMgr;
+        m_pCountingMgr = 0;
     }
 }
 
 void SourceCounterDialog::OnQuit(wxCommandEvent& event)
 {
-    if (m_countingMgr->GetStatus() == NManagerStatusRunning)
+    if (m_pCountingMgr->GetStatus() == NManagerStatusRunning)
     {
-        m_countingMgr->SetStatus(NManagerStatusStop);
+        m_pCountingMgr->SetStatus(NManagerStatusStop);
     }
 
     Close();
@@ -292,7 +292,7 @@ void SourceCounterDialog::OnAbout(wxCommandEvent& event)
 
 void SourceCounterDialog::OnBtnMoreSettingsClick(wxCommandEvent& event)
 {
-    CountingParam* pCountingParam = m_countingMgr->GetCountingParam();
+    CountingParam* pCountingParam = m_pCountingMgr->GetCountingParam();
     SettingParam* pParam = &(pCountingParam->m_settingParam);
 
     CntSettingDlg dlg(this);
@@ -415,9 +415,9 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     // Prepare counting
     //
 
-    m_countingMgr->Clear();	    // Clear prev counting info
+    m_pCountingMgr->Clear();	    // Clear prev counting info
 
-    m_countingMgr->SetStatus(NManagerStatusRunning);
+    m_pCountingMgr->SetStatus(NManagerStatusRunning);
 
     // Update options ctrls and Initial counting ctrls
     updateOptionsCtrls();
@@ -451,14 +451,14 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     // TODO: countingParam.m_settingParam.m_nCountingMethodType = ;
 
     // Set counting parameter to CountingManager
-    m_countingMgr->SetCountingParam( &countingParam );
+    m_pCountingMgr->SetCountingParam( &countingParam );
 
     //
     // Start counting by call CountingManager
     //
 
     // Attach observer
-    m_countingMgr->AttachObserver(this);
+    m_pCountingMgr->AttachObserver(this);
 
     // Set wait cursor
     wxCursor cursor1(wxCURSOR_WAIT);
@@ -469,7 +469,7 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
 //    try
 //    {
         // Start counting
-        m_countingMgr->StartCounting();
+        m_pCountingMgr->StartCounting();
 //    }
 //    catch (...)
 //    {
@@ -484,7 +484,7 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     // finally
     //
 
-    switch ( m_countingMgr->GetStatus())
+    switch ( m_pCountingMgr->GetStatus())
     {
     case NManagerStatusComplete:
         m_lblStatus->SetLabel(SZ_STATUS[2]); // Completed
@@ -504,7 +504,7 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
 void SourceCounterDialog::updateOptionsCtrls()
 {
     //
-    NManagerStatus nStatus = m_countingMgr->GetStatus();
+    NManagerStatus nStatus = m_pCountingMgr->GetStatus();
 
     m_lbxSrcFolder->Enable(nStatus == NManagerStatusRunning ? false : true );
     m_btnAdd->Enable(nStatus == NManagerStatusRunning ? false : true );
@@ -557,7 +557,7 @@ void SourceCounterDialog::initCountingCtrls()
 void SourceCounterDialog::UpdateCountingInfoCtrls()
 {
 	// Get countingInfo
-	CountingInfo* pCountingInfo = m_countingMgr->GetCountingInfo();
+	CountingInfo* pCountingInfo = m_pCountingMgr->GetCountingInfo();
     CountingFileInfo* pCountingFileInfo = pCountingInfo->GetLastCountingFileInfo();
 
     //
@@ -633,17 +633,28 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
 
 void SourceCounterDialog::OnInit(wxInitDialogEvent& event)
 {
-    m_countingMgr = new CountingManager();
+	if(!m_pCountingMgr)
+		m_pCountingMgr = new CountingManager();
 
     for (int i=0; i<N_COLUMN_NUM; i++)
     {
         m_lstResult->InsertColumn(i, CSZ_COLUMN_NAMES[i]);
     }
+
+#ifdef __WXDEBUG__
+	int nIndex = m_lbxSrcFolder->Append(_T("W:\\boomworks\\SrcCounter\\testcase\\"));
+	m_lbxSrcFolder->Check(nIndex, true);
+
+	m_cmbSrcTypes->Append(_T(".php"));
+	m_cmbSrcTypes->SetValue(_T(".php"));
+
+#endif
+
 }
 
 void SourceCounterDialog::OnBtnStopClick(wxCommandEvent& event)
 {
-    m_countingMgr->StopCounting();
+    m_pCountingMgr->StopCounting();
 }
 
 void SourceCounterDialog::OnBtnSaveClick(wxCommandEvent& event)
@@ -659,7 +670,7 @@ void SourceCounterDialog::OnBtnSaveClick(wxCommandEvent& event)
     }
 
     wxString strPath = m_dlgFile->GetPath();
-    m_countingMgr->SaveCountingResultToCSV(strPath);
+    m_pCountingMgr->SaveCountingResultToCSV(strPath);
 
     wxMessageBox(SZ_STATUS[2]); // Completed
 }

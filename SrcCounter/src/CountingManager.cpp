@@ -18,7 +18,9 @@
 #include "CppCounter.h"
 #include "PasCounter.h"
 #include "BasCounter.h"
+#include "PhpCounter.h"
 #include "JspCounter.h"
+
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -119,7 +121,7 @@ Counter* CountingManager::CreateCounter(wxString strFileExtName)
     }
     else if (0 == strFileExtName.CmpNoCase(_T(".vb")) || 0 == strFileExtName.CmpNoCase(_T(".bas"))
              || 0 == strFileExtName.CmpNoCase(_T(".ctl")) || 0 == strFileExtName.CmpNoCase(_T(".cls"))
-             || 0 == strFileExtName.CmpNoCase(_T(".asp")) || 0 == strFileExtName.CmpNoCase(_T(".frm")) )
+             || 0 == strFileExtName.CmpNoCase(_T(".frm")) )
     {
         //
         it = m_mapStrToCounter.find(_T(".vb"));
@@ -134,7 +136,21 @@ Counter* CountingManager::CreateCounter(wxString strFileExtName)
             m_mapStrToCounter[_T(".vb")] = pCounter;
         }
     }
-    else if (0 == strFileExtName.CmpNoCase(_T(".jsp")))
+    else if ( 0 == strFileExtName.CmpNoCase(_T(".php")) || 0 == strFileExtName.CmpNoCase(_T(".php3")) )
+    {
+        it = m_mapStrToCounter.find(_T(".php"));
+        if (it != m_mapStrToCounter.end())
+        { // Find instance in the pCount map
+            pCounter = it->second;
+        }
+        else
+        {
+            pCounter = new PhpCounter;
+            m_mapStrToCounter[_T(".php")] = pCounter;
+        }
+    }
+    else if (0 == strFileExtName.CmpNoCase(_T(".jsp")) || 0 == strFileExtName.CmpNoCase(_T(".asp"))
+             || 0 == strFileExtName.CmpNoCase(_T(".aspx"))  )
     { // JSP Counter
         it = m_mapStrToCounter.find(_T(".jsp"));
         if (it != m_mapStrToCounter.end())
@@ -223,6 +239,23 @@ void CountingManager::addSubSrcFolder()
 
         do
         {
+            ///////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////
+            if ( m_countingStatus == NManagerStatusStop )
+            {
+                break;
+            }
+            ///////////////////////////////////////////////////////
+            MSG	msg;
+            if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
+            {
+                ::DispatchMessage( &msg );
+            }
+            ///////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////
+
             // Get first dir
             fname = ::wxFindFirstFile(strValidPath, wxDIR);
             while (!fname.IsEmpty())
@@ -235,7 +268,7 @@ void CountingManager::addSubSrcFolder()
                     break;
                 }
                 ///////////////////////////////////////////////////////
-                MSG	msg;
+
                 if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
                 {
                     ::DispatchMessage( &msg );
@@ -299,6 +332,22 @@ void CountingManager::StartCounting()
 
     for (int i = 0; i < nFolderCount; i++)
     {
+        ///////////////////////////////////////////////////////////
+
+        if ( m_countingStatus == NManagerStatusStop )
+        {
+            break;
+        }
+        ///////////////////////////////////////////////////////////
+
+        MSG	msg;
+        if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
+        {
+            ::DispatchMessage( &msg );
+        }
+
+        ///////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////////////
         // Prepare counting path
@@ -337,7 +386,6 @@ void CountingManager::StartCounting()
 
             ///////////////////////////////////////////////////////////
 
-            MSG	msg;
             if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
             {
                 ::DispatchMessage( &msg );
@@ -517,8 +565,8 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
 
         strTemp.Empty();
         strTemp.Printf(_T(",%d,%d,%d,%d,%d,%2.2f,%2.2f"), pFileInfo->m_nTotalStatement, pFileInfo->m_nCodeStatement,
-					pFileInfo->m_nCommentStatement, pFileInfo->m_nBlankStatement, pFileInfo->m_nSize,
-					pFileInfo->m_nManDay, pFileInfo->m_nCost);
+                       pFileInfo->m_nCommentStatement, pFileInfo->m_nBlankStatement, pFileInfo->m_nSize,
+                       pFileInfo->m_nManDay, pFileInfo->m_nCost);
 
 //        strText.Printf( CSZ_CSV_FORMAT_STR,
 //                        pFileInfo->m_strFileName, pFileInfo->m_strFileExtName, pFileInfo->m_strFolderPath,

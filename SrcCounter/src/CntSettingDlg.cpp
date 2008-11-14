@@ -37,9 +37,9 @@ CntSettingDlg::CntSettingDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
 	wxString __wxRadioBoxChoices_1[3] = 
 	{
-		_("Code lines +1, comment lines +1"),
-		_("Code lines +1, comment lines +0"),
-		_("Code lines +0, comment lines +1")
+	_("Code lines +1, comment lines +1"),
+	_("Code lines +1, comment lines +0"),
+	_("Code lines +0, comment lines +1")
 	};
 	m_rdbCountingMethod = new wxRadioBox(this, ID_RADIOBOX1, _("When code and comment in same line, please select one counting method"), wxDefaultPosition, wxDefaultSize, 3, __wxRadioBoxChoices_1, 1, 0, wxDefaultValidator, _T("ID_RADIOBOX1"));
 	BoxSizer1->Add(m_rdbCountingMethod, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -51,16 +51,16 @@ CntSettingDlg::CntSettingDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
 	m_cmbLinesPerMM->SetSelection( m_cmbLinesPerMM->Append(_("4000")) );
 	m_cmbLinesPerMM->Append(_("3000"));
 	m_cmbLinesPerMM->Append(_("2000"));
-	StaticBoxSizer1->Add(m_cmbLinesPerMM, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
+	StaticBoxSizer1->Add(m_cmbLinesPerMM, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("Man-days of one man-month:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT3"));
 	StaticBoxSizer1->Add(StaticText3, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	m_spinDays = new wxSpinCtrl(this, ID_SPINCTRL1, _T("20"), wxDefaultPosition, wxDefaultSize, 0, 10, 31, 20, _T("ID_SPINCTRL1"));
 	m_spinDays->SetValue(_T("20"));
-	StaticBoxSizer1->Add(m_spinDays, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
+	StaticBoxSizer1->Add(m_spinDays, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("Cost of one man-month:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT4"));
 	StaticBoxSizer1->Add(StaticText4, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	m_txtCost = new wxTextCtrl(this, ID_TEXTCTRL1, _("10000"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
-	StaticBoxSizer1->Add(m_txtCost, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
+	StaticBoxSizer1->Add(m_txtCost, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
 	Button1 = new wxButton(this, wxID_OK, _("&Ok"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_OK"));

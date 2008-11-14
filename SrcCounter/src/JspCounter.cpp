@@ -39,7 +39,6 @@ void JspCounter::countingSourceFile(
 
     //while( file.ReadString( bufCurLine ))
     for ( bufCurLine = file.GetFirstLine(); !file.Eof(); bufCurLine = file.GetNextLine() )
-
     {
         // Total lines
         nLines++;
@@ -49,8 +48,8 @@ void JspCounter::countingSourceFile(
 
         bufCurLine.Trim(false);
 
-        if ( bufCurLine.Len() == 0 )
-        {//ó®êtà’òŒ OK
+        if ( 0 == bufCurLine.Len() )
+        {// Counting blank lines
             nBlankLines++;
             continue;
         }
@@ -133,8 +132,8 @@ void JspCounter::countingSourceFile(
             continue;
         }
 
-
-        //////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////
+    	
         if ( bufCurLine.Find( _T( "//" ) ) == -1
                 && bufCurLine.Find( _T( "<%" ) ) == -1
                 && bufCurLine.Find( _T( "%>" ) ) == -1 )
@@ -151,5 +150,5 @@ void JspCounter::countingSourceFile(
             }
         }
 
-    }// End while
+    }// End for
 }

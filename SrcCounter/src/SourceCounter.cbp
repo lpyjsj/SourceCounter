@@ -88,6 +88,8 @@
 		<Unit filename="JspCounter.h" />
 		<Unit filename="PasCounter.cpp" />
 		<Unit filename="PasCounter.h" />
+		<Unit filename="PhpCounter.cpp" />
+		<Unit filename="PhpCounter.h" />
 		<Unit filename="SourceCounterApp.cpp" />
 		<Unit filename="SourceCounterApp.h" />
 		<Unit filename="SourceCounterMain.cpp" />
