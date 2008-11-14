@@ -35,7 +35,7 @@ PhpCounter::~PhpCounter()
 {
 }
 
-void PhpCounter::countingSourceFile(
+void PhpCounter::countingSourceFile1(
     wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines)
 {
     //
@@ -115,7 +115,7 @@ void PhpCounter::pickupInterestString(wxString& strLine, MapIntToStr& mapIntToSt
 
 }
 
-void PhpCounter::countingSourceFile1(
+void PhpCounter::countingSourceFile(
     wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
 {
     //

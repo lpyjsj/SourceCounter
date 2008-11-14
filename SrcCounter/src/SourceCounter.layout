@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Release" />
 	<File name="BasCounter.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="246" topLine="1" />
 	</File>
@@ -37,7 +37,7 @@
 	<File name="CountingInfo.h" open="0" top="0" tabpos="9">
 		<Cursor position="3177" topLine="63" />
 	</File>
-	<File name="CountingManager.cpp" open="1" top="0" tabpos="2">
+	<File name="CountingManager.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="14723" topLine="378" />
 	</File>
 	<File name="CountingManager.h" open="0" top="0" tabpos="3">
@@ -50,7 +50,7 @@
 		<Cursor position="1832" topLine="80" />
 	</File>
 	<File name="CppCounter.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="642" topLine="36" />
+		<Cursor position="6791" topLine="115" />
 	</File>
 	<File name="CppCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="980" topLine="44" />
@@ -68,7 +68,7 @@
 		<Cursor position="843" topLine="28" />
 	</File>
 	<File name="PhpCounter.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="2544" topLine="82" />
+		<Cursor position="739" topLine="24" />
 	</File>
 	<File name="PhpCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="423" topLine="0" />
