@@ -78,21 +78,6 @@ void PhpCounter::countingEx(
         MapIntToStr mapIndexToString;
         pickupInterestString(strCurLine, mapIndexToString);
 
-//        MapIntToStr::iterator it;
-//        wxString strTemp;
-//        int key = 0;
-//        for ( it = mapIndexToString.begin(); it != mapIndexToString.end(); ++it )
-//        {
-//            key = (int)it->first;
-//            wxString value = it->second;
-//            strTemp.Printf(_T("%d"), key);
-//            //strTemp = (wxString)value;
-//            wxMessageBox(strTemp +_T(", ") +value);
-//        }
-
-        MapIntToStr::iterator it;
-        wxString strForPickup;
-
         if (mapIndexToString.empty())
         {
             if (bPhpCodeMode)
@@ -108,6 +93,8 @@ void PhpCounter::countingEx(
             }
         }
 
+        MapIntToStr::iterator it;
+        wxString strForPickup;
         for ( it = mapIndexToString.begin(); it != mapIndexToString.end(); ++it )
         {
             strForPickup = it->second;
@@ -119,10 +106,15 @@ void PhpCounter::countingEx(
                 {// DelimitedCommentMode
                     if (strForPickup != CSZ_ASTERISK_SLASH)
                     {// Skip next pickuped string, until appear */
+                    	nCommentLines++;
                         continue;
                     }
                     else
                     {// Case: */
+                    	if(!existStringInMap(mapIndexToString, it, NDirectionForward, CSZ_SLASH_ASTERISK))
+                    	{
+                    		nCommentLines++;
+                    	}
                         bDelimitedCommentMode = false;
                         continue;
                     }
@@ -145,15 +137,15 @@ void PhpCounter::countingEx(
                 if (strForPickup == CSZ_SLASH_SLASH)
                 {// Case: code // comment
                     // TODO: if after //, there are have ?> SingleLineCommentMode is true, otherwise false
-                    if (existInMap(it, CSZ_Q_GT, mapIndexToString))
+                    if (existStringInMap(mapIndexToString, it, NDirectionBack, CSZ_Q_GT ))
                     {
                         bSingleLineCommentMode = true;
-
                     }
                     else
                     {
                         bSingleLineCommentMode = false;
                     }
+
                     nCommentLines++;
                     continue;
                 }
@@ -168,6 +160,7 @@ void PhpCounter::countingEx(
                 if (strForPickup == CSZ_Q_GT)
                 {// Case: code ?>
                     bPhpCodeMode = false;
+                    nCodeLines++;	// +1
                     continue;
                 }
 
@@ -191,7 +184,7 @@ void PhpCounter::countingEx(
     }// END line for
 }
 
-bool PhpCounter::existInMap(MapIntToStr::iterator& itt, wxString strForFind, MapIntToStr& mapIntToStr)
+bool PhpCounter::existStringInMap(MapIntToStr& mapIntToStr, MapIntToStr::iterator& itt, NDirection nDirection, wxString strForFind)
 {
     bool bRet = false;
 
@@ -203,14 +196,30 @@ bool PhpCounter::existInMap(MapIntToStr::iterator& itt, wxString strForFind, Map
         if (it == itt)
             nFlag = 1;
 
-        if (nFlag == 1)
+		strTemp = it->second;
+        if (nDirection == NDirectionBack)
         {
-            strTemp = it->second;
-
-            if (strTemp == strForFind)
-                bRet = true;
+            if (nFlag == 1)
+            {
+                if (strTemp == strForFind)
+                {
+                    bRet = true;
+                    break;
+                }
+            }
         }
-    }
+        else
+        {
+			if(nFlag == 0)
+			{
+                if (strTemp == strForFind)
+                {
+                    bRet = true;
+                    break;
+                }
+			}
+        }
+    }// END for
 
     return bRet;
 }
@@ -253,168 +262,7 @@ void PhpCounter::pickupInterestString(wxString& strLine, MapIntToStr& mapIntToSt
 void PhpCounter::countingSourceFile(
     wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
 {
-
-#ifdef __WXDEBUG__
-
+	//
     countingEx(file, nLines, nCodeLines, nCommentLines, nBlankLines);
 
-#else
-    //
-    wxString strCurLine;
-
-    bool bPhpMultiCodeMode			= false;	// When start with "<?" is TRUE, otherwise "?>" is FALSE
-    bool bDelimitedCommentMode		= false;	// Limited Comment Mode /* */
-
-    int nCurLineLen = 0;
-    for ( strCurLine = file.GetFirstLine(); !file.Eof(); strCurLine = file.GetNextLine() )
-    {
-        // Total lines
-        nLines++;
-
-        // Blank lines
-        strCurLine.Trim(false); // Trim from left
-        nCurLineLen = strCurLine.Len();
-        if ( 0 == nCurLineLen )
-        {// Counting blank lines
-            nBlankLines++;
-            continue;
-        }
-
-        //////////////////////////////////////////////////////////////////////////
-
-        strCurLine.Trim(); // Trim from right
-        nCurLineLen = strCurLine.Len();
-
-        if (!bPhpMultiCodeMode)
-        {
-            if (!bDelimitedCommentMode)
-            {
-                if ( 0 == strCurLine.Find(_T("<?php"))  && strCurLine.Find(_T("?>")) == (nCurLineLen -2) )
-                {// Special case: <?php xxx ?>
-                    // TODO: Check // or /**/ " '
-                    nCodeLines++;
-                    continue;
-                }
-
-                if ( strCurLine.Find( _T( "<?" )) != -1 && strCurLine.Find( _T( "?>" )) != -1 )
-                {// Case: html <?php xxx ?> html
-                    // TODO: Check // or /**/
-                    //nCommentLines++;
-                    nCodeLines++;
-                    continue;
-                }
-
-                if ( strCurLine[ 0 ] == _T( '<' ) && strCurLine[ 1 ] ==	_T( '?' )
-                        && strCurLine.Find( _T( "?>" )) == -1 )
-                {// Case: <? xxx
-                    // TODO: finding <? and set bPhpMultiCodeMode to true
-                    bPhpMultiCodeMode = true;
-                    nCodeLines++;
-                    continue;
-                }
-
-                if (strCurLine.Find(_T("<?")) != -1 && strCurLine.Find(_T("?>")) == -1 )
-                {// Case: xxx <? xxx
-                    bPhpMultiCodeMode = true;
-                    nCodeLines++;
-                    continue;
-                }
-
-                // Default case:
-                // Not php code, so count nothing
-
-            }
-            else
-            {// Impossible case, do nothing
-            }
-
-        }
-        else
-        {// bPhpMultiCodeMode is true
-            if (!bDelimitedCommentMode)
-            {//
-                nCurLineLen = strCurLine.Len();
-
-                if (1 == nCurLineLen)
-                {// Special case: { or }
-                    nCodeLines++;
-                    continue;
-                }
-
-                if (strCurLine[nCurLineLen - 2] !=	_T('?') && strCurLine[nCurLineLen - 1] != _T('>')
-                        && strCurLine[0] == _T('/') && strCurLine[1] == _T('/') )
-                {// Special case: // xxx ?>
-                    nCommentLines++;
-                    continue;
-                }
-
-                if ( strCurLine[nCurLineLen - 2] != _T('?') && strCurLine[nCurLineLen - 1] != _T('>')
-                        && strCurLine.Find( _T( "//" )) != -1 )
-                {// Case: xxx // xxx
-                    nCommentLines++;
-                    nCodeLines++;
-                    continue;
-                }
-
-                if ( strCurLine[nCurLineLen - 2] == _T('?') && strCurLine[nCurLineLen - 1] ==  _T('>'))
-                {// Case: xxx ?>
-                    bPhpMultiCodeMode = false;
-                    nCodeLines++;
-                    continue;
-                }
-
-                if (strCurLine.Find(_T("/*")) != -1 && strCurLine.Find(_T("*/")) == -1)
-                {// Case: xxx /* xxx
-                    // TODO: Check /* exist, set bDelimitedCommentMode = ture;
-                    bDelimitedCommentMode = true;
-                    nCommentLines++;
-                    continue;
-                }
-
-                if (strCurLine[0] == _T('/') && strCurLine[1] == _T('*')
-                        && strCurLine[nCurLineLen -2] == _T('*') && strCurLine[nCurLineLen - 1] == _T('/') )
-                {// Case: /* xxx */
-                    nCommentLines++;
-                    continue;
-                }
-
-                if (strCurLine.Find(_T("?>")) != -1 )
-                {// xxx ?> xxx
-                    bPhpMultiCodeMode = false;
-                    nCodeLines++;
-                }
-
-                // Default case:
-                nCodeLines++;
-                continue;
-
-            }
-            else
-            {// bDelimitedCommentMode = true
-                if (1 == nCurLineLen)
-                {// Special Case:
-                    /*
-                     * <= strCurLine
-                     */
-                    nCommentLines++;
-                    continue;
-                }
-                if (strCurLine[nCurLineLen -2] == _T('*') && strCurLine[nCurLineLen - 1] == _T('/'))
-                {// Case: xxx */
-                    bDelimitedCommentMode = false;
-                    nCommentLines++;
-                    continue;
-                }
-
-                // Default case:
-                /*
-                 xxx <= strCurLine
-                 */
-                nCommentLines++;
-
-            }// End if bDelimitedCommentMode
-        }// End if bPhpMultiCodeMode
-    }// End for
-
-#endif
 }

@@ -2,10 +2,10 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="AspxCounter.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="4220" topLine="122" />
+		<Cursor position="1390" topLine="16" />
 	</File>
 	<File name="AspxCounter.h" open="0" top="0" tabpos="0">
-		<Cursor position="70" topLine="0" />
+		<Cursor position="647" topLine="0" />
 	</File>
 	<File name="BasCounter.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="406" topLine="12" />
@@ -23,7 +23,7 @@
 		<Cursor position="660" topLine="12" />
 	</File>
 	<File name="Counter.h" open="0" top="0" tabpos="13">
-		<Cursor position="0" topLine="23" />
+		<Cursor position="573" topLine="22" />
 	</File>
 	<File name="CounterObserver.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="398" topLine="0" />
@@ -44,7 +44,7 @@
 		<Cursor position="3177" topLine="63" />
 	</File>
 	<File name="CountingManager.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="475" topLine="78" />
+		<Cursor position="9815" topLine="285" />
 	</File>
 	<File name="CountingManager.h" open="0" top="0" tabpos="3">
 		<Cursor position="949" topLine="92" />
@@ -62,22 +62,22 @@
 		<Cursor position="980" topLine="44" />
 	</File>
 	<File name="JspCounter.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1708" topLine="27" />
+		<Cursor position="599" topLine="66" />
 	</File>
 	<File name="JspCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="503" topLine="12" />
 	</File>
 	<File name="PasCounter.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="1707" topLine="21" />
+		<Cursor position="3780" topLine="20" />
 	</File>
 	<File name="PasCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="843" topLine="28" />
 	</File>
-	<File name="PhpCounter.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="2377" topLine="82" />
+	<File name="PhpCounter.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="6504" topLine="214" />
 	</File>
-	<File name="PhpCounter.h" open="0" top="0" tabpos="0">
-		<Cursor position="350" topLine="0" />
+	<File name="PhpCounter.h" open="1" top="0" tabpos="2">
+		<Cursor position="1744" topLine="24" />
 	</File>
 	<File name="SourceCounterApp.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="630" topLine="8" />
@@ -86,7 +86,7 @@
 		<Cursor position="476" topLine="0" />
 	</File>
 	<File name="SourceCounterMain.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="29965" topLine="625" />
+		<Cursor position="30444" topLine="625" />
 	</File>
 	<File name="SourceCounterMain.h" open="0" top="0" tabpos="2">
 		<Cursor position="4345" topLine="116" />
@@ -118,8 +118,8 @@
 	<File name="resource.rc" open="0" top="0" tabpos="0">
 		<Cursor position="23" topLine="0" />
 	</File>
-	<File name="version.h" open="0" top="0" tabpos="1">
-		<Cursor position="495" topLine="0" />
+	<File name="version.h" open="1" top="1" tabpos="5">
+		<Cursor position="368" topLine="0" />
 	</File>
 	<File name="wx_pch.h" open="0" top="0" tabpos="19">
 		<Cursor position="279" topLine="0" />
