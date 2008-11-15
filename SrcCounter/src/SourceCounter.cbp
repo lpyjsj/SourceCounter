@@ -66,6 +66,8 @@
 		<ResourceCompiler>
 			<Add directory="$(#wx)\include" />
 		</ResourceCompiler>
+		<Unit filename="AspxCounter.cpp" />
+		<Unit filename="AspxCounter.h" />
 		<Unit filename="BasCounter.cpp" />
 		<Unit filename="BasCounter.h" />
 		<Unit filename="CntSettingDlg.cpp" />

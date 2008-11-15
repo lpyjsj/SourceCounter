@@ -174,7 +174,7 @@ void ChangeUILanguage()
         return;
     SaveUILanguage(lang);
     wxMessageBox(_("You must restart SourceCounter for this change to take effect."),
-                 _T("SourceCounter"),
+                 _("SourceCounter"),
                  wxOK | wxCENTRE | wxICON_INFORMATION);
 }
 

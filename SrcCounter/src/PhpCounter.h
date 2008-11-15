@@ -27,7 +27,7 @@ public:
 
 	virtual ~PhpCounter();
 
-	virtual void countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
+	///////////////////////////////////////////////////////////////////
 
 	/**
 	 * counting source file.
@@ -38,11 +38,16 @@ public:
 	 * @param nCommentLines comment lines
 	 * @param nBlankLines blank lines
 	 */
-	virtual void countingSourceFile1( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
+	virtual void countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
 
 private:
 
+	void countingEx( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
+
+	void pickupString(wxString& strLine, wxString strForPickup, MapIntToStr& mapIntToStr);
 	void pickupInterestString(wxString& strLine, MapIntToStr& mapIntToStr);
+
+	bool existInMap(MapIntToStr::iterator& it, wxString strForFind, MapIntToStr& mapIntToStr);
 
 };
 

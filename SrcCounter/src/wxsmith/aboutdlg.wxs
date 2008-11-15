@@ -4,6 +4,7 @@
 		<title>About</title>
 		<centered>1</centered>
 		<size>17,16</size>
+		<style>0</style>
 		<object class="wxBoxSizer" variable="BoxSizer1" member="yes">
 			<orient>wxVERTICAL</orient>
 			<object class="sizeritem">

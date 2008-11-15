@@ -27,13 +27,15 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-const wxString SZ_STATUS[] =
+const wxString CSZ_STATUS[] =
 {
     _("Ready."),
     _("Counting..."),
     _("Completed."),
     _("Canceled."),
 };
+
+const wxString CSZ_DIALOG_CAPTIOM = _("SourceCounter");
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -103,8 +105,8 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
     wxMenuItem* m_menuItemOpenDir;
-
-    Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
+    
+    Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
     BoxSizer4 = new wxBoxSizer(wxVERTICAL);
@@ -238,7 +240,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-
+    
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,(wxObjectEventFunction)&SourceCounterDialog::OnLbxSrcFolderCheck);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnAddDirClick);
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnDeleteClick);
@@ -380,7 +382,7 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     int nCount = m_lbxSrcFolder->GetCount();
     if (0 == nCount)
     {
-        wxMessageBox(_("Please add source folder."));
+        wxMessageBox(_("Please add source folder."), CSZ_DIALOG_CAPTIOM, wxOK, this);
         return;
     }
 
@@ -397,7 +399,7 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
 
     if (!bHasChecked)
     {
-        wxMessageBox(_("Please check counting folder."));
+        wxMessageBox(_("Please check counting folder."), CSZ_DIALOG_CAPTIOM);
         return;
     }
 
@@ -407,7 +409,7 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     strSrcTypes = m_cmbSrcTypes->GetValue();
     if (strSrcTypes.IsEmpty())
     {
-        wxMessageBox(_("Please select source types."));
+        wxMessageBox(_("Please select source types."), CSZ_DIALOG_CAPTIOM);
         return;
     }
 
@@ -464,7 +466,7 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     wxCursor cursor1(wxCURSOR_WAIT);
     this->SetCursor(cursor1);
 
-    m_lblStatus->SetLabel(SZ_STATUS[1]); // Counting
+    m_lblStatus->SetLabel(CSZ_STATUS[1]); // Counting
 
 //    try
 //    {
@@ -487,11 +489,11 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
     switch ( m_pCountingMgr->GetStatus())
     {
     case NManagerStatusComplete:
-        m_lblStatus->SetLabel(SZ_STATUS[2]); // Completed
+        m_lblStatus->SetLabel(CSZ_STATUS[2]); // Completed
         break;
 
     case NManagerStatusStop:
-        m_lblStatus->SetLabel(SZ_STATUS[3]);  // Canceled
+        m_lblStatus->SetLabel(CSZ_STATUS[3]);  // Canceled
         break;
 
     default:
@@ -551,7 +553,7 @@ void SourceCounterDialog::initCountingCtrls()
     m_lblTotalMM->SetLabel(strTemp);
     m_lblTotalCost->SetLabel(strTemp);
 
-    m_lblStatus->SetLabel(SZ_STATUS[0]); // Ready
+    m_lblStatus->SetLabel(CSZ_STATUS[0]); // Ready
 }
 
 void SourceCounterDialog::UpdateCountingInfoCtrls()
@@ -672,7 +674,7 @@ void SourceCounterDialog::OnBtnSaveClick(wxCommandEvent& event)
     wxString strPath = m_dlgFile->GetPath();
     m_pCountingMgr->SaveCountingResultToCSV(strPath);
 
-    wxMessageBox(SZ_STATUS[2]); // Completed
+    wxMessageBox(CSZ_STATUS[2]); // Completed
 }
 
 void SourceCounterDialog::OnBtnUiLangClick(wxCommandEvent& event)
@@ -718,7 +720,7 @@ void SourceCounterDialog::OnMenuItemOpenSelected(wxCommandEvent& event)
     }
     else
     {
-        wxMessageBox(wxT("No selected item!"));
+        wxMessageBox(wxT("No selected item!"), CSZ_DIALOG_CAPTIOM);
     }
 
     ///////////////////////////////////////////////////////////////////

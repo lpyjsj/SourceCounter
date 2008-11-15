@@ -20,6 +20,7 @@
 #include "BasCounter.h"
 #include "PhpCounter.h"
 #include "JspCounter.h"
+#include "AspxCounter.h"
 
 
 #ifdef _DEBUG
@@ -149,8 +150,20 @@ Counter* CountingManager::CreateCounter(wxString strFileExtName)
             m_mapStrToCounter[_T(".php")] = pCounter;
         }
     }
-    else if (0 == strFileExtName.CmpNoCase(_T(".jsp")) || 0 == strFileExtName.CmpNoCase(_T(".asp"))
-             || 0 == strFileExtName.CmpNoCase(_T(".aspx"))  )
+    else if (0 == strFileExtName.CmpNoCase(_T(".asp")) || 0 == strFileExtName.CmpNoCase(_T(".aspx"))  )
+    {
+        it = m_mapStrToCounter.find(_T(".aspx"));
+        if (it != m_mapStrToCounter.end())
+        { // Find instance in the pCount map
+            pCounter = it->second;
+        }
+        else
+        {
+            pCounter = new AspxCounter;
+            m_mapStrToCounter[_T(".aspx")] = pCounter;
+        }
+    }
+    else if (0 == strFileExtName.CmpNoCase(_T(".jsp")) )
     { // JSP Counter
         it = m_mapStrToCounter.find(_T(".jsp"));
         if (it != m_mapStrToCounter.end())
@@ -291,7 +304,6 @@ void CountingManager::addSubSrcFolder()
             nRecursiveFolderCount = arrRecursiveFolder.GetCount();
             arrRecursiveFolder.RemoveAt(nRecursiveFolderCount - 1);
             strValidPath = strTempFolder + _T( "\\*" );
-
         }
         while (m_countingStatus == NManagerStatusRunning);
 
@@ -324,7 +336,6 @@ void CountingManager::StartCounting()
     }
 
     ///////////////////////////////////////////////////////////////////
-
 
     int nFolderCount = m_countingParam.m_arrSrcFolderPath.GetCount();
     Counter* pCounter = 0;

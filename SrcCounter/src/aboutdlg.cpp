@@ -55,7 +55,7 @@ END_EVENT_TABLE()
 AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 {
 	//(*Initialize(AboutDlg)
-	Create(parent, id, _("About"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
+	Create(parent, id, _("About"), wxDefaultPosition, wxDefaultSize, 0, _T("id"));
 	SetClientSize(wxSize(17,16));
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
 	StaticBitmap1 = new wxStaticBitmap(this, ID_STATICBITMAP1, wxBitmap(wxImage(_T("img\\bmw_logo.bmp"))), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICBITMAP1"));
