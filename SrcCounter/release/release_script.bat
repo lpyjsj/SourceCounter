@@ -5,6 +5,7 @@ cd w:\boomworks\SrcCounter
 copy /Y src\bin\release\*.exe release\sourcecounter\
 xcopy /Y /f /s src\img\*.* release\sourcecounter\img\
 xcopy /Y /f /s src\locales\*.mo release\sourcecounter\locales\
+xcopy /Y /f /s src\locales\*.po release\sourcecounter\locales\
 
 cd release\
 copy /Y *.dll sourcecounter\
@@ -18,8 +19,8 @@ delete 7z zip files
 del *.7z *.zip
 
 REM 7z a -t7z Files.7z *.txt -r
-7z a -t7z sourcecounter-2.1.15.79.7z SourceCounter\ -mx7
+7z a -t7z sourcecounter-2.1.16.89.7z SourceCounter\ -mx7
 REM zip
-7z a -tzip sourcecounter-2.1.15.79.zip SourceCounter\ -mx9
+7z a -tzip sourcecounter-2.1.16.89.zip SourceCounter\ -mx9
 
 REM End
