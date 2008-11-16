@@ -26,7 +26,8 @@ public:
 protected:
 private:
 
-
+	void countingAspx_ver_1(wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines);
+	void countingAspx_ver_2(wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines);
 
 };
 

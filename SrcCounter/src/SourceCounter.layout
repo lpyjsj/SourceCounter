@@ -2,13 +2,13 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="AspxCounter.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1390" topLine="16" />
+		<Cursor position="74" topLine="30" />
 	</File>
 	<File name="AspxCounter.h" open="0" top="0" tabpos="0">
-		<Cursor position="647" topLine="0" />
+		<Cursor position="44" topLine="0" />
 	</File>
 	<File name="BasCounter.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="406" topLine="12" />
+		<Cursor position="704" topLine="21" />
 	</File>
 	<File name="BasCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="923" topLine="25" />
@@ -44,7 +44,7 @@
 		<Cursor position="3177" topLine="63" />
 	</File>
 	<File name="CountingManager.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="9815" topLine="285" />
+		<Cursor position="4933" topLine="144" />
 	</File>
 	<File name="CountingManager.h" open="0" top="0" tabpos="3">
 		<Cursor position="949" topLine="92" />
@@ -56,7 +56,7 @@
 		<Cursor position="1832" topLine="80" />
 	</File>
 	<File name="CppCounter.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="6791" topLine="115" />
+		<Cursor position="4679" topLine="128" />
 	</File>
 	<File name="CppCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="980" topLine="44" />
@@ -73,11 +73,11 @@
 	<File name="PasCounter.h" open="0" top="0" tabpos="0">
 		<Cursor position="843" topLine="28" />
 	</File>
-	<File name="PhpCounter.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="6504" topLine="214" />
+	<File name="PhpCounter.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="9006" topLine="235" />
 	</File>
-	<File name="PhpCounter.h" open="1" top="0" tabpos="2">
-		<Cursor position="1744" topLine="24" />
+	<File name="PhpCounter.h" open="0" top="0" tabpos="1">
+		<Cursor position="1330" topLine="8" />
 	</File>
 	<File name="SourceCounterApp.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="630" topLine="8" />
@@ -110,7 +110,7 @@
 		<Cursor position="154" topLine="12" />
 	</File>
 	<File name="chooselang.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="6577" topLine="146" />
+		<Cursor position="5975" topLine="91" />
 	</File>
 	<File name="chooselang.h" open="0" top="0" tabpos="4">
 		<Cursor position="1309" topLine="15" />
@@ -118,8 +118,8 @@
 	<File name="resource.rc" open="0" top="0" tabpos="0">
 		<Cursor position="23" topLine="0" />
 	</File>
-	<File name="version.h" open="1" top="1" tabpos="5">
-		<Cursor position="368" topLine="0" />
+	<File name="version.h" open="0" top="0" tabpos="5">
+		<Cursor position="117" topLine="0" />
 	</File>
 	<File name="wx_pch.h" open="0" top="0" tabpos="19">
 		<Cursor position="279" topLine="0" />

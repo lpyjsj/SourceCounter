@@ -19,23 +19,21 @@ const wxString CSZ_SLASH_SLASH = _T("//");
 const wxString CSZ_SLASH_ASTERISK = _T("/*");
 const wxString CSZ_ASTERISK_SLASH = _T("*/");
 const wxString CSZ_SHARP = _T("#");
+const wxString CSZ_SINGLE_QUOTE = _T('\'');
+const wxString CSZ_DOUBLE_QUOTE = _T('\"');
 
 const int N_INTEREST_SZ_NUM = 6;
 
 const wxString CSZ_INTEREST[N_INTEREST_SZ_NUM] =
 {
-//    _T("<?"),	// 0
-//    _T("?>"),	// 1
-//    _T("//"),	// 2
-//    _T("/*"),
-//    _T("*/"),
-//    _T("#"),	// 5
     CSZ_LT_Q,		// 1
     CSZ_Q_GT,		// 2
     CSZ_SLASH_SLASH,		// 3
     CSZ_SLASH_ASTERISK,		// 4
     CSZ_ASTERISK_SLASH,		// 5
     CSZ_SHARP,				// 6
+    //CSZ_SINGLE_QUOTE,		// 7
+    //CSZ_DOUBLE_QUOTE,		// 8
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -48,8 +46,8 @@ PhpCounter::~PhpCounter()
 {
 }
 
-void PhpCounter::countingEx(
-    wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines)
+void PhpCounter::countingSourceFile(
+    wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
 {
     //
     wxString strCurLine;
@@ -57,6 +55,10 @@ void PhpCounter::countingEx(
     bool bPhpCodeMode				= false;	// When start with "<?" is TRUE, otherwise "?>" is FALSE
     bool bDelimitedCommentMode		= false;	// Limited Comment Mode /* */
     bool bSingleLineCommentMode		= false;
+    bool bSingleQuoteMode			= false;	//
+    bool bDoubleQuoteMode			= false;
+
+    bool bHasQuote = false;	//
 
     int nCurLineLen = 0;
     for ( strCurLine = file.GetFirstLine(); !file.Eof(); strCurLine = file.GetNextLine() )
@@ -73,10 +75,13 @@ void PhpCounter::countingEx(
             continue;
         }
 
-        /////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////
+        strCurLine.Trim(); // Trim from right
+        strCurLine.Replace(_T("\\'"), _T("XX")); // TODO: need test
 
+        ///////////////////////////////////////////////////////////////
         MapIntToStr mapIndexToString;
-        pickupInterestString(strCurLine, mapIndexToString);
+        pickupString(strCurLine, mapIndexToString);
 
         if (mapIndexToString.empty())
         {
@@ -93,66 +98,152 @@ void PhpCounter::countingEx(
             }
         }
 
+		bHasQuote = false; // Important
+
         MapIntToStr::iterator it;
+        int nIndexForPickup = -1;
         wxString strForPickup;
+
         for ( it = mapIndexToString.begin(); it != mapIndexToString.end(); ++it )
         {
+            nIndexForPickup = it->first;
             strForPickup = it->second;
 
             ///////////////////////////////////////////////////////////
             if (bPhpCodeMode)
-            {// Php code mode
+            {// Php code mode /////////////////////////////////////////
                 if (bDelimitedCommentMode)
-                {// DelimitedCommentMode
+                {// DelimitedCommentMode //////////////////////////////
                     if (strForPickup != CSZ_ASTERISK_SLASH)
                     {// Skip next pickuped string, until appear */
-                    	nCommentLines++;
-                        continue;
+                        nCommentLines++;
                     }
                     else
                     {// Case: */
-                    	if(!existStringInMap(mapIndexToString, it, NDirectionForward, CSZ_SLASH_ASTERISK))
-                    	{
-                    		nCommentLines++;
-                    	}
+                        if (!existStringInMap(mapIndexToString, it, NDirectionForward, CSZ_SLASH_ASTERISK))
+                        {
+                            nCommentLines++;
+                        }
                         bDelimitedCommentMode = false;
-                        continue;
                     }
+                    // Finally
+                    continue;
                 }
 
                 if (bSingleLineCommentMode)
-                {// Single line comment mode
+                {// Single line comment mode //////////////////////////
                     if (strForPickup != CSZ_Q_GT)
                     {// Skip next pickuped string, until appear ?>
-                        continue;
                     }
                     else
                     {// Case: code // Comment ?>
                         bSingleLineCommentMode = false;
                         bPhpCodeMode = false;
-                        continue;
                     }
+                    // Finally
+                    continue;
                 }
 
-                if (strForPickup == CSZ_SLASH_SLASH)
-                {// Case: code // comment
-                    // TODO: if after //, there are have ?> SingleLineCommentMode is true, otherwise false
-                    if (existStringInMap(mapIndexToString, it, NDirectionBack, CSZ_Q_GT ))
-                    {
-                        bSingleLineCommentMode = true;
+                if (bSingleQuoteMode)
+                {// Single quote mode /////////////////////////////////
+                    if (strForPickup != CSZ_SINGLE_QUOTE)
+                    {// Skip any next sensetive string, until ' appear
                     }
                     else
                     {
-                        bSingleLineCommentMode = false;
-                    }
+                        bSingleQuoteMode = false;
 
+                        if(!bHasQuote)
+							nCodeLines++;
+                    }
+                    continue;
+                }
+
+                if (bDoubleQuoteMode)
+                {// Double quote mode /////////////////////////////////
+                    if (strForPickup != CSZ_DOUBLE_QUOTE)
+                    {// Skip any next sensetive string, until " appear
+                    }
+                    else
+                    {
+                        bDoubleQuoteMode = false;
+                    }
+                    continue;
+                }
+
+                ///////////////////////////////////////////////////////
+                if (strForPickup == CSZ_SLASH_SLASH)
+                {// Case: code; // comment
+                    bSingleLineCommentMode = existStringInMap(mapIndexToString, it, NDirectionBack, CSZ_Q_GT);
+
+                    if (nIndexForPickup > 0 &&
+						(!existStringInMap(mapIndexToString, it, NDirectionForward, CSZ_SINGLE_QUOTE )
+							&& !existStringInMap(mapIndexToString, it, NDirectionForward, CSZ_DOUBLE_QUOTE)))
+                    {// Case: code; // comment
+                        nCodeLines++;
+                    }
                     nCommentLines++;
+
+                    if (!bSingleLineCommentMode)
+                    {// Case: /////////////////////////////////////////
+                    	break;
+                    }
+                    continue;
+                }
+
+                if (strForPickup == CSZ_SHARP)
+                {// Case: code; # comment
+                    bSingleLineCommentMode = existStringInMap(mapIndexToString, it, NDirectionBack, CSZ_Q_GT);
+
+                    if (nIndexForPickup > 0  &&
+						(!existStringInMap(mapIndexToString, it, NDirectionForward, CSZ_SINGLE_QUOTE )
+							&& !existStringInMap(mapIndexToString, it, NDirectionForward, CSZ_DOUBLE_QUOTE)))
+                    {// Case: code; # comment
+                        nCodeLines++;
+                    }
+                    nCommentLines++;
+
+					if (!bSingleLineCommentMode)
+                    {// Case: #########################################
+                    	break;
+                    }
+                    continue;
+                }
+
+                if (strForPickup == CSZ_SINGLE_QUOTE)
+                {// Case: code ' quote ';
+                    bSingleQuoteMode = true;
+
+					if(!bHasQuote)
+					{
+						nCodeLines++;
+						bHasQuote = true;
+					}
+                    continue;
+                }
+
+                if (strForPickup == CSZ_DOUBLE_QUOTE)
+                {// Case: code " quote ";
+                    bDoubleQuoteMode = true;
+
+					if(!bHasQuote)
+					{
+						nCodeLines++;
+						bHasQuote = true;
+					}
                     continue;
                 }
 
                 if (strForPickup == CSZ_SLASH_ASTERISK)
-                {// Case: code /* comment
+                {// Case: code; /* comment
                     bDelimitedCommentMode = true;
+
+                    if (nIndexForPickup > 0  &&
+						(!existStringInMap(mapIndexToString, it, NDirectionForward, CSZ_SINGLE_QUOTE )
+							&& !existStringInMap(mapIndexToString, it, NDirectionForward, CSZ_DOUBLE_QUOTE)))
+                    {// Case: code; /* comment
+                        nCodeLines++;
+                    }
                     nCommentLines++;
                     continue;
                 }
@@ -160,10 +251,13 @@ void PhpCounter::countingEx(
                 if (strForPickup == CSZ_Q_GT)
                 {// Case: code ?>
                     bPhpCodeMode = false;
-                    nCodeLines++;	// +1
+
+                    if (!existStringInMap(mapIndexToString, it, NDirectionForward, CSZ_LT_Q))
+						nCodeLines++;	// +1
                     continue;
                 }
 
+                ///////////////////////////////////////////////////////
             }
             else
             {// Not php code mode
@@ -180,7 +274,6 @@ void PhpCounter::countingEx(
             }
 
         }// END map for
-
     }// END line for
 }
 
@@ -196,7 +289,7 @@ bool PhpCounter::existStringInMap(MapIntToStr& mapIntToStr, MapIntToStr::iterato
         if (it == itt)
             nFlag = 1;
 
-		strTemp = it->second;
+        strTemp = it->second;
         if (nDirection == NDirectionBack)
         {
             if (nFlag == 1)
@@ -210,59 +303,45 @@ bool PhpCounter::existStringInMap(MapIntToStr& mapIntToStr, MapIntToStr::iterato
         }
         else
         {
-			if(nFlag == 0)
-			{
+            if (nFlag == 0)
+            {
                 if (strTemp == strForFind)
                 {
                     bRet = true;
                     break;
                 }
-			}
+            }
         }
     }// END for
 
     return bRet;
 }
 
-
-void PhpCounter::pickupString(wxString& strLine, wxString strForPickup, MapIntToStr& mapIntToStr)
+void PhpCounter::pickupString(wxString& strLine, MapIntToStr& mapIntToStr)
 {
-    wxString strTemp(strLine);
+    wxString strForPickup;
+    wxString strTemp;
+    int nCutStrNum;
+    int nIndex;
 
-    int nLen = strTemp.Len();
-    int nCutStrNum = 0;
-
-    int nIndex = strTemp.Find(strForPickup);
-    while (nIndex != -1 )
-    {
-        nIndex = strTemp.Find(strForPickup);
-        if (nIndex == -1)
-            break;
-
-        mapIntToStr[nCutStrNum + nIndex] = strForPickup;
-
-        strTemp = strTemp.Mid(nIndex + strForPickup.Len());
-        nCutStrNum = nCutStrNum + nIndex + strForPickup.Len();
-
-    }
-}
-
-void PhpCounter::pickupInterestString(wxString& strLine, MapIntToStr& mapIntToStr)
-{
-    //
     for (int i=0; i<N_INTEREST_SZ_NUM; i++)
     {
-        pickupString(strLine, CSZ_INTEREST[i], mapIntToStr);
+        strForPickup = CSZ_INTEREST[i];
+        strTemp = strLine;
+        nCutStrNum = 0;
+        nIndex = -1;
 
-    }// END for
-}
+        nIndex = strTemp.Find(strForPickup);
+        while (nIndex != -1 )
+        {
+            nIndex = strTemp.Find(strForPickup);
+            if (nIndex == -1)
+                break;
 
-///////////////////////////////////////////////////////////////////////
+            mapIntToStr[nCutStrNum + nIndex] = strForPickup;
 
-void PhpCounter::countingSourceFile(
-    wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
-{
-	//
-    countingEx(file, nLines, nCodeLines, nCommentLines, nBlankLines);
-
+            strTemp = strTemp.Mid(nIndex + strForPickup.Len());
+            nCutStrNum = nCutStrNum + nIndex + strForPickup.Len();
+        }
+    }
 }

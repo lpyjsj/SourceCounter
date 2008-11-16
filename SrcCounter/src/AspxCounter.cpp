@@ -12,6 +12,26 @@ AspxCounter::~AspxCounter()
 
 void AspxCounter::countingSourceFile(
     wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
+
+{
+#ifdef __WXDEBUG__
+	countingAspx_ver_2(file, nLines, nCodeLines, nCommentLines, nBlankLines);
+
+#else
+	countingAspx_ver_1(file, nLines, nCodeLines, nCommentLines, nBlankLines);
+
+#endif
+}
+
+void AspxCounter::countingAspx_ver_2(
+    wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
+{
+	// TODO:
+	countingAspx_ver_1(file, nLines, nCodeLines, nCommentLines, nBlankLines);
+}
+
+void AspxCounter::countingAspx_ver_1(
+    wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
 {
     //
     wxString strCurLine;

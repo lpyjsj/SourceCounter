@@ -44,7 +44,7 @@
 							</object>
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
-									<label>(C) 1999 - 2008 Boom (www.BoomWorks.Net)</label>
+									<label>(C) 1999 - 2008 B O O M (BoomWorks.Net)</label>
 									<size>214,13</size>
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -59,7 +59,7 @@
 							</object>
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT6" variable="StaticText6" member="yes">
-									<label>http://down.boomworks.net (Check For Updates)</label>
+									<label>http://www.boomworks.net</label>
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>

@@ -50,10 +50,7 @@ private:
 
 	///////////////////////////////////////////////////////////////////
 
-	void countingEx( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
-
-	void pickupString(wxString& strLine, wxString strForPickup, MapIntToStr& mapIntToStr);
-	void pickupInterestString(wxString& strLine, MapIntToStr& mapIntToStr);
+	void pickupString(wxString& strLine, MapIntToStr& mapIntToStr);
 
 	bool existStringInMap(MapIntToStr& mapIntToStr, MapIntToStr::iterator& it, NDirection nDirection, wxString strForFind );
 
