@@ -77,7 +77,7 @@
 							</object>
 							<object class="sizeritem">
 								<object class="wxStaticBitmap" name="ID_STATICBITMAP3" variable="StaticBitmap3" member="yes">
-									<bitmap>W:\boomworks\SrcCounter\src\img\powered-by-wxwidgets.png</bitmap>
+									<bitmap>img\powered-by-wxwidgets.png</bitmap>
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
