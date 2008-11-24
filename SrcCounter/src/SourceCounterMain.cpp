@@ -105,7 +105,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
     wxMenuItem* m_menuItemOpenDir;
-    
+
     Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
@@ -240,7 +240,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,(wxObjectEventFunction)&SourceCounterDialog::OnLbxSrcFolderCheck);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnAddDirClick);
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnDeleteClick);
@@ -684,15 +684,7 @@ void SourceCounterDialog::OnBtnUiLangClick(wxCommandEvent& event)
 
 void SourceCounterDialog::OnBtnCheckUpdateClick(wxCommandEvent& event)
 {
-//    try
-//    {
-        wxLaunchDefaultBrowser(_T("http://down.boomworks.net/"), wxBROWSER_NEW_WINDOW);
-//    }
-//    catch (...)
-//    {
-//        wxMessageBox(_T("Unknown error occured!"));
-//    }
-
+	wxLaunchDefaultBrowser(_T("http://down.boomworks.net/"), wxBROWSER_NEW_WINDOW);
 }
 
 void SourceCounterDialog::OnLstResultItemRClick(wxListEvent& event)

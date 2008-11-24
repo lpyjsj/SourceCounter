@@ -19,8 +19,8 @@
 	<File name="CntSettingDlg.h" open="0" top="0" tabpos="2">
 		<Cursor position="372" topLine="35" />
 	</File>
-	<File name="Counter.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="660" topLine="12" />
+	<File name="Counter.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="22" topLine="30" />
 	</File>
 	<File name="Counter.h" open="0" top="0" tabpos="13">
 		<Cursor position="573" topLine="22" />
@@ -44,7 +44,7 @@
 		<Cursor position="3177" topLine="63" />
 	</File>
 	<File name="CountingManager.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="4933" topLine="144" />
+		<Cursor position="3440" topLine="177" />
 	</File>
 	<File name="CountingManager.h" open="0" top="0" tabpos="3">
 		<Cursor position="949" topLine="92" />
@@ -85,8 +85,8 @@
 	<File name="SourceCounterApp.h" open="0" top="0" tabpos="14">
 		<Cursor position="476" topLine="0" />
 	</File>
-	<File name="SourceCounterMain.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="30444" topLine="625" />
+	<File name="SourceCounterMain.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="31147" topLine="670" />
 	</File>
 	<File name="SourceCounterMain.h" open="0" top="0" tabpos="2">
 		<Cursor position="4345" topLine="116" />
@@ -109,7 +109,7 @@
 	<File name="aboutdlg.h" open="0" top="0" tabpos="5">
 		<Cursor position="154" topLine="12" />
 	</File>
-	<File name="chooselang.cpp" open="0" top="0" tabpos="2">
+	<File name="chooselang.cpp" open="1" top="0" tabpos="2">
 		<Cursor position="5975" topLine="91" />
 	</File>
 	<File name="chooselang.h" open="0" top="0" tabpos="4">

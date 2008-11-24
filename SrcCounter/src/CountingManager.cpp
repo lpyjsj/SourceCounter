@@ -106,7 +106,7 @@ Counter* CountingManager::CreateCounter(wxString strFileExtName)
     else if (0 == strFileExtName.CmpNoCase(_T(".cpp")) || 0 == strFileExtName.CmpNoCase(_T(".cxx"))
              || 0 == strFileExtName.CmpNoCase(_T(".h") ) || 0 == strFileExtName.CmpNoCase(_T(".java"))
              || 0 == strFileExtName.CmpNoCase(_T(".tlh")) || 0 == strFileExtName.CmpNoCase(_T(".tli"))
-             || 0 == strFileExtName.CmpNoCase(_T(".cs")))
+             || 0 == strFileExtName.CmpNoCase(_T(".cs")) || 0 == strFileExtName.CmpNoCase(_T(".c")) )
     {
         it = m_mapStrToCounter.find(_T(".cpp"));
         if (it != m_mapStrToCounter.end())
