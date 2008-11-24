@@ -43,6 +43,13 @@
 								<border>5</border>
 							</object>
 							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText4" member="yes">
+									<label>Label</label>
+								</object>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
 									<label>(C) 1999 - 2008 BoomWorks.Net</label>
 									<size>214,13</size>
@@ -62,32 +69,13 @@
 								<border>5</border>
 							</object>
 							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText4" member="yes">
-									<label>Label</label>
+								<object class="wxBitmapButton" name="ID_BITMAPBUTTON1" variable="m_bmpBtnBMW" member="yes">
+									<bitmap>img\www.boomworks.net--thumb.jpg</bitmap>
+									<default>1</default>
+									<handler function="OnBtnBMWClick" entry="EVT_BUTTON" />
 								</object>
-								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
-							</object>
-							<object class="sizeritem">
-								<object class="wxBoxSizer" variable="BoxSizer4" member="no">
-									<object class="sizeritem">
-										<object class="wxBitmapButton" name="ID_BITMAPBUTTON2" variable="m_bmpBtnWX" member="yes">
-											<bitmap>img\powered-by-wxwidgets.png</bitmap>
-											<disabled>img\powered-by-wxwidgets.png</disabled>
-											<selected>img\powered-by-wxwidgets.png</selected>
-											<focus>img\powered-by-wxwidgets.png</focus>
-											<default>1</default>
-											<style>wxBU_AUTODRAW|wxNO_BORDER</style>
-											<handler function="OnBtnWXClick" entry="EVT_BUTTON" />
-										</object>
-										<flag>wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
-										<border>5</border>
-										<option>1</option>
-									</object>
-								</object>
-								<flag>wxBOTTOM|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
-								<border>5</border>
-								<option>1</option>
 							</object>
 							<object class="spacer">
 								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>

@@ -30,10 +30,10 @@ class AboutDlg: public wxDialog
 		static const long ID_STATICBITMAP2;
 		static const long ID_STATICTEXT1;
 		static const long ID_STATICTEXT2;
+		static const long ID_STATICTEXT4;
 		static const long ID_STATICTEXT3;
 		static const long ID_STATICTEXT5;
-		static const long ID_STATICTEXT4;
-		static const long ID_BITMAPBUTTON2;
+		static const long ID_BITMAPBUTTON1;
 		//*)
 
 		static const long ID_TXT_BMW;
@@ -44,17 +44,18 @@ class AboutDlg: public wxDialog
 		void OnButton1Click(wxCommandEvent& event);
 		void OnButton2Click(wxCommandEvent& event);
 		void OnBtnWXClick(wxCommandEvent& event);
+		void OnBtnBMWClick(wxCommandEvent& event);
 		//*)
 
 		//(*Declarations(AboutDlg)
 		wxStaticBitmap* StaticBitmap2;
 		wxStaticText* StaticText2;
-		wxBitmapButton* m_bmpBtnWX;
 		wxButton* Button1;
 		wxStaticBitmap* StaticBitmap1;
 		wxStaticText* StaticText1;
 		wxBoxSizer* BoxSizer2;
 		wxStaticText* StaticText3;
+		wxBitmapButton* m_bmpBtnBMW;
 		wxStaticText* StaticText5;
 		wxBoxSizer* BoxSizer1;
 		wxBoxSizer* BoxSizer3;
