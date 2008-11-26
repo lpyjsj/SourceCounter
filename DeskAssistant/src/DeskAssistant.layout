@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="DeskAssistantMain.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="5028" topLine="132" />
+	<File name="AboutDlg.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="1516" topLine="33" />
+	</File>
+	<File name="AboutDlg.h" open="1" top="1" tabpos="7">
+		<Cursor position="273" topLine="0" />
+	</File>
+	<File name="DeskAssistantApp.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="472" topLine="0" />
+	</File>
+	<File name="DeskAssistantMain.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="6127" topLine="151" />
 	</File>
 	<File name="DeskAssistantMain.h" open="0" top="0" tabpos="2">
 		<Cursor position="0" topLine="0" />

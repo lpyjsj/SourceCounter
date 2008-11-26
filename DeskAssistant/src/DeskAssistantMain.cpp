@@ -10,6 +10,7 @@
 #include <wx/msgdlg.h>
 #include <wx/filename.h>
 #include <wx/file.h>
+#include <wx/config.h>
 
 //(*InternalHeaders(DeskAssistantDialog)
 #include <wx/intl.h>
@@ -18,6 +19,7 @@
 
 #include "wx_pch.h"
 #include "DeskAssistantMain.h"
+#include "AboutDlg.h"
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -30,35 +32,13 @@ const wxString CSZ_COL_NAMES[] =
     _("Progress"),
 };
 
+const wxChar* CSZ_DESKTOP_KEY_NAME = _T("Desktop");
+
+const wxString CSZ_DESKTOP_KEY_PATH =
+    _T("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders");
+
+const wxString CSZ_EXCLUDING_FILE_EXT = _T("lnk"); // excluding file type
 ///////////////////////////////////////////////////////////////////////
-
-//helper functions
-enum wxbuildinfoformat
-{
-    short_f, long_f
-};
-
-wxString wxbuildinfo(wxbuildinfoformat format)
-{
-    wxString wxbuild(wxVERSION_STRING);
-
-    if (format == long_f )
-    {
-#if defined(__WXMSW__)
-        wxbuild << _T("-Windows");
-#elif defined(__UNIX__)
-        wxbuild << _T("-Linux");
-#endif
-
-#if wxUSE_UNICODE
-        wxbuild << _T("-Unicode build");
-#else
-        wxbuild << _T("-ANSI build");
-#endif // wxUSE_UNICODE
-    }
-
-    return wxbuild;
-}
 
 //(*IdInit(DeskAssistantDialog)
 const long DeskAssistantDialog::ID_LISTCTRL1 = wxNewId();
@@ -73,7 +53,7 @@ END_EVENT_TABLE()
 DeskAssistantDialog::DeskAssistantDialog(wxWindow* parent,wxWindowID id)
 {
     //(*Initialize(DeskAssistantDialog)
-    Create(parent, wxID_ANY, _("wxWidgets app"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
+    Create(parent, wxID_ANY, _("Desktop Assistant"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     m_pLcFiles = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxSize(320,200), wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL1"));
     BoxSizer1->Add(m_pLcFiles, 1, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -89,6 +69,7 @@ DeskAssistantDialog::DeskAssistantDialog(wxWindow* parent,wxWindowID id)
     SetSizer(BoxSizer1);
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
+    Center();
 
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnBtnRunClick);
     Connect(wxID_ABOUT,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnAbout);
@@ -110,28 +91,40 @@ void DeskAssistantDialog::OnQuit(wxCommandEvent& event)
 
 void DeskAssistantDialog::OnAbout(wxCommandEvent& event)
 {
-    wxString msg = wxbuildinfo(long_f);
-    wxMessageBox(msg, _("Welcome to..."));
+    // wxString msg = wxbuildinfo(long_f);
+    // wxMessageBox(msg, _("Welcome to..."));
+    AboutDlg dlg(this);
+    dlg.ShowModal();
 }
 
 void DeskAssistantDialog::OnBtnRunClick(wxCommandEvent& event)
 {
-    //
-    //wxString strDeskFullPath = _T("C:\\Documents and Settings\\pengli\\Desktop\\*");
-    wxString strDeskFullPath = _T("C:\\Documents and Settings\\boomworks\\桌面\\*");
-    wxString strDeskFullPath1 = _T("C:\\Documents and Settings\\boomworks\\桌面\\");
+    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
 
-    //wxSetWorkingDirectory(strDeskFullPath);
-
-    wxString strFileExtName;
-
-    wxString fname = ::wxFindFirstFile(strDeskFullPath, wxFILE);
-    if (fname.IsEmpty())
+    //will create the Key if it does not exist
+    if ( !pRegKey->Exists() )
     {
         return;
     }
 
-    while (!fname.IsEmpty())
+    wxString strDesktopFullPath;
+    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
+    delete pRegKey;
+
+    // wxMessageBox(strDesktopFullPath);
+
+    ///////////////////////////////////////////////////////////////////
+
+    wxString strFilePath = ::wxFindFirstFile(strDesktopFullPath + _T("\\*"), wxFILE);
+    if (strFilePath.IsEmpty())
+    {
+        return;
+    }
+
+    wxString strFileExtName;
+    long nIndex = -1;
+    wxString strTemp;
+    while (!strFilePath.IsEmpty())
     {
         ///////////////////////////////////////////////////////////////
         MSG	msg;
@@ -142,33 +135,32 @@ void DeskAssistantDialog::OnBtnRunClick(wxCommandEvent& event)
 
         ///////////////////////////////////////////////////////////////
 
-        // Collect counting info
-        //getFileExtName(fname, strFileExtName);
-        wxFileName ff(fname);
-        strFileExtName = ff.GetExt();
-        if (0 != strFileExtName.CmpNoCase(_T("lnk")))
+        wxFileName fnCur(strFilePath);
+        strFileExtName = fnCur.GetExt();
+        if (0 != strFileExtName.CmpNoCase(CSZ_EXCLUDING_FILE_EXT))
         {
             strFileExtName = _T("____") + strFileExtName;
 
-            wxString strTemp(strDeskFullPath1 + strFileExtName);
+            wxString strTemp(strDesktopFullPath + _T("\\") + strFileExtName);
             if (!wxDirExists(strTemp))
             {
                 wxMkdir(strTemp);
             }
 
-            wxRenameFile(ff.GetFullPath(), strTemp + _T("\\") + ff.GetFullName() );
+            // Move file to dest dir
+            wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
 
-            long nIndex = m_pLcFiles->InsertItem(m_pLcFiles->GetItemCount(), ff.GetFullPath());
+            // Insert item
+            nIndex = m_pLcFiles->InsertItem(m_pLcFiles->GetItemCount(), fnCur.GetFullPath());
             m_pLcFiles->SetItem(nIndex, 1, strFileExtName);
-            m_pLcFiles->SetItem(nIndex, 2, _T("aaa"));
+            m_pLcFiles->SetItem(nIndex, 2, _T("Compeleted"));
         }// END IF
 
         ///////////////////////////////////////////////////////////////
 
         // Next file
-        fname =::wxFindNextFile();
+        strFilePath =::wxFindNextFile();
     }//END WHILE
-
 }
 
 void DeskAssistantDialog::OnInit(wxInitDialogEvent& event)

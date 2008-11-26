@@ -19,15 +19,24 @@ IMPLEMENT_APP(DeskAssistantApp);
 
 bool DeskAssistantApp::OnInit()
 {
+    //
+    this->SetVendorName(_T("BoomWorks"));
+
+    //
+    wxIcon ico;
+    ico.LoadFile(wxT("img\\DesktopAssistant.ico"), wxBITMAP_TYPE_ICO);
+
     //(*AppInitialize
     bool wxsOK = true;
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-    DeskAssistantDialog Dlg(0);
-    SetTopWindow(&Dlg);
-    Dlg.ShowModal();
-    wxsOK = false;
+        DeskAssistantDialog Dlg(0);
+        Dlg.SetIcon(ico);
+
+        SetTopWindow(&Dlg);
+        Dlg.ShowModal();
+        wxsOK = false;
     }
     //*)
     return wxsOK;
