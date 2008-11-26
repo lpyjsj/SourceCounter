@@ -7,9 +7,8 @@
  * License:
  **************************************************************/
 
-#include "wx_pch.h"
-#include "DeskAssistantMain.h"
 #include <wx/msgdlg.h>
+#include <wx/filename.h>
 
 //(*InternalHeaders(DeskAssistantDialog)
 #include <wx/settings.h>
@@ -18,9 +17,17 @@
 #include <wx/string.h>
 //*)
 
+#include "wx_pch.h"
+#include "DeskAssistantMain.h"
+
+///////////////////////////////////////////////////////////////////////
+
+
 //helper functions
-enum wxbuildinfoformat {
-    short_f, long_f };
+enum wxbuildinfoformat
+{
+    short_f, long_f
+};
 
 wxString wxbuildinfo(wxbuildinfoformat format)
 {
@@ -104,7 +111,43 @@ void DeskAssistantDialog::OnAbout(wxCommandEvent& event)
 
 void DeskAssistantDialog::OnBtnRunClick(wxCommandEvent& event)
 {
-	//
+    //
+    wxString strValidPath = _T("C:\\Documents and Settings\\pengli\\Desktop\\*");
+
+	wxString strFileExtName;
+
+    wxString fname = ::wxFindFirstFile(strValidPath, wxFILE);
+    if (fname.IsEmpty())
+    {
+        return;
+    }
+
+    while (!fname.IsEmpty())
+    {
+        //CWaitCursor wait;
+
+        ///////////////////////////////////////////////////////////
+
+
+
+        ///////////////////////////////////////////////////////////
+        MSG	msg;
+        if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
+        {
+            ::DispatchMessage( &msg );
+        }
+
+        ///////////////////////////////////////////////////////////
+        // Collect counting info
+        //getFileExtName(fname, strFileExtName);
+        wxFileName ff(fname);
+        strFileExtName = ff.GetExt();
+
+		wxMessageBox( ff.GetFullPath(),strFileExtName );
+
+        // Next file
+        fname =::wxFindNextFile();
+    }// While
 
 
 }
