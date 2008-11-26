@@ -9,6 +9,7 @@
 
 #include <wx/msgdlg.h>
 #include <wx/filename.h>
+#include <wx/file.h>
 
 //(*InternalHeaders(DeskAssistantDialog)
 #include <wx/settings.h>
@@ -53,6 +54,7 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 
 //(*IdInit(DeskAssistantDialog)
 const long DeskAssistantDialog::ID_STATICTEXT1 = wxNewId();
+const long DeskAssistantDialog::ID_LISTCTRL1 = wxNewId();
 const long DeskAssistantDialog::ID_BUTTON3 = wxNewId();
 const long DeskAssistantDialog::ID_BUTTON1 = wxNewId();
 const long DeskAssistantDialog::ID_BUTTON2 = wxNewId();
@@ -66,16 +68,22 @@ END_EVENT_TABLE()
 DeskAssistantDialog::DeskAssistantDialog(wxWindow* parent,wxWindowID id)
 {
     //(*Initialize(DeskAssistantDialog)
+    wxBoxSizer* BoxSizer3;
+
     Create(parent, wxID_ANY, _("wxWidgets app"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
-    BoxSizer1 = new wxBoxSizer(wxHORIZONTAL);
+    BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Welcome to\nwxWidgets"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     wxFont StaticText1Font = wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT);
     if ( !StaticText1Font.Ok() ) StaticText1Font = wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT);
     StaticText1Font.SetPointSize(20);
     StaticText1->SetFont(StaticText1Font);
     BoxSizer1->Add(StaticText1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 10);
+    BoxSizer3 = new wxBoxSizer(wxVERTICAL);
+    m_lstFiles = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_LISTCTRL1"));
+    BoxSizer3->Add(m_lstFiles, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer1->Add(BoxSizer3, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnRun = new wxButton(this, ID_BUTTON3, _("&Run"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
-    BoxSizer1->Add(m_btnRun, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer1->Add(m_btnRun, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2 = new wxBoxSizer(wxVERTICAL);
     Button1 = new wxButton(this, ID_BUTTON1, _("About"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
     BoxSizer2->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
@@ -142,12 +150,34 @@ void DeskAssistantDialog::OnBtnRunClick(wxCommandEvent& event)
         //getFileExtName(fname, strFileExtName);
         wxFileName ff(fname);
         strFileExtName = ff.GetExt();
+        strFileExtName = _T("____") + strFileExtName;
+
+        if(!wxDirExists(strFileExtName))
+        {
+        	wxMkdir(strFileExtName);
+		}
+
+
+		wxFile fileTemp(fname);
+		if(fileTemp.IsOpened())
+			strFileExtName += _T(" Opened");
 
 		wxMessageBox( ff.GetFullPath(),strFileExtName );
 
+
+
+
+
+		// File function
+		// wxCopyFile
+
+		///////////////////////////////////////////////////////////////
         // Next file
         fname =::wxFindNextFile();
     }// While
+
+
+
 
 
 }
