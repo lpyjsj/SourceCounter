@@ -31,21 +31,28 @@ class DeskAssistantDialog: public wxDialog
         void OnAbout(wxCommandEvent& event);
         void OnBtnRunClick(wxCommandEvent& event);
         void OnInit(wxInitDialogEvent& event);
+        void OnBtnPreviewClick(wxCommandEvent& event);
         //*)
 
         //(*Identifiers(DeskAssistantDialog)
         static const long ID_LISTCTRL1;
+        static const long ID_BUTTON1;
         static const long ID_BUTTON3;
         //*)
 
         //(*Declarations(DeskAssistantDialog)
         wxListCtrl* m_pLcFiles;
         wxButton* Button1;
+        wxButton* m_btnPreview;
         wxBoxSizer* BoxSizer2;
         wxButton* Button2;
         wxBoxSizer* BoxSizer1;
         wxButton* m_btnRun;
         //*)
+
+
+		void MoveFilesToFolder(bool bPreview);
+
 
         DECLARE_EVENT_TABLE()
 };

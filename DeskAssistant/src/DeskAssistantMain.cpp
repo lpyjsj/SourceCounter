@@ -42,6 +42,7 @@ const wxString CSZ_EXCLUDING_FILE_EXT = _T("lnk"); // excluding file type
 
 //(*IdInit(DeskAssistantDialog)
 const long DeskAssistantDialog::ID_LISTCTRL1 = wxNewId();
+const long DeskAssistantDialog::ID_BUTTON1 = wxNewId();
 const long DeskAssistantDialog::ID_BUTTON3 = wxNewId();
 //*)
 
@@ -58,6 +59,8 @@ DeskAssistantDialog::DeskAssistantDialog(wxWindow* parent,wxWindowID id)
     m_pLcFiles = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxSize(320,200), wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL1"));
     BoxSizer1->Add(m_pLcFiles, 1, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
+    m_btnPreview = new wxButton(this, ID_BUTTON1, _("&Preview"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
+    BoxSizer2->Add(m_btnPreview, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnRun = new wxButton(this, ID_BUTTON3, _("&Run"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
     BoxSizer2->Add(m_btnRun, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -71,6 +74,7 @@ DeskAssistantDialog::DeskAssistantDialog(wxWindow* parent,wxWindowID id)
     BoxSizer1->SetSizeHints(this);
     Center();
 
+    Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnBtnPreviewClick);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnBtnRunClick);
     Connect(wxID_ABOUT,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnAbout);
     Connect(wxID_CLOSE,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnQuit);
@@ -98,6 +102,31 @@ void DeskAssistantDialog::OnAbout(wxCommandEvent& event)
 }
 
 void DeskAssistantDialog::OnBtnRunClick(wxCommandEvent& event)
+{
+    // Clear listcltr items
+    m_pLcFiles->DeleteAllItems();
+    MoveFilesToFolder(true);
+}
+
+void DeskAssistantDialog::OnInit(wxInitDialogEvent& event)
+{
+    //
+    for (int i=0; i<N_COL_NUM; i++)
+    {
+        m_pLcFiles->InsertColumn(i, CSZ_COL_NAMES[i]);
+    }
+}
+
+void DeskAssistantDialog::OnBtnPreviewClick(wxCommandEvent& event)
+{
+    // Clear listcltr items
+    m_pLcFiles->DeleteAllItems();
+
+    //
+    MoveFilesToFolder(false);
+}
+
+void DeskAssistantDialog::MoveFilesToFolder(bool bPreview)
 {
     wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
 
@@ -141,19 +170,22 @@ void DeskAssistantDialog::OnBtnRunClick(wxCommandEvent& event)
         {
             strFileExtName = _T("____") + strFileExtName;
 
-            wxString strTemp(strDesktopFullPath + _T("\\") + strFileExtName);
-            if (!wxDirExists(strTemp))
-            {
-                wxMkdir(strTemp);
-            }
-
-            // Move file to dest dir
-            wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
-
             // Insert item
             nIndex = m_pLcFiles->InsertItem(m_pLcFiles->GetItemCount(), fnCur.GetFullPath());
             m_pLcFiles->SetItem(nIndex, 1, strFileExtName);
-            m_pLcFiles->SetItem(nIndex, 2, _T("Compeleted"));
+
+            if (bPreview)
+            {
+                wxString strTemp(strDesktopFullPath + _T("\\") + strFileExtName);
+                if (!wxDirExists(strTemp))
+                {
+                    wxMkdir(strTemp);
+                }
+                // Move file to dest dir
+                wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
+                m_pLcFiles->SetItem(nIndex, 2, _T("Compeleted"));
+            }
+
         }// END IF
 
         ///////////////////////////////////////////////////////////////
@@ -161,13 +193,5 @@ void DeskAssistantDialog::OnBtnRunClick(wxCommandEvent& event)
         // Next file
         strFilePath =::wxFindNextFile();
     }//END WHILE
-}
 
-void DeskAssistantDialog::OnInit(wxInitDialogEvent& event)
-{
-    //
-    for (int i=0; i<N_COL_NUM; i++)
-    {
-        m_pLcFiles->InsertColumn(i, CSZ_COL_NAMES[i]);
-    }
 }
