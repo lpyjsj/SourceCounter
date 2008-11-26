@@ -13,7 +13,6 @@
 //(*Headers(DeskAssistantDialog)
 #include <wx/listctrl.h>
 #include <wx/sizer.h>
-#include <wx/stattext.h>
 #include <wx/button.h>
 #include <wx/dialog.h>
 //*)
@@ -31,23 +30,20 @@ class DeskAssistantDialog: public wxDialog
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
         void OnBtnRunClick(wxCommandEvent& event);
+        void OnInit(wxInitDialogEvent& event);
         //*)
 
         //(*Identifiers(DeskAssistantDialog)
-        static const long ID_STATICTEXT1;
         static const long ID_LISTCTRL1;
         static const long ID_BUTTON3;
-        static const long ID_BUTTON1;
-        static const long ID_BUTTON2;
         //*)
 
         //(*Declarations(DeskAssistantDialog)
+        wxListCtrl* m_pLcFiles;
         wxButton* Button1;
-        wxStaticText* StaticText1;
         wxBoxSizer* BoxSizer2;
         wxButton* Button2;
         wxBoxSizer* BoxSizer1;
-        wxListCtrl* m_lstFiles;
         wxButton* m_btnRun;
         //*)
 

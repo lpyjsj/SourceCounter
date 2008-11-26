@@ -12,8 +12,6 @@
 #include <wx/file.h>
 
 //(*InternalHeaders(DeskAssistantDialog)
-#include <wx/settings.h>
-#include <wx/font.h>
 #include <wx/intl.h>
 #include <wx/string.h>
 //*)
@@ -23,6 +21,16 @@
 
 ///////////////////////////////////////////////////////////////////////
 
+const int N_COL_NUM = 3;
+
+const wxString CSZ_COL_NAMES[] =
+{
+    _("File"),
+    _("Dest dir"),
+    _("Progress"),
+};
+
+///////////////////////////////////////////////////////////////////////
 
 //helper functions
 enum wxbuildinfoformat
@@ -53,11 +61,8 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 }
 
 //(*IdInit(DeskAssistantDialog)
-const long DeskAssistantDialog::ID_STATICTEXT1 = wxNewId();
 const long DeskAssistantDialog::ID_LISTCTRL1 = wxNewId();
 const long DeskAssistantDialog::ID_BUTTON3 = wxNewId();
-const long DeskAssistantDialog::ID_BUTTON1 = wxNewId();
-const long DeskAssistantDialog::ID_BUTTON2 = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(DeskAssistantDialog,wxDialog)
@@ -68,26 +73,17 @@ END_EVENT_TABLE()
 DeskAssistantDialog::DeskAssistantDialog(wxWindow* parent,wxWindowID id)
 {
     //(*Initialize(DeskAssistantDialog)
-    wxBoxSizer* BoxSizer3;
-
-    Create(parent, wxID_ANY, _("wxWidgets app"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
+    Create(parent, wxID_ANY, _("wxWidgets app"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
-    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Welcome to\nwxWidgets"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
-    wxFont StaticText1Font = wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT);
-    if ( !StaticText1Font.Ok() ) StaticText1Font = wxSystemSettings::GetFont(wxSYS_DEFAULT_GUI_FONT);
-    StaticText1Font.SetPointSize(20);
-    StaticText1->SetFont(StaticText1Font);
-    BoxSizer1->Add(StaticText1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 10);
-    BoxSizer3 = new wxBoxSizer(wxVERTICAL);
-    m_lstFiles = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_LISTCTRL1"));
-    BoxSizer3->Add(m_lstFiles, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    BoxSizer1->Add(BoxSizer3, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_pLcFiles = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxSize(320,200), wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL1"));
+    BoxSizer1->Add(m_pLcFiles, 1, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
     m_btnRun = new wxButton(this, ID_BUTTON3, _("&Run"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
-    BoxSizer1->Add(m_btnRun, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    BoxSizer2 = new wxBoxSizer(wxVERTICAL);
-    Button1 = new wxButton(this, ID_BUTTON1, _("About"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
+    BoxSizer2->Add(m_btnRun, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    Button1 = new wxButton(this, wxID_ABOUT, _("About"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_ABOUT"));
     BoxSizer2->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
-    Button2 = new wxButton(this, ID_BUTTON2, _("Quit"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
+    Button2 = new wxButton(this, wxID_CLOSE, _("Quit"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_CLOSE"));
     BoxSizer2->Add(Button2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
     BoxSizer1->Add(BoxSizer2, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
     SetSizer(BoxSizer1);
@@ -95,8 +91,9 @@ DeskAssistantDialog::DeskAssistantDialog(wxWindow* parent,wxWindowID id)
     BoxSizer1->SetSizeHints(this);
 
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnBtnRunClick);
-    Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnAbout);
-    Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnQuit);
+    Connect(wxID_ABOUT,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnAbout);
+    Connect(wxID_CLOSE,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnQuit);
+    Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&DeskAssistantDialog::OnInit);
     //*)
 }
 
@@ -120,11 +117,15 @@ void DeskAssistantDialog::OnAbout(wxCommandEvent& event)
 void DeskAssistantDialog::OnBtnRunClick(wxCommandEvent& event)
 {
     //
-    wxString strValidPath = _T("C:\\Documents and Settings\\pengli\\Desktop\\*");
+    //wxString strDeskFullPath = _T("C:\\Documents and Settings\\pengli\\Desktop\\*");
+    wxString strDeskFullPath = _T("C:\\Documents and Settings\\boomworks\\桌面\\*");
+    wxString strDeskFullPath1 = _T("C:\\Documents and Settings\\boomworks\\桌面\\");
 
-	wxString strFileExtName;
+    //wxSetWorkingDirectory(strDeskFullPath);
 
-    wxString fname = ::wxFindFirstFile(strValidPath, wxFILE);
+    wxString strFileExtName;
+
+    wxString fname = ::wxFindFirstFile(strDeskFullPath, wxFILE);
     if (fname.IsEmpty())
     {
         return;
@@ -132,52 +133,55 @@ void DeskAssistantDialog::OnBtnRunClick(wxCommandEvent& event)
 
     while (!fname.IsEmpty())
     {
-        //CWaitCursor wait;
-
-        ///////////////////////////////////////////////////////////
-
-
-
-        ///////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////
         MSG	msg;
         if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
         {
             ::DispatchMessage( &msg );
         }
 
-        ///////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////
+
         // Collect counting info
         //getFileExtName(fname, strFileExtName);
         wxFileName ff(fname);
         strFileExtName = ff.GetExt();
         strFileExtName = _T("____") + strFileExtName;
 
-        if(!wxDirExists(strFileExtName))
+		wxString strTemp(strDeskFullPath1 + strFileExtName);
+        if (!wxDirExists(strTemp))
         {
-        	wxMkdir(strFileExtName);
-		}
+            wxMkdir(strTemp);
+        }
+
+		wxRenameFile(ff.GetFullPath(), strTemp + _T("\\") + ff.GetFullName() );
 
 
-		wxFile fileTemp(fname);
-		if(fileTemp.IsOpened())
-			strFileExtName += _T(" Opened");
+//		wxFile fileTemp(fname);
+//		if(fileTemp.IsOpened())
+//			strFileExtName += _T(" Opened");
+        // wxMessageBox( ff.GetFullPath(),strFileExtName );
 
-		wxMessageBox( ff.GetFullPath(),strFileExtName );
+        long nIndex = m_pLcFiles->InsertItem(m_pLcFiles->GetItemCount(), ff.GetFullPath());
+        m_pLcFiles->SetItem(nIndex, 1, strFileExtName);
+        m_pLcFiles->SetItem(nIndex, 2, _T("aaa"));
 
+        // File function
+        // wxCopyFile
 
+        ///////////////////////////////////////////////////////////////
 
-
-
-		// File function
-		// wxCopyFile
-
-		///////////////////////////////////////////////////////////////
         // Next file
         fname =::wxFindNextFile();
-    }// While
+    }//END WHILE
 
+}
 
-
-
-
+void DeskAssistantDialog::OnInit(wxInitDialogEvent& event)
+{
+    //
+    for (int i=0; i<N_COL_NUM; i++)
+    {
+        m_pLcFiles->InsertColumn(i, CSZ_COL_NAMES[i]);
+    }
 }
