@@ -43,7 +43,7 @@
 					</object>
 					<object class="sizeritem">
 						<object class="wxButton" name="wxID_ABOUT" variable="Button1" member="yes">
-							<label>About</label>
+							<label>&amp;About...</label>
 							<handler function="OnAbout" entry="EVT_BUTTON" />
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -52,7 +52,7 @@
 					</object>
 					<object class="sizeritem">
 						<object class="wxButton" name="wxID_CLOSE" variable="Button2" member="yes">
-							<label>Quit</label>
+							<label>&amp;Quit</label>
 							<handler function="OnQuit" entry="EVT_BUTTON" />
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
