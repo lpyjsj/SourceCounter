@@ -32,12 +32,14 @@ class DeskAssistantDialog: public wxDialog
         void OnBtnRunClick(wxCommandEvent& event);
         void OnInit(wxInitDialogEvent& event);
         void OnBtnPreviewClick(wxCommandEvent& event);
+        void OnBtnCheckUpdateClick(wxCommandEvent& event);
         //*)
 
         //(*Identifiers(DeskAssistantDialog)
         static const long ID_LISTCTRL1;
         static const long ID_BUTTON1;
         static const long ID_BUTTON3;
+        static const long ID_BUTTON2;
         //*)
 
         //(*Declarations(DeskAssistantDialog)
@@ -46,6 +48,7 @@ class DeskAssistantDialog: public wxDialog
         wxButton* m_btnPreview;
         wxBoxSizer* BoxSizer2;
         wxButton* Button2;
+        wxButton* m_btnCheckUpdate;
         wxBoxSizer* BoxSizer1;
         wxButton* m_btnRun;
         //*)
