@@ -40,5 +40,4 @@ bool DeskAssistantApp::OnInit()
     }
     //*)
     return wxsOK;
-
 }
