@@ -2,9 +2,9 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="DeskAssistantMain.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="3456" topLine="57" />
+		<Cursor position="5028" topLine="132" />
 	</File>
-	<File name="DeskAssistantMain.h" open="1" top="0" tabpos="2">
+	<File name="DeskAssistantMain.h" open="0" top="0" tabpos="2">
 		<Cursor position="0" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

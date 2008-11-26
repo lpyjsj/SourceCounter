@@ -146,28 +146,22 @@ void DeskAssistantDialog::OnBtnRunClick(wxCommandEvent& event)
         //getFileExtName(fname, strFileExtName);
         wxFileName ff(fname);
         strFileExtName = ff.GetExt();
-        strFileExtName = _T("____") + strFileExtName;
-
-		wxString strTemp(strDeskFullPath1 + strFileExtName);
-        if (!wxDirExists(strTemp))
+        if (0 != strFileExtName.CmpNoCase(_T("lnk")))
         {
-            wxMkdir(strTemp);
-        }
+            strFileExtName = _T("____") + strFileExtName;
 
-		wxRenameFile(ff.GetFullPath(), strTemp + _T("\\") + ff.GetFullName() );
+            wxString strTemp(strDeskFullPath1 + strFileExtName);
+            if (!wxDirExists(strTemp))
+            {
+                wxMkdir(strTemp);
+            }
 
+            wxRenameFile(ff.GetFullPath(), strTemp + _T("\\") + ff.GetFullName() );
 
-//		wxFile fileTemp(fname);
-//		if(fileTemp.IsOpened())
-//			strFileExtName += _T(" Opened");
-        // wxMessageBox( ff.GetFullPath(),strFileExtName );
-
-        long nIndex = m_pLcFiles->InsertItem(m_pLcFiles->GetItemCount(), ff.GetFullPath());
-        m_pLcFiles->SetItem(nIndex, 1, strFileExtName);
-        m_pLcFiles->SetItem(nIndex, 2, _T("aaa"));
-
-        // File function
-        // wxCopyFile
+            long nIndex = m_pLcFiles->InsertItem(m_pLcFiles->GetItemCount(), ff.GetFullPath());
+            m_pLcFiles->SetItem(nIndex, 1, strFileExtName);
+            m_pLcFiles->SetItem(nIndex, 2, _T("aaa"));
+        }// END IF
 
         ///////////////////////////////////////////////////////////////
 
