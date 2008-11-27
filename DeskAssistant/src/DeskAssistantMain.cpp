@@ -28,7 +28,7 @@ const int N_COL_NUM = 3;
 const wxString CSZ_COL_NAMES[] =
 {
     _("File"),
-    _("Dest dir"),
+    _("Destination directory"),
     _("Progress"),
 };
 
