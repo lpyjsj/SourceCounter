@@ -11,7 +11,7 @@
 #include "DeskAssistantApp.h"
 
 //(*AppHeaders
-#include "DeskAssistantMain.h"
+#include "RuleDlg.h"
 #include <wx/image.h>
 //*)
 
@@ -26,18 +26,17 @@ bool DeskAssistantApp::OnInit()
     wxIcon ico;
     ico.LoadFile(wxT("img\\DesktopAssistant.ico"), wxBITMAP_TYPE_ICO);
 
-    //(*AppInitialize
     bool wxsOK = true;
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-        DeskAssistantDialog Dlg(0);
+        //DeskAssistantDialog Dlg(0);
+        RuleDlg Dlg(0);
         Dlg.SetIcon(ico);
 
         SetTopWindow(&Dlg);
         Dlg.ShowModal();
         wxsOK = false;
     }
-    //*)
     return wxsOK;
 }

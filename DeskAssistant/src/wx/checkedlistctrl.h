@@ -14,7 +14,6 @@
 #define _WX_CHECKEDLISTCTRL_H_
 
 // wxWidgets headers
-#include "wx/webupdatedef.h"		// for the WXDLLIMPEXP_WEBUPDATE macro
 #include <wx/listctrl.h>
 #include <wx/imaglist.h>
 
@@ -63,7 +62,7 @@ DECLARE_EXPORTED_EVENT_TYPE(WXDLLIMPEXP_WEBUPDATE, wxEVT_COMMAND_LIST_ITEM_UNCHE
 class WXDLLIMPEXP_WEBUPDATE wxCheckedListCtrl : public wxListCtrl
 {
 protected:
-	
+
 	// we have to keep a different array to keep track of the additional
 	// states we support....
 	wxArrayInt m_stateList;
@@ -75,20 +74,20 @@ public:
 	wxCheckedListCtrl()
 		: wxListCtrl(), m_imageList(16, 16, TRUE) {}
 
-	wxCheckedListCtrl(wxWindow *parent, wxWindowID id = -1, 
+	wxCheckedListCtrl(wxWindow *parent, wxWindowID id = -1,
 						const wxPoint& pt = wxDefaultPosition,
-						const wxSize& sz = wxDefaultSize, 
+						const wxSize& sz = wxDefaultSize,
 						long style = wxCLC_CHECK_WHEN_SELECTING,
-						const wxValidator& validator = wxDefaultValidator, 
+						const wxValidator& validator = wxDefaultValidator,
 						const wxString& name = wxListCtrlNameStr)
 						: wxListCtrl(), m_imageList(16, 16, TRUE)
 		{ Create(parent, id, pt, sz, style, validator, name); }
-	
-	bool Create(wxWindow *parent, wxWindowID id = -1, 
+
+	bool Create(wxWindow *parent, wxWindowID id = -1,
 						const wxPoint& pt = wxDefaultPosition,
-						const wxSize& sz = wxDefaultSize, 
+						const wxSize& sz = wxDefaultSize,
 						long style = wxCLC_CHECK_WHEN_SELECTING,
-						const wxValidator& validator = wxDefaultValidator, 
+						const wxValidator& validator = wxDefaultValidator,
 						const wxString& name = wxListCtrlNameStr);
 
 	virtual ~wxCheckedListCtrl() {}
@@ -100,13 +99,13 @@ public:			// utilities
 	bool GetItem(wxListItem& info) const;
 	bool SetItem(wxListItem& info);
     long InsertItem(wxListItem& info);
-	bool DeleteItem(long item);	
+	bool DeleteItem(long item);
 	bool DeleteAllItems()
 		{ m_stateList.Clear(); return wxListCtrl::DeleteAllItems(); }
 
 	bool SortItems(wxListCtrlCompare, long)
 		{ wxASSERT_MSG(0, wxT("Not implemented yet ! sorry... ")); return FALSE; }
-	
+
 	// shortcuts to the SetItemState function
 	void Check(long item, bool checked);
 	void Enable(long item, bool enable);
