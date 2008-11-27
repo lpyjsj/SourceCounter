@@ -69,6 +69,8 @@
 		<Unit filename="DeskAssistantApp.h" />
 		<Unit filename="DeskAssistantMain.cpp" />
 		<Unit filename="DeskAssistantMain.h" />
+		<Unit filename="RuleDlg.cpp" />
+		<Unit filename="RuleDlg.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
@@ -91,6 +93,7 @@
 				<resources>
 					<wxDialog wxs="wxsmith/DeskAssistantdialog.wxs" src="DeskAssistantMain.cpp" hdr="DeskAssistantMain.h" name="DeskAssistantDialog" language="CPP" />
 					<wxDialog wxs="wxsmith/AboutDlg.wxs" src="AboutDlg.cpp" hdr="AboutDlg.h" name="AboutDlg" language="CPP" />
+					<wxDialog wxs="wxsmith/RuleDlg.wxs" src="RuleDlg.cpp" hdr="RuleDlg.h" name="RuleDlg" language="CPP" />
 				</resources>
 			</wxsmith>
 			<AutoVersioning>

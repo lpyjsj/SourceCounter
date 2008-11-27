@@ -5,18 +5,30 @@
 		<Cursor position="1815" topLine="52" />
 	</File>
 	<File name="AboutDlg.h" open="0" top="0" tabpos="7">
-		<Cursor position="1247" topLine="11" />
+		<Cursor position="219" topLine="0" />
 	</File>
 	<File name="DeskAssistantApp.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="295" topLine="2" />
+		<Cursor position="825" topLine="0" />
 	</File>
-	<File name="DeskAssistantMain.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="4988" topLine="114" />
+	<File name="DeskAssistantMain.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="3716" topLine="36" />
 	</File>
 	<File name="DeskAssistantMain.h" open="0" top="0" tabpos="2">
 		<Cursor position="1490" topLine="16" />
 	</File>
+	<File name="RuleDlg.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="5887" topLine="90" />
+	</File>
+	<File name="RuleDlg.h" open="0" top="0" tabpos="0">
+		<Cursor position="1494" topLine="35" />
+	</File>
 	<File name="resource.rc" open="0" top="0" tabpos="0">
 		<Cursor position="43" topLine="0" />
+	</File>
+	<File name="wx\checkedlistctrl.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="682" topLine="4" />
+	</File>
+	<File name="wx\checkedlistctrl.h" open="0" top="0" tabpos="0">
+		<Cursor position="607" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>
