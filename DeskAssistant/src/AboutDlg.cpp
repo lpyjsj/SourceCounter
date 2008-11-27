@@ -115,6 +115,7 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	SetSizer(BoxSizer1);
 	BoxSizer1->Fit(this);
 	BoxSizer1->SetSizeHints(this);
+	Center();
 	//*)
 
 	// Set link to boomworks.net

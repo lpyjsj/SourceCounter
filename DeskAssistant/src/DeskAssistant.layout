@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="AboutDlg.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="5391" topLine="46" />
+		<Cursor position="1815" topLine="52" />
 	</File>
 	<File name="AboutDlg.h" open="0" top="0" tabpos="7">
 		<Cursor position="1247" topLine="11" />
@@ -10,7 +10,7 @@
 	<File name="DeskAssistantApp.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="295" topLine="2" />
 	</File>
-	<File name="DeskAssistantMain.cpp" open="1" top="1" tabpos="1">
+	<File name="DeskAssistantMain.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="7168" topLine="153" />
 	</File>
 	<File name="DeskAssistantMain.h" open="0" top="0" tabpos="2">
