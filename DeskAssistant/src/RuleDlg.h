@@ -33,7 +33,7 @@ class RuleDlg: public wxDialog
 		wxStaticText* StaticText1;
 		wxButton* Button2;
 		wxButton* Button6;
-		wxButton* Button3;
+		wxButton* m_btnCheckUpdate;
 		wxButton* Button9;
 		wxTextCtrl* TextCtrl1;
 		wxButton* Button8;
@@ -62,6 +62,7 @@ class RuleDlg: public wxDialog
 		void OnBtnQuitClick(wxCommandEvent& event);
 		void OnBtnAboutClick(wxCommandEvent& event);
 		void OnBtnPreviewClick(wxCommandEvent& event);
+		void OnBtnCheckUpdateClick(wxCommandEvent& event);
 		//*)
 
 		DECLARE_EVENT_TABLE()

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
 	<object class="wxDialog" name="DeskAssistantDialog">
-		<title>Desktop Assistant</title>
+		<title>Preview and Run dialog</title>
 		<id_arg>0</id_arg>
 		<style>wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX</style>
 		<handler function="OnInit" entry="EVT_INIT_DIALOG" />
@@ -9,10 +9,10 @@
 			<orient>wxVERTICAL</orient>
 			<object class="sizeritem">
 				<object class="wxListCtrl" name="ID_LISTCTRL1" variable="m_pLcFiles" member="yes">
-					<size>320,200</size>
+					<size>360,200</size>
 					<style>wxLC_REPORT</style>
 				</object>
-				<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+				<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 				<border>5</border>
 				<option>1</option>
 			</object>
@@ -40,32 +40,16 @@
 						<option>1</option>
 					</object>
 					<object class="sizeritem">
-						<object class="wxButton" name="ID_BUTTON2" variable="m_btnCheckUpdate" member="yes">
-							<label>Check for update...</label>
-							<handler function="OnBtnCheckUpdateClick" entry="EVT_BUTTON" />
+						<object class="wxButton" name="wxID_CLOSE" variable="m_btnClose" member="yes">
+							<label>&amp;Close</label>
+							<handler function="OnQuit" entry="EVT_BUTTON" />
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
 					</object>
-					<object class="sizeritem">
-						<object class="wxButton" name="wxID_ABOUT" variable="Button1" member="yes">
-							<label>&amp;About...</label>
-							<handler function="OnAbout" entry="EVT_BUTTON" />
-						</object>
-						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-						<border>4</border>
-					</object>
-					<object class="sizeritem">
-						<object class="wxButton" name="wxID_CLOSE" variable="Button2" member="yes">
-							<label>&amp;Quit</label>
-							<handler function="OnQuit" entry="EVT_BUTTON" />
-						</object>
-						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-						<border>4</border>
-					</object>
 				</object>
-				<flag>wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-				<border>4</border>
+				<flag>wxBOTTOM|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+				<border>5</border>
 			</object>
 		</object>
 	</object>

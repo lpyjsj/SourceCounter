@@ -39,16 +39,13 @@ class DeskAssistantDialog: public wxDialog
         static const long ID_LISTCTRL1;
         static const long ID_BUTTON1;
         static const long ID_BUTTON3;
-        static const long ID_BUTTON2;
         //*)
 
         //(*Declarations(DeskAssistantDialog)
         wxListCtrl* m_pLcFiles;
-        wxButton* Button1;
+        wxButton* m_btnClose;
         wxButton* m_btnPreview;
         wxBoxSizer* BoxSizer2;
-        wxButton* Button2;
-        wxButton* m_btnCheckUpdate;
         wxBoxSizer* BoxSizer1;
         wxButton* m_btnRun;
         //*)
