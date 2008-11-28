@@ -5,8 +5,10 @@
 //(*HeadersPCH(RuleDlg)
 #include <wx/listctrl.h>
 #include <wx/sizer.h>
+#include <wx/stattext.h>
 #include <wx/radiobox.h>
 #include <wx/checklst.h>
+#include <wx/statbmp.h>
 #include <wx/button.h>
 #include <wx/dialog.h>
 //*)
@@ -25,15 +27,17 @@ public:
     virtual ~RuleDlg();
 
     //(*Declarations(RuleDlg)
-    wxButton* Button1;
+    wxStaticBitmap* StaticBitmap1;
     wxButton* m_btnQuit;
     wxButton* m_btnPreview;
+    wxStaticText* StaticText1;
     wxCheckListBox* m_pLbxCustRules;
     wxButton* Button2;
     wxButton* Button6;
     wxRadioBox* m_pRbxBaseRules;
     wxButton* m_btnCheckUpdate;
     wxButton* Button9;
+    wxButton* m_btnNew;
     wxListCtrl* m_pLcResult;
     wxButton* m_btnRun;
     wxButton* Button8;
@@ -43,6 +47,8 @@ public:
 protected:
 
     //(*Identifiers(RuleDlg)
+    static const long ID_STATICBITMAP1;
+    static const long ID_STATICTEXT1;
     static const long ID_BUTTON1;
     static const long ID_BUTTON2;
     static const long ID_BUTTON6;
@@ -65,6 +71,7 @@ private:
     void OnBtnCheckUpdateClick(wxCommandEvent& event);
     void OnBtnRunClick(wxCommandEvent& event);
     void OnInit(wxInitDialogEvent& event);
+    void OnBtnNewClick(wxCommandEvent& event);
     //*)
 
     ///////////////////////////////////////////////////////////////

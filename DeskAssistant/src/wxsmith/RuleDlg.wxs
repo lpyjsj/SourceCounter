@@ -10,14 +10,36 @@
 		<object class="wxBoxSizer" variable="BoxSizer1" member="no">
 			<orient>wxVERTICAL</orient>
 			<object class="sizeritem">
+				<object class="wxBoxSizer" variable="BoxSizer5" member="no">
+					<object class="sizeritem">
+						<object class="wxStaticBitmap" name="ID_STATICBITMAP1" variable="StaticBitmap1" member="yes">
+							<bitmap>img\DesktopAssistant.ico</bitmap>
+						</object>
+						<flag>wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
+							<label>Desktop Assistant is a tool for Desktop file categorization.&#x0A;This tool can categorize files to folders by using the rule defined beforehand. &#x0A;The folders that stores the files is automatically created. </label>
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+				</object>
+				<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+				<border>5</border>
+			</object>
+			<object class="sizeritem">
 				<object class="wxStaticBoxSizer" variable="StaticBoxSizer1" member="no">
-					<label>Categorization rules</label>
+					<label>Select customize categorization rules</label>
 					<orient>wxVERTICAL</orient>
 					<object class="sizeritem">
 						<object class="wxBoxSizer" variable="BoxSizer3" member="no">
 							<object class="sizeritem">
-								<object class="wxButton" name="ID_BUTTON1" variable="Button1" member="yes">
+								<object class="wxButton" name="ID_BUTTON1" variable="m_btnNew" member="yes">
 									<label>&amp;New...</label>
+									<handler function="OnBtnNewClick" entry="EVT_BUTTON" />
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
@@ -56,6 +78,16 @@
 								<border>5</border>
 								<option>1</option>
 							</object>
+							<object class="spacer">
+								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="spacer">
+								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
 						</object>
 						<flag>wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
 						<border>2</border>
@@ -63,11 +95,9 @@
 					<object class="sizeritem">
 						<object class="wxCheckListBox" name="ID_CHECKLISTBOX1" variable="m_pLbxCustRules" member="yes">
 							<content>
-								<item checked="1">by file extend name</item>
-								<item>by file access time</item>
-								<item>by file size</item>
-								<item>by special words</item>
+								<item>7z, zip -&gt; @ZIP@</item>
 							</content>
+							<enabled>0</enabled>
 							<style>wxLB_SINGLE|wxLB_NEEDED_SB</style>
 						</object>
 						<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -79,7 +109,7 @@
 			</object>
 			<object class="sizeritem">
 				<object class="wxRadioBox" name="ID_RADIOBOX1" variable="m_pRbxBaseRules" member="yes">
-					<label>Common rules</label>
+					<label>Select base categorization rules</label>
 					<content>
 						<item>By file extend name</item>
 						<item>By file modify time</item>
@@ -104,6 +134,7 @@
 					<object class="sizeritem">
 						<object class="wxButton" name="ID_BUTTON4" variable="m_btnRun" member="yes">
 							<label>&amp;Run</label>
+							<enabled>0</enabled>
 							<handler function="OnBtnRunClick" entry="EVT_BUTTON" />
 						</object>
 						<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -148,10 +179,7 @@
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
-					</object>
-					<object class="spacer">
-						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-						<border>5</border>
+						<option>1</option>
 					</object>
 					<object class="sizeritem">
 						<object class="wxButton" name="wxID_EXIT" variable="m_btnQuit" member="yes">
@@ -160,6 +188,7 @@
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
+						<option>1</option>
 					</object>
 				</object>
 				<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>

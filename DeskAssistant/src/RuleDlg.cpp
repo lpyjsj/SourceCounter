@@ -9,6 +9,8 @@
 //*)
 #endif
 //(*InternalHeaders(RuleDlg)
+#include <wx/bitmap.h>
+#include <wx/image.h>
 //*)
 
 #include <wx/config.h>
@@ -20,9 +22,10 @@
 #include "wx_pch.h"
 #include "RuleDlg.h"
 #include "AboutDlg.h"
-#include "DeskAssistantMain.h"
 
 //(*IdInit(RuleDlg)
+const long RuleDlg::ID_STATICBITMAP1 = wxNewId();
+const long RuleDlg::ID_STATICTEXT1 = wxNewId();
 const long RuleDlg::ID_BUTTON1 = wxNewId();
 const long RuleDlg::ID_BUTTON2 = wxNewId();
 const long RuleDlg::ID_BUTTON6 = wxNewId();
@@ -66,6 +69,7 @@ RuleDlg::RuleDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     //(*Initialize(RuleDlg)
     wxBoxSizer* BoxSizer4;
     wxBoxSizer* BoxSizer6;
+    wxBoxSizer* BoxSizer5;
     wxBoxSizer* BoxSizer2;
     wxBoxSizer* BoxSizer1;
     wxStaticBoxSizer* StaticBoxSizer1;
@@ -75,10 +79,16 @@ RuleDlg::RuleDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     SetClientSize(wxDefaultSize);
     Move(wxDefaultPosition);
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
-    StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Categorization rules"));
+    BoxSizer5 = new wxBoxSizer(wxHORIZONTAL);
+    StaticBitmap1 = new wxStaticBitmap(this, ID_STATICBITMAP1, wxBitmap(wxImage(_T("img\\DesktopAssistant.ico"))), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICBITMAP1"));
+    BoxSizer5->Add(StaticBitmap1, 0, wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Desktop Assistant is a tool for Desktop file categorization.\nThis tool can categorize files to folders by using the rule defined beforehand. \nThe folders that stores the files is automatically created. "), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
+    BoxSizer5->Add(StaticText1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer1->Add(BoxSizer5, 0, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Select customize categorization rules"));
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
-    Button1 = new wxButton(this, ID_BUTTON1, _("&New..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
-    BoxSizer3->Add(Button1, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_btnNew = new wxButton(this, ID_BUTTON1, _("&New..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
+    BoxSizer3->Add(m_btnNew, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button2 = new wxButton(this, ID_BUTTON2, _("&Edit..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
     Button2->Disable();
     BoxSizer3->Add(Button2, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -91,26 +101,27 @@ RuleDlg::RuleDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     Button9 = new wxButton(this, ID_BUTTON9, _("Dow&n"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON9"));
     Button9->Disable();
     BoxSizer3->Add(Button9, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(0,0,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(0,0,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer1->Add(BoxSizer3, 0, wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 2);
     m_pLbxCustRules = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxDefaultSize, 0, 0, wxLB_SINGLE|wxLB_NEEDED_SB, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
-    m_pLbxCustRules->Check(m_pLbxCustRules->Append(_("by file extend name")));
-    m_pLbxCustRules->Append(_("by file access time"));
-    m_pLbxCustRules->Append(_("by file size"));
-    m_pLbxCustRules->Append(_("by special words"));
+    m_pLbxCustRules->Append(_("7z, zip -> @ZIP@"));
+    m_pLbxCustRules->Disable();
     StaticBoxSizer1->Add(m_pLbxCustRules, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     wxString __wxRadioBoxChoices_1[3] =
     {
-        _("By file extend name"),
-        _("By file modify time"),
-        _("None")
+    _("By file extend name"),
+    _("By file modify time"),
+    _("None")
     };
-    m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Common rules"), wxDefaultPosition, wxDefaultSize, 3, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
+    m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 3, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
     m_btnPreview = new wxButton(this, ID_BUTTON7, _("&Preview"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON7"));
     BoxSizer2->Add(m_btnPreview, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
     m_btnRun = new wxButton(this, ID_BUTTON4, _("&Run"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON4"));
+    m_btnRun->Disable();
     BoxSizer2->Add(m_btnRun, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(BoxSizer2, 0, wxTOP|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer6 = new wxBoxSizer(wxVERTICAL);
@@ -121,16 +132,16 @@ RuleDlg::RuleDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     m_btnCheckUpdate = new wxButton(this, ID_BUTTON3, _("C&heck for update..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
     BoxSizer4->Add(m_btnCheckUpdate, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnAbout = new wxButton(this, wxID_ABOUT, _("&About..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_ABOUT"));
-    BoxSizer4->Add(m_btnAbout, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    BoxSizer4->Add(-1,-1,0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer4->Add(m_btnAbout, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnQuit = new wxButton(this, wxID_EXIT, _("&Quit"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_EXIT"));
-    BoxSizer4->Add(m_btnQuit, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer4->Add(m_btnQuit, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(BoxSizer4, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     SetSizer(BoxSizer1);
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
 
+    Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&RuleDlg::OnBtnNewClick);
     Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&RuleDlg::OnBtnPreviewClick);
     Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&RuleDlg::OnBtnRunClick);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&RuleDlg::OnBtnCheckUpdateClick);
@@ -255,4 +266,9 @@ void RuleDlg::OnInit(wxInitDialogEvent& event)
     {
         m_pLcResult->InsertColumn(i, CSZ_COL_NAMES[i]);
     }
+}
+
+void RuleDlg::OnBtnNewClick(wxCommandEvent& event)
+{
+	wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
 }
