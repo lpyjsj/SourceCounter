@@ -182,18 +182,19 @@ void RuleDlg::OnBtnPreviewClick(wxCommandEvent& event)
     // Clear list
     m_pLcResult->DeleteAllItems();
 
-    MoveFilesToFolder(false);
+    moveFilesToFolder(false);
+
+    updateUICtrls();
 }
 void RuleDlg::OnBtnRunClick(wxCommandEvent& event)
 {
     //
     m_pLcResult->DeleteAllItems();
 
-    MoveFilesToFolder(true);
+    moveFilesToFolder(true);
 }
 
-
-void RuleDlg::MoveFilesToFolder(bool bPreview)
+void RuleDlg::moveFilesToFolder(bool bPreview)
 {
     wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
 
@@ -271,4 +272,14 @@ void RuleDlg::OnInit(wxInitDialogEvent& event)
 void RuleDlg::OnBtnNewClick(wxCommandEvent& event)
 {
 	wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+}
+
+
+void RuleDlg::updateUICtrls()
+{
+	//
+	int nCnt = m_pLcResult->GetItemCount();
+
+	if(nCnt > 0)
+		m_btnRun->Enable();
 }

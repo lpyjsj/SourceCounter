@@ -75,8 +75,9 @@ private:
     //*)
 
     ///////////////////////////////////////////////////////////////
-    void MoveFilesToFolder(bool bPreview);
+    void moveFilesToFolder(bool bPreview);
 
+	void updateUICtrls();
 
     DECLARE_EVENT_TABLE()
 };
