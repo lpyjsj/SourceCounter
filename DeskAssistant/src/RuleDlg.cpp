@@ -50,6 +50,8 @@ const wxString CSZ_COL_NAMES[] =
     _("Progress"),
 };
 
+const int N_COL_WIDTH[] = { 320, 160, 80};
+
 const wxChar* CSZ_DESKTOP_KEY_NAME = _T("Desktop");   ///<
 
 /** Desktop register path */
@@ -265,7 +267,7 @@ void RuleDlg::OnInit(wxInitDialogEvent& event)
     //
     for (int i=0; i<N_COL_NUM; i++)
     {
-        m_pLcResult->InsertColumn(i, CSZ_COL_NAMES[i]);
+        m_pLcResult->InsertColumn(i, CSZ_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_COL_WIDTH[i]);
     }
 }
 
@@ -281,5 +283,11 @@ void RuleDlg::updateUICtrls()
 	int nCnt = m_pLcResult->GetItemCount();
 
 	if(nCnt > 0)
+	{
 		m_btnRun->Enable();
+	}
+	else
+	{
+		m_btnRun->Enable(false);
+	}
 }
