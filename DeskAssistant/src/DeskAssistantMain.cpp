@@ -32,7 +32,7 @@ const wxString CSZ_COL_NAMES[] =
     _("Progress"),
 };
 
-const wxChar* CSZ_DESKTOP_KEY_NAME = _T("Desktop");
+//const wxChar* CSZ_DESKTOP_KEY_NAME = _T("Desktop");
 
 const wxString CSZ_DESKTOP_KEY_PATH =
     _T("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders");
@@ -70,7 +70,7 @@ DeskAssistantDialog::DeskAssistantDialog(wxWindow* parent,wxWindowID id)
     SetSizer(BoxSizer1);
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
-
+    
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnBtnPreviewClick);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnBtnRunClick);
     Connect(wxID_CLOSE,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DeskAssistantDialog::OnQuit);

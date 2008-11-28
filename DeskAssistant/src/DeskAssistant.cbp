@@ -67,8 +67,6 @@
 		<Unit filename="AboutDlg.h" />
 		<Unit filename="DeskAssistantApp.cpp" />
 		<Unit filename="DeskAssistantApp.h" />
-		<Unit filename="DeskAssistantMain.cpp" />
-		<Unit filename="DeskAssistantMain.h" />
 		<Unit filename="RuleDlg.cpp" />
 		<Unit filename="RuleDlg.h" />
 		<Unit filename="resource.rc">

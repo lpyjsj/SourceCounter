@@ -10,17 +10,11 @@
 	<File name="DeskAssistantApp.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="825" topLine="0" />
 	</File>
-	<File name="DeskAssistantMain.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="3716" topLine="36" />
-	</File>
-	<File name="DeskAssistantMain.h" open="0" top="0" tabpos="2">
-		<Cursor position="1490" topLine="16" />
-	</File>
 	<File name="RuleDlg.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="5887" topLine="90" />
+		<Cursor position="1606" topLine="40" />
 	</File>
 	<File name="RuleDlg.h" open="0" top="0" tabpos="0">
-		<Cursor position="1494" topLine="35" />
+		<Cursor position="767" topLine="19" />
 	</File>
 	<File name="resource.rc" open="0" top="0" tabpos="0">
 		<Cursor position="43" topLine="0" />
