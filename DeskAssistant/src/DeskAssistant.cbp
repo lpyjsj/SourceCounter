@@ -67,8 +67,8 @@
 		<Unit filename="AboutDlg.h" />
 		<Unit filename="DeskAssistantApp.cpp" />
 		<Unit filename="DeskAssistantApp.h" />
-		<Unit filename="RuleDlg.cpp" />
-		<Unit filename="RuleDlg.h" />
+		<Unit filename="MainDlg.cpp" />
+		<Unit filename="MainDlg.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>

@@ -8,13 +8,13 @@
 		<Cursor position="219" topLine="0" />
 	</File>
 	<File name="DeskAssistantApp.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="825" topLine="0" />
+		<Cursor position="816" topLine="0" />
 	</File>
-	<File name="RuleDlg.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="12230" topLine="255" />
+	<File name="MainDlg.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="1811" topLine="53" />
 	</File>
-	<File name="RuleDlg.h" open="1" top="0" tabpos="2">
-		<Cursor position="1155" topLine="21" />
+	<File name="MainDlg.h" open="0" top="0" tabpos="2">
+		<Cursor position="1753" topLine="31" />
 	</File>
 	<File name="resource.rc" open="0" top="0" tabpos="0">
 		<Cursor position="43" topLine="0" />
