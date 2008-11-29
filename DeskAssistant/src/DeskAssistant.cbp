@@ -89,7 +89,7 @@
 				<gui name="wxWidgets" src="DeskAssistantApp.cpp" main="DeskAssistantDialog" init_handlers="necessary" language="CPP" />
 				<resources>
 					<wxDialog wxs="wxsmith/AboutDlg.wxs" src="AboutDlg.cpp" hdr="AboutDlg.h" name="AboutDlg" language="CPP" />
-					<wxDialog wxs="wxsmith/RuleDlg.wxs" src="RuleDlg.cpp" hdr="RuleDlg.h" name="RuleDlg" language="CPP" />
+					<wxDialog wxs="wxsmith/MainDlg.wxs" src="MainDlg.cpp" hdr="MainDlg.h" name="MainDlg" language="CPP" />
 				</resources>
 			</wxsmith>
 			<AutoVersioning>
