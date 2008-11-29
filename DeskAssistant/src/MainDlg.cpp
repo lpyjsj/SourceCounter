@@ -35,6 +35,7 @@ const long MainDlg::ID_CHECKLISTBOX1 = wxNewId();
 const long MainDlg::ID_RADIOBOX1 = wxNewId();
 const long MainDlg::ID_BUTTON7 = wxNewId();
 const long MainDlg::ID_BUTTON4 = wxNewId();
+const long MainDlg::ID_BUTTON5 = wxNewId();
 const long MainDlg::ID_LISTCTRL1 = wxNewId();
 const long MainDlg::ID_LISTCTRL2 = wxNewId();
 const long MainDlg::ID_NOTEBOOK1 = wxNewId();
@@ -43,7 +44,6 @@ const long MainDlg::ID_BUTTON3 = wxNewId();
 
 ///////////////////////////////////////////////////////////////////////
 const int N_COL_NUM = 3;	///< Result listctrl column number
-
 /** Result listctrl column names */
 const wxString CSZ_COL_NAMES[] =
 {
@@ -51,11 +51,18 @@ const wxString CSZ_COL_NAMES[] =
     _("Destination directory"),
     _("Progress"),
 };
+const int N_COL_WIDTH[] = { 340, 140, 80};
 
-const int N_COL_WIDTH[] = { 320, 160, 80};
+/** Folder size listctrl */
+const int N_FOLDER_SIZE_LC_COL_NUM = 2;
+const wxString CSZ_FOLDER_SIZE_LC_COL_NAMES[] =
+{
+	_("Folder"),
+	_("Size(KB)"),
+};
+const int N_FOLDER_SIZE_LC_COL_WIDTH[] = { 480, 80};
 
 const wxChar* CSZ_DESKTOP_KEY_NAME = _T("Desktop");   ///<
-
 /** Desktop register path */
 const wxString CSZ_DESKTOP_KEY_PATH =
     _T("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders");
@@ -70,6 +77,8 @@ END_EVENT_TABLE()
 
 MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
 {
+
+
     //(*Initialize(MainDlg)
     wxBoxSizer* BoxSizer4;
     wxBoxSizer* BoxSizer6;
@@ -113,13 +122,12 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     m_pLbxCustRules->Disable();
     StaticBoxSizer1->Add(m_pLbxCustRules, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    wxString __wxRadioBoxChoices_1[3] =
+    wxString __wxRadioBoxChoices_1[2] =
     {
     _("By file extend name"),
-    _("By file modify time"),
-    _("None")
+    _("By file modify time")
     };
-    m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 3, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
+    m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
     m_btnPreview = new wxButton(this, ID_BUTTON7, _("&Preview"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON7"));
@@ -127,6 +135,9 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     m_btnRun = new wxButton(this, ID_BUTTON4, _("&Run"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON4"));
     m_btnRun->Disable();
     BoxSizer2->Add(m_btnRun, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_btnTest = new wxButton(this, ID_BUTTON5, _("test"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON5"));
+    m_btnTest->Hide();
+    BoxSizer2->Add(m_btnTest, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(BoxSizer2, 0, wxTOP|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer6 = new wxBoxSizer(wxVERTICAL);
     Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxDefaultPosition, wxSize(600,256), wxNB_BOTTOM, _T("ID_NOTEBOOK1"));
@@ -153,11 +164,15 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnNewClick);
     Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnPreviewClick);
     Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnRunClick);
+    Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnTestClick);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnCheckUpdateClick);
     Connect(wxID_ABOUT,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnAboutClick);
     Connect(wxID_EXIT,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnQuitClick);
     Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&MainDlg::OnInit);
     //*)
+
+	// BoxSizer1->Hide(BoxSizer5);
+
 }
 
 MainDlg::~MainDlg()
@@ -190,6 +205,7 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
 {
     // Clear list
     m_pLcResult->DeleteAllItems();
+    m_pLcFolderSize->DeleteAllItems();
 
     moveFilesToFolder(false);
 
@@ -199,8 +215,51 @@ void MainDlg::OnBtnRunClick(wxCommandEvent& event)
 {
     //
     m_pLcResult->DeleteAllItems();
+    m_pLcFolderSize->DeleteAllItems();
 
     moveFilesToFolder(true);
+}
+
+
+void MainDlg::OnInit(wxInitDialogEvent& event)
+{
+    //
+    for (int i=0; i<N_COL_NUM; i++)
+    {
+        m_pLcResult->InsertColumn(i, CSZ_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_COL_WIDTH[i]);
+    }
+    //
+    for (int i=0; i<N_FOLDER_SIZE_LC_COL_NUM; i++)
+    {
+    	m_pLcFolderSize->InsertColumn(i, CSZ_FOLDER_SIZE_LC_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_FOLDER_SIZE_LC_COL_WIDTH[i]);
+    }
+}
+
+void MainDlg::OnBtnNewClick(wxCommandEvent& event)
+{
+	wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+}
+
+
+void MainDlg::updateUICtrls()
+{
+	//
+	int nCnt = m_pLcResult->GetItemCount();
+
+	if(nCnt > 0)
+	{
+		m_btnRun->Enable();
+	}
+	else
+	{
+		m_btnRun->Enable(false);
+	}
+}
+
+void MainDlg::OnBtnTestClick(wxCommandEvent& event)
+{
+	// BoxSizer1->Show(BoxSizer5);
+
 }
 
 void MainDlg::moveFilesToFolder(bool bPreview)
@@ -269,32 +328,68 @@ void MainDlg::moveFilesToFolder(bool bPreview)
 
 }
 
-void MainDlg::OnInit(wxInitDialogEvent& event)
+void MainDlg::categorizeByTime(bool bPreview)
 {
-    //
-    for (int i=0; i<N_COL_NUM; i++)
+	wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
+
+    //will create the Key if it does not exist
+    if ( !pRegKey->Exists() )
     {
-        m_pLcResult->InsertColumn(i, CSZ_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_COL_WIDTH[i]);
+        return;
     }
-}
 
-void MainDlg::OnBtnNewClick(wxCommandEvent& event)
-{
-	wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
-}
+    wxString strDesktopFullPath;
+    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
+    delete pRegKey;
 
+    ///////////////////////////////////////////////////////////////////
 
-void MainDlg::updateUICtrls()
-{
-	//
-	int nCnt = m_pLcResult->GetItemCount();
+    wxString strFilePath = ::wxFindFirstFile(strDesktopFullPath + _T("\\*"), wxFILE);
+    if (strFilePath.IsEmpty())
+    {
+        return;
+    }
 
-	if(nCnt > 0)
-	{
-		m_btnRun->Enable();
-	}
-	else
-	{
-		m_btnRun->Enable(false);
-	}
+    wxString strFileExtName;
+    long nIndex = -1;
+    wxString strTemp;
+    while (!strFilePath.IsEmpty())
+    {
+        ///////////////////////////////////////////////////////////////
+        MSG	msg;
+        if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
+        {
+            ::DispatchMessage( &msg );
+        }
+
+        ///////////////////////////////////////////////////////////////
+
+        wxFileName fnCur(strFilePath);
+        strFileExtName = fnCur.GetExt();
+        if (0 != strFileExtName.CmpNoCase(CSZ_EXCLUDING_FILE_EXT))
+        {
+            strFileExtName = _T("____") + strFileExtName;
+
+            // Insert item
+            nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), fnCur.GetFullPath());
+            m_pLcResult->SetItem(nIndex, 1, strFileExtName);
+
+            if (bPreview)
+            {
+                wxString strTemp(strDesktopFullPath + _T("\\") + strFileExtName);
+                if (!wxDirExists(strTemp))
+                {
+                    wxMkdir(strTemp);
+                }
+                // Move file to dest dir
+                wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
+                m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
+            }
+
+        }// END IF
+
+        // Next file
+        strFilePath =::wxFindNextFile();
+    }//END WHILE
+
 }

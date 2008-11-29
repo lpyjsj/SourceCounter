@@ -10,11 +10,11 @@
 	<File name="DeskAssistantApp.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="816" topLine="0" />
 	</File>
-	<File name="MainDlg.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="1811" topLine="53" />
+	<File name="MainDlg.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="14191" topLine="345" />
 	</File>
-	<File name="MainDlg.h" open="0" top="0" tabpos="2">
-		<Cursor position="1753" topLine="31" />
+	<File name="MainDlg.h" open="1" top="0" tabpos="3">
+		<Cursor position="2373" topLine="52" />
 	</File>
 	<File name="resource.rc" open="0" top="0" tabpos="0">
 		<Cursor position="43" topLine="0" />

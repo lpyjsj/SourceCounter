@@ -45,6 +45,7 @@ public:
     wxButton* m_btnRun;
     wxButton* Button8;
     wxButton* m_btnAbout;
+    wxButton* m_btnTest;
     //*)
 
 protected:
@@ -61,6 +62,7 @@ protected:
     static const long ID_RADIOBOX1;
     static const long ID_BUTTON7;
     static const long ID_BUTTON4;
+    static const long ID_BUTTON5;
     static const long ID_LISTCTRL1;
     static const long ID_LISTCTRL2;
     static const long ID_NOTEBOOK1;
@@ -78,12 +80,21 @@ private:
     void OnInit(wxInitDialogEvent& event);
     void OnBtnNewClick(wxCommandEvent& event);
     void OnListbook1PageChanged(wxNotebookEvent& event);
+    void OnBtnTestClick(wxCommandEvent& event);
     //*)
 
-    ///////////////////////////////////////////////////////////////
-    void moveFilesToFolder(bool bPreview);
+    ///////////////////////////////////////////////////////////////////
 
+
+
+
+
+
+    void moveFilesToFolder(bool bPreview);
+	void categorizeByTime(bool bPreview);
 	void updateUICtrls();
+
+	///////////////////////////////////////////////////////////////////
 
     DECLARE_EVENT_TABLE()
 };

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
-	<object class="wxDialog" name="RuleDlg">
+	<object class="wxDialog" name="MainDlg">
 		<title>Desktop Assistant</title>
 		<centered>1</centered>
 		<pos_arg>1</pos_arg>
@@ -113,7 +113,6 @@
 					<content>
 						<item>By file extend name</item>
 						<item>By file modify time</item>
-						<item>None</item>
 					</content>
 					<default>-1</default>
 					<style>wxRA_VERTICAL</style>
@@ -139,6 +138,16 @@
 						</object>
 						<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxButton" name="ID_BUTTON5" variable="m_btnTest" member="yes">
+							<label>test</label>
+							<hidden>1</hidden>
+							<handler function="OnBtnTestClick" entry="EVT_BUTTON" />
+						</object>
+						<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+						<option>1</option>
 					</object>
 				</object>
 				<flag>wxTOP|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
