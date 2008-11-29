@@ -11,7 +11,7 @@
 #include "DeskAssistantApp.h"
 
 //(*AppHeaders
-#include "RuleDlg.h"
+#include "MainDlg.h"
 #include <wx/image.h>
 //*)
 
@@ -31,7 +31,7 @@ bool DeskAssistantApp::OnInit()
     if ( wxsOK )
     {
         //DeskAssistantDialog Dlg(0);
-        RuleDlg Dlg(0);
+        MainDlg Dlg(0);
         Dlg.SetIcon(ico);
 
         SetTopWindow(&Dlg);

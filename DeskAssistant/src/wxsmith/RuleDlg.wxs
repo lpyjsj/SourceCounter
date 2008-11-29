@@ -20,7 +20,7 @@
 					</object>
 					<object class="sizeritem">
 						<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
-							<label>Desktop Assistant is a tool for Desktop file categorization.&#x0A;This tool can categorize files to folders by using the rule defined beforehand. &#x0A;The folders that stores the files is automatically created. </label>
+							<label>Desktop Assistant is a tool for Desktop file categorization.&#x0A;This tool can categorize files to folders by using the rule defined beforehand. &#x0A;The folders that stores the files is automatically created.</label>
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
@@ -148,9 +148,22 @@
 				<object class="wxBoxSizer" variable="BoxSizer6" member="no">
 					<orient>wxVERTICAL</orient>
 					<object class="sizeritem">
-						<object class="wxListCtrl" name="ID_LISTCTRL1" variable="m_pLcResult" member="yes">
-							<size>360,120</size>
-							<style>wxLC_REPORT</style>
+						<object class="wxNotebook" name="ID_NOTEBOOK1" variable="Notebook1" member="yes">
+							<size>600,256</size>
+							<maxsize>320,200</maxsize>
+							<style>wxNB_BOTTOM</style>
+							<object class="notebookpage">
+								<object class="wxListCtrl" name="ID_LISTCTRL1" variable="m_pLcResult" member="yes">
+									<style>wxLC_REPORT</style>
+								</object>
+								<label>Preview and run result</label>
+							</object>
+							<object class="notebookpage">
+								<object class="wxListCtrl" name="ID_LISTCTRL2" variable="m_pLcFolderSize" member="yes">
+									<style>wxLC_REPORT</style>
+								</object>
+								<label>Folder size analysis</label>
+							</object>
 						</object>
 						<flag>wxTOP|wxBOTTOM|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
