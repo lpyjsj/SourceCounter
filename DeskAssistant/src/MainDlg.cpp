@@ -1,5 +1,5 @@
 /**
- * Rule dialog
+ * Main dialog
  */
 
 #ifndef WX_PRECOMP
@@ -43,6 +43,14 @@ const long MainDlg::ID_BUTTON3 = wxNewId();
 //*)
 
 ///////////////////////////////////////////////////////////////////////
+
+enum NBaseRuleType
+{
+    NBaseRuleTypeExtName = 0,	///< Categorize by file extend name
+    NBaseRuleTypeTime,			///< Categorize by file modification time
+    NBaseRuleTypeNone,			///< None rule
+};
+
 const int N_COL_NUM = 3;	///< Result listctrl column number
 /** Result listctrl column names */
 const wxString CSZ_COL_NAMES[] =
@@ -57,8 +65,8 @@ const int N_COL_WIDTH[] = { 340, 140, 80};
 const int N_FOLDER_SIZE_LC_COL_NUM = 2;
 const wxString CSZ_FOLDER_SIZE_LC_COL_NAMES[] =
 {
-	_("Folder"),
-	_("Size(KB)"),
+    _("Folder"),
+    _("Size(KB)"),
 };
 const int N_FOLDER_SIZE_LC_COL_WIDTH[] = { 480, 80};
 
@@ -68,6 +76,9 @@ const wxString CSZ_DESKTOP_KEY_PATH =
     _T("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders");
 
 const wxString CSZ_EXCLUDING_FILE_EXT = _T("lnk"); ///< excluding file type
+
+
+
 ///////////////////////////////////////////////////////////////////////
 
 BEGIN_EVENT_TABLE(MainDlg,wxDialog)
@@ -94,10 +105,10 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     BoxSizer5 = new wxBoxSizer(wxHORIZONTAL);
     StaticBitmap1 = new wxStaticBitmap(this, ID_STATICBITMAP1, wxBitmap(wxImage(_T("img\\DesktopAssistant.ico"))), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICBITMAP1"));
-    BoxSizer5->Add(StaticBitmap1, 0, wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer5->Add(StaticBitmap1, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Desktop Assistant is a tool for Desktop file categorization.\nThis tool can categorize files to folders by using the rule defined beforehand. \nThe folders that stores the files is automatically created."), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
-    BoxSizer5->Add(StaticText1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    BoxSizer1->Add(BoxSizer5, 0, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer5->Add(StaticText1, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer1->Add(BoxSizer5, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Select customize categorization rules"));
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
     m_btnNew = new wxButton(this, ID_BUTTON1, _("&New..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
@@ -122,12 +133,13 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     m_pLbxCustRules->Disable();
     StaticBoxSizer1->Add(m_pLbxCustRules, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    wxString __wxRadioBoxChoices_1[2] =
+    wxString __wxRadioBoxChoices_1[3] =
     {
     _("By file extend name"),
-    _("By file modify time")
+    _("By file modify time"),
+    _("None(Do nothing)")
     };
-    m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
+    m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 3, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
     m_btnPreview = new wxButton(this, ID_BUTTON7, _("&Preview"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON7"));
@@ -171,7 +183,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&MainDlg::OnInit);
     //*)
 
-	// BoxSizer1->Hide(BoxSizer5);
+    // BoxSizer1->Hide(BoxSizer5);
 
 }
 
@@ -203,21 +215,66 @@ void MainDlg::OnBtnCheckUpdateClick(wxCommandEvent& event)
  */
 void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
 {
+    // Colect rules setting
+    int nType = m_pRbxBaseRules->GetSelection();
+
     // Clear list
     m_pLcResult->DeleteAllItems();
     m_pLcFolderSize->DeleteAllItems();
 
-    moveFilesToFolder(false);
+
+    //
+    switch (nType)
+    {
+    case NBaseRuleTypeExtName:
+    {
+        moveFilesToFolder(false);
+        break;
+    }
+
+    case NBaseRuleTypeTime:
+    {
+    	categorizeByTime(false);
+        break;
+    }
+
+    default:
+    {// Do nothing
+
+    }
+    }
 
     updateUICtrls();
 }
 void MainDlg::OnBtnRunClick(wxCommandEvent& event)
 {
+    // Colect rules setting
+    int nType = m_pRbxBaseRules->GetSelection();
+
     //
     m_pLcResult->DeleteAllItems();
     m_pLcFolderSize->DeleteAllItems();
 
-    moveFilesToFolder(true);
+    //
+    switch (nType)
+    {
+    case NBaseRuleTypeExtName:
+    {
+        moveFilesToFolder(true);
+        break;
+    }
+
+    case NBaseRuleTypeTime:
+    {
+    	    	categorizeByTime(false);
+        break;
+    }
+
+    default:
+    {// Do nothing
+
+    }
+    }
 }
 
 
@@ -231,34 +288,34 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
     //
     for (int i=0; i<N_FOLDER_SIZE_LC_COL_NUM; i++)
     {
-    	m_pLcFolderSize->InsertColumn(i, CSZ_FOLDER_SIZE_LC_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_FOLDER_SIZE_LC_COL_WIDTH[i]);
+        m_pLcFolderSize->InsertColumn(i, CSZ_FOLDER_SIZE_LC_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_FOLDER_SIZE_LC_COL_WIDTH[i]);
     }
 }
 
 void MainDlg::OnBtnNewClick(wxCommandEvent& event)
 {
-	wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+    wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
 }
 
 
 void MainDlg::updateUICtrls()
 {
-	//
-	int nCnt = m_pLcResult->GetItemCount();
+    //
+    int nCnt = m_pLcResult->GetItemCount();
 
-	if(nCnt > 0)
-	{
-		m_btnRun->Enable();
-	}
-	else
-	{
-		m_btnRun->Enable(false);
-	}
+    if (nCnt > 0)
+    {
+        m_btnRun->Enable();
+    }
+    else
+    {
+        m_btnRun->Enable(false);
+    }
 }
 
 void MainDlg::OnBtnTestClick(wxCommandEvent& event)
 {
-	// BoxSizer1->Show(BoxSizer5);
+    // BoxSizer1->Show(BoxSizer5);
 
 }
 
@@ -330,7 +387,7 @@ void MainDlg::moveFilesToFolder(bool bPreview)
 
 void MainDlg::categorizeByTime(bool bPreview)
 {
-	wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
+    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
 
     //will create the Key if it does not exist
     if ( !pRegKey->Exists() )
@@ -366,27 +423,38 @@ void MainDlg::categorizeByTime(bool bPreview)
 
         wxFileName fnCur(strFilePath);
         strFileExtName = fnCur.GetExt();
-        if (0 != strFileExtName.CmpNoCase(CSZ_EXCLUDING_FILE_EXT))
-        {
-            strFileExtName = _T("____") + strFileExtName;
 
-            // Insert item
-            nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), fnCur.GetFullPath());
-            m_pLcResult->SetItem(nIndex, 1, strFileExtName);
+        wxDateTime timeModification = fnCur.GetModificationTime();
 
-            if (bPreview)
-            {
-                wxString strTemp(strDesktopFullPath + _T("\\") + strFileExtName);
-                if (!wxDirExists(strTemp))
-                {
-                    wxMkdir(strTemp);
-                }
-                // Move file to dest dir
-                wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
-                m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
-            }
+		int nYear = timeModification.GetYear();
+        int nMonth = timeModification.GetMonth(); //wxDateTime::Now().FormatDate();
+        wxString strM;
+        strM.Printf(_T("___%d_%d"), nYear, nMonth);
 
-        }// END IF
+        nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), fnCur.GetFullPath());
+		m_pLcResult->SetItem(nIndex, 1, strM);
+
+//        if (0 != strFileExtName.CmpNoCase(CSZ_EXCLUDING_FILE_EXT))
+//        {
+//            strFileExtName = _T("____") + strFileExtName;
+//
+//            // Insert item
+//            nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), fnCur.GetFullPath());
+//            m_pLcResult->SetItem(nIndex, 1, strFileExtName);
+//
+//            if (bPreview)
+//            {
+//                wxString strTemp(strDesktopFullPath + _T("\\") + strFileExtName);
+//                if (!wxDirExists(strTemp))
+//                {
+//                    wxMkdir(strTemp);
+//                }
+//                // Move file to dest dir
+//                wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
+//                m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
+//            }
+//
+//        }// END IF
 
         // Next file
         strFilePath =::wxFindNextFile();
