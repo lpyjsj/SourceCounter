@@ -175,8 +175,8 @@
 								<label>Folder size analysis</label>
 							</object>
 						</object>
-						<flag>wxTOP|wxBOTTOM|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-						<border>5</border>
+						<flag>wxTOP|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>2</border>
 						<option>1</option>
 					</object>
 				</object>
