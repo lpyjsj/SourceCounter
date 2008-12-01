@@ -111,8 +111,7 @@
 				<object class="wxRadioBox" name="ID_RADIOBOX1" variable="m_pRbxBaseRules" member="yes">
 					<label>Select base categorization rules</label>
 					<content>
-						<item>By file extend name</item>
-						<item>By file modify time</item>
+						<item>By file modification time</item>
 						<item>None(Do nothing)</item>
 					</content>
 					<default>-1</default>

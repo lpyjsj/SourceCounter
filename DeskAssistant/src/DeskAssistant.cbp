@@ -65,6 +65,8 @@
 		</ResourceCompiler>
 		<Unit filename="AboutDlg.cpp" />
 		<Unit filename="AboutDlg.h" />
+		<Unit filename="CategorizeMgr.cpp" />
+		<Unit filename="CategorizeMgr.h" />
 		<Unit filename="DeskAssistantApp.cpp" />
 		<Unit filename="DeskAssistantApp.h" />
 		<Unit filename="MainDlg.cpp" />
