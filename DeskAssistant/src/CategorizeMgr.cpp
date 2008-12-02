@@ -6,10 +6,13 @@
 #include <wx/config.h>
 #include <wx/filename.h>
 
-#include "CategorizeMgr.h"
 #include "BasicRule.h"
+#include "CategorizeMgr.h"
 
-const wxString CSZ_EXCLUDING_FILE_EXT = _T("lnk"); ///< excluding file type
+
+//const wxChar* CSZ_EXCLUDING_FILE_EXT[] = { _T("lnk")}; ///< excluding file type
+const wxString CSZ_EXCLUDING_FILE_EXT = _T("lnk");
+
 
 CategorizeMgr::CategorizeMgr():
         m_pObserver( 0 )
@@ -118,17 +121,22 @@ void CategorizeMgr::getFolderAllFile(wxString& strFolderPath, ArrayCategorizatio
     ///////////////////////////////////////////////////////////////////
 
     wxString strDirName = ::wxFindFirstFile(strValidPath, wxFILE);
+    wxString strFileExt;
     while (!strDirName.IsEmpty())
     {
+        wxFileName fileName(strDirName);
+        strFileExt = fileName.GetExt();
 
-        //if (!strDirName.Contains(CSZ_EXCLUDING_FILE_EXT))
-        //{
+        if (strFileExt.CmpNoCase( CSZ_EXCLUDING_FILE_EXT ) != 0)
+        {// Excluding .lnk file(shortcut files)
             CategorizationFileInfo* pFileInfo = new CategorizationFileInfo(strDirName);
             arrFileInfo.Add(pFileInfo);
+        }
 
-            strDirName = wxFindNextFile();
-        //}
+        // Next file
+        strDirName = ::wxFindNextFile();
     }//while
+
 }
 
 /**

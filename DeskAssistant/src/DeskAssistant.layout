@@ -7,19 +7,22 @@
 	<File name="AboutDlg.h" open="0" top="0" tabpos="7">
 		<Cursor position="219" topLine="0" />
 	</File>
-	<File name="CategorizeMgr.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="3858" topLine="135" />
+	<File name="BasicRule.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="913" topLine="16" />
 	</File>
-	<File name="CategorizeMgr.h" open="1" top="0" tabpos="4">
+	<File name="CategorizeMgr.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="3388" topLine="103" />
+	</File>
+	<File name="CategorizeMgr.h" open="0" top="0" tabpos="4">
 		<Cursor position="329" topLine="15" />
 	</File>
 	<File name="DeskAssistantApp.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="816" topLine="0" />
 	</File>
-	<File name="MainDlg.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="16788" topLine="437" />
+	<File name="MainDlg.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="11430" topLine="257" />
 	</File>
-	<File name="MainDlg.h" open="1" top="0" tabpos="1">
+	<File name="MainDlg.h" open="0" top="0" tabpos="1">
 		<Cursor position="2369" topLine="47" />
 	</File>
 	<File name="resource.rc" open="0" top="0" tabpos="0">
