@@ -19,8 +19,11 @@
 
 #include <wx/listctrl.h>
 
+#include "CategorizeMgr.h"
+#include "CategorizationObserver.h"
 
-class MainDlg: public wxDialog
+
+class MainDlg: public wxDialog, CategorizationObserver
 {
 public:
 
@@ -47,6 +50,10 @@ public:
     wxButton* m_btnAbout;
     wxButton* m_btnTest;
     //*)
+
+	///////////////////////////////////////////////////////////////////////
+
+	virtual void UpdateCategorizationCtrls(void);
 
 protected:
 
@@ -83,12 +90,9 @@ private:
     void OnBtnTestClick(wxCommandEvent& event);
     //*)
 
+	CategorizeMgr m_categorizeMgr;
+
     ///////////////////////////////////////////////////////////////////
-
-
-
-
-
 
     void moveFilesToFolder(bool bPreview);
 	void categorizeByTime(bool bPreview);

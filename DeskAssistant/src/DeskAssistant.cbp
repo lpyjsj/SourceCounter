@@ -65,12 +65,20 @@
 		</ResourceCompiler>
 		<Unit filename="AboutDlg.cpp" />
 		<Unit filename="AboutDlg.h" />
+		<Unit filename="BasicRule.cpp" />
+		<Unit filename="BasicRule.h" />
+		<Unit filename="CategorizationFileInfo.cpp" />
+		<Unit filename="CategorizationFileInfo.h" />
+		<Unit filename="CategorizationObserver.cpp" />
+		<Unit filename="CategorizationObserver.h" />
 		<Unit filename="CategorizeMgr.cpp" />
 		<Unit filename="CategorizeMgr.h" />
 		<Unit filename="DeskAssistantApp.cpp" />
 		<Unit filename="DeskAssistantApp.h" />
 		<Unit filename="MainDlg.cpp" />
 		<Unit filename="MainDlg.h" />
+		<Unit filename="Rule.cpp" />
+		<Unit filename="Rule.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>

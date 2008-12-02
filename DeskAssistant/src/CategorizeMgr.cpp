@@ -1,20 +1,44 @@
-#include "CategorizeMgr.h"
+/**
+ * Categorization management class.
+ *
+ */
 
-CategorizeMgr::CategorizeMgr()
+#include <wx/config.h>
+#include <wx/filename.h>
+
+#include "CategorizeMgr.h"
+#include "BasicRule.h"
+
+const wxString CSZ_EXCLUDING_FILE_EXT = _T("lnk"); ///< excluding file type
+
+CategorizeMgr::CategorizeMgr():
+        m_pObserver( 0 )
 {
     //ctor
+    Rule* pRule = new BasicRule();
+    m_arrRule.Add(pRule);
 }
 
 CategorizeMgr::~CategorizeMgr()
 {
     //dtor
+
+    int nCnt = m_arrCategorizationFileInfo.GetCount();
+    CategorizationFileInfo* pFileInfo = 0;
+    for (int i=0; i<nCnt; i++)
+    {
+        pFileInfo = m_arrCategorizationFileInfo[i];
+        delete pFileInfo;
+        pFileInfo = 0;
+    }
+
 }
 
 /**
  *
  *
  */
-void CategorizeMgr::getSubFolder(wxString& strParentFolderPath, wxArrayString& arrSubFolderPath)
+void CategorizeMgr::getSubFolder(wxString& strParentFolderPath, wxArrayString& arrSubFolderPath, bool bRecursive)
 {
     ///////////////////////////////////////////////////////////////
     wxString strValidPath;
@@ -33,7 +57,7 @@ void CategorizeMgr::getSubFolder(wxString& strParentFolderPath, wxArrayString& a
     // Enum dirs
     ///////////////////////////////////////////////////////////////
 
-    wxString fname;
+    wxString strDirName;
     wxString strTempFolder, strTempDir;
     int nRecursiveFolderCount = 0;
 
@@ -43,13 +67,19 @@ void CategorizeMgr::getSubFolder(wxString& strParentFolderPath, wxArrayString& a
         ///////////////////////////////////////////////////////
 
         // Get first dir
-        fname = ::wxFindFirstFile(strValidPath, wxDIR);
-        while (!fname.IsEmpty())
+        strDirName = ::wxFindFirstFile(strValidPath, wxDIR);
+        while (!strDirName.IsEmpty())
         {
-            arrSubFolderPath.Add(fname);
-            arrRecursiveFolder.Add(fname);
+            if (strDirName.Contains(_T("___")))
+            {
+                arrSubFolderPath.Add(strDirName);
+                if (bRecursive)
+                {
+                    arrRecursiveFolder.Add(strDirName);
+                }
+            }
 
-            fname = wxFindNextFile();
+            strDirName = wxFindNextFile();
         }//while
 
         if (arrRecursiveFolder.IsEmpty())
@@ -70,81 +100,87 @@ void CategorizeMgr::getSubFolder(wxString& strParentFolderPath, wxArrayString& a
 }
 
 
-///////////////////////////////////////////////////////////////////////
-
-
-void MainDlg::categorizeByTime(bool bPreview)
+void CategorizeMgr::getFolderAllFile(wxString& strFolderPath, ArrayCategorizationFileInfo& arrFileInfo )
 {
-    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
+    //
+    wxString strValidPath;
 
-    //will create the Key if it does not exist
-    if ( !pRegKey->Exists() )
+    // add *
+    if ( strFolderPath[strFolderPath.Length() - 1] == '\\' )
     {
-        return;
+        strValidPath = strFolderPath + _T( "*" );
     }
-
-    wxString strDesktopFullPath;
-    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
-    delete pRegKey;
+    else
+    {
+        strValidPath = strFolderPath + _T( "\\*" );
+    }
 
     ///////////////////////////////////////////////////////////////////
 
-    wxString strFilePath = ::wxFindFirstFile(strDesktopFullPath + _T("\\*"), wxFILE);
-    if (strFilePath.IsEmpty())
+    wxString strDirName = ::wxFindFirstFile(strValidPath, wxFILE);
+    while (!strDirName.IsEmpty())
+    {
+
+        //if (!strDirName.Contains(CSZ_EXCLUDING_FILE_EXT))
+        //{
+            CategorizationFileInfo* pFileInfo = new CategorizationFileInfo(strDirName);
+            arrFileInfo.Add(pFileInfo);
+
+            strDirName = wxFindNextFile();
+        //}
+    }//while
+}
+
+/**
+ *
+ *
+ */
+void CategorizeMgr::Categorize(wxString& strPathForCategorize, bool bPreview)
+{
+    // Get sub folder path for categorize path
+    m_arrStrSubFolder.Add(strPathForCategorize);
+    getSubFolder(strPathForCategorize, m_arrStrSubFolder, bPreview);
+
+    int nCnt = m_arrStrSubFolder.GetCount();
+    if (0 == nCnt)
     {
         return;
     }
 
-    wxString strFileExtName;
-    long nIndex = -1;
-    wxString strTemp;
-    while (!strFilePath.IsEmpty())
+    for (int i=0; i<nCnt; i++)
     {
-        ///////////////////////////////////////////////////////////////
-        MSG	msg;
-        if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
+        // Get all file in folder
+        getFolderAllFile(m_arrStrSubFolder[i], m_arrCategorizationFileInfo);
+    }
+
+    // For each rule
+    int nCntRule = m_arrRule.GetCount();
+    Rule* pRule = 0;
+    for (int i=0; i<nCntRule; i++)
+    {
+        pRule = m_arrRule[i];
+
+        if (pRule)
         {
-            ::DispatchMessage( &msg );
+            pRule->Execute(m_arrCategorizationFileInfo, bPreview);
         }
 
-        ///////////////////////////////////////////////////////////////
+        Notify();
+    }// END FOR RULES
 
-        wxFileName fnCur(strFilePath);
-        strFileExtName = fnCur.GetExt();
+}
 
-        wxDateTime timeModification = fnCur.GetModificationTime();
+///////////////////////////////////////////////////////////////////////
+// observer pattern method
+///////////////////////////////////////////////////////////////////////
 
-        int nYear = timeModification.GetYear();
-        int nMonth = timeModification.GetMonth(); //wxDateTime::Now().FormatDate();
-        wxString strM;
-        strM.Printf(_T("___%d-%d"), nYear, nMonth + 1);
+void CategorizeMgr::AttachObserver( CategorizationObserver* pObserver )
+{
+    if (!m_pObserver)
+        m_pObserver	= pObserver;
+}
 
-        if (0 != strFileExtName.CmpNoCase(CSZ_EXCLUDING_FILE_EXT))
-        {
-
-            nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), fnCur.GetFullPath());
-            m_pLcResult->SetItem(nIndex, 1, strM);
-
-            if (!bPreview)
-            {
-                wxString strTemp(strDesktopFullPath + _T("\\") + strM);
-                if (!wxDirExists(strTemp))
-                {
-                    wxMkdir(strTemp);
-                }
-
-
-                // Move file to dest dir
-                wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
-
-                // Insert item
-                m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
-            }
-
-        }// END IF
-
-       // Next file
-        strFilePath =::wxFindNextFile();
-    }//END WHILE
-
+void CategorizeMgr::Notify()
+{
+    m_pObserver->UpdateCategorizationCtrls();
 }

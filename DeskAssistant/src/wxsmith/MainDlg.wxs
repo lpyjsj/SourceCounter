@@ -5,7 +5,7 @@
 		<centered>1</centered>
 		<pos_arg>1</pos_arg>
 		<size_arg>1</size_arg>
-		<style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMINIMIZE_BOX</style>
+		<style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX</style>
 		<handler function="OnInit" entry="EVT_INIT_DIALOG" />
 		<object class="wxBoxSizer" variable="BoxSizer1" member="no">
 			<orient>wxVERTICAL</orient>
@@ -111,7 +111,7 @@
 				<object class="wxRadioBox" name="ID_RADIOBOX1" variable="m_pRbxBaseRules" member="yes">
 					<label>Select base categorization rules</label>
 					<content>
-						<item>By file modification time</item>
+						<item>By file modified time</item>
 						<item>None(Do nothing)</item>
 					</content>
 					<default>-1</default>

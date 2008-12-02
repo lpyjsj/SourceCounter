@@ -74,9 +74,10 @@ const wxChar* CSZ_DESKTOP_KEY_NAME = _T("Desktop");   ///<
 const wxString CSZ_DESKTOP_KEY_PATH =
     _T("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders");
 
-const wxString CSZ_EXCLUDING_FILE_EXT = _T("lnk"); ///< excluding file type
 
 
+const wxString CSZ_TODAY = _("___Today");
+const wxString CSZ_YESTODAY = _("___Yesterday");
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -98,7 +99,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
 
-    Create(parent, id, _("Desktop Assistant"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMINIMIZE_BOX, _T("id"));
+    Create(parent, id, _("Desktop Assistant"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("id"));
     SetClientSize(wxDefaultSize);
     Move(wxDefaultPosition);
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
@@ -134,8 +135,8 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     wxString __wxRadioBoxChoices_1[2] =
     {
-    _("By file modification time"),
-    _("None(Do nothing)")
+        _("By file modified time"),
+        _("None(Do nothing)")
     };
     m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -220,13 +221,30 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
     m_pLcResult->DeleteAllItems();
     m_pLcFolderSize->DeleteAllItems();
 
+//
+//
+//
+    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
+
+    //will create the Key if it does not exist
+    if ( !pRegKey->Exists() )
+    {
+        return;
+    }
+
+    wxString strDesktopFullPath;
+    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
+    delete pRegKey;
+
+    m_categorizeMgr.AttachObserver(this);
 
     //
     switch (nType)
     {
     case NBaseRuleTypeTime:
     {
-        categorizeByTime(true);
+        //categorizeByTime(true);
+        m_categorizeMgr.Categorize(strDesktopFullPath, true);
         break;
     }
 
@@ -246,13 +264,30 @@ void MainDlg::OnBtnRunClick(wxCommandEvent& event)
     //
     m_pLcResult->DeleteAllItems();
     m_pLcFolderSize->DeleteAllItems();
+//
+//
+//
+    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
+
+    //will create the Key if it does not exist
+    if ( !pRegKey->Exists() )
+    {
+        return;
+    }
+
+    wxString strDesktopFullPath;
+    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
+    delete pRegKey;
+
+    m_categorizeMgr.AttachObserver(this);
 
     //
     switch (nType)
     {
     case NBaseRuleTypeTime:
     {
-        categorizeByTime(false);
+        //categorizeByTime(true);
+        m_categorizeMgr.Categorize(strDesktopFullPath, false);
         break;
     }
 
@@ -305,144 +340,165 @@ void MainDlg::OnBtnTestClick(wxCommandEvent& event)
 
 }
 
-void MainDlg::moveFilesToFolder(bool bPreview)
+//void MainDlg::moveFilesToFolder(bool bPreview)
+//{
+//    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
+//
+//    //will create the Key if it does not exist
+//    if ( !pRegKey->Exists() )
+//    {
+//        return;
+//    }
+//
+//    wxString strDesktopFullPath;
+//    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
+//    delete pRegKey;
+//
+//    ///////////////////////////////////////////////////////////////////
+//
+//    wxString strFilePath = ::wxFindFirstFile(strDesktopFullPath + _T("\\*"), wxFILE);
+//    if (strFilePath.IsEmpty())
+//    {
+//        return;
+//    }
+//
+//    wxString strFileExtName;
+//    long nIndex = -1;
+//    wxString strTemp;
+//    while (!strFilePath.IsEmpty())
+//    {
+//        ///////////////////////////////////////////////////////////////
+//        MSG	msg;
+//        if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
+//        {
+//            ::DispatchMessage( &msg );
+//        }
+//
+//        ///////////////////////////////////////////////////////////////
+//
+//        wxFileName fnCur(strFilePath);
+//        strFileExtName = fnCur.GetExt();
+//        if (0 != strFileExtName.CmpNoCase(CSZ_EXCLUDING_FILE_EXT))
+//        {
+//            strFileExtName = _T("____") + strFileExtName;
+//
+//            // Insert item
+//            nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), fnCur.GetFullPath());
+//            m_pLcResult->SetItem(nIndex, 1, strFileExtName);
+//
+//            if (bPreview)
+//            {
+//                wxString strTemp(strDesktopFullPath + _T("\\") + strFileExtName);
+//                if (!wxDirExists(strTemp))
+//                {
+//                    wxMkdir(strTemp);
+//                }
+//                // Move file to dest dir
+//                wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
+//                m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
+//            }
+//
+//        }// END IF
+//
+//        // Next file
+//        strFilePath =::wxFindNextFile();
+//    }//END WHILE
+//
+//}
+//
+//void MainDlg::categorizeByTime(bool bPreview)
+//{
+//    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
+//
+//    //will create the Key if it does not exist
+//    if ( !pRegKey->Exists() )
+//    {
+//        return;
+//    }
+//
+//    wxString strDesktopFullPath;
+//    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
+//    delete pRegKey;
+//
+//    ///////////////////////////////////////////////////////////////////
+//
+//    wxString strFilePath = ::wxFindFirstFile(strDesktopFullPath + _T("\\*"), wxFILE);
+//    if (strFilePath.IsEmpty())
+//    {
+//        return;
+//    }
+//
+//    wxString strFileExtName;
+//    long nIndex = -1;
+//    wxString strTemp;
+//    while (!strFilePath.IsEmpty())
+//    {
+//        ///////////////////////////////////////////////////////////////
+//        MSG	msg;
+//        if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
+//        {
+//            ::DispatchMessage( &msg );
+//        }
+//
+//        ///////////////////////////////////////////////////////////////
+//
+//        wxFileName fnCur(strFilePath);
+//        strFileExtName = fnCur.GetExt();
+//
+//        wxDateTime timeModification = fnCur.GetModificationTime();
+//
+//        int nYear = timeModification.GetYear();
+//        int nMonth = timeModification.GetMonth(); //wxDateTime::Now().FormatDate();
+//        wxString strM;
+//        strM.Printf(_T("___%d-%d"), nYear, nMonth + 1);
+//
+//        if (0 != strFileExtName.CmpNoCase(CSZ_EXCLUDING_FILE_EXT))
+//        {
+//
+//            nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), fnCur.GetFullPath());
+//            m_pLcResult->SetItem(nIndex, 1, strM);
+//
+//            if (!bPreview)
+//            {
+//                wxString strTemp(strDesktopFullPath + _T("\\") + strM);
+//                if (!wxDirExists(strTemp))
+//                {
+//                    wxMkdir(strTemp);
+//                }
+//
+//
+//                // Move file to dest dir
+//                wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
+//
+//                // Insert item
+//                m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
+//            }
+//
+//        }// END IF
+//
+//        // Next file
+//        strFilePath =::wxFindNextFile();
+//    }//END WHILE
+//
+//}
+
+
+void MainDlg::UpdateCategorizationCtrls()
 {
-    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
 
-    //will create the Key if it does not exist
-    if ( !pRegKey->Exists() )
+    m_pLcResult->DeleteAllItems();
+
+    ArrayCategorizationFileInfo* pArrFileInfo = m_categorizeMgr.GetCategorizationFileInfos();
+
+    int nCnt = pArrFileInfo->GetCount();
+    int nIndex = 0;
+    CategorizationFileInfo* pFileInfo = 0;
+    for (int i=0; i<nCnt; i++)
     {
-        return;
+        pFileInfo = pArrFileInfo->Item(i);
+
+        nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), pFileInfo->m_pFileName->GetFullPath());
+        m_pLcResult->SetItem(nIndex, 1, pFileInfo->m_strDestFolderName);
+        m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
     }
-
-    wxString strDesktopFullPath;
-    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
-    delete pRegKey;
-
-    ///////////////////////////////////////////////////////////////////
-
-    wxString strFilePath = ::wxFindFirstFile(strDesktopFullPath + _T("\\*"), wxFILE);
-    if (strFilePath.IsEmpty())
-    {
-        return;
-    }
-
-    wxString strFileExtName;
-    long nIndex = -1;
-    wxString strTemp;
-    while (!strFilePath.IsEmpty())
-    {
-        ///////////////////////////////////////////////////////////////
-        MSG	msg;
-        if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
-        {
-            ::DispatchMessage( &msg );
-        }
-
-        ///////////////////////////////////////////////////////////////
-
-        wxFileName fnCur(strFilePath);
-        strFileExtName = fnCur.GetExt();
-        if (0 != strFileExtName.CmpNoCase(CSZ_EXCLUDING_FILE_EXT))
-        {
-            strFileExtName = _T("____") + strFileExtName;
-
-            // Insert item
-            nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), fnCur.GetFullPath());
-            m_pLcResult->SetItem(nIndex, 1, strFileExtName);
-
-            if (bPreview)
-            {
-                wxString strTemp(strDesktopFullPath + _T("\\") + strFileExtName);
-                if (!wxDirExists(strTemp))
-                {
-                    wxMkdir(strTemp);
-                }
-                // Move file to dest dir
-                wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
-                m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
-            }
-
-        }// END IF
-
-        // Next file
-        strFilePath =::wxFindNextFile();
-    }//END WHILE
-
-}
-
-void MainDlg::categorizeByTime(bool bPreview)
-{
-    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
-
-    //will create the Key if it does not exist
-    if ( !pRegKey->Exists() )
-    {
-        return;
-    }
-
-    wxString strDesktopFullPath;
-    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
-    delete pRegKey;
-
-    ///////////////////////////////////////////////////////////////////
-
-    wxString strFilePath = ::wxFindFirstFile(strDesktopFullPath + _T("\\*"), wxFILE);
-    if (strFilePath.IsEmpty())
-    {
-        return;
-    }
-
-    wxString strFileExtName;
-    long nIndex = -1;
-    wxString strTemp;
-    while (!strFilePath.IsEmpty())
-    {
-        ///////////////////////////////////////////////////////////////
-        MSG	msg;
-        if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
-        {
-            ::DispatchMessage( &msg );
-        }
-
-        ///////////////////////////////////////////////////////////////
-
-        wxFileName fnCur(strFilePath);
-        strFileExtName = fnCur.GetExt();
-
-        wxDateTime timeModification = fnCur.GetModificationTime();
-
-        int nYear = timeModification.GetYear();
-        int nMonth = timeModification.GetMonth(); //wxDateTime::Now().FormatDate();
-        wxString strM;
-        strM.Printf(_T("___%d-%d"), nYear, nMonth + 1);
-
-        if (0 != strFileExtName.CmpNoCase(CSZ_EXCLUDING_FILE_EXT))
-        {
-
-            nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), fnCur.GetFullPath());
-            m_pLcResult->SetItem(nIndex, 1, strM);
-
-            if (!bPreview)
-            {
-                wxString strTemp(strDesktopFullPath + _T("\\") + strM);
-                if (!wxDirExists(strTemp))
-                {
-                    wxMkdir(strTemp);
-                }
-
-
-                // Move file to dest dir
-                wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
-
-                // Insert item
-                m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
-            }
-
-        }// END IF
-
-       // Next file
-        strFilePath =::wxFindNextFile();
-    }//END WHILE
-
 }
