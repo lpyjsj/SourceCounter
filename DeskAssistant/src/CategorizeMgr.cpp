@@ -13,7 +13,6 @@
 //const wxChar* CSZ_EXCLUDING_FILE_EXT[] = { _T("lnk")}; ///< excluding file type
 const wxString CSZ_EXCLUDING_FILE_EXT = _T("lnk");
 
-
 CategorizeMgr::CategorizeMgr():
         m_pObserver( 0 )
 {
@@ -24,15 +23,30 @@ CategorizeMgr::CategorizeMgr():
 
 CategorizeMgr::~CategorizeMgr()
 {
-    //dtor
+    // Delete rule
+    int nCnt = m_arrRule.GetCount();
+    Rule* pRule = 0;
+    for (int i=0; i<nCnt; i++)
+    {
+        pRule = m_arrRule.Item(i);
+        if (pRule)
+        {
+            delete pRule;
+            pRule = 0;
+        }
+    }
 
-    int nCnt = m_arrCategorizationFileInfo.GetCount();
+    // Delete categorizationFileInfo
+    nCnt = m_arrCategorizationFileInfo.GetCount();
     CategorizationFileInfo* pFileInfo = 0;
     for (int i=0; i<nCnt; i++)
     {
-        pFileInfo = m_arrCategorizationFileInfo[i];
-        delete pFileInfo;
-        pFileInfo = 0;
+        pFileInfo = m_arrCategorizationFileInfo.Item(i);
+        if (pFileInfo)
+        {
+            delete pFileInfo;
+            pFileInfo = 0;
+        }
     }
 
 }
@@ -102,7 +116,6 @@ void CategorizeMgr::getSubFolder(wxString& strParentFolderPath, wxArrayString& a
 
 }
 
-
 void CategorizeMgr::getFolderAllFile(wxString& strFolderPath, ArrayCategorizationFileInfo& arrFileInfo )
 {
     //
@@ -122,6 +135,7 @@ void CategorizeMgr::getFolderAllFile(wxString& strFolderPath, ArrayCategorizatio
 
     wxString strDirName = ::wxFindFirstFile(strValidPath, wxFILE);
     wxString strFileExt;
+    wxString strDesktopPath;
     while (!strDirName.IsEmpty())
     {
         wxFileName fileName(strDirName);
@@ -130,6 +144,8 @@ void CategorizeMgr::getFolderAllFile(wxString& strFolderPath, ArrayCategorizatio
         if (strFileExt.CmpNoCase( CSZ_EXCLUDING_FILE_EXT ) != 0)
         {// Excluding .lnk file(shortcut files)
             CategorizationFileInfo* pFileInfo = new CategorizationFileInfo(strDirName);
+
+            pFileInfo->m_strBaseDestDir = m_strDesktopPath;
             arrFileInfo.Add(pFileInfo);
         }
 
@@ -145,11 +161,33 @@ void CategorizeMgr::getFolderAllFile(wxString& strFolderPath, ArrayCategorizatio
  */
 void CategorizeMgr::Categorize(wxString& strPathForCategorize, bool bPreview)
 {
+    // Clear
+    int nCnt = m_arrStrSubFolder.GetCount();
+    if (nCnt > 0)
+    {
+        m_arrStrSubFolder.Empty();
+    }
+
+    nCnt = m_arrCategorizationFileInfo.GetCount();
+    CategorizationFileInfo* pFileInfo = 0;
+
+    while (!m_arrCategorizationFileInfo.IsEmpty())
+    {
+        pFileInfo = m_arrCategorizationFileInfo.Last();
+        m_arrCategorizationFileInfo.Remove(pFileInfo);
+        if (pFileInfo)
+        {
+            delete pFileInfo;
+            pFileInfo = 0;
+        }
+    }
+
+
     // Get sub folder path for categorize path
     m_arrStrSubFolder.Add(strPathForCategorize);
-    getSubFolder(strPathForCategorize, m_arrStrSubFolder, bPreview);
+    getSubFolder(strPathForCategorize, m_arrStrSubFolder, false);
 
-    int nCnt = m_arrStrSubFolder.GetCount();
+    nCnt = m_arrStrSubFolder.GetCount();
     if (0 == nCnt)
     {
         return;
@@ -164,9 +202,9 @@ void CategorizeMgr::Categorize(wxString& strPathForCategorize, bool bPreview)
     // For each rule
     int nCntRule = m_arrRule.GetCount();
     Rule* pRule = 0;
-    for (int i=0; i<nCntRule; i++)
+    for (int j=0; j<nCntRule; j++)
     {
-        pRule = m_arrRule[i];
+        pRule = m_arrRule[j];
 
         if (pRule)
         {

@@ -94,9 +94,10 @@ private:
 
     ///////////////////////////////////////////////////////////////////
 
-    void moveFilesToFolder(bool bPreview);
-	void categorizeByTime(bool bPreview);
+    void getDesktopPath(wxString& strPath);
+//	void categorizeByTime(bool bPreview);
 	void updateUICtrls();
+
 
 	///////////////////////////////////////////////////////////////////
 

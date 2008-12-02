@@ -210,20 +210,11 @@ void MainDlg::OnBtnCheckUpdateClick(wxCommandEvent& event)
 }
 
 /**
- * Preview
+ * Get desktop full path
+ *
  */
-void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
+void MainDlg::getDesktopPath(wxString& strPath)
 {
-    // Colect rules setting
-    int nType = m_pRbxBaseRules->GetSelection();
-
-    // Clear list
-    m_pLcResult->DeleteAllItems();
-    m_pLcFolderSize->DeleteAllItems();
-
-//
-//
-//
     wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
 
     //will create the Key if it does not exist
@@ -232,71 +223,11 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
         return;
     }
 
-    wxString strDesktopFullPath;
-    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
+    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strPath);
+
     delete pRegKey;
-
-    m_categorizeMgr.AttachObserver(this);
-
-    //
-    switch (nType)
-    {
-    case NBaseRuleTypeTime:
-    {
-        //categorizeByTime(true);
-        m_categorizeMgr.Categorize(strDesktopFullPath, true);
-        break;
-    }
-
-    default:
-    {// Do nothing
-
-    }
-    }
-
-    updateUICtrls();
 }
-void MainDlg::OnBtnRunClick(wxCommandEvent& event)
-{
-    // Colect rules setting
-    int nType = m_pRbxBaseRules->GetSelection();
 
-    //
-    m_pLcResult->DeleteAllItems();
-    m_pLcFolderSize->DeleteAllItems();
-//
-//
-//
-    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
-
-    //will create the Key if it does not exist
-    if ( !pRegKey->Exists() )
-    {
-        return;
-    }
-
-    wxString strDesktopFullPath;
-    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
-    delete pRegKey;
-
-    m_categorizeMgr.AttachObserver(this);
-
-    //
-    switch (nType)
-    {
-    case NBaseRuleTypeTime:
-    {
-        //categorizeByTime(true);
-        m_categorizeMgr.Categorize(strDesktopFullPath, false);
-        break;
-    }
-
-    default:
-    {// Do nothing
-
-    }
-    }
-}
 
 
 void MainDlg::OnInit(wxInitDialogEvent& event)
@@ -311,6 +242,14 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
     {
         m_pLcFolderSize->InsertColumn(i, CSZ_FOLDER_SIZE_LC_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_FOLDER_SIZE_LC_COL_WIDTH[i]);
     }
+
+    // Attach Observer object
+    m_categorizeMgr.AttachObserver(this);
+
+    wxString strDesktopPath;
+    getDesktopPath(strDesktopPath);
+    m_categorizeMgr.SetBaseDestPath(strDesktopPath);
+
 }
 
 void MainDlg::OnBtnNewClick(wxCommandEvent& event)
@@ -318,6 +257,71 @@ void MainDlg::OnBtnNewClick(wxCommandEvent& event)
     wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
 }
 
+
+/**
+ * Preview
+ */
+void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
+{
+    // Colect rules setting
+    int nType = m_pRbxBaseRules->GetSelection();
+
+    // Clear list
+    m_pLcResult->DeleteAllItems();
+    //m_pLcFolderSize->DeleteAllItems();
+
+    //
+    wxString strDesktopPath;
+    getDesktopPath(strDesktopPath);
+
+    //
+    switch (nType)
+    {
+    case NBaseRuleTypeTime:
+    {
+        //categorizeByTime(true);
+        m_categorizeMgr.Categorize(strDesktopPath, true);
+        break;
+    }
+
+    default:
+    {// Do nothing
+
+    }
+    }
+
+    updateUICtrls();
+}
+
+void MainDlg::OnBtnRunClick(wxCommandEvent& event)
+{
+    // Colect rules setting
+    int nType = m_pRbxBaseRules->GetSelection();
+
+    //
+    m_pLcResult->DeleteAllItems();
+    //m_pLcFolderSize->DeleteAllItems();
+
+    // Get desktop path
+    wxString strDesktopPath;
+    getDesktopPath(strDesktopPath);
+
+    //
+    switch (nType)
+    {
+    case NBaseRuleTypeTime:
+    {
+        //categorizeByTime(true);
+        m_categorizeMgr.Categorize(strDesktopPath, false);
+        break;
+    }
+
+    default:
+    {// Do nothing
+
+    }
+    }
+}
 
 void MainDlg::updateUICtrls()
 {
@@ -350,13 +354,13 @@ void MainDlg::OnBtnTestClick(wxCommandEvent& event)
 //        return;
 //    }
 //
-//    wxString strDesktopFullPath;
-//    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
+//    wxString strDesktopPath;
+//    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopPath);
 //    delete pRegKey;
 //
 //    ///////////////////////////////////////////////////////////////////
 //
-//    wxString strFilePath = ::wxFindFirstFile(strDesktopFullPath + _T("\\*"), wxFILE);
+//    wxString strFilePath = ::wxFindFirstFile(strDesktopPath + _T("\\*"), wxFILE);
 //    if (strFilePath.IsEmpty())
 //    {
 //        return;
@@ -388,7 +392,7 @@ void MainDlg::OnBtnTestClick(wxCommandEvent& event)
 //
 //            if (bPreview)
 //            {
-//                wxString strTemp(strDesktopFullPath + _T("\\") + strFileExtName);
+//                wxString strTemp(strDesktopPath + _T("\\") + strFileExtName);
 //                if (!wxDirExists(strTemp))
 //                {
 //                    wxMkdir(strTemp);
@@ -416,13 +420,13 @@ void MainDlg::OnBtnTestClick(wxCommandEvent& event)
 //        return;
 //    }
 //
-//    wxString strDesktopFullPath;
-//    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopFullPath);
+//    wxString strDesktopPath;
+//    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopPath);
 //    delete pRegKey;
 //
 //    ///////////////////////////////////////////////////////////////////
 //
-//    wxString strFilePath = ::wxFindFirstFile(strDesktopFullPath + _T("\\*"), wxFILE);
+//    wxString strFilePath = ::wxFindFirstFile(strDesktopPath + _T("\\*"), wxFILE);
 //    if (strFilePath.IsEmpty())
 //    {
 //        return;
@@ -460,7 +464,7 @@ void MainDlg::OnBtnTestClick(wxCommandEvent& event)
 //
 //            if (!bPreview)
 //            {
-//                wxString strTemp(strDesktopFullPath + _T("\\") + strM);
+//                wxString strTemp(strDesktopPath + _T("\\") + strM);
 //                if (!wxDirExists(strTemp))
 //                {
 //                    wxMkdir(strTemp);
@@ -486,7 +490,7 @@ void MainDlg::OnBtnTestClick(wxCommandEvent& event)
 void MainDlg::UpdateCategorizationCtrls()
 {
 
-    m_pLcResult->DeleteAllItems();
+
 
     ArrayCategorizationFileInfo* pArrFileInfo = m_categorizeMgr.GetCategorizationFileInfos();
 

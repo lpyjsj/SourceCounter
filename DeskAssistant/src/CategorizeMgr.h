@@ -23,6 +23,7 @@ public:
 
 	ArrayCategorizationFileInfo*  GetCategorizationFileInfos()	{ return &m_arrCategorizationFileInfo; }
 
+	void SetBaseDestPath(wxString& strPath) { m_strDesktopPath = strPath; }
     //
     // observer pattern method
     //
@@ -49,6 +50,7 @@ private:
 
 	wxArrayString 					m_arrStrSubFolder;	///<
 
+	wxString						m_strDesktopPath;
 
 	///////////////////////////////////////////////////////////////////
 
