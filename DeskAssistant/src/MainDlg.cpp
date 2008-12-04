@@ -23,6 +23,8 @@
 #include "MainDlg.h"
 #include "AboutDlg.h"
 
+#include "CustomRuleDlg.h"
+
 //(*IdInit(MainDlg)
 const long MainDlg::ID_STATICBITMAP1 = wxNewId();
 const long MainDlg::ID_STATICTEXT1 = wxNewId();
@@ -98,7 +100,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     wxBoxSizer* BoxSizer1;
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
-    
+
     Create(parent, id, _("Desktop Assistant"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("id"));
     SetClientSize(wxDefaultSize);
     Move(wxDefaultPosition);
@@ -132,7 +134,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     m_pLbxCustRules->Check(m_pLbxCustRules->Append(_("zip, rar, 7z  -> ___ZIP")));
     StaticBoxSizer1->Add(m_pLbxCustRules, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    wxString __wxRadioBoxChoices_1[2] = 
+    wxString __wxRadioBoxChoices_1[2] =
     {
     _("By file modified time"),
     _("None(Do nothing)")
@@ -170,7 +172,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnNewClick);
     Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnPreviewClick);
     Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnRunClick);
@@ -231,6 +233,11 @@ void MainDlg::getDesktopPath(wxString& strPath)
 
 void MainDlg::OnInit(wxInitDialogEvent& event)
 {
+	// Init check list box
+	m_categorizeMgr.Init();
+	// TODO:
+
+
     //
     for (int i=0; i<N_COL_NUM; i++)
     {
@@ -253,7 +260,13 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
 
 void MainDlg::OnBtnNewClick(wxCommandEvent& event)
 {
-    wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+    CustomRuleDlg dlg(this);
+
+	if (dlg.ShowModal() == wxID_OK)
+	{
+		wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+
+	}
 }
 
 
@@ -502,13 +515,14 @@ void MainDlg::UpdateCategorizationCtrls()
         nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), pFileInfo->m_pFileName->GetFullPath());
         m_pLcResult->SetItem(nIndex, 1, pFileInfo->m_strDestFolderName);
 
-        if (pFileInfo->m_bCategorized)
+        if (pFileInfo->m_bCategorized == true && pFileInfo->m_bProcessed == false )
         {
-            strTemp = _T("Processed");
+			strTemp = _T("Previewed");
+
         }
         else
         {
-			strTemp = _T("Previewed");
+            strTemp = _T("Processed");
 		}
 		m_pLcResult->SetItem(nIndex, 2, strTemp);
     }

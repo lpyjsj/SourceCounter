@@ -19,12 +19,17 @@ public:
 
 	///////////////////////////////////////////////////////////////////
 
-	void Preview(wxString& strPathForCategorize);
-	void Categorize();
+	void Init();
 
 	ArrayCategorizationFileInfo*  GetCategorizationFileInfos()	{ return &m_arrCategorizationFileInfo; }
 
 	void SetBaseDestPath(wxString& strPath) { m_strDesktopPath = strPath; }
+
+	void AddRule();
+
+	void Preview(wxString& strPathForCategorize);
+	void Categorize();
+
 
     //
     // observer pattern method

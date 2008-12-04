@@ -12,10 +12,14 @@ public:
     ///////////////////////////////////////////////////////////////
 
     wxFileName* m_pFileName;	///<
-    bool m_bCategorized;		///< Whether this file be categorized
 
-    wxString m_strBaseDestDir;		///< In this program, it is mean Desktop
+    bool m_bCategorized;		///< Whether this file be categorized
+    bool m_bProcessed;
+
+    wxString m_strBaseDestPath;		///< In this program, it is mean Desktop
     wxString m_strDestFolderName;	///< It is mean Desktop\FolderName
+    wxString m_strFullDestPath;
+
 
     ///////////////////////////////////////////////////////////////
 
@@ -27,12 +31,13 @@ public:
 
     wxString GetDestFolderPath()
     {
-        return m_strBaseDestDir + _T("\\") + m_strDestFolderName;
+        return m_strBaseDestPath + _T("\\") + m_strDestFolderName;
     }
 
     wxString GetDestFullPath()
     {
-        return m_strBaseDestDir + _T("\\") + m_strDestFolderName + _T("\\") + m_pFileName->GetFullName();
+    	m_strFullDestPath = m_strBaseDestPath + _T("\\") + m_strDestFolderName + _T("\\") + m_pFileName->GetFullName();
+        return m_strFullDestPath;
     }
 
 

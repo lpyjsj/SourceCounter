@@ -7,6 +7,8 @@
 #include <wx/filename.h>
 
 #include "BasicRule.h"
+#include "ExtNameRule.h"
+
 #include "CategorizeMgr.h"
 
 
@@ -17,8 +19,7 @@ CategorizeMgr::CategorizeMgr():
         m_pObserver( 0 )
 {
     //ctor
-    Rule* pRule = new BasicRule();
-    m_arrRule.Add(pRule);
+
 }
 
 CategorizeMgr::~CategorizeMgr()
@@ -50,6 +51,27 @@ CategorizeMgr::~CategorizeMgr()
     }
 
 }
+
+void CategorizeMgr::Init()
+{
+    // TODO: load rule from conf file, the last is basic rule
+
+    //
+    ExtNameRule* pRule = new ExtNameRule();
+    pRule->m_arrStrExtName.Add(_T("7z"));
+    pRule->m_arrStrExtName.Add(_T("zip"));
+	pRule->m_arrStrExtName.Add(_T("rar"));
+	pRule->m_strBaseDestPath = _T("c:\\hp");
+
+    m_arrRule.Add(pRule);
+
+	// the last is basic rule
+    BasicRule* pBasicRule = new BasicRule();
+    m_arrRule.Add(pBasicRule);
+
+}
+
+
 
 /**
  *
@@ -145,7 +167,7 @@ void CategorizeMgr::getFolderAllFile(wxString& strFolderPath, ArrayCategorizatio
         {// Excluding .lnk file(shortcut files)
             CategorizationFileInfo* pFileInfo = new CategorizationFileInfo(strDirName);
 
-            pFileInfo->m_strBaseDestDir = m_strDesktopPath;
+            pFileInfo->m_strBaseDestPath = m_strDesktopPath;
             arrFileInfo.Add(pFileInfo);
         }
 
@@ -166,7 +188,7 @@ void CategorizeMgr::Categorize()
 
     //
     CategorizationFileInfo* pFileInfo = 0;
-	wxString strTemp;
+    wxString strTemp;
     for (int i=0; i< nCnt; i++)
     {
         //
@@ -185,7 +207,7 @@ void CategorizeMgr::Categorize()
             if (pFileInfo->GetCurFullPath().CmpNoCase(pFileInfo->GetDestFullPath()) != 0 )
             {
                 wxRenameFile(pFileInfo->GetCurFullPath(), pFileInfo->GetDestFullPath() );
-                pFileInfo->m_bCategorized = true;
+                pFileInfo->m_bProcessed = true;
             }
         }
 

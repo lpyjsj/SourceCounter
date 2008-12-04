@@ -73,6 +73,8 @@
 		<Unit filename="CategorizationObserver.h" />
 		<Unit filename="CategorizeMgr.cpp" />
 		<Unit filename="CategorizeMgr.h" />
+		<Unit filename="CustomRuleDlg.cpp" />
+		<Unit filename="CustomRuleDlg.h" />
 		<Unit filename="DeskAssistantApp.cpp" />
 		<Unit filename="DeskAssistantApp.h" />
 		<Unit filename="ExtNameRule.cpp" />
@@ -102,6 +104,7 @@
 				<resources>
 					<wxDialog wxs="wxsmith/AboutDlg.wxs" src="AboutDlg.cpp" hdr="AboutDlg.h" name="AboutDlg" language="CPP" />
 					<wxDialog wxs="wxsmith/MainDlg.wxs" src="MainDlg.cpp" hdr="MainDlg.h" name="MainDlg" language="CPP" />
+					<wxDialog wxs="wxsmith/CustomRuleDlg.wxs" src="CustomRuleDlg.cpp" hdr="CustomRuleDlg.h" name="CustomRuleDlg" language="CPP" />
 				</resources>
 			</wxsmith>
 			<AutoVersioning>

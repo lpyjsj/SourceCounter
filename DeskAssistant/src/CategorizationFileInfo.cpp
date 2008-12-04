@@ -2,7 +2,8 @@
 
 CategorizationFileInfo::CategorizationFileInfo(wxString& strPath):
         m_pFileName( 0 ),
-        m_bCategorized( false )
+        m_bCategorized( false ),
+        m_bProcessed(false)
 {
     //ctor
     m_pFileName = new wxFileName(strPath);

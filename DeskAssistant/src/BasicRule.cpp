@@ -36,30 +36,18 @@ void BasicRule::Execute(ArrayCategorizationFileInfo& arrFileInfo)
         // Get file modification time
         pFileInfo = arrFileInfo[i];
 
+        if (!pFileInfo->m_bCategorized)
+        {
+            timeModification = pFileInfo->m_pFileName->GetModificationTime();
 
-        timeModification = pFileInfo->m_pFileName->GetModificationTime();
+            nYear = timeModification.GetYear();
+            nMonth = timeModification.GetMonth(); //wxDateTime::Now().FormatDate();
 
-        nYear = timeModification.GetYear();
-        nMonth = timeModification.GetMonth(); //wxDateTime::Now().FormatDate();
+            strM.Printf(_T("___%d-%d"), nYear, nMonth + 1);
+            pFileInfo->m_strDestFolderName = strM;
 
-        strM.Printf(_T("___%d-%d"), nYear, nMonth + 1);
-        pFileInfo->m_strDestFolderName = strM;
-
-//        if (!bPreview)
-//        {
-//            strTemp = pFileInfo->m_strBaseDestDir + _T("\\") + pFileInfo->m_strDestFolderName;
-//
-//            if (!wxDirExists(strTemp))
-//            {
-//                wxMkdir(strTemp);
-//            }
-//
-//            // Move file to dest dir
-//            wxRenameFile(pFileInfo->m_pFileName->GetFullPath(), strTemp + _T("\\") + pFileInfo->m_pFileName->GetFullName() );
-//        }
-
-
-
+            //
+            pFileInfo->m_bCategorized = true;
+        }
     }
-
 }

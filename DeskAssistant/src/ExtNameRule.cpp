@@ -2,45 +2,45 @@
 
 ExtNameRule::ExtNameRule()
 {
-	//ctor
+    //ctor
 }
 
 ExtNameRule::~ExtNameRule()
 {
-	//dtor
+    //dtor
 }
 
 void ExtNameRule::Execute(ArrayCategorizationFileInfo& arrFileInfo)
 {
     //
-
     int nCntFileInfo = arrFileInfo.GetCount();
     if (0 == nCntFileInfo)
     {
         return;
     }
 
-    CategorizationFileInfo* pFileInfo = 0; // = pArrFileInfo[]
-    wxDateTime timeModification;
-
-    int nYear, nMonth;
-    wxString strM;
-    wxString strTemp;
+    CategorizationFileInfo* pFileInfo = 0;
+    wxString strExtName;
+    int nCntExtName = 0;
 
     for (int i=0; i<nCntFileInfo; i++)
     {
         // Get file modification time
         pFileInfo = arrFileInfo[i];
+        if (!pFileInfo->m_bCategorized)
+        {
+            strExtName = pFileInfo->m_pFileName->GetExt();
 
+            nCntExtName = m_arrStrExtName.GetCount();
+            for (int j=0; j<nCntExtName; j++)
+            {
 
-        timeModification = pFileInfo->m_pFileName->GetModificationTime();
-
-        nYear = timeModification.GetYear();
-        nMonth = timeModification.GetMonth(); //wxDateTime::Now().FormatDate();
-
-        strM.Printf(_T("___%d-%d"), nYear, nMonth + 1);
-        pFileInfo->m_strDestFolderName = strM;
-
+                if (strExtName.CmpNoCase( m_arrStrExtName[j] ) == 0)
+                {
+                    pFileInfo->m_strFullDestPath = m_strBaseDestPath + _T("\\") + pFileInfo->m_pFileName->GetFullName();
+                    pFileInfo->m_bCategorized = true;
+                }
+            }
+        }
     }
-
 }
