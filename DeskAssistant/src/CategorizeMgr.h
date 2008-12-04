@@ -19,11 +19,13 @@ public:
 
 	///////////////////////////////////////////////////////////////////
 
-	void Categorize(wxString& strPathForCategorize, bool bPreview = true);
+	void Preview(wxString& strPathForCategorize);
+	void Categorize();
 
 	ArrayCategorizationFileInfo*  GetCategorizationFileInfos()	{ return &m_arrCategorizationFileInfo; }
 
 	void SetBaseDestPath(wxString& strPath) { m_strDesktopPath = strPath; }
+
     //
     // observer pattern method
     //
@@ -57,11 +59,6 @@ private:
     void getSubFolder(wxString& strFolderPath, wxArrayString& arrSubFolder, bool bRecursive = true);
 
 	void getFolderAllFile(wxString& strFolderPath, ArrayCategorizationFileInfo& arrFileInfo );
-
-
-    void moveFilesToFolder(bool bPreview);
-    void categorizeByTime(bool bPreview);
-
 
 };
 

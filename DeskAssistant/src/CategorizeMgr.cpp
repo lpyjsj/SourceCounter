@@ -155,11 +155,51 @@ void CategorizeMgr::getFolderAllFile(wxString& strFolderPath, ArrayCategorizatio
 
 }
 
+void CategorizeMgr::Categorize()
+{
+    //
+    int nCnt = m_arrCategorizationFileInfo.GetCount();
+    if (nCnt < 0)
+    {
+        return;
+    }
+
+    //
+    CategorizationFileInfo* pFileInfo = 0;
+	wxString strTemp;
+    for (int i=0; i< nCnt; i++)
+    {
+        //
+        pFileInfo = m_arrCategorizationFileInfo.Item(i);
+
+        if (pFileInfo)
+        {
+            strTemp = pFileInfo->GetDestFolderPath();
+
+            if (!wxDirExists(strTemp))
+            {
+                wxMkdir(strTemp);
+            }
+
+            // Move file to dest dir
+            if (pFileInfo->GetCurFullPath().CmpNoCase(pFileInfo->GetDestFullPath()) != 0 )
+            {
+                wxRenameFile(pFileInfo->GetCurFullPath(), pFileInfo->GetDestFullPath() );
+                pFileInfo->m_bCategorized = true;
+            }
+        }
+
+
+    }
+
+
+}
+
 /**
  *
  *
  */
-void CategorizeMgr::Categorize(wxString& strPathForCategorize, bool bPreview)
+void CategorizeMgr::Preview(wxString& strPathForCategorize)
 {
     // Clear
     int nCnt = m_arrStrSubFolder.GetCount();
@@ -181,7 +221,6 @@ void CategorizeMgr::Categorize(wxString& strPathForCategorize, bool bPreview)
             pFileInfo = 0;
         }
     }
-
 
     // Get sub folder path for categorize path
     m_arrStrSubFolder.Add(strPathForCategorize);
@@ -208,7 +247,7 @@ void CategorizeMgr::Categorize(wxString& strPathForCategorize, bool bPreview)
 
         if (pRule)
         {
-            pRule->Execute(m_arrCategorizationFileInfo, bPreview);
+            pRule->Execute(m_arrCategorizationFileInfo);
         }
 
         Notify();

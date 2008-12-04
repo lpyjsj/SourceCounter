@@ -1,20 +1,16 @@
+#include "ExtNameRule.h"
 
-#include <wx/filename.h>
-#include "BasicRule.h"
-
-
-
-BasicRule::BasicRule()
+ExtNameRule::ExtNameRule()
 {
-    //ctor
+	//ctor
 }
 
-BasicRule::~BasicRule()
+ExtNameRule::~ExtNameRule()
 {
-    //dtor
+	//dtor
 }
 
-void BasicRule::Execute(ArrayCategorizationFileInfo& arrFileInfo)
+void ExtNameRule::Execute(ArrayCategorizationFileInfo& arrFileInfo)
 {
     //
 
@@ -44,21 +40,6 @@ void BasicRule::Execute(ArrayCategorizationFileInfo& arrFileInfo)
 
         strM.Printf(_T("___%d-%d"), nYear, nMonth + 1);
         pFileInfo->m_strDestFolderName = strM;
-
-//        if (!bPreview)
-//        {
-//            strTemp = pFileInfo->m_strBaseDestDir + _T("\\") + pFileInfo->m_strDestFolderName;
-//
-//            if (!wxDirExists(strTemp))
-//            {
-//                wxMkdir(strTemp);
-//            }
-//
-//            // Move file to dest dir
-//            wxRenameFile(pFileInfo->m_pFileName->GetFullPath(), strTemp + _T("\\") + pFileInfo->m_pFileName->GetFullName() );
-//        }
-
-
 
     }
 

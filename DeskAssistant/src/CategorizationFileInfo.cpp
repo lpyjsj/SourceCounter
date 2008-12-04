@@ -13,7 +13,7 @@ CategorizationFileInfo::~CategorizationFileInfo()
     //dtor
     if (m_pFileName)
     {
-    	delete m_pFileName;
-    	m_pFileName = 0;
+        delete m_pFileName;
+        m_pFileName = 0;
     }
 }

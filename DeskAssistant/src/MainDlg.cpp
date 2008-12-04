@@ -98,7 +98,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     wxBoxSizer* BoxSizer1;
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
-
+    
     Create(parent, id, _("Desktop Assistant"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("id"));
     SetClientSize(wxDefaultSize);
     Move(wxDefaultPosition);
@@ -129,14 +129,13 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer1->Add(BoxSizer3, 0, wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 2);
     m_pLbxCustRules = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxDefaultSize, 0, 0, wxLB_SINGLE|wxLB_NEEDED_SB, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
-    m_pLbxCustRules->Append(_("7z, zip -> @ZIP@"));
-    m_pLbxCustRules->Disable();
+    m_pLbxCustRules->Check(m_pLbxCustRules->Append(_("zip, rar, 7z  -> ___ZIP")));
     StaticBoxSizer1->Add(m_pLbxCustRules, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    wxString __wxRadioBoxChoices_1[2] =
+    wxString __wxRadioBoxChoices_1[2] = 
     {
-        _("By file modified time"),
-        _("None(Do nothing)")
+    _("By file modified time"),
+    _("None(Do nothing)")
     };
     m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -171,7 +170,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-
+    
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnNewClick);
     Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnPreviewClick);
     Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnRunClick);
@@ -280,7 +279,7 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
     case NBaseRuleTypeTime:
     {
         //categorizeByTime(true);
-        m_categorizeMgr.Categorize(strDesktopPath, true);
+        m_categorizeMgr.Preview(strDesktopPath);
         break;
     }
 
@@ -312,7 +311,7 @@ void MainDlg::OnBtnRunClick(wxCommandEvent& event)
     case NBaseRuleTypeTime:
     {
         //categorizeByTime(true);
-        m_categorizeMgr.Categorize(strDesktopPath, false);
+        m_categorizeMgr.Categorize();
         break;
     }
 
@@ -489,20 +488,28 @@ void MainDlg::OnBtnTestClick(wxCommandEvent& event)
 
 void MainDlg::UpdateCategorizationCtrls()
 {
-
-
-
+    //
     ArrayCategorizationFileInfo* pArrFileInfo = m_categorizeMgr.GetCategorizationFileInfos();
 
     int nCnt = pArrFileInfo->GetCount();
     int nIndex = 0;
     CategorizationFileInfo* pFileInfo = 0;
+    wxString strTemp;
     for (int i=0; i<nCnt; i++)
     {
         pFileInfo = pArrFileInfo->Item(i);
 
         nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), pFileInfo->m_pFileName->GetFullPath());
         m_pLcResult->SetItem(nIndex, 1, pFileInfo->m_strDestFolderName);
-        m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
+
+        if (pFileInfo->m_bCategorized)
+        {
+            strTemp = _T("Processed");
+        }
+        else
+        {
+			strTemp = _T("Previewed");
+		}
+		m_pLcResult->SetItem(nIndex, 2, strTemp);
     }
 }

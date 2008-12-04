@@ -95,9 +95,8 @@
 					<object class="sizeritem">
 						<object class="wxCheckListBox" name="ID_CHECKLISTBOX1" variable="m_pLbxCustRules" member="yes">
 							<content>
-								<item>7z, zip -&gt; @ZIP@</item>
+								<item checked="1">zip, rar, 7z  -&gt; ___ZIP</item>
 							</content>
-							<enabled>0</enabled>
 							<style>wxLB_SINGLE|wxLB_NEEDED_SB</style>
 						</object>
 						<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>

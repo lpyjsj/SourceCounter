@@ -13,7 +13,7 @@ class Rule
 		Rule();
 		virtual ~Rule();
 
-		virtual void Execute(ArrayCategorizationFileInfo& arrFileInfo, bool bPreview) = 0;
+		virtual void Execute(ArrayCategorizationFileInfo& arrFileInfo) = 0;
 
 	protected:
 	private:

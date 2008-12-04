@@ -75,6 +75,8 @@
 		<Unit filename="CategorizeMgr.h" />
 		<Unit filename="DeskAssistantApp.cpp" />
 		<Unit filename="DeskAssistantApp.h" />
+		<Unit filename="ExtNameRule.cpp" />
+		<Unit filename="ExtNameRule.h" />
 		<Unit filename="MainDlg.cpp" />
 		<Unit filename="MainDlg.h" />
 		<Unit filename="Rule.cpp" />
