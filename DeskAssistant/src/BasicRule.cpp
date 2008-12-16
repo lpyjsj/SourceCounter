@@ -14,29 +14,29 @@ BasicRule::~BasicRule()
     //dtor
 }
 
-void BasicRule::Execute(ArrayCategorizationFileInfo& arrFileInfo)
+void BasicRule::Execute( CategorizationFileInfo* pFileInfo )
 {
     //
 
-    int nCntFileInfo = arrFileInfo.GetCount();
-    if (0 == nCntFileInfo)
-    {
-        return;
-    }
+//    int nCntFileInfo = arrFileInfo.GetCount();
+//    if (0 == nCntFileInfo)
+//    {
+//        return;
+//    }
 
-    CategorizationFileInfo* pFileInfo = 0; // = pArrFileInfo[]
+    //CategorizationFileInfo* pFileInfo = 0; // = pArrFileInfo[]
     wxDateTime timeModification;
 
     int nYear, nMonth;
     wxString strM;
     wxString strTemp;
 
-    for (int i=0; i<nCntFileInfo; i++)
-    {
+//    for (int i=0; i<nCntFileInfo; i++)
+//    {
         // Get file modification time
-        pFileInfo = arrFileInfo[i];
+       // pFileInfo = arrFileInfo[i];
 
-        if (!pFileInfo->m_bCategorized)
+        if (!pFileInfo->m_bPreProcessed)
         {
             timeModification = pFileInfo->m_pFileName->GetModificationTime();
 
@@ -45,9 +45,10 @@ void BasicRule::Execute(ArrayCategorizationFileInfo& arrFileInfo)
 
             strM.Printf(_T("___%d-%d"), nYear, nMonth + 1);
             pFileInfo->m_strDestFolderName = strM;
+            pFileInfo->m_strFullDestPath = m_strBaseDestPath + _T('\\') + strM + _T('\\') + pFileInfo->m_pFileName->GetFullName();
 
             //
-            pFileInfo->m_bCategorized = true;
+            pFileInfo->m_bPreProcessed = true;
         }
-    }
+ //   }
 }

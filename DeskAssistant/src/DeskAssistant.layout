@@ -8,10 +8,10 @@
 		<Cursor position="219" topLine="0" />
 	</File>
 	<File name="BasicRule.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="589" topLine="15" />
+		<Cursor position="54" topLine="13" />
 	</File>
-	<File name="BasicRule.h" open="1" top="0" tabpos="6">
-		<Cursor position="154" topLine="0" />
+	<File name="BasicRule.h" open="0" top="0" tabpos="6">
+		<Cursor position="212" topLine="0" />
 	</File>
 	<File name="CategorizationFileInfo.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="325" topLine="0" />
@@ -19,26 +19,26 @@
 	<File name="CategorizationFileInfo.h" open="0" top="0" tabpos="6">
 		<Cursor position="337" topLine="4" />
 	</File>
-	<File name="CategorizeMgr.cpp" open="1" top="0" tabpos="7">
-		<Cursor position="6252" topLine="243" />
+	<File name="CategorizeMgr.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="5926" topLine="239" />
 	</File>
-	<File name="CategorizeMgr.h" open="1" top="0" tabpos="8">
+	<File name="CategorizeMgr.h" open="0" top="0" tabpos="8">
 		<Cursor position="351" topLine="0" />
 	</File>
-	<File name="CustomRuleDlg.cpp" open="1" top="0" tabpos="9">
+	<File name="CustomRuleDlg.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="391" topLine="12" />
 	</File>
 	<File name="DeskAssistantApp.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="816" topLine="0" />
 	</File>
-	<File name="ExtNameRule.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="585" topLine="8" />
+	<File name="ExtNameRule.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="190" topLine="0" />
 	</File>
-	<File name="ExtNameRule.h" open="1" top="0" tabpos="5">
-		<Cursor position="300" topLine="0" />
+	<File name="ExtNameRule.h" open="0" top="0" tabpos="5">
+		<Cursor position="437" topLine="0" />
 	</File>
-	<File name="MainDlg.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="11095" topLine="225" />
+	<File name="MainDlg.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="12190" topLine="340" />
 	</File>
 	<File name="MainDlg.h" open="0" top="0" tabpos="1">
 		<Cursor position="518" topLine="69" />
@@ -46,8 +46,8 @@
 	<File name="Rule.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="82" topLine="0" />
 	</File>
-	<File name="Rule.h" open="1" top="0" tabpos="4">
-		<Cursor position="303" topLine="0" />
+	<File name="Rule.h" open="0" top="0" tabpos="4">
+		<Cursor position="409" topLine="0" />
 	</File>
 	<File name="resource.rc" open="0" top="0" tabpos="0">
 		<Cursor position="43" topLine="0" />

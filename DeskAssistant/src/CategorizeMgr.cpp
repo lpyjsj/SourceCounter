@@ -25,6 +25,14 @@ CategorizeMgr::CategorizeMgr():
 CategorizeMgr::~CategorizeMgr()
 {
     // Delete rule
+    clearRules();
+
+    // Delete categorizationFileInfo
+    clearFileInfos();
+}
+
+void CategorizeMgr::clearRules()
+{
     int nCnt = m_arrRule.GetCount();
     Rule* pRule = 0;
     for (int i=0; i<nCnt; i++)
@@ -36,42 +44,28 @@ CategorizeMgr::~CategorizeMgr()
             pRule = 0;
         }
     }
+}
 
-    // Delete categorizationFileInfo
-    nCnt = m_arrCategorizationFileInfo.GetCount();
+void CategorizeMgr::clearFileInfos()
+{
     CategorizationFileInfo* pFileInfo = 0;
-    for (int i=0; i<nCnt; i++)
+    while (!m_arrCategorizationFileInfo.IsEmpty())
     {
-        pFileInfo = m_arrCategorizationFileInfo.Item(i);
+        pFileInfo = m_arrCategorizationFileInfo.Last();
+        m_arrCategorizationFileInfo.Remove(pFileInfo);
         if (pFileInfo)
         {
             delete pFileInfo;
             pFileInfo = 0;
         }
     }
-
 }
 
 void CategorizeMgr::Init()
 {
     // TODO: load rule from conf file, the last is basic rule
 
-    //
-    ExtNameRule* pRule = new ExtNameRule();
-    pRule->m_arrStrExtName.Add(_T("7z"));
-    pRule->m_arrStrExtName.Add(_T("zip"));
-	pRule->m_arrStrExtName.Add(_T("rar"));
-	pRule->m_strBaseDestPath = _T("c:\\hp");
-
-    m_arrRule.Add(pRule);
-
-	// the last is basic rule
-    BasicRule* pBasicRule = new BasicRule();
-    m_arrRule.Add(pBasicRule);
-
 }
-
-
 
 /**
  *
@@ -167,7 +161,7 @@ void CategorizeMgr::getFolderAllFile(wxString& strFolderPath, ArrayCategorizatio
         {// Excluding .lnk file(shortcut files)
             CategorizationFileInfo* pFileInfo = new CategorizationFileInfo(strDirName);
 
-            pFileInfo->m_strBaseDestPath = m_strDesktopPath;
+            // pFileInfo->m_strBaseDestPath = m_strDesktopPath;
             arrFileInfo.Add(pFileInfo);
         }
 
@@ -207,21 +201,21 @@ void CategorizeMgr::Categorize()
             if (pFileInfo->GetCurFullPath().CmpNoCase(pFileInfo->GetDestFullPath()) != 0 )
             {
                 wxRenameFile(pFileInfo->GetCurFullPath(), pFileInfo->GetDestFullPath() );
-                pFileInfo->m_bProcessed = true;
             }
+
+            pFileInfo->m_bProcessed = true;
+
         }
-
-
     }
 
-
+    // Notify
+    Notify();
 }
 
 /**
- *
- *
+ * Preview categorizie files.
  */
-void CategorizeMgr::Preview(wxString& strPathForCategorize)
+void CategorizeMgr::Preview()
 {
     // Clear
     int nCnt = m_arrStrSubFolder.GetCount();
@@ -230,23 +224,12 @@ void CategorizeMgr::Preview(wxString& strPathForCategorize)
         m_arrStrSubFolder.Empty();
     }
 
-    nCnt = m_arrCategorizationFileInfo.GetCount();
-    CategorizationFileInfo* pFileInfo = 0;
-
-    while (!m_arrCategorizationFileInfo.IsEmpty())
-    {
-        pFileInfo = m_arrCategorizationFileInfo.Last();
-        m_arrCategorizationFileInfo.Remove(pFileInfo);
-        if (pFileInfo)
-        {
-            delete pFileInfo;
-            pFileInfo = 0;
-        }
-    }
+	// Clear file info
+	clearFileInfos();
 
     // Get sub folder path for categorize path
-    m_arrStrSubFolder.Add(strPathForCategorize);
-    getSubFolder(strPathForCategorize, m_arrStrSubFolder, false);
+    m_arrStrSubFolder.Add(m_strDesktopPath);
+    getSubFolder(m_strDesktopPath, m_arrStrSubFolder, false);
 
     nCnt = m_arrStrSubFolder.GetCount();
     if (0 == nCnt)
@@ -263,18 +246,36 @@ void CategorizeMgr::Preview(wxString& strPathForCategorize)
     // For each rule
     int nCntRule = m_arrRule.GetCount();
     Rule* pRule = 0;
+	CategorizationFileInfo* pFileInfo = 0;
+
     for (int j=0; j<nCntRule; j++)
     {
         pRule = m_arrRule[j];
 
         if (pRule)
         {
-            pRule->Execute(m_arrCategorizationFileInfo);
+
+            int nCntFileInfo = m_arrCategorizationFileInfo.GetCount();
+            if (0 == nCntFileInfo)
+            {
+                return;
+            }
+
+            for (int i=0; i<nCntFileInfo; i++)
+            {
+                pFileInfo = m_arrCategorizationFileInfo[i];
+
+                pRule->Execute(pFileInfo);
+
+                //
+
+            }
         }
 
-        Notify();
     }// END FOR RULES
 
+    // Notify observer
+    Notify();
 }
 
 ///////////////////////////////////////////////////////////////////////

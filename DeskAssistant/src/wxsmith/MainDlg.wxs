@@ -49,7 +49,7 @@
 									<label>&amp;Edit...</label>
 									<enabled>0</enabled>
 								</object>
-								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 							</object>
 							<object class="sizeritem">
@@ -57,7 +57,7 @@
 									<label>&amp;Delete</label>
 									<enabled>0</enabled>
 								</object>
-								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 							</object>
 							<object class="sizeritem">
@@ -65,7 +65,7 @@
 									<label>&amp;Up</label>
 									<enabled>0</enabled>
 								</object>
-								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
@@ -74,17 +74,17 @@
 									<label>Dow&amp;n</label>
 									<enabled>0</enabled>
 								</object>
-								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
 							<object class="spacer">
-								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
 							<object class="spacer">
-								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
@@ -95,7 +95,7 @@
 					<object class="sizeritem">
 						<object class="wxCheckListBox" name="ID_CHECKLISTBOX1" variable="m_pLbxCustRules" member="yes">
 							<content>
-								<item checked="1">zip, rar, 7z  -&gt; ___ZIP</item>
+								<item checked="1">zip, rar, 7z -&gt; ___ZIP</item>
 							</content>
 							<style>wxLB_SINGLE|wxLB_NEEDED_SB</style>
 						</object>
@@ -135,7 +135,7 @@
 							<enabled>0</enabled>
 							<handler function="OnBtnRunClick" entry="EVT_BUTTON" />
 						</object>
-						<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<flag>wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
 					</object>
 					<object class="sizeritem">

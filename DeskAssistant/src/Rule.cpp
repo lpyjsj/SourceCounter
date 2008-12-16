@@ -1,6 +1,7 @@
 #include "Rule.h"
 
-Rule::Rule()
+Rule::Rule() :
+	m_bSelected( false )
 {
 	//ctor
 }

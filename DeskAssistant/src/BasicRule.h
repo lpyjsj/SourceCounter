@@ -9,8 +9,7 @@ class BasicRule : public Rule
 		BasicRule();
 		virtual ~BasicRule();
 
-
-		virtual void Execute(ArrayCategorizationFileInfo& arrFileInfo);
+		virtual void Execute( CategorizationFileInfo* pFileInfo );
 
 	protected:
 	private:

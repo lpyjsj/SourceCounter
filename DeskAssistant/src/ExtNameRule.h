@@ -12,11 +12,11 @@ public:
     ///////////////////////////////////////////////////////////////////
 
 	wxArrayString m_arrStrExtName;
-	wxString m_strBaseDestPath;
+
 
 	///////////////////////////////////////////////////////////////////
 
-    virtual void Execute(ArrayCategorizationFileInfo& arrFileInfo);
+    virtual void Execute( CategorizationFileInfo* pFileInfo );
 
 protected:
 private:

@@ -16,18 +16,17 @@ public:
     CategorizeMgr();
     virtual ~CategorizeMgr();
 
-
 	///////////////////////////////////////////////////////////////////
 
 	void Init();
 
-	ArrayCategorizationFileInfo*  GetCategorizationFileInfos()	{ return &m_arrCategorizationFileInfo; }
+	ArrayCategorizationFileInfo*  GetCategorizationFileInfos()		{ return &m_arrCategorizationFileInfo; }
 
-	void SetBaseDestPath(wxString& strPath) { m_strDesktopPath = strPath; }
+	void SetBaseDestPath(wxString& strPath) 						{ m_strDesktopPath = strPath; }
 
-	void AddRule();
+	void AddRule(Rule* pRule)										{ m_arrRule.Add(pRule); }
 
-	void Preview(wxString& strPathForCategorize);
+	void Preview();
 	void Categorize();
 
 
@@ -52,7 +51,7 @@ protected:
 private:
     CategorizationObserver*			m_pObserver;		///< Observer for categorization
 
-	ArrayRule 						m_arrRule;	///< Rules for categorization
+	ArrayRule 						m_arrRule;			///< Rules for categorization
 	ArrayCategorizationFileInfo 	m_arrCategorizationFileInfo;	///< Files info for categorize
 
 	wxArrayString 					m_arrStrSubFolder;	///<
@@ -64,6 +63,10 @@ private:
     void getSubFolder(wxString& strFolderPath, wxArrayString& arrSubFolder, bool bRecursive = true);
 
 	void getFolderAllFile(wxString& strFolderPath, ArrayCategorizationFileInfo& arrFileInfo );
+
+
+	void clearFileInfos();
+	void clearRules();
 
 };
 

@@ -20,9 +20,12 @@
 #include <wx/config.h>
 
 #include "wx_pch.h"
+
+#include "BasicRule.h"
+#include "ExtNameRule.h"
+
 #include "MainDlg.h"
 #include "AboutDlg.h"
-
 #include "CustomRuleDlg.h"
 
 //(*IdInit(MainDlg)
@@ -49,7 +52,7 @@ const long MainDlg::ID_BUTTON3 = wxNewId();
 enum NBaseRuleType
 {
     NBaseRuleTypeTime = 0,			///< Categorize by file modification time
-    NBaseRuleTypeNone,			///< None rule
+    NBaseRuleTypeNone,				///< None rule
 };
 
 const int N_COL_NUM = 3;	///< Result listctrl column number
@@ -79,7 +82,7 @@ const wxString CSZ_DESKTOP_KEY_PATH =
 
 
 const wxString CSZ_TODAY = _("___Today");
-const wxString CSZ_YESTODAY = _("___Yesterday");
+const wxString CSZ_YESTERDAY = _("___Yesterday");
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -117,21 +120,21 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer3->Add(m_btnNew, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button2 = new wxButton(this, ID_BUTTON2, _("&Edit..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
     Button2->Disable();
-    BoxSizer3->Add(Button2, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(Button2, 0, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button6 = new wxButton(this, ID_BUTTON6, _("&Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON6"));
     Button6->Disable();
-    BoxSizer3->Add(Button6, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(Button6, 0, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button8 = new wxButton(this, ID_BUTTON8, _("&Up"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON8"));
     Button8->Disable();
-    BoxSizer3->Add(Button8, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(Button8, 1, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button9 = new wxButton(this, ID_BUTTON9, _("Dow&n"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON9"));
     Button9->Disable();
-    BoxSizer3->Add(Button9, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(Button9, 1, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(-1,-1,1, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(-1,-1,1, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer1->Add(BoxSizer3, 0, wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 2);
     m_pLbxCustRules = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxDefaultSize, 0, 0, wxLB_SINGLE|wxLB_NEEDED_SB, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
-    m_pLbxCustRules->Check(m_pLbxCustRules->Append(_("zip, rar, 7z  -> ___ZIP")));
+    m_pLbxCustRules->Check(m_pLbxCustRules->Append(_("zip, rar, 7z -> ___ZIP")));
     StaticBoxSizer1->Add(m_pLbxCustRules, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     wxString __wxRadioBoxChoices_1[2] =
@@ -146,7 +149,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer2->Add(m_btnPreview, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
     m_btnRun = new wxButton(this, ID_BUTTON4, _("&Run"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON4"));
     m_btnRun->Disable();
-    BoxSizer2->Add(m_btnRun, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2->Add(m_btnRun, 0, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnTest = new wxButton(this, ID_BUTTON5, _("test"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON5"));
     m_btnTest->Hide();
     BoxSizer2->Add(m_btnTest, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -229,14 +232,11 @@ void MainDlg::getDesktopPath(wxString& strPath)
     delete pRegKey;
 }
 
-
-
 void MainDlg::OnInit(wxInitDialogEvent& event)
 {
-	// Init check list box
-	m_categorizeMgr.Init();
-	// TODO:
-
+    // Init check list box
+    m_categorizeMgr.Init();
+    // TODO:
 
     //
     for (int i=0; i<N_COL_NUM; i++)
@@ -262,22 +262,29 @@ void MainDlg::OnBtnNewClick(wxCommandEvent& event)
 {
     CustomRuleDlg dlg(this);
 
-	if (dlg.ShowModal() == wxID_OK)
-	{
-		wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+    if (dlg.ShowModal() == wxID_OK)
+    {
+        wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
 
-	}
+    }
 }
 
+void MainDlg::OnBtnRunClick(wxCommandEvent& event)
+{
+    //
+    m_pLcResult->DeleteAllItems();
+    // m_pLcFolderSize->DeleteAllItems();
+
+    //
+    m_categorizeMgr.Categorize();
+
+}
 
 /**
  * Preview
  */
 void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
 {
-    // Colect rules setting
-    int nType = m_pRbxBaseRules->GetSelection();
-
     // Clear list
     m_pLcResult->DeleteAllItems();
     //m_pLcFolderSize->DeleteAllItems();
@@ -285,46 +292,27 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
     //
     wxString strDesktopPath;
     getDesktopPath(strDesktopPath);
+    m_categorizeMgr.SetBaseDestPath(strDesktopPath);
 
-    //
-    switch (nType)
-    {
-    case NBaseRuleTypeTime:
-    {
-        //categorizeByTime(true);
-        m_categorizeMgr.Preview(strDesktopPath);
-        break;
-    }
+	ExtNameRule* pRule = new ExtNameRule();
+	pRule->m_arrStrExtName.Add(_T("7z"));
+	pRule->m_arrStrExtName.Add(_T("zip"));
+	pRule->m_arrStrExtName.Add(_T("rar"));
+	pRule->m_strBaseDestPath = strDesktopPath + _T("\\___ZIP");  //___ZIP
 
-    default:
-    {// Do nothing
+	m_categorizeMgr.AddRule(pRule);
 
-    }
-    }
-
-    updateUICtrls();
-}
-
-void MainDlg::OnBtnRunClick(wxCommandEvent& event)
-{
     // Colect rules setting
     int nType = m_pRbxBaseRules->GetSelection();
-
-    //
-    m_pLcResult->DeleteAllItems();
-    //m_pLcFolderSize->DeleteAllItems();
-
-    // Get desktop path
-    wxString strDesktopPath;
-    getDesktopPath(strDesktopPath);
-
     //
     switch (nType)
     {
     case NBaseRuleTypeTime:
     {
-        //categorizeByTime(true);
-        m_categorizeMgr.Categorize();
+        BasicRule* pBasicRule = new BasicRule();
+        pBasicRule->m_strBaseDestPath = strDesktopPath;
+        m_categorizeMgr.AddRule(pBasicRule);	// Last rule is basic rule
+
         break;
     }
 
@@ -333,6 +321,10 @@ void MainDlg::OnBtnRunClick(wxCommandEvent& event)
 
     }
     }
+
+    // Preview and update UI
+    m_categorizeMgr.Preview();
+    updateUICtrls();
 }
 
 void MainDlg::updateUICtrls()
@@ -356,149 +348,6 @@ void MainDlg::OnBtnTestClick(wxCommandEvent& event)
 
 }
 
-//void MainDlg::moveFilesToFolder(bool bPreview)
-//{
-//    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
-//
-//    //will create the Key if it does not exist
-//    if ( !pRegKey->Exists() )
-//    {
-//        return;
-//    }
-//
-//    wxString strDesktopPath;
-//    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopPath);
-//    delete pRegKey;
-//
-//    ///////////////////////////////////////////////////////////////////
-//
-//    wxString strFilePath = ::wxFindFirstFile(strDesktopPath + _T("\\*"), wxFILE);
-//    if (strFilePath.IsEmpty())
-//    {
-//        return;
-//    }
-//
-//    wxString strFileExtName;
-//    long nIndex = -1;
-//    wxString strTemp;
-//    while (!strFilePath.IsEmpty())
-//    {
-//        ///////////////////////////////////////////////////////////////
-//        MSG	msg;
-//        if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
-//        {
-//            ::DispatchMessage( &msg );
-//        }
-//
-//        ///////////////////////////////////////////////////////////////
-//
-//        wxFileName fnCur(strFilePath);
-//        strFileExtName = fnCur.GetExt();
-//        if (0 != strFileExtName.CmpNoCase(CSZ_EXCLUDING_FILE_EXT))
-//        {
-//            strFileExtName = _T("____") + strFileExtName;
-//
-//            // Insert item
-//            nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), fnCur.GetFullPath());
-//            m_pLcResult->SetItem(nIndex, 1, strFileExtName);
-//
-//            if (bPreview)
-//            {
-//                wxString strTemp(strDesktopPath + _T("\\") + strFileExtName);
-//                if (!wxDirExists(strTemp))
-//                {
-//                    wxMkdir(strTemp);
-//                }
-//                // Move file to dest dir
-//                wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
-//                m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
-//            }
-//
-//        }// END IF
-//
-//        // Next file
-//        strFilePath =::wxFindNextFile();
-//    }//END WHILE
-//
-//}
-//
-//void MainDlg::categorizeByTime(bool bPreview)
-//{
-//    wxRegKey *pRegKey = new wxRegKey(CSZ_DESKTOP_KEY_PATH);
-//
-//    //will create the Key if it does not exist
-//    if ( !pRegKey->Exists() )
-//    {
-//        return;
-//    }
-//
-//    wxString strDesktopPath;
-//    pRegKey->QueryValue(CSZ_DESKTOP_KEY_NAME, strDesktopPath);
-//    delete pRegKey;
-//
-//    ///////////////////////////////////////////////////////////////////
-//
-//    wxString strFilePath = ::wxFindFirstFile(strDesktopPath + _T("\\*"), wxFILE);
-//    if (strFilePath.IsEmpty())
-//    {
-//        return;
-//    }
-//
-//    wxString strFileExtName;
-//    long nIndex = -1;
-//    wxString strTemp;
-//    while (!strFilePath.IsEmpty())
-//    {
-//        ///////////////////////////////////////////////////////////////
-//        MSG	msg;
-//        if ( ::PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
-//        {
-//            ::DispatchMessage( &msg );
-//        }
-//
-//        ///////////////////////////////////////////////////////////////
-//
-//        wxFileName fnCur(strFilePath);
-//        strFileExtName = fnCur.GetExt();
-//
-//        wxDateTime timeModification = fnCur.GetModificationTime();
-//
-//        int nYear = timeModification.GetYear();
-//        int nMonth = timeModification.GetMonth(); //wxDateTime::Now().FormatDate();
-//        wxString strM;
-//        strM.Printf(_T("___%d-%d"), nYear, nMonth + 1);
-//
-//        if (0 != strFileExtName.CmpNoCase(CSZ_EXCLUDING_FILE_EXT))
-//        {
-//
-//            nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), fnCur.GetFullPath());
-//            m_pLcResult->SetItem(nIndex, 1, strM);
-//
-//            if (!bPreview)
-//            {
-//                wxString strTemp(strDesktopPath + _T("\\") + strM);
-//                if (!wxDirExists(strTemp))
-//                {
-//                    wxMkdir(strTemp);
-//                }
-//
-//
-//                // Move file to dest dir
-//                wxRenameFile(fnCur.GetFullPath(), strTemp + _T("\\") + fnCur.GetFullName() );
-//
-//                // Insert item
-//                m_pLcResult->SetItem(nIndex, 2, _T("Compeleted"));
-//            }
-//
-//        }// END IF
-//
-//        // Next file
-//        strFilePath =::wxFindNextFile();
-//    }//END WHILE
-//
-//}
-
-
 void MainDlg::UpdateCategorizationCtrls()
 {
     //
@@ -513,17 +362,17 @@ void MainDlg::UpdateCategorizationCtrls()
         pFileInfo = pArrFileInfo->Item(i);
 
         nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), pFileInfo->m_pFileName->GetFullPath());
-        m_pLcResult->SetItem(nIndex, 1, pFileInfo->m_strDestFolderName);
+        // m_pLcResult->SetItem(nIndex, 1, pFileInfo->m_strDestFolderName);
+        m_pLcResult->SetItem(nIndex, 1, pFileInfo->GetDestFullPath());
 
-        if (pFileInfo->m_bCategorized == true && pFileInfo->m_bProcessed == false )
+        if (pFileInfo->m_bPreProcessed == true && pFileInfo->m_bProcessed == false )
         {
-			strTemp = _T("Previewed");
-
+            strTemp = _T("Previewed");
         }
         else
         {
             strTemp = _T("Processed");
-		}
-		m_pLcResult->SetItem(nIndex, 2, strTemp);
+        }
+        m_pLcResult->SetItem(nIndex, 2, strTemp);
     }
 }

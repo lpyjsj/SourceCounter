@@ -13,7 +13,13 @@ class Rule
 		Rule();
 		virtual ~Rule();
 
-		virtual void Execute(ArrayCategorizationFileInfo& arrFileInfo) = 0;
+		virtual void Execute( CategorizationFileInfo* pFileInfo ) = 0;
+
+		///////////////////////////////////////////////////////////////
+
+		bool m_bSelected;
+
+		wxString m_strBaseDestPath;
 
 	protected:
 	private:
