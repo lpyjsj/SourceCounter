@@ -5,6 +5,7 @@
 	//(*HeadersPCH(CustomRuleDlg)
 	#include <wx/sizer.h>
 	#include <wx/stattext.h>
+	#include <wx/radiobox.h>
 	#include <wx/textctrl.h>
 	#include <wx/button.h>
 	#include <wx/dialog.h>
@@ -22,6 +23,7 @@ class CustomRuleDlg: public wxDialog
 
 		//(*Declarations(CustomRuleDlg)
 		wxStaticText* StaticText2;
+		wxRadioBox* RadioBox2;
 		wxStaticText* StaticText1;
 		wxButton* Button2;
 		wxButton* m_btnOK;
@@ -33,6 +35,7 @@ class CustomRuleDlg: public wxDialog
 	protected:
 
 		//(*Identifiers(CustomRuleDlg)
+		static const long ID_RADIOBOX2;
 		static const long ID_STATICTEXT1;
 		static const long ID_TEXTCTRL1;
 		static const long ID_STATICTEXT2;

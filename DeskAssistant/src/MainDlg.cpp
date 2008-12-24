@@ -28,6 +28,57 @@
 #include "AboutDlg.h"
 #include "CustomRuleDlg.h"
 
+///////////////////////////////////////////////////////////////////////
+
+bool wxXmlDocumentEx::Save(const wxString& filename, int indentstep) const
+{
+    wxFileOutputStream stream(filename);
+    if (!stream.Ok())
+        return false;
+    return Save(stream, indentstep);
+}
+
+bool wxXmlDocumentEx::Save(wxOutputStream& stream, int indentstep) const
+{
+    if ( !IsOk() )
+        return false;
+
+    wxString s;
+
+    wxMBConv *convMem = NULL,
+                        *convFile;
+
+#if wxUSE_UNICODE
+    convFile = new wxCSConv(GetFileEncoding());
+    convMem = NULL;
+#else
+    if ( GetFileEncoding().CmpNoCase(GetEncoding()) != 0 )
+    {
+        convFile = new wxCSConv(GetFileEncoding());
+        convMem = new wxCSConv(GetEncoding());
+    }
+    else // file and in-memory encodings are the same, no conversion needed
+    {
+        convFile =
+            convMem = NULL;
+    }
+#endif
+
+    s.Printf(wxT("<?xml version=\"%s\" encoding=\"%s\"?>\n"),
+             GetVersion().c_str(), GetFileEncoding().c_str());
+    OutputString(stream, s);
+
+    OutputNode(stream, GetRoot(), 0, convMem, convFile, indentstep);
+    OutputString(stream, wxT("\n"));
+
+    delete convFile;
+    delete convMem;
+
+    return true;
+}
+
+///////////////////////////////////////////////////////////////////////
+
 //(*IdInit(MainDlg)
 const long MainDlg::ID_STATICBITMAP1 = wxNewId();
 const long MainDlg::ID_STATICTEXT1 = wxNewId();
@@ -117,21 +168,21 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Select customize categorization rules"));
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
     m_btnNew = new wxButton(this, ID_BUTTON1, _("&New..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
-    BoxSizer3->Add(m_btnNew, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(m_btnNew, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button2 = new wxButton(this, ID_BUTTON2, _("&Edit..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
     Button2->Disable();
-    BoxSizer3->Add(Button2, 0, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(Button2, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button6 = new wxButton(this, ID_BUTTON6, _("&Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON6"));
     Button6->Disable();
-    BoxSizer3->Add(Button6, 0, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(Button6, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button8 = new wxButton(this, ID_BUTTON8, _("&Up"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON8"));
     Button8->Disable();
-    BoxSizer3->Add(Button8, 1, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(Button8, 1, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button9 = new wxButton(this, ID_BUTTON9, _("Dow&n"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON9"));
     Button9->Disable();
-    BoxSizer3->Add(Button9, 1, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    BoxSizer3->Add(-1,-1,1, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    BoxSizer3->Add(-1,-1,1, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(Button9, 1, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(-1,-1,1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(-1,-1,1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer1->Add(BoxSizer3, 0, wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 2);
     m_pLbxCustRules = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxDefaultSize, 0, 0, wxLB_SINGLE|wxLB_NEEDED_SB, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
     m_pLbxCustRules->Check(m_pLbxCustRules->Append(_("zip, rar, 7z -> ___ZIP")));
@@ -146,10 +197,10 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
     m_btnPreview = new wxButton(this, ID_BUTTON7, _("&Preview"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON7"));
-    BoxSizer2->Add(m_btnPreview, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2->Add(m_btnPreview, 0, wxTOP|wxLEFT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
     m_btnRun = new wxButton(this, ID_BUTTON4, _("&Run"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON4"));
     m_btnRun->Disable();
-    BoxSizer2->Add(m_btnRun, 0, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2->Add(m_btnRun, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnTest = new wxButton(this, ID_BUTTON5, _("test"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON5"));
     m_btnTest->Hide();
     BoxSizer2->Add(m_btnTest, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -195,7 +246,6 @@ MainDlg::~MainDlg()
     //(*Destroy(MainDlg)
     //*)
 }
-
 
 void MainDlg::OnBtnQuitClick(wxCommandEvent& event)
 {

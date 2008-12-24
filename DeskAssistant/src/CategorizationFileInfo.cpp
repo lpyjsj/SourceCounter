@@ -18,3 +18,30 @@ CategorizationFileInfo::~CategorizationFileInfo()
         m_pFileName = 0;
     }
 }
+
+wxString CategorizationFileInfo::GetDestFolderPath()
+{
+	getFileNameAndDirFromFullPath(m_strFullDestPath, m_strDestFolderPath);
+    return m_strDestFolderPath; // + _T("\\") + m_strDestFolderName;
+}
+
+void CategorizationFileInfo::getFileNameAndDirFromFullPath( wxString& strFullPath, wxString& strDir )
+{
+    //
+    // strFileName.Empty();
+    strDir.Empty();
+
+    if ( strFullPath.IsEmpty())
+    {
+        return;
+    }
+
+    //
+    int nLastSlashPos = strFullPath.Find( _T( '\\' ), true);
+    if ( nLastSlashPos != wxNOT_FOUND )
+    {
+        strDir			= strFullPath.Left( nLastSlashPos );
+        // strFileName 	= strFullPath.Right( strFullPath.Length() - nLastSlashPos - 1 );
+    }
+
+}
