@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Release" />
 	<File name="AboutDlg.cpp" open="0" top="0" tabpos="6">
 		<Cursor position="1815" topLine="52" />
 	</File>
 	<File name="AboutDlg.h" open="0" top="0" tabpos="7">
 		<Cursor position="219" topLine="0" />
-	</File>
-	<File name="BasicRule.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="218" topLine="15" />
-	</File>
-	<File name="BasicRule.h" open="0" top="0" tabpos="6">
-		<Cursor position="212" topLine="0" />
 	</File>
 	<File name="CategorizationFileInfo.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="314" topLine="0" />
@@ -20,7 +14,7 @@
 		<Cursor position="1019" topLine="8" />
 	</File>
 	<File name="CategorizeMgr.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="4357" topLine="181" />
+		<Cursor position="127" topLine="0" />
 	</File>
 	<File name="CategorizeMgr.h" open="0" top="0" tabpos="8">
 		<Cursor position="1124" topLine="32" />
@@ -38,10 +32,10 @@
 		<Cursor position="8133" topLine="245" />
 	</File>
 	<File name="Rule.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="75" topLine="0" />
+		<Cursor position="74" topLine="0" />
 	</File>
 	<File name="Rule.h" open="0" top="0" tabpos="4">
-		<Cursor position="1210" topLine="38" />
+		<Cursor position="810" topLine="22" />
 	</File>
 	<File name="resource.rc" open="0" top="0" tabpos="0">
 		<Cursor position="43" topLine="0" />

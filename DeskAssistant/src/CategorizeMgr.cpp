@@ -7,7 +7,6 @@
 #include <wx/filename.h>
 
 #include "BasicRule.h"
-#include "ExtNameRule.h"
 
 #include "CategorizeMgr.h"
 

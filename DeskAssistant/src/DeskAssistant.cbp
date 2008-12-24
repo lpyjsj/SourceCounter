@@ -65,8 +65,6 @@
 		</ResourceCompiler>
 		<Unit filename="AboutDlg.cpp" />
 		<Unit filename="AboutDlg.h" />
-		<Unit filename="BasicRule.cpp" />
-		<Unit filename="BasicRule.h" />
 		<Unit filename="CategorizationFileInfo.cpp" />
 		<Unit filename="CategorizationFileInfo.h" />
 		<Unit filename="CategorizationObserver.cpp" />
