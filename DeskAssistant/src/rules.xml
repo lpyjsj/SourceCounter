@@ -3,7 +3,7 @@
   <rule>
     <no>1001</no>
     <type>BY_EXTNAME</type>
-    <condition>.zip;.rar;</condition>
+    <condition>.zip</condition>
     <dest>c:\___zip</dest>
   </rule>
   <rule>
@@ -15,7 +15,7 @@
   <rule>
     <no>1003</no>
     <type>BY_EXTNAME</type>
-    <condition>.zip;.rar;</condition>
-    <dest>c:\___zip</dest>
+    <condition>.doc</condition>
+    <dest>c:\___doc</dest>
   </rule>
 </rules>

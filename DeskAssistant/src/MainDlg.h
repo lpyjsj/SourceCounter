@@ -261,7 +261,12 @@ private:
     void OnBtnTestClick(wxCommandEvent& event);
     //*)
 
-	CategorizeMgr m_categorizeMgr;
+    ///////////////////////////////////////////////////////////////////
+
+	CategorizeMgr 		m_categorizeMgr;
+
+	wxXmlDocumentEx 	m_docWords;
+	wxXmlNode*			m_pRoot;
 
     ///////////////////////////////////////////////////////////////////
 

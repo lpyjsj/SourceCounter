@@ -135,6 +135,15 @@ const wxString CSZ_DESKTOP_KEY_PATH =
 const wxString CSZ_TODAY = _("___Today");
 const wxString CSZ_YESTERDAY = _("___Yesterday");
 
+
+const wxString CSZ_RULE_TAG_NAMES[] =
+{
+    _T("no"),
+    _T("type"),
+    _T("condition"),
+    _T("dest"),
+};
+
 ///////////////////////////////////////////////////////////////////////
 
 BEGIN_EVENT_TABLE(MainDlg,wxDialog)
@@ -142,7 +151,8 @@ BEGIN_EVENT_TABLE(MainDlg,wxDialog)
     //*)
 END_EVENT_TABLE()
 
-MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
+MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size):
+        m_pRoot(0)
 {
 
 
@@ -190,8 +200,8 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     wxString __wxRadioBoxChoices_1[2] =
     {
-    _("By file modified time"),
-    _("None(Do nothing)")
+        _("By file modified time"),
+        _("None(Do nothing)")
     };
     m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -302,6 +312,84 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
     // Attach Observer object
     m_categorizeMgr.AttachObserver(this);
 
+
+    ///////////////////////////////////////////////////////////////////
+
+    if (!m_docWords.Load(_T("rules.xml")))
+        return;
+
+    // start processing the XML file
+    m_pRoot = m_docWords.GetRoot();
+    if (m_pRoot->GetName() != _T("rules"))
+        return;
+
+    wxXmlNode* child = m_pRoot->GetChildren();
+    wxXmlNode* pChildChild = 0;
+    while (child)
+    {
+        if (child->GetName() != _T("rule"))
+            break;
+
+        pChildChild = child->GetChildren();
+        wxString strNo, strType, strCondition, strDest;
+
+        while (pChildChild)
+        {
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[0])
+            {
+                strNo = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[1])
+            {// process tag2
+                strType = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[2])
+            {// process tag2
+                strCondition = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[3])
+            {// process tag2
+                strDest = pChildChild->GetNodeContent();
+            }
+            //
+            pChildChild = pChildChild->GetNext();
+        }
+
+        if(strType == _T("BY_EXTNAME"))
+        {
+			ExtNameRule* pRule = new ExtNameRule();
+
+			strNo.Printf( _T("%d"), pRule->m_nNo);
+			pRule->m_strType = strType;
+			pRule->m_arrStrExtName.Add( strCondition );
+			pRule->m_strBaseDestPath = strDest;  //___ZIP
+
+			m_categorizeMgr.AddRule(pRule);
+        }
+
+        if(strType == _T("BY_FILENAME"))
+        {
+			NameIncludeRule* pRule = new NameIncludeRule();
+
+			strNo.Printf( _T("%d"), pRule->m_nNo);
+			pRule->m_strType = strType;
+			pRule->m_arrStrExtName.Add( strCondition );
+			pRule->m_strBaseDestPath = strDest;  //___ZIP
+
+			m_categorizeMgr.AddRule(pRule);
+        }
+
+
+        //
+        child = child->GetNext();
+    }
+
+
+    ///////////////////////////////////////////////////////////////////
+
     wxString strDesktopPath;
     getDesktopPath(strDesktopPath);
     m_categorizeMgr.SetBaseDestPath(strDesktopPath);
@@ -344,13 +432,7 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
     getDesktopPath(strDesktopPath);
     m_categorizeMgr.SetBaseDestPath(strDesktopPath);
 
-	ExtNameRule* pRule = new ExtNameRule();
-	pRule->m_arrStrExtName.Add(_T("7z"));
-	pRule->m_arrStrExtName.Add(_T("zip"));
-	pRule->m_arrStrExtName.Add(_T("rar"));
-	pRule->m_strBaseDestPath = strDesktopPath + _T("\\___ZIP");  //___ZIP
 
-	m_categorizeMgr.AddRule(pRule);
 
     // Colect rules setting
     int nType = m_pRbxBaseRules->GetSelection();
