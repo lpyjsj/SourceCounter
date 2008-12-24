@@ -31,10 +31,10 @@ CustomRuleDlg::CustomRuleDlg(wxWindow* parent,wxWindowID id)
 	wxBoxSizer* BoxSizer2;
 	wxBoxSizer* BoxSizer1;
 	wxBoxSizer* BoxSizer3;
-
+	
 	Create(parent, id, _("Custom Rule Dialog"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
-	wxString __wxRadioBoxChoices_1[2] =
+	wxString __wxRadioBoxChoices_1[2] = 
 	{
 	_("by extend name"),
 	_("by filename include")
@@ -65,7 +65,7 @@ CustomRuleDlg::CustomRuleDlg(wxWindow* parent,wxWindowID id)
 	BoxSizer1->Fit(this);
 	BoxSizer1->SetSizeHints(this);
 	Center();
-
+	
 	Connect(wxID_OK,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CustomRuleDlg::OnBtnOKClick);
 	//*)
 }

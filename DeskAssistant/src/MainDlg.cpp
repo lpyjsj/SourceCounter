@@ -21,8 +21,7 @@
 
 #include "wx_pch.h"
 
-#include "BasicRule.h"
-#include "ExtNameRule.h"
+#include "Rule.h"
 
 #include "MainDlg.h"
 #include "AboutDlg.h"
@@ -179,9 +178,9 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
     m_btnNew = new wxButton(this, ID_BUTTON1, _("&New..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
     BoxSizer3->Add(m_btnNew, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    Button2 = new wxButton(this, ID_BUTTON2, _("&Edit..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
-    Button2->Disable();
-    BoxSizer3->Add(Button2, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_btnEdit = new wxButton(this, ID_BUTTON2, _("&Edit..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
+    m_btnEdit->Disable();
+    BoxSizer3->Add(m_btnEdit, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button6 = new wxButton(this, ID_BUTTON6, _("&Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON6"));
     Button6->Disable();
     BoxSizer3->Add(Button6, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -195,13 +194,12 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer3->Add(-1,-1,1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer1->Add(BoxSizer3, 0, wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 2);
     m_pLbxCustRules = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxDefaultSize, 0, 0, wxLB_SINGLE|wxLB_NEEDED_SB, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
-    m_pLbxCustRules->Check(m_pLbxCustRules->Append(_("zip, rar, 7z -> ___ZIP")));
     StaticBoxSizer1->Add(m_pLbxCustRules, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     wxString __wxRadioBoxChoices_1[2] =
     {
-        _("By file modified time"),
-        _("None(Do nothing)")
+    _("By file modified time"),
+    _("None(Do nothing)")
     };
     m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -294,25 +292,6 @@ void MainDlg::getDesktopPath(wxString& strPath)
 
 void MainDlg::OnInit(wxInitDialogEvent& event)
 {
-    // Init check list box
-    m_categorizeMgr.Init();
-    // TODO:
-
-    //
-    for (int i=0; i<N_COL_NUM; i++)
-    {
-        m_pLcResult->InsertColumn(i, CSZ_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_COL_WIDTH[i]);
-    }
-    //
-    for (int i=0; i<N_FOLDER_SIZE_LC_COL_NUM; i++)
-    {
-        m_pLcFolderSize->InsertColumn(i, CSZ_FOLDER_SIZE_LC_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_FOLDER_SIZE_LC_COL_WIDTH[i]);
-    }
-
-    // Attach Observer object
-    m_categorizeMgr.AttachObserver(this);
-
-
     ///////////////////////////////////////////////////////////////////
 
     if (!m_docWords.Load(_T("rules.xml")))
@@ -358,41 +337,71 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
             pChildChild = pChildChild->GetNext();
         }
 
-        if(strType == _T("BY_EXTNAME"))
+        if (strType == ExtNameRule::ms_strType)
         {
-			ExtNameRule* pRule = new ExtNameRule();
+            ExtNameRule* pRule1 = new ExtNameRule();
 
-			strNo.Printf( _T("%d"), pRule->m_nNo);
-			pRule->m_strType = strType;
-			pRule->m_arrStrExtName.Add( strCondition );
-			pRule->m_strBaseDestPath = strDest;  //___ZIP
+            strNo.ToULong(&pRule1->m_nNo);
+            pRule1->m_arrStrExtName.Add( strCondition );
+            pRule1->m_strBaseDestPath = strDest;  //___ZIP
 
-			m_categorizeMgr.AddRule(pRule);
+            m_categorizeMgr.AddRule(pRule1);
         }
 
-        if(strType == _T("BY_FILENAME"))
+        if (strType == NameIncludeRule::ms_strType)
         {
-			NameIncludeRule* pRule = new NameIncludeRule();
+            NameIncludeRule* pRule = new NameIncludeRule();
 
-			strNo.Printf( _T("%d"), pRule->m_nNo);
-			pRule->m_strType = strType;
-			pRule->m_arrStrExtName.Add( strCondition );
-			pRule->m_strBaseDestPath = strDest;  //___ZIP
+            strNo.ToULong(&pRule->m_nNo);
+            pRule->m_strInclude = strCondition;
+            pRule->m_strBaseDestPath = strDest;  //___ZIP
 
-			m_categorizeMgr.AddRule(pRule);
+            m_categorizeMgr.AddRule(pRule);
         }
-
 
         //
         child = child->GetNext();
     }
 
-
     ///////////////////////////////////////////////////////////////////
+    // Init check list box
+    ArrayRule* pArrRule = m_categorizeMgr.GetRuleArray();
+
+    int nCnt = pArrRule->GetCount();
+    Rule* pRule = 0;
+    wxString strTemp;
+    for (int i=0; i<nCnt; i++)
+    {
+    	pRule = pArrRule->Item(i);
+
+        pRule->GetDispStr(strTemp);
+        m_pLbxCustRules->Check(m_pLbxCustRules->Append(strTemp));
+    }
+
+    //
+    for (int i=0; i<N_COL_NUM; i++)
+    {
+        m_pLcResult->InsertColumn(i, CSZ_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_COL_WIDTH[i]);
+    }
+    //
+    for (int i=0; i<N_FOLDER_SIZE_LC_COL_NUM; i++)
+    {
+        m_pLcFolderSize->InsertColumn(i, CSZ_FOLDER_SIZE_LC_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_FOLDER_SIZE_LC_COL_WIDTH[i]);
+    }
+
+    // Attach Observer object
+    m_categorizeMgr.AttachObserver(this);
+
+
+
 
     wxString strDesktopPath;
     getDesktopPath(strDesktopPath);
     m_categorizeMgr.SetBaseDestPath(strDesktopPath);
+
+    ///////////////////////////////////////////////////////////////////
+
+
 
 }
 
@@ -442,6 +451,8 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
     case NBaseRuleTypeTime:
     {
         BasicRule* pBasicRule = new BasicRule();
+
+        pBasicRule->m_nNo = 9999;  ///< Max No.
         pBasicRule->m_strBaseDestPath = strDesktopPath;
         m_categorizeMgr.AddRule(pBasicRule);	// Last rule is basic rule
 

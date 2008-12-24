@@ -13,11 +13,11 @@
 	<File name="CategorizationFileInfo.h" open="0" top="0" tabpos="6">
 		<Cursor position="1019" topLine="8" />
 	</File>
-	<File name="CategorizeMgr.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="127" topLine="0" />
+	<File name="CategorizeMgr.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="6264" topLine="254" />
 	</File>
 	<File name="CategorizeMgr.h" open="0" top="0" tabpos="8">
-		<Cursor position="1124" topLine="32" />
+		<Cursor position="785" topLine="15" />
 	</File>
 	<File name="CustomRuleDlg.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="205" topLine="0" />
@@ -25,17 +25,17 @@
 	<File name="DeskAssistantApp.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="816" topLine="0" />
 	</File>
-	<File name="MainDlg.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="14494" topLine="350" />
+	<File name="MainDlg.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="872" topLine="41" />
 	</File>
 	<File name="MainDlg.h" open="0" top="0" tabpos="4">
 		<Cursor position="8133" topLine="245" />
 	</File>
-	<File name="Rule.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="74" topLine="0" />
+	<File name="Rule.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="2176" topLine="91" />
 	</File>
-	<File name="Rule.h" open="0" top="0" tabpos="4">
-		<Cursor position="810" topLine="22" />
+	<File name="Rule.h" open="0" top="0" tabpos="6">
+		<Cursor position="563" topLine="0" />
 	</File>
 	<File name="resource.rc" open="0" top="0" tabpos="0">
 		<Cursor position="43" topLine="0" />

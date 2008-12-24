@@ -25,6 +25,7 @@ public:
 	void SetBaseDestPath(wxString& strPath) 						{ m_strDesktopPath = strPath; }
 
 	void AddRule(Rule* pRule)										{ m_arrRule.Add(pRule); }
+	ArrayRule* GetRuleArray()										{ return &m_arrRule; }
 
 	void Preview();
 	void Categorize();

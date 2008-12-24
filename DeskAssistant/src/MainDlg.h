@@ -203,13 +203,13 @@ public:
 
     //(*Declarations(MainDlg)
     wxNotebook* Notebook1;
+    wxButton* m_btnEdit;
     wxStaticBitmap* StaticBitmap1;
     wxListCtrl* m_pLcFolderSize;
     wxButton* m_btnQuit;
     wxButton* m_btnPreview;
     wxStaticText* StaticText1;
     wxCheckListBox* m_pLbxCustRules;
-    wxButton* Button2;
     wxButton* Button6;
     wxRadioBox* m_pRbxBaseRules;
     wxButton* m_btnCheckUpdate;

@@ -9,20 +9,21 @@ WX_DEFINE_ARRAY(CategorizationFileInfo*, ArrayCategorizationFileInfo);
 
 class Rule
 {
-	public:
-		Rule();
-		virtual ~Rule();
+public:
+    Rule();
+    virtual ~Rule();
 
-		virtual void Execute( CategorizationFileInfo* pFileInfo ) = 0;
+    virtual void Execute( CategorizationFileInfo* pFileInfo ) = 0;
+	virtual void GetDispStr(wxString& strDisp ) = 0;
 
-		///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
 
-		bool m_bSelected;
+    unsigned long m_nNo;	///< Rule No.
+    bool m_bSelected;	///< Seleted flag
+    wxString m_strBaseDestPath;		///< Base dest path
 
-		wxString m_strBaseDestPath;
-
-	protected:
-	private:
+protected:
+private:
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -31,14 +32,18 @@ class Rule
 
 class BasicRule : public Rule
 {
-	public:
-		BasicRule();
-		virtual ~BasicRule();
+public:
+    BasicRule() {};
+    virtual ~BasicRule() {};
 
-		virtual void Execute( CategorizationFileInfo* pFileInfo );
+    virtual void Execute( CategorizationFileInfo* pFileInfo );
+	virtual void GetDispStr(wxString& strDisp );
+	///////////////////////////////////////////////////////////////////
 
-	protected:
-	private:
+    static wxString ms_strType;
+
+protected:
+private:
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -48,19 +53,19 @@ class BasicRule : public Rule
 class NameIncludeRule : public Rule
 {
 public:
-    NameIncludeRule();
-    virtual ~NameIncludeRule();
+    NameIncludeRule() {};
+    virtual ~NameIncludeRule() {};
 
     ///////////////////////////////////////////////////////////////////
 
-	wxString m_strInclude;
+    wxString m_strInclude;
 
-	int m_nNo;
-	static wxString ms_strType;
+    static wxString ms_strType;
 
-	///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
 
     virtual void Execute( CategorizationFileInfo* pFileInfo );
+	virtual void GetDispStr(wxString& strDisp );
 
 protected:
 private:
@@ -79,14 +84,14 @@ public:
 
     ///////////////////////////////////////////////////////////////////
 
-	wxArrayString m_arrStrExtName;
+    wxArrayString m_arrStrExtName;
 
-	int m_nNo;
-	wxString m_strType;
+    static wxString ms_strType;
 
-	///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
 
     virtual void Execute( CategorizationFileInfo* pFileInfo );
+	virtual void GetDispStr(wxString& strDisp );
 
 protected:
 private:

@@ -6,8 +6,7 @@
 #include <wx/config.h>
 #include <wx/filename.h>
 
-#include "BasicRule.h"
-
+#include "Rule.h"
 #include "CategorizeMgr.h"
 
 
@@ -32,17 +31,30 @@ CategorizeMgr::~CategorizeMgr()
 
 void CategorizeMgr::clearRules()
 {
-    int nCnt = m_arrRule.GetCount();
     Rule* pRule = 0;
-    for (int i=0; i<nCnt; i++)
+//    int nCnt = m_arrRule.GetCount();
+//    for (int i=0; i<nCnt; i++)
+//    {
+//        pRule = m_arrRule.Item(i);
+//        if (pRule)
+//        {
+//            delete pRule;
+//            pRule = 0;
+//        }
+//    }
+
+    while(!m_arrRule.IsEmpty())
     {
-        pRule = m_arrRule.Item(i);
-        if (pRule)
-        {
-            delete pRule;
-            pRule = 0;
-        }
+    	pRule = m_arrRule.Last();
+    	m_arrRule.Remove(pRule);
+
+    	if(pRule)
+    	{
+    		delete pRule;
+    		pRule = 0;
+    	}
     }
+
 }
 
 void CategorizeMgr::clearFileInfos()
