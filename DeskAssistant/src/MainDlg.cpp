@@ -392,16 +392,11 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
     // Attach Observer object
     m_categorizeMgr.AttachObserver(this);
 
-
-
-
     wxString strDesktopPath;
     getDesktopPath(strDesktopPath);
     m_categorizeMgr.SetBaseDestPath(strDesktopPath);
 
     ///////////////////////////////////////////////////////////////////
-
-
 
 }
 
