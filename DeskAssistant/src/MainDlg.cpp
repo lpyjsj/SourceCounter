@@ -236,6 +236,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     Center();
 
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnNewClick);
+    Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnEditClick);
     Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnPreviewClick);
     Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnRunClick);
     Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnTestClick);
@@ -370,12 +371,15 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
     int nCnt = pArrRule->GetCount();
     Rule* pRule = 0;
     wxString strTemp;
+    int nIndex = -1;
     for (int i=0; i<nCnt; i++)
     {
     	pRule = pArrRule->Item(i);
 
         pRule->GetDispStr(strTemp);
-        m_pLbxCustRules->Check(m_pLbxCustRules->Append(strTemp, pRule));
+        nIndex = m_pLbxCustRules->Append(strTemp);
+        // m_pLbxCustRules->SetClientData(nIndex, pRule);
+        m_pLbxCustRules->Check(nIndex);
     }
 
     //
@@ -398,17 +402,6 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
 
     ///////////////////////////////////////////////////////////////////
 
-}
-
-void MainDlg::OnBtnNewClick(wxCommandEvent& event)
-{
-    CustomRuleDlg dlg(this);
-
-    if (dlg.ShowModal() == wxID_OK)
-    {
-        wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
-
-    }
 }
 
 void MainDlg::OnBtnRunClick(wxCommandEvent& event)
@@ -511,4 +504,28 @@ void MainDlg::UpdateCategorizationCtrls()
         }
         m_pLcResult->SetItem(nIndex, 2, strTemp);
     }
+}
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+void MainDlg::OnBtnNewClick(wxCommandEvent& event)
+{
+    CustomRuleDlg dlg(this);
+
+    if (dlg.ShowModal() == wxID_OK)
+    {
+        wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+
+    }
+}
+
+void MainDlg::OnBtnEditClick(wxCommandEvent& event)
+{
+	// Get selection
+
+	// Find pRule from CateMgr
+
+	// Set pRule to dlg
+
 }

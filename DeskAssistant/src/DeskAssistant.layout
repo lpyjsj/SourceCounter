@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Release" />
+	<ActiveTarget name="Debug" />
 	<File name="AboutDlg.cpp" open="0" top="0" tabpos="6">
 		<Cursor position="1815" topLine="52" />
 	</File>
@@ -19,20 +19,23 @@
 	<File name="CategorizeMgr.h" open="0" top="0" tabpos="8">
 		<Cursor position="785" topLine="15" />
 	</File>
-	<File name="CustomRuleDlg.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="205" topLine="0" />
+	<File name="CustomRuleDlg.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="3743" topLine="48" />
+	</File>
+	<File name="CustomRuleDlg.h" open="0" top="0" tabpos="0">
+		<Cursor position="318" topLine="12" />
 	</File>
 	<File name="DeskAssistantApp.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="816" topLine="0" />
 	</File>
-	<File name="MainDlg.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="14249" topLine="335" />
+	<File name="MainDlg.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="18298" topLine="497" />
 	</File>
 	<File name="MainDlg.h" open="0" top="0" tabpos="2">
-		<Cursor position="6396" topLine="194" />
+		<Cursor position="6396" topLine="212" />
 	</File>
 	<File name="Rule.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="2176" topLine="91" />
+		<Cursor position="3351" topLine="91" />
 	</File>
 	<File name="Rule.h" open="0" top="0" tabpos="6">
 		<Cursor position="563" topLine="0" />

@@ -3,6 +3,7 @@
 	<object class="wxDialog" name="CustomRuleDlg">
 		<title>Custom Rule Dialog</title>
 		<centered>1</centered>
+		<handler function="OnInit" entry="EVT_INIT_DIALOG" />
 		<object class="wxBoxSizer" variable="BoxSizer1" member="no">
 			<orient>wxVERTICAL</orient>
 			<object class="sizeritem">

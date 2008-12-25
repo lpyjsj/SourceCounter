@@ -259,6 +259,7 @@ private:
     void OnBtnNewClick(wxCommandEvent& event);
     void OnListbook1PageChanged(wxNotebookEvent& event);
     void OnBtnTestClick(wxCommandEvent& event);
+    void OnBtnEditClick(wxCommandEvent& event);
     //*)
 
     ///////////////////////////////////////////////////////////////////
