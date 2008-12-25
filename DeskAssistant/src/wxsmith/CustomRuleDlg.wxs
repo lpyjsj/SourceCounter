@@ -7,7 +7,7 @@
 		<object class="wxBoxSizer" variable="BoxSizer1" member="no">
 			<orient>wxVERTICAL</orient>
 			<object class="sizeritem">
-				<object class="wxRadioBox" name="ID_RADIOBOX2" variable="RadioBox2" member="yes">
+				<object class="wxRadioBox" name="ID_RADIOBOX2" variable="m_rdbRuleType" member="yes">
 					<label>Select rule type</label>
 					<content>
 						<item>by extend name</item>

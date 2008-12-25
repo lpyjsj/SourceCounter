@@ -203,6 +203,7 @@ public:
 
     //(*Declarations(MainDlg)
     wxNotebook* Notebook1;
+    wxButton* m_btnDown;
     wxButton* m_btnEdit;
     wxButton* m_btnDelete;
     wxStaticBitmap* StaticBitmap1;
@@ -211,13 +212,12 @@ public:
     wxButton* m_btnPreview;
     wxStaticText* StaticText1;
     wxCheckListBox* m_pLbxCustRules;
+    wxButton* m_btnUp;
     wxRadioBox* m_pRbxBaseRules;
     wxButton* m_btnCheckUpdate;
-    wxButton* Button9;
     wxButton* m_btnNew;
     wxListCtrl* m_pLcResult;
     wxButton* m_btnRun;
-    wxButton* Button8;
     wxButton* m_btnAbout;
     wxButton* m_btnTest;
     //*)
@@ -279,6 +279,7 @@ private:
 	void updateUICtrls();
 
 	void updateButtons();
+	void updateRuleLbx(bool bClear);
 	///////////////////////////////////////////////////////////////////
 
     DECLARE_EVENT_TABLE()

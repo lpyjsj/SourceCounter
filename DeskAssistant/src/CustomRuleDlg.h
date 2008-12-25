@@ -31,7 +31,7 @@ public:
 
     //(*Declarations(CustomRuleDlg)
     wxStaticText* StaticText2;
-    wxRadioBox* RadioBox2;
+    wxRadioBox* m_rdbRuleType;
     wxStaticText* StaticText1;
     wxButton* Button2;
     wxButton* m_btnOK;

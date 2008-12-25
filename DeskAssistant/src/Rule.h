@@ -18,6 +18,11 @@ public:
 
     virtual wxString GetRuleType() = 0;
     virtual wxString GetCondition() = 0;
+    virtual void SetCondition(wxString strCondition) = 0;
+    void SetDestPath(wxString strDestPath)
+    {
+        m_strBaseDestPath = strDestPath;
+    }
     ///////////////////////////////////////////////////////////////
 
     unsigned long m_nNo;	///< Rule No.
@@ -46,7 +51,15 @@ public:
         return ms_strType;
     }
 
-        virtual wxString GetCondition() { return _T("-");}
+    virtual wxString GetCondition()
+    {
+        return _T("-");
+    }
+
+
+    virtual void SetCondition(wxString strCondition) {}
+
+
     ///////////////////////////////////////////////////////////////////
 
     static wxString ms_strType;
@@ -79,7 +92,16 @@ public:
     {
         return ms_strType;
     }
-            virtual wxString GetCondition() { return m_strInclude;}
+    virtual wxString GetCondition()
+    {
+        return m_strInclude;
+    }
+
+    virtual void SetCondition(wxString strCondition)
+    {
+        m_strInclude = strCondition;
+    }
+
 protected:
 private:
 
@@ -109,7 +131,9 @@ public:
     {
         return ms_strType;
     }
-	virtual wxString GetCondition();
+    virtual wxString GetCondition();
+    virtual void SetCondition(wxString strCondition);
+
 protected:
 private:
 

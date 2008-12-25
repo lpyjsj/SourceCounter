@@ -1,4 +1,5 @@
 #include <wx/filename.h>
+#include <wx/tokenzr.h>
 
 #include "Rule.h"
 
@@ -122,21 +123,34 @@ void ExtNameRule::GetDispStr(wxString& strDisp )
     int nCntExtName = m_arrStrExtName.GetCount();
     for (int j=0; j<nCntExtName; j++)
     {
-        strDisp += m_arrStrExtName[j];
+        strDisp += m_arrStrExtName[j] + _T(';');
     }
 
     strDisp += _T(" -> ") + m_strBaseDestPath;
 }
 
-
 wxString ExtNameRule::GetCondition()
 {
-	wxString strRet;
-	int nCntExtName = m_arrStrExtName.GetCount();
+    wxString strRet;
+    int nCntExtName = m_arrStrExtName.GetCount();
     for (int j=0; j<nCntExtName; j++)
     {
         strRet += m_arrStrExtName[j] + _T(';');
     }
 
-	return strRet;
+    return strRet;
+}
+
+void ExtNameRule::SetCondition(wxString strCondition)
+{
+	//
+	m_arrStrExtName.Clear();
+
+	//
+    wxStringTokenizer tkz(strCondition, _T(";"));
+    while ( tkz.HasMoreTokens() )
+    {
+        wxString token = tkz.GetNextToken();
+        m_arrStrExtName.Add(token);
+    }
 }

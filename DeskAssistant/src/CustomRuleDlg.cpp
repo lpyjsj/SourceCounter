@@ -38,11 +38,11 @@ CustomRuleDlg::CustomRuleDlg(wxWindow* parent, RuleMode nMode,wxWindowID id):
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     wxString __wxRadioBoxChoices_1[2] =
     {
-        _("by extend name"),
-        _("by filename include")
+    _("by extend name"),
+    _("by filename include")
     };
-    RadioBox2 = new wxRadioBox(this, ID_RADIOBOX2, _("Select rule type"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_SPECIFY_ROWS, wxDefaultValidator, _T("ID_RADIOBOX2"));
-    BoxSizer1->Add(RadioBox2, 1, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_rdbRuleType = new wxRadioBox(this, ID_RADIOBOX2, _("Select rule type"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_SPECIFY_ROWS, wxDefaultValidator, _T("ID_RADIOBOX2"));
+    BoxSizer1->Add(m_rdbRuleType, 1, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("File extend name:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     BoxSizer2->Add(StaticText1, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -85,15 +85,13 @@ void CustomRuleDlg::OnInit(wxInitDialogEvent& event)
     {
     case RuleModeNew:
     {
+
         break;
     }
     case RuleModeEdit:
     {
-        wxString strTemp;
-        strTemp.Printf( _T("%d"), m_pRule->m_nNo);
-        //wxMessageBox(strTemp);
-			m_txtCondition->SetValue(m_pRule->GetCondition());
-
+		m_rdbRuleType->Enable(false);
+		m_txtCondition->SetValue(m_pRule->GetCondition());
         m_txtDestPath->SetValue(m_pRule->m_strBaseDestPath);
         break;
     }
@@ -111,7 +109,26 @@ void CustomRuleDlg::OnInit(wxInitDialogEvent& event)
 
 void CustomRuleDlg::OnBtnOKClick(wxCommandEvent& event)
 {
+	wxString strCondition = m_txtCondition->GetValue();
+	strCondition.Trim();
+	if(strCondition.IsEmpty())
+	{
+		wxMessageBox(_("Please input conditon."));
+		return;
+	}
+
+	wxString strDestPath = m_txtDestPath->GetValue();
+	strDestPath.Trim();
+	if(strDestPath.IsEmpty())
+	{
+		wxMessageBox(_("Please select dest path."));
+		return;
+	}
+
+	//m_pRule->SetType(m_rdbRuleType->GetValue());
     // Set ctrl value to m_pRule
+    m_pRule->SetCondition(m_txtCondition->GetValue());
+    m_pRule->SetDestPath(m_txtDestPath->GetValue());
     //
     EndModal(wxID_OK);
 }

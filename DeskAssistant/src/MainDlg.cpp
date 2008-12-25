@@ -184,12 +184,14 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     m_btnDelete = new wxButton(this, ID_BUTTON6, _("&Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON6"));
     m_btnDelete->Disable();
     BoxSizer3->Add(m_btnDelete, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    Button8 = new wxButton(this, ID_BUTTON8, _("&Up"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON8"));
-    Button8->Disable();
-    BoxSizer3->Add(Button8, 1, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    Button9 = new wxButton(this, ID_BUTTON9, _("Dow&n"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON9"));
-    Button9->Disable();
-    BoxSizer3->Add(Button9, 1, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_btnUp = new wxButton(this, ID_BUTTON8, _("&Up"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON8"));
+    m_btnUp->Disable();
+    m_btnUp->Hide();
+    BoxSizer3->Add(m_btnUp, 1, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_btnDown = new wxButton(this, ID_BUTTON9, _("Dow&n"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON9"));
+    m_btnDown->Disable();
+    m_btnDown->Hide();
+    BoxSizer3->Add(m_btnDown, 1, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer3->Add(-1,-1,1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer3->Add(-1,-1,1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer1->Add(BoxSizer3, 0, wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 2);
@@ -198,8 +200,8 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     wxString __wxRadioBoxChoices_1[2] =
     {
-        _("By file modified time"),
-        _("None(Do nothing)")
+    _("By file modified time"),
+    _("None(Do nothing)")
     };
     m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -368,21 +370,22 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
 
     ///////////////////////////////////////////////////////////////////
     // Init check list box
-    ArrayRule* pArrRule = m_categorizeMgr.GetRuleArray();
-
-    int nCnt = pArrRule->GetCount();
-    Rule* pRule = 0;
-    wxString strTemp;
-    int nIndex = -1;
-    for (int i=0; i<nCnt; i++)
-    {
-        pRule = pArrRule->Item(i);
-
-        pRule->GetDispStr(strTemp);
-        nIndex = m_pLbxCustRules->Append(strTemp);
-        // m_pLbxCustRules->SetClientData(nIndex, pRule);
-        m_pLbxCustRules->Check(nIndex);
-    }
+//    ArrayRule* pArrRule = m_categorizeMgr.GetRuleArray();
+//
+//    int nCnt = pArrRule->GetCount();
+//    Rule* pRule = 0;
+//    wxString strTemp;
+//    int nIndex = -1;
+//    for (int i=0; i<nCnt; i++)
+//    {
+//        pRule = pArrRule->Item(i);
+//
+//        pRule->GetDispStr(strTemp);
+//        nIndex = m_pLbxCustRules->Append(strTemp);
+//        // m_pLbxCustRules->SetClientData(nIndex, pRule);
+//        m_pLbxCustRules->Check(nIndex);
+//    }
+	updateRuleLbx(false);
 
     //
     for (int i=0; i<N_COL_NUM; i++)
@@ -543,8 +546,33 @@ void MainDlg::OnBtnEditClick(wxCommandEvent& event)
 
 	if (dlg.ShowModal() == wxID_OK)
     {
-        wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+        //wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+		updateRuleLbx(true);
+    }
 
+}
+
+void MainDlg::updateRuleLbx(bool bClear)
+{
+	if(bClear)
+		m_pLbxCustRules->Clear();
+
+	//
+    // Init check list box
+    ArrayRule* pArrRule = m_categorizeMgr.GetRuleArray();
+
+    int nCnt = pArrRule->GetCount();
+    Rule* pRule = 0;
+    wxString strTemp;
+    int nIndex = -1;
+    for (int i=0; i<nCnt; i++)
+    {
+        pRule = pArrRule->Item(i);
+
+        pRule->GetDispStr(strTemp);
+        nIndex = m_pLbxCustRules->Append(strTemp);
+        // m_pLbxCustRules->SetClientData(nIndex, pRule);
+        m_pLbxCustRules->Check(nIndex);
     }
 
 
