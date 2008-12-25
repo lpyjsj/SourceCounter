@@ -204,13 +204,13 @@ public:
     //(*Declarations(MainDlg)
     wxNotebook* Notebook1;
     wxButton* m_btnEdit;
+    wxButton* m_btnDelete;
     wxStaticBitmap* StaticBitmap1;
     wxListCtrl* m_pLcFolderSize;
     wxButton* m_btnQuit;
     wxButton* m_btnPreview;
     wxStaticText* StaticText1;
     wxCheckListBox* m_pLbxCustRules;
-    wxButton* Button6;
     wxRadioBox* m_pRbxBaseRules;
     wxButton* m_btnCheckUpdate;
     wxButton* Button9;
@@ -260,7 +260,10 @@ private:
     void OnListbook1PageChanged(wxNotebookEvent& event);
     void OnBtnTestClick(wxCommandEvent& event);
     void OnBtnEditClick(wxCommandEvent& event);
+    void OnBtnDeleteClick(wxCommandEvent& event);
     //*)
+
+	void OnLbxRuleItemSelect(wxCommandEvent& event);
 
     ///////////////////////////////////////////////////////////////////
 
@@ -275,7 +278,7 @@ private:
 //	void categorizeByTime(bool bPreview);
 	void updateUICtrls();
 
-
+	void updateButtons();
 	///////////////////////////////////////////////////////////////////
 
     DECLARE_EVENT_TABLE()

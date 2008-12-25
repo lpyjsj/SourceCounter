@@ -137,7 +137,7 @@ const wxString CSZ_YESTERDAY = _("___Yesterday");
 
 const wxString CSZ_RULE_TAG_NAMES[] =
 {
-    _T("no"),
+    _T("index"),
     _T("type"),
     _T("condition"),
     _T("dest"),
@@ -181,9 +181,9 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     m_btnEdit = new wxButton(this, ID_BUTTON2, _("&Edit..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
     m_btnEdit->Disable();
     BoxSizer3->Add(m_btnEdit, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    Button6 = new wxButton(this, ID_BUTTON6, _("&Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON6"));
-    Button6->Disable();
-    BoxSizer3->Add(Button6, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_btnDelete = new wxButton(this, ID_BUTTON6, _("&Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON6"));
+    m_btnDelete->Disable();
+    BoxSizer3->Add(m_btnDelete, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button8 = new wxButton(this, ID_BUTTON8, _("&Up"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON8"));
     Button8->Disable();
     BoxSizer3->Add(Button8, 1, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -198,8 +198,8 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     wxString __wxRadioBoxChoices_1[2] =
     {
-    _("By file modified time"),
-    _("None(Do nothing)")
+        _("By file modified time"),
+        _("None(Do nothing)")
     };
     m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -237,6 +237,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
 
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnNewClick);
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnEditClick);
+    Connect(ID_BUTTON6,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnDeleteClick);
     Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnPreviewClick);
     Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnRunClick);
     Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnTestClick);
@@ -247,6 +248,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     //*)
 
     // BoxSizer1->Hide(BoxSizer5);
+    Connect(ID_CHECKLISTBOX1, wxEVT_COMMAND_LISTBOX_SELECTED, (wxObjectEventFunction)&MainDlg::OnLbxRuleItemSelect);
 
 }
 
@@ -374,7 +376,7 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
     int nIndex = -1;
     for (int i=0; i<nCnt; i++)
     {
-    	pRule = pArrRule->Item(i);
+        pRule = pArrRule->Item(i);
 
         pRule->GetDispStr(strTemp);
         nIndex = m_pLbxCustRules->Append(strTemp);
@@ -505,13 +507,16 @@ void MainDlg::UpdateCategorizationCtrls()
         m_pLcResult->SetItem(nIndex, 2, strTemp);
     }
 }
-
+void MainDlg::OnLbxRuleItemSelect(wxCommandEvent& event)
+{
+    updateButtons();
+}
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
 void MainDlg::OnBtnNewClick(wxCommandEvent& event)
 {
-    CustomRuleDlg dlg(this);
+    CustomRuleDlg dlg(this, CustomRuleDlg::RuleModeNew);
 
     if (dlg.ShowModal() == wxID_OK)
     {
@@ -522,10 +527,56 @@ void MainDlg::OnBtnNewClick(wxCommandEvent& event)
 
 void MainDlg::OnBtnEditClick(wxCommandEvent& event)
 {
-	// Get selection
+    // Get selection
+    int nIndex = -1;
+    nIndex = m_pLbxCustRules->GetSelection();
 
-	// Find pRule from CateMgr
+    if (-1 == nIndex)
+        return;
 
-	// Set pRule to dlg
+    // Find pRule from CateMgr
+	Rule* pRule = m_categorizeMgr.GetRule(nIndex);
 
+    // Set pRule to dlg
+	CustomRuleDlg dlg(this, CustomRuleDlg::RuleModeEdit);
+	dlg.SetRule(pRule);
+
+	if (dlg.ShowModal() == wxID_OK)
+    {
+        wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+
+    }
+
+
+}
+
+void MainDlg::OnBtnDeleteClick(wxCommandEvent& event)
+{
+    // Get selection
+    int nIndex = -1;
+    nIndex = m_pLbxCustRules->GetSelection();
+
+    if (-1 == nIndex)
+        return;
+
+    // Delete item
+    // m_categorizeMgr->DeleteRule(m_pLbxCustRules->GetString(nIndex));
+    m_categorizeMgr.DeleteRule(nIndex);
+    m_pLbxCustRules->Delete(nIndex);
+
+    updateButtons();
+}
+
+void MainDlg::updateButtons()
+{
+    if ( wxNOT_FOUND != m_pLbxCustRules->GetSelection())
+    {
+        m_btnEdit->Enable();
+        m_btnDelete->Enable();
+    }
+    else
+    {
+		m_btnEdit->Enable(false);
+        m_btnDelete->Enable(false);
+    }
 }

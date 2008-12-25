@@ -24,7 +24,8 @@ BEGIN_EVENT_TABLE(CustomRuleDlg,wxDialog)
     //*)
 END_EVENT_TABLE()
 
-CustomRuleDlg::CustomRuleDlg(wxWindow* parent,wxWindowID id):
+CustomRuleDlg::CustomRuleDlg(wxWindow* parent, RuleMode nMode,wxWindowID id):
+        m_nMode(nMode),
         m_pRule(0)
 {
     //(*Initialize(CustomRuleDlg)
@@ -45,14 +46,14 @@ CustomRuleDlg::CustomRuleDlg(wxWindow* parent,wxWindowID id):
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("File extend name:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     BoxSizer2->Add(StaticText1, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    TextCtrl1 = new wxTextCtrl(this, ID_TEXTCTRL1, _("Text"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
-    BoxSizer2->Add(TextCtrl1, 4, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_txtCondition = new wxTextCtrl(this, ID_TEXTCTRL1, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
+    BoxSizer2->Add(m_txtCondition, 4, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(BoxSizer2, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
     StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Destination dir:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT2"));
     BoxSizer3->Add(StaticText2, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    TextCtrl2 = new wxTextCtrl(this, ID_TEXTCTRL2, _("Text"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL2"));
-    BoxSizer3->Add(TextCtrl2, 3, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_txtDestPath = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL2"));
+    BoxSizer3->Add(m_txtDestPath, 3, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button3 = new wxButton(this, ID_BUTTON3, _("&Select..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
     BoxSizer3->Add(Button3, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(BoxSizer3, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -80,12 +81,32 @@ CustomRuleDlg::~CustomRuleDlg()
 
 void CustomRuleDlg::OnInit(wxInitDialogEvent& event)
 {
-    if (m_pRule)
+    switch (m_nMode)
+    {
+    case RuleModeNew:
+    {
+        break;
+    }
+    case RuleModeEdit:
     {
         wxString strTemp;
         strTemp.Printf( _T("%d"), m_pRule->m_nNo);
-        wxMessageBox(strTemp);
+        //wxMessageBox(strTemp);
+			m_txtCondition->SetValue(m_pRule->GetCondition());
+
+        m_txtDestPath->SetValue(m_pRule->m_strBaseDestPath);
+        break;
     }
+
+    default:
+    {
+        break;
+    }
+    }
+
+
+
+
 }
 
 void CustomRuleDlg::OnBtnOKClick(wxCommandEvent& event)

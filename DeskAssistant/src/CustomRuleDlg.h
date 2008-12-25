@@ -16,12 +16,17 @@
 
 #include "rule.h"
 
-
 class CustomRuleDlg: public wxDialog
 {
 public:
 
-    CustomRuleDlg(wxWindow* parent,wxWindowID id=wxID_ANY);
+	enum RuleMode
+	{
+		RuleModeNew,
+		RuleModeEdit,
+	};
+
+    CustomRuleDlg(wxWindow* parent, RuleMode nMode, wxWindowID id=wxID_ANY);
     virtual ~CustomRuleDlg();
 
     //(*Declarations(CustomRuleDlg)
@@ -30,9 +35,9 @@ public:
     wxStaticText* StaticText1;
     wxButton* Button2;
     wxButton* m_btnOK;
+    wxTextCtrl* m_txtDestPath;
     wxButton* Button3;
-    wxTextCtrl* TextCtrl2;
-    wxTextCtrl* TextCtrl1;
+    wxTextCtrl* m_txtCondition;
     //*)
 
     ///////////////////////////////////////////////////////////////////
@@ -58,7 +63,7 @@ private:
     //*)
 
     ///////////////////////////////////////////////////////////////////
-
+	RuleMode m_nMode;
 	Rule* m_pRule;
 
     ///////////////////////////////////////////////////////////////////

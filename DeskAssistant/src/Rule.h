@@ -14,8 +14,10 @@ public:
     virtual ~Rule();
 
     virtual void Execute( CategorizationFileInfo* pFileInfo ) = 0;
-	virtual void GetDispStr(wxString& strDisp ) = 0;
+    virtual void GetDispStr(wxString& strDisp ) = 0;
 
+    virtual wxString GetRuleType() = 0;
+    virtual wxString GetCondition() = 0;
     ///////////////////////////////////////////////////////////////
 
     unsigned long m_nNo;	///< Rule No.
@@ -37,8 +39,15 @@ public:
     virtual ~BasicRule() {};
 
     virtual void Execute( CategorizationFileInfo* pFileInfo );
-	virtual void GetDispStr(wxString& strDisp );
-	///////////////////////////////////////////////////////////////////
+    virtual void GetDispStr(wxString& strDisp );
+
+    virtual wxString GetRuleType()
+    {
+        return ms_strType;
+    }
+
+        virtual wxString GetCondition() { return _T("-");}
+    ///////////////////////////////////////////////////////////////////
 
     static wxString ms_strType;
 
@@ -65,8 +74,12 @@ public:
     ///////////////////////////////////////////////////////////////////
 
     virtual void Execute( CategorizationFileInfo* pFileInfo );
-	virtual void GetDispStr(wxString& strDisp );
-
+    virtual void GetDispStr(wxString& strDisp );
+    virtual wxString GetRuleType()
+    {
+        return ms_strType;
+    }
+            virtual wxString GetCondition() { return m_strInclude;}
 protected:
 private:
 
@@ -91,8 +104,12 @@ public:
     ///////////////////////////////////////////////////////////////////
 
     virtual void Execute( CategorizationFileInfo* pFileInfo );
-	virtual void GetDispStr(wxString& strDisp );
-
+    virtual void GetDispStr(wxString& strDisp );
+    virtual wxString GetRuleType()
+    {
+        return ms_strType;
+    }
+	virtual wxString GetCondition();
 protected:
 private:
 

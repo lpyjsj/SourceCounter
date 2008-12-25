@@ -43,16 +43,16 @@ void CategorizeMgr::clearRules()
 //        }
 //    }
 
-    while(!m_arrRule.IsEmpty())
+    while (!m_arrRule.IsEmpty())
     {
-    	pRule = m_arrRule.Last();
-    	m_arrRule.Remove(pRule);
+        pRule = m_arrRule.Last();
+        m_arrRule.Remove(pRule);
 
-    	if(pRule)
-    	{
-    		delete pRule;
-    		pRule = 0;
-    	}
+        if (pRule)
+        {
+            delete pRule;
+            pRule = 0;
+        }
     }
 
 }
@@ -235,8 +235,8 @@ void CategorizeMgr::Preview()
         m_arrStrSubFolder.Empty();
     }
 
-	// Clear file info
-	clearFileInfos();
+    // Clear file info
+    clearFileInfos();
 
     // Get sub folder path for categorize path
     m_arrStrSubFolder.Add(m_strDesktopPath);
@@ -257,7 +257,7 @@ void CategorizeMgr::Preview()
     // For each rule
     int nCntRule = m_arrRule.GetCount();
     Rule* pRule = 0;
-	CategorizationFileInfo* pFileInfo = 0;
+    CategorizationFileInfo* pFileInfo = 0;
 
     for (int j=0; j<nCntRule; j++)
     {
@@ -287,6 +287,20 @@ void CategorizeMgr::Preview()
 
     // Notify observer
     Notify();
+}
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+void CategorizeMgr::DeleteRule(int nIndex)
+{
+    Rule* pRule = m_arrRule[nIndex];
+    if (pRule)
+    {
+        delete pRule;
+        pRule = 0;
+    }
+    m_arrRule.RemoveAt(nIndex);
 }
 
 ///////////////////////////////////////////////////////////////////////

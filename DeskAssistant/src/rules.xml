@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rules>
   <rule>
-    <no>1001</no>
+    <index>0</index>
     <type>BY_EXTNAME</type>
     <condition>zip</condition>
     <dest>c:\___zip</dest>
   </rule>
   <rule>
-    <no>1002</no>
+    <index>1</index>
     <type>BY_FILENAME</type>
     <condition>DDC</condition>
     <dest>c:\___ddc</dest>
   </rule>
   <rule>
-    <no>1003</no>
+    <index>2</index>
     <type>BY_EXTNAME</type>
     <condition>DOC</condition>
     <dest>c:\___doc</dest>

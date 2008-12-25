@@ -127,3 +127,16 @@ void ExtNameRule::GetDispStr(wxString& strDisp )
 
     strDisp += _T(" -> ") + m_strBaseDestPath;
 }
+
+
+wxString ExtNameRule::GetCondition()
+{
+	wxString strRet;
+	int nCntExtName = m_arrStrExtName.GetCount();
+    for (int j=0; j<nCntExtName; j++)
+    {
+        strRet += m_arrStrExtName[j] + _T(';');
+    }
+
+	return strRet;
+}
