@@ -375,7 +375,7 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
     	pRule = pArrRule->Item(i);
 
         pRule->GetDispStr(strTemp);
-        m_pLbxCustRules->Check(m_pLbxCustRules->Append(strTemp));
+        m_pLbxCustRules->Check(m_pLbxCustRules->Append(strTemp, pRule));
     }
 
     //
@@ -435,8 +435,6 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
     wxString strDesktopPath;
     getDesktopPath(strDesktopPath);
     m_categorizeMgr.SetBaseDestPath(strDesktopPath);
-
-
 
     // Colect rules setting
     int nType = m_pRbxBaseRules->GetSelection();

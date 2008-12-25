@@ -25,11 +25,11 @@
 	<File name="DeskAssistantApp.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="816" topLine="0" />
 	</File>
-	<File name="MainDlg.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="15825" topLine="298" />
+	<File name="MainDlg.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="14249" topLine="335" />
 	</File>
-	<File name="MainDlg.h" open="0" top="0" tabpos="4">
-		<Cursor position="8133" topLine="245" />
+	<File name="MainDlg.h" open="0" top="0" tabpos="2">
+		<Cursor position="6396" topLine="194" />
 	</File>
 	<File name="Rule.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="2176" topLine="91" />
@@ -45,5 +45,11 @@
 	</File>
 	<File name="wx\checkedlistctrl.h" open="0" top="0" tabpos="0">
 		<Cursor position="607" topLine="0" />
+	</File>
+	<File name="wx\hyperlink.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="3484" topLine="88" />
+	</File>
+	<File name="wx_pch.h" open="0" top="0" tabpos="0">
+		<Cursor position="529" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>
