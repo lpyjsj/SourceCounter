@@ -27,54 +27,6 @@
 #include "AboutDlg.h"
 #include "CustomRuleDlg.h"
 
-///////////////////////////////////////////////////////////////////////
-
-bool wxXmlDocumentEx::Save(const wxString& filename, int indentstep) const
-{
-    wxFileOutputStream stream(filename);
-    if (!stream.Ok())
-        return false;
-    return Save(stream, indentstep);
-}
-
-bool wxXmlDocumentEx::Save(wxOutputStream& stream, int indentstep) const
-{
-    if ( !IsOk() )
-        return false;
-
-    wxString s;
-
-    wxMBConv *convMem = NULL,
-                        *convFile;
-
-#if wxUSE_UNICODE
-    convFile = new wxCSConv(GetFileEncoding());
-    convMem = NULL;
-#else
-    if ( GetFileEncoding().CmpNoCase(GetEncoding()) != 0 )
-    {
-        convFile = new wxCSConv(GetFileEncoding());
-        convMem = new wxCSConv(GetEncoding());
-    }
-    else // file and in-memory encodings are the same, no conversion needed
-    {
-        convFile =
-            convMem = NULL;
-    }
-#endif
-
-    s.Printf(wxT("<?xml version=\"%s\" encoding=\"%s\"?>\n"),
-             GetVersion().c_str(), GetFileEncoding().c_str());
-    OutputString(stream, s);
-
-    OutputNode(stream, GetRoot(), 0, convMem, convFile, indentstep);
-    OutputString(stream, wxT("\n"));
-
-    delete convFile;
-    delete convMem;
-
-    return true;
-}
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -135,13 +87,6 @@ const wxString CSZ_TODAY = _("___Today");
 const wxString CSZ_YESTERDAY = _("___Yesterday");
 
 
-const wxString CSZ_RULE_TAG_NAMES[] =
-{
-    _T("index"),
-    _T("type"),
-    _T("condition"),
-    _T("dest"),
-};
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -150,8 +95,7 @@ BEGIN_EVENT_TABLE(MainDlg,wxDialog)
     //*)
 END_EVENT_TABLE()
 
-MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size):
-        m_pRoot(0)
+MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
 {
 
 
@@ -195,13 +139,13 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer3->Add(-1,-1,1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer3->Add(-1,-1,1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer1->Add(BoxSizer3, 0, wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 2);
-    m_pLbxCustRules = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxDefaultSize, 0, 0, wxLB_SINGLE|wxLB_NEEDED_SB, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
+    m_pLbxCustRules = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxSize(-1,80), 0, 0, wxLB_SINGLE|wxLB_NEEDED_SB, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
     StaticBoxSizer1->Add(m_pLbxCustRules, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     wxString __wxRadioBoxChoices_1[2] =
     {
-    _("By file modified time"),
-    _("None(Do nothing)")
+        _("By file modified time"),
+        _("None(Do nothing)")
     };
     m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -297,97 +241,19 @@ void MainDlg::getDesktopPath(wxString& strPath)
 
 void MainDlg::OnInit(wxInitDialogEvent& event)
 {
-    ///////////////////////////////////////////////////////////////////
+	// Set desktop path to mgt
+    wxString strPath;
+	getDesktopPath(strPath);
+    m_categorizeMgr.Init(strPath);
 
-    if (!m_docWords.Load(_T("rules.xml")))
-        return;
-
-    // start processing the XML file
-    m_pRoot = m_docWords.GetRoot();
-    if (m_pRoot->GetName() != _T("rules"))
-        return;
-
-    wxXmlNode* child = m_pRoot->GetChildren();
-    wxXmlNode* pChildChild = 0;
-    while (child)
-    {
-        if (child->GetName() != _T("rule"))
-            break;
-
-        pChildChild = child->GetChildren();
-        wxString strNo, strType, strCondition, strDest;
-
-        while (pChildChild)
-        {
-            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[0])
-            {
-                strNo = pChildChild->GetNodeContent();
-            }
-
-            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[1])
-            {// process tag2
-                strType = pChildChild->GetNodeContent();
-            }
-
-            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[2])
-            {// process tag2
-                strCondition = pChildChild->GetNodeContent();
-            }
-
-            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[3])
-            {// process tag2
-                strDest = pChildChild->GetNodeContent();
-            }
-            //
-            pChildChild = pChildChild->GetNext();
-        }
-
-        if (strType == ExtNameRule::ms_strType)
-        {
-            ExtNameRule* pRule1 = new ExtNameRule();
-
-            strNo.ToULong(&pRule1->m_nNo);
-            pRule1->m_arrStrExtName.Add( strCondition );
-            pRule1->m_strBaseDestPath = strDest;  //___ZIP
-
-            m_categorizeMgr.AddRule(pRule1);
-        }
-
-        if (strType == NameIncludeRule::ms_strType)
-        {
-            NameIncludeRule* pRule = new NameIncludeRule();
-
-            strNo.ToULong(&pRule->m_nNo);
-            pRule->m_strInclude = strCondition;
-            pRule->m_strBaseDestPath = strDest;  //___ZIP
-
-            m_categorizeMgr.AddRule(pRule);
-        }
-
-        //
-        child = child->GetNext();
-    }
+    // Attach Observer object
+    m_categorizeMgr.AttachObserver(this);
 
     ///////////////////////////////////////////////////////////////////
     // Init check list box
-//    ArrayRule* pArrRule = m_categorizeMgr.GetRuleArray();
-//
-//    int nCnt = pArrRule->GetCount();
-//    Rule* pRule = 0;
-//    wxString strTemp;
-//    int nIndex = -1;
-//    for (int i=0; i<nCnt; i++)
-//    {
-//        pRule = pArrRule->Item(i);
-//
-//        pRule->GetDispStr(strTemp);
-//        nIndex = m_pLbxCustRules->Append(strTemp);
-//        // m_pLbxCustRules->SetClientData(nIndex, pRule);
-//        m_pLbxCustRules->Check(nIndex);
-//    }
-	updateRuleLbx(false);
+    updateRuleLbx(false);
 
-    //
+    // Initial list ctrl
     for (int i=0; i<N_COL_NUM; i++)
     {
         m_pLcResult->InsertColumn(i, CSZ_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_COL_WIDTH[i]);
@@ -397,13 +263,6 @@ void MainDlg::OnInit(wxInitDialogEvent& event)
     {
         m_pLcFolderSize->InsertColumn(i, CSZ_FOLDER_SIZE_LC_COL_NAMES[i], wxLIST_FORMAT_LEFT, N_FOLDER_SIZE_LC_COL_WIDTH[i]);
     }
-
-    // Attach Observer object
-    m_categorizeMgr.AttachObserver(this);
-
-    wxString strDesktopPath;
-    getDesktopPath(strDesktopPath);
-    m_categorizeMgr.SetBaseDestPath(strDesktopPath);
 
     ///////////////////////////////////////////////////////////////////
 
@@ -429,31 +288,16 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
     m_pLcResult->DeleteAllItems();
     //m_pLcFolderSize->DeleteAllItems();
 
-    //
-    wxString strDesktopPath;
-    getDesktopPath(strDesktopPath);
-    m_categorizeMgr.SetBaseDestPath(strDesktopPath);
-
     // Colect rules setting
     int nType = m_pRbxBaseRules->GetSelection();
-    //
-    switch (nType)
+    // type = 0 pRule
+    if (nType == NBaseRuleTypeTime)
     {
-    case NBaseRuleTypeTime:
+        //info.m_bSelected = true;
+    }
+    else
     {
-        BasicRule* pBasicRule = new BasicRule();
-
-        pBasicRule->m_nNo = 9999;  ///< Max No.
-        pBasicRule->m_strBaseDestPath = strDesktopPath;
-        m_categorizeMgr.AddRule(pBasicRule);	// Last rule is basic rule
-
-        break;
-    }
-
-    default:
-    {// Do nothing
-
-    }
+        //info.m_bSelected = false;
     }
 
     // Preview and update UI
@@ -514,7 +358,9 @@ void MainDlg::OnLbxRuleItemSelect(wxCommandEvent& event)
 {
     updateButtons();
 }
+
 ///////////////////////////////////////////////////////////////////////
+// Rule ctrl group
 ///////////////////////////////////////////////////////////////////////
 
 void MainDlg::OnBtnNewClick(wxCommandEvent& event)
@@ -523,8 +369,21 @@ void MainDlg::OnBtnNewClick(wxCommandEvent& event)
 
     if (dlg.ShowModal() == wxID_OK)
     {
-        wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+        // wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
+        RuleInfo ruleInfo;
+        dlg.GetRuleInfo(ruleInfo);
 
+//        if (ruleInfo.m_nType == ExtNameRule::ms_nType)
+//        {// Extend name rule
+//
+//        }
+//        else if (ruleInfo.m_nType == ExtNameRule::ms_nType)
+//        {// File name rule
+//
+//        }
+        m_categorizeMgr.AddRule(ruleInfo);
+		//
+		updateRuleLbx(true);
     }
 }
 
@@ -538,26 +397,26 @@ void MainDlg::OnBtnEditClick(wxCommandEvent& event)
         return;
 
     // Find pRule from CateMgr
-	Rule* pRule = m_categorizeMgr.GetRule(nIndex);
+    Rule* pRule = m_categorizeMgr.GetRule(nIndex);
 
     // Set pRule to dlg
-	CustomRuleDlg dlg(this, CustomRuleDlg::RuleModeEdit);
-	dlg.SetRule(pRule);
+    CustomRuleDlg dlg(this, CustomRuleDlg::RuleModeEdit);
+    dlg.SetRule(pRule);
 
-	if (dlg.ShowModal() == wxID_OK)
+    if (dlg.ShowModal() == wxID_OK)
     {
         //wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
-		updateRuleLbx(true);
+        updateRuleLbx(true);
     }
 
 }
 
 void MainDlg::updateRuleLbx(bool bClear)
 {
-	if(bClear)
-		m_pLbxCustRules->Clear();
+    if (bClear)
+        m_pLbxCustRules->Clear();
 
-	//
+    //
     // Init check list box
     ArrayRule* pArrRule = m_categorizeMgr.GetRuleArray();
 
@@ -569,13 +428,15 @@ void MainDlg::updateRuleLbx(bool bClear)
     {
         pRule = pArrRule->Item(i);
 
-        pRule->GetDispStr(strTemp);
-        nIndex = m_pLbxCustRules->Append(strTemp);
-        // m_pLbxCustRules->SetClientData(nIndex, pRule);
-        m_pLbxCustRules->Check(nIndex);
+		if(pRule->GetRuleType() != BasicRule::ms_nType)
+		{
+			pRule->GetDispStr(strTemp);
+			nIndex = m_pLbxCustRules->Append(strTemp);
+			//m_pLbxCustRules->SetClientData(nIndex, pRule);
+			if(pRule->m_bSelected)
+				m_pLbxCustRules->Check(nIndex);
+		}
     }
-
-
 }
 
 void MainDlg::OnBtnDeleteClick(wxCommandEvent& event)
@@ -604,7 +465,7 @@ void MainDlg::updateButtons()
     }
     else
     {
-		m_btnEdit->Enable(false);
+        m_btnEdit->Enable(false);
         m_btnDelete->Enable(false);
     }
 }

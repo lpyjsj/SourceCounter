@@ -15,6 +15,7 @@
 //*)
 
 #include "rule.h"
+#include "ruleinfo.h"
 
 class CustomRuleDlg: public wxDialog
 {
@@ -42,7 +43,7 @@ public:
 
     ///////////////////////////////////////////////////////////////////
 	void SetRule(Rule* pRule)		{ m_pRule = pRule; }
-
+	void GetRuleInfo(RuleInfo& info);
 
 protected:
 
@@ -66,6 +67,7 @@ private:
 	RuleMode m_nMode;
 	Rule* m_pRule;
 
+	RuleInfo m_ruleInfo;
     ///////////////////////////////////////////////////////////////////
 
 

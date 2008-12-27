@@ -9,12 +9,81 @@
 #include "Rule.h"
 #include "CategorizeMgr.h"
 
+///////////////////////////////////////////////////////////////////////
 
+bool wxXmlDocumentEx::Save(const wxString& filename, int indentstep) const
+{
+    wxFileOutputStream stream(filename);
+    if (!stream.Ok())
+        return false;
+    return Save(stream, indentstep);
+}
+
+bool wxXmlDocumentEx::Save(wxOutputStream& stream, int indentstep) const
+{
+    if ( !IsOk() )
+        return false;
+
+    wxString s;
+
+    wxMBConv *convMem = NULL,
+                        *convFile;
+
+#if wxUSE_UNICODE
+    convFile = new wxCSConv(GetFileEncoding());
+    convMem = NULL;
+#else
+    if ( GetFileEncoding().CmpNoCase(GetEncoding()) != 0 )
+    {
+        convFile = new wxCSConv(GetFileEncoding());
+        convMem = new wxCSConv(GetEncoding());
+    }
+    else // file and in-memory encodings are the same, no conversion needed
+    {
+        convFile =
+            convMem = NULL;
+    }
+#endif
+
+    s.Printf(wxT("<?xml version=\"%s\" encoding=\"%s\"?>\n"),
+             GetVersion().c_str(), GetFileEncoding().c_str());
+    OutputString(stream, s);
+
+    OutputNode(stream, GetRoot(), 0, convMem, convFile, indentstep);
+    OutputString(stream, wxT("\n"));
+
+    delete convFile;
+    delete convMem;
+
+    return true;
+}
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+const wxString CSZ_RULE_TAG_NAMES[] =
+{
+    _T("index"),
+    _T("type"),
+    _T("selected"),
+    _T("condition"),
+    _T("dest"),
+};
+
+
+const wxString CSZ_RULES_DATA_XML = _T("rules.xml");
 //const wxChar* CSZ_EXCLUDING_FILE_EXT[] = { _T("lnk")}; ///< excluding file type
 const wxString CSZ_EXCLUDING_FILE_EXT = _T("lnk");
 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+unsigned int CategorizeMgr::ms_nCurMaxIndex = 0;
+
 CategorizeMgr::CategorizeMgr():
-        m_pObserver( 0 )
+        m_pObserver( 0 ),
+        m_pRoot(0)
 {
     //ctor
 
@@ -22,6 +91,9 @@ CategorizeMgr::CategorizeMgr():
 
 CategorizeMgr::~CategorizeMgr()
 {
+    // Save rule info to xml file
+    saveRuleInfo();
+
     // Delete rule
     clearRules();
 
@@ -32,17 +104,6 @@ CategorizeMgr::~CategorizeMgr()
 void CategorizeMgr::clearRules()
 {
     Rule* pRule = 0;
-//    int nCnt = m_arrRule.GetCount();
-//    for (int i=0; i<nCnt; i++)
-//    {
-//        pRule = m_arrRule.Item(i);
-//        if (pRule)
-//        {
-//            delete pRule;
-//            pRule = 0;
-//        }
-//    }
-
     while (!m_arrRule.IsEmpty())
     {
         pRule = m_arrRule.Last();
@@ -72,10 +133,11 @@ void CategorizeMgr::clearFileInfos()
     }
 }
 
-void CategorizeMgr::Init()
+void CategorizeMgr::Init(wxString& strPath)
 {
+	m_strDesktopPath = strPath;
     // TODO: load rule from conf file, the last is basic rule
-
+    loadRuleInfo();
 }
 
 /**
@@ -292,6 +354,207 @@ void CategorizeMgr::Preview()
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
+void CategorizeMgr::loadRuleInfo()
+{
+    if (!m_docWords.Load(CSZ_RULES_DATA_XML))
+        return;
+
+    // start processing the XML file
+    m_pRoot = m_docWords.GetRoot();
+    if (m_pRoot->GetName() != _T("rules"))
+        return;
+
+    wxXmlNode* pChild = m_pRoot->GetChildren();
+    wxXmlNode* pChildChild = 0;
+    while (pChild)
+    {
+        if (pChild->GetName() != _T("rule"))
+            break;
+
+        pChildChild = pChild->GetChildren();
+        wxString strIndex, strType, strSel, strCondition, strDest;
+
+        while (pChildChild)
+        {
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[0])
+            {// index
+                strIndex = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[1])
+            {// type
+                strType = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[2])
+            {// selected
+                strSel = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[3])
+            {// condition
+                strCondition = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[4])
+            {// dest
+                strDest = pChildChild->GetNodeContent();
+            }
+            //
+            pChildChild = pChildChild->GetNext();
+        }
+
+        unsigned long nIndex = 0;
+        strIndex.ToULong(&nIndex);
+        if (nIndex > ms_nCurMaxIndex)
+            ms_nCurMaxIndex = nIndex;
+
+        unsigned long nType = 0;
+        strType.ToULong(&nType);
+
+            unsigned long nSel = 0;
+            strSel.ToULong(&nSel);
+
+		if(nType == BasicRule::ms_nType)
+		{
+			BasicRule* pBasic = new BasicRule();
+
+			pBasic->m_nIndex = 0; // Always 0
+			pBasic->m_bSelected = nSel == 0 ? false : true;
+
+			pBasic->m_strBaseDestPath = m_strDesktopPath; // Not strDest
+			pBasic->SetCondition(strCondition);
+
+			m_arrRule.Add(pBasic);
+		}
+
+        if (nType == ExtNameRule::ms_nType)
+        {
+            ExtNameRule* pRule1 = new ExtNameRule();
+
+            pRule1->m_nIndex = nIndex;
+
+
+            pRule1->m_bSelected = nSel == 0 ? false : true;
+
+            pRule1->m_arrStrExtName.Add( strCondition );
+            pRule1->m_strBaseDestPath = strDest;  //___ZIP
+
+            m_arrRule.Add(pRule1);
+        }
+
+        if (nType == NameIncludeRule::ms_nType)
+        {
+            NameIncludeRule* pRule = new NameIncludeRule();
+
+            pRule->m_nIndex = nIndex;
+            pRule->m_bSelected = nSel == 0 ? false : true;
+
+            pRule->m_strInclude = strCondition;
+            pRule->m_strBaseDestPath = strDest;  //___ZIP
+
+            m_arrRule.Add(pRule);
+        }
+
+        //
+        pChild = pChild->GetNext();
+    }
+}
+
+void CategorizeMgr::saveRuleInfo()
+{
+    // TODO: save
+    bool bRet = m_docWords.Save(CSZ_RULES_DATA_XML);
+    if (bRet)
+    {// TODO:
+        // wxMessageBox(_("Save complete."));
+    }
+    else
+    {// Error
+        // wxMessageBox(wxT("Error!"));
+    }
+}
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+void CategorizeMgr::AddRule(RuleInfo& info)
+{
+    // Cal index value
+    ms_nCurMaxIndex++;
+    info.m_nIndex = ms_nCurMaxIndex;
+
+    // Save info to xml
+    wxXmlNode *pNodeRule;
+    pNodeRule = new wxXmlNode(m_pRoot, wxXML_ELEMENT_NODE, _T("rule"));
+
+    // DestPath tag
+    wxXmlNode* pNodeDestTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[4]);
+    wxXmlNode* pNodeDestVal = new wxXmlNode(pNodeDestTag, wxXML_TEXT_NODE, _T(""), info.m_strDestPath);
+
+    // Condition tag
+    wxXmlNode* pNodeConditionTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[3]);
+    wxXmlNode* pNodeConditionVal = new wxXmlNode(pNodeConditionTag, wxXML_TEXT_NODE, _T(""), info.m_strCondition);
+
+    // Selected tag
+    wxXmlNode* pNodeSelectedTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[2]);
+    wxString strSel;
+    strSel = info.m_bSelected == true ? _T('1') : _T('0');
+    wxXmlNode* pNodeSelectedVal = new wxXmlNode(pNodeSelectedTag, wxXML_TEXT_NODE, _T(""), strSel);
+
+    // Type tag
+    wxXmlNode* pNodeTypeTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[1]);
+    wxString strType;
+    strType.Printf(_T("%d"), info.m_nType);
+    wxXmlNode* pNodeTypeVal = new wxXmlNode(pNodeTypeTag, wxXML_TEXT_NODE, _T(""), strType);
+
+    // Index tag
+    wxXmlNode *pNodeIndexTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[0]);
+    wxString strIndex;
+    strIndex.Printf( _T("%d"), info.m_nIndex);
+    wxXmlNode*  pNodeIndexVal = new wxXmlNode(pNodeIndexTag, wxXML_TEXT_NODE, _T(""), strIndex);
+
+    // Save
+    saveRuleInfo();
+
+    //
+    // New rule object
+    //
+
+    // No Basic Rule will be add, it is always load
+//    if (info.m_nType == BasicRule::ms_nType)
+//    {
+//        BasicRule* pBasicRule = new BasicRule();
+//        pBasicRule->m_nIndex = info.m_nIndex;
+//        pBasicRule->m_bSelected = info.m_bSelected;
+//        pBasicRule->m_strBaseDestPath = info.m_strDestPath;
+//
+//        m_arrRule.Add(pBasicRule);
+//    }
+
+    if (info.m_nType == ExtNameRule::ms_nType)
+    {
+        ExtNameRule* pRule1 = new ExtNameRule();
+        pRule1->m_nIndex = info.m_nIndex;
+        pRule1->m_bSelected = info.m_bSelected;
+        pRule1->SetCondition(info.m_strCondition);
+        pRule1->m_strBaseDestPath = info.m_strDestPath;
+
+        m_arrRule.Add(pRule1);
+    }
+
+    if (info.m_nType == NameIncludeRule::ms_nType)
+    {
+        NameIncludeRule* pRule = new NameIncludeRule();
+        pRule->m_nIndex = info.m_nIndex;
+        pRule->m_bSelected = info.m_bSelected;
+        pRule->SetCondition(info.m_strCondition);
+        pRule->m_strBaseDestPath = info.m_strDestPath;
+
+        m_arrRule.Add(pRule);
+    }
+
+}
+
 void CategorizeMgr::DeleteRule(int nIndex)
 {
     Rule* pRule = m_arrRule[nIndex];
@@ -301,6 +564,48 @@ void CategorizeMgr::DeleteRule(int nIndex)
         pRule = 0;
     }
     m_arrRule.RemoveAt(nIndex);
+
+	// TODO: Save to xml
+    wxXmlNode* pChild = m_pRoot->GetChildren();
+    wxXmlNode* pChildChild = 0;
+    while (pChild)
+    {
+        if (pChild->GetName() != _T("rule"))
+            break;
+
+        pChildChild = pChild->GetChildren();
+        wxString strIndex, strType, strSel, strCondition, strDest;
+
+        while (pChildChild)
+        {
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[0])
+            {// index
+                strIndex = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[1])
+            {// type
+                strType = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[2])
+            {// selected
+                strSel = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[3])
+            {// condition
+                strCondition = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[4])
+            {// dest
+                strDest = pChildChild->GetNodeContent();
+            }
+            //
+            pChildChild = pChildChild->GetNext();
+        }
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////

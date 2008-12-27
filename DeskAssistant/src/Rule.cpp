@@ -21,8 +21,7 @@ Rule::~Rule()
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
-
-wxString BasicRule::ms_strType = _T("BASIC");
+unsigned long BasicRule::ms_nType = 0;
 
 void BasicRule::Execute( CategorizationFileInfo* pFileInfo )
 {
@@ -50,40 +49,14 @@ void BasicRule::Execute( CategorizationFileInfo* pFileInfo )
 
 void BasicRule::GetDispStr(wxString& strDisp )
 {
-    strDisp = ms_strType;
-}
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
-wxString NameIncludeRule::ms_strType = _T("BY_FILENAME");
-
-void NameIncludeRule::Execute( CategorizationFileInfo* pFileInfo )
-{
-    wxString strName;
-
-    if (!pFileInfo->m_bPreProcessed)
-    {
-        strName = pFileInfo->m_pFileName->GetName();
-
-        if (strName.Find( m_strInclude ) != wxNOT_FOUND)
-        {
-            pFileInfo->m_strFullDestPath = m_strBaseDestPath + _T('\\') + pFileInfo->m_pFileName->GetFullName();
-            pFileInfo->m_bPreProcessed = true;
-        }
-    }
+    strDisp = CSZ_RULE_TYPE_NAMES[ms_nType];
 }
 
-void NameIncludeRule::GetDispStr(wxString& strDisp )
-{
-    strDisp = ms_strType + _T(": ") + m_strInclude + _T(" -> ") + m_strBaseDestPath;
-}
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
-
-wxString ExtNameRule::ms_strType = _T("BY_EXTNAME");
+unsigned long ExtNameRule::ms_nType = 1;
 
 ExtNameRule::ExtNameRule()
 {
@@ -118,7 +91,7 @@ void ExtNameRule::Execute( CategorizationFileInfo* pFileInfo )
 
 void ExtNameRule::GetDispStr(wxString& strDisp )
 {
-    strDisp = ms_strType + _T(": ");
+    strDisp = CSZ_RULE_TYPE_NAMES[ms_nType] + _T(": ");
 
     int nCntExtName = m_arrStrExtName.GetCount();
     for (int j=0; j<nCntExtName; j++)
@@ -153,4 +126,31 @@ void ExtNameRule::SetCondition(wxString strCondition)
         wxString token = tkz.GetNextToken();
         m_arrStrExtName.Add(token);
     }
+}
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+unsigned long NameIncludeRule::ms_nType = 2;
+
+void NameIncludeRule::Execute( CategorizationFileInfo* pFileInfo )
+{
+    wxString strName;
+
+    if (!pFileInfo->m_bPreProcessed)
+    {
+        strName = pFileInfo->m_pFileName->GetName();
+
+        if (strName.Find( m_strInclude ) != wxNOT_FOUND)
+        {
+            pFileInfo->m_strFullDestPath = m_strBaseDestPath + _T('\\') + pFileInfo->m_pFileName->GetFullName();
+            pFileInfo->m_bPreProcessed = true;
+        }
+    }
+}
+
+void NameIncludeRule::GetDispStr(wxString& strDisp )
+{
+    strDisp = CSZ_RULE_TYPE_NAMES[ms_nType] + _T(": ") + m_strInclude + _T(" -> ") + m_strBaseDestPath;
 }

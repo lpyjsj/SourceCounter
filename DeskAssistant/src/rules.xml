@@ -1,21 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rules>
   <rule>
-    <index>0</index>
-    <type>BY_EXTNAME</type>
-    <condition>zip</condition>
-    <dest>c:\___zip</dest>
+    <index>6</index>
+    <type>1</type>
+    <selected>1</selected>
+    <condition>g</condition>
+    <dest>v</dest>
+  </rule>
+  <rule>
+    <index>5</index>
+    <type>1</type>
+    <selected>1</selected>
+    <condition>aa</condition>
+    <dest>a</dest>
   </rule>
   <rule>
     <index>1</index>
-    <type>BY_FILENAME</type>
+    <type>2</type>
+    <selected>1</selected>
     <condition>DDC</condition>
-    <dest>c:\___ddc</dest>
+    <dest>C:\Documents and Settings\pengli\Desktop\___DDC</dest>
   </rule>
   <rule>
     <index>2</index>
-    <type>BY_EXTNAME</type>
+    <type>1</type>
+    <selected>1</selected>
     <condition>DOC</condition>
     <dest>c:\___doc</dest>
+  </rule>
+  <rule>
+    <index>4</index>
+    <type>1</type>
+    <selected>1</selected>
+    <condition>zip</condition>
+    <dest>C:\Documents and Settings\pengli\Desktop\___ZIP</dest>
+  </rule>
+  <rule>
+    <dest>-</dest>
+    <condition>-</condition>
+    <selected>1</selected>
+    <type>0</type>
+    <index>0</index>
   </rule>
 </rules>

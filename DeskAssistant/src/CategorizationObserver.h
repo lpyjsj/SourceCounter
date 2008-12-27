@@ -8,7 +8,6 @@ class CategorizationObserver
 		CategorizationObserver();
 		virtual ~CategorizationObserver();
 
-
 		virtual void UpdateCategorizationCtrls(void) = 0;
 	protected:
 	private:

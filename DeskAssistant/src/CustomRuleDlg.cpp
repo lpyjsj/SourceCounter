@@ -38,8 +38,8 @@ CustomRuleDlg::CustomRuleDlg(wxWindow* parent, RuleMode nMode,wxWindowID id):
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     wxString __wxRadioBoxChoices_1[2] =
     {
-    _("by extend name"),
-    _("by filename include")
+        _("by extend name"),
+        _("by filename include")
     };
     m_rdbRuleType = new wxRadioBox(this, ID_RADIOBOX2, _("Select rule type"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_SPECIFY_ROWS, wxDefaultValidator, _T("ID_RADIOBOX2"));
     BoxSizer1->Add(m_rdbRuleType, 1, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -81,54 +81,60 @@ CustomRuleDlg::~CustomRuleDlg()
 
 void CustomRuleDlg::OnInit(wxInitDialogEvent& event)
 {
-    switch (m_nMode)
-    {
-    case RuleModeNew:
-    {
-
-        break;
+    if (m_nMode == RuleModeNew)
+    {// New rule mode
+		// Do nothing
     }
-    case RuleModeEdit:
-    {
-		m_rdbRuleType->Enable(false);
-		m_txtCondition->SetValue(m_pRule->GetCondition());
+    else
+    {// Edit rule mode
+    	m_rdbRuleType->SetSelection(m_pRule->GetRuleType() - 1);
+        m_rdbRuleType->Enable(false);
+        m_txtCondition->SetValue(m_pRule->GetCondition());
         m_txtDestPath->SetValue(m_pRule->m_strBaseDestPath);
-        break;
     }
-
-    default:
-    {
-        break;
-    }
-    }
-
-
-
-
 }
 
 void CustomRuleDlg::OnBtnOKClick(wxCommandEvent& event)
 {
-	wxString strCondition = m_txtCondition->GetValue();
-	strCondition.Trim();
-	if(strCondition.IsEmpty())
-	{
-		wxMessageBox(_("Please input conditon."));
-		return;
-	}
+    wxString strCondition = m_txtCondition->GetValue();
+    strCondition.Trim();
+    if (strCondition.IsEmpty())
+    {
+        wxMessageBox(_("Please input conditon."));
+        return;
+    }
 
-	wxString strDestPath = m_txtDestPath->GetValue();
-	strDestPath.Trim();
-	if(strDestPath.IsEmpty())
-	{
-		wxMessageBox(_("Please select dest path."));
-		return;
-	}
+    wxString strDestPath = m_txtDestPath->GetValue();
+    strDestPath.Trim();
+    if (strDestPath.IsEmpty())
+    {
+        wxMessageBox(_("Please select dest path."));
+        return;
+    }
 
-	//m_pRule->SetType(m_rdbRuleType->GetValue());
-    // Set ctrl value to m_pRule
-    m_pRule->SetCondition(m_txtCondition->GetValue());
-    m_pRule->SetDestPath(m_txtDestPath->GetValue());
+    if (m_nMode == RuleModeNew)
+    {// Collect info and set to m_ruleInfo object
+		m_ruleInfo.m_nType = m_rdbRuleType->GetSelection() + 1; // Rule type is 1 base.
+		m_ruleInfo.m_strCondition = strCondition;
+		m_ruleInfo.m_strDestPath = strDestPath;
+    }
+    else
+    {
+        // Set ctrl value to m_pRule
+        m_pRule->SetCondition(strCondition);
+        m_pRule->SetDestPath(strDestPath);
+    }
+
     //
     EndModal(wxID_OK);
+}
+
+void CustomRuleDlg::GetRuleInfo(RuleInfo& info)
+{
+	info.m_nIndex 		= m_ruleInfo.m_nIndex;
+	info.m_nType		= m_ruleInfo.m_nType;
+	info.m_bSelected	= m_ruleInfo.m_bSelected;
+
+	info.m_strCondition		= m_ruleInfo.m_strCondition;
+	info.m_strDestPath		= m_ruleInfo.m_strDestPath;
 }

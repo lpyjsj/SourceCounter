@@ -98,6 +98,7 @@
 					</object>
 					<object class="sizeritem">
 						<object class="wxCheckListBox" name="ID_CHECKLISTBOX1" variable="m_pLbxCustRules" member="yes">
+							<size>-1,80</size>
 							<style>wxLB_SINGLE|wxLB_NEEDED_SB</style>
 						</object>
 						<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
