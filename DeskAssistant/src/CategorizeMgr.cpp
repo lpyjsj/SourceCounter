@@ -135,7 +135,7 @@ void CategorizeMgr::clearFileInfos()
 
 void CategorizeMgr::Init(wxString& strPath)
 {
-	m_strDesktopPath = strPath;
+    m_strDesktopPath = strPath;
     // TODO: load rule from conf file, the last is basic rule
     loadRuleInfo();
 }
@@ -412,21 +412,21 @@ void CategorizeMgr::loadRuleInfo()
         unsigned long nType = 0;
         strType.ToULong(&nType);
 
-            unsigned long nSel = 0;
-            strSel.ToULong(&nSel);
+        unsigned long nSel = 0;
+        strSel.ToULong(&nSel);
 
-		if(nType == BasicRule::ms_nType)
-		{
-			BasicRule* pBasic = new BasicRule();
+        if (nType == BasicRule::ms_nType)
+        {
+            BasicRule* pBasic = new BasicRule();
 
-			pBasic->m_nIndex = 0; // Always 0
-			pBasic->m_bSelected = nSel == 0 ? false : true;
+            pBasic->m_nIndex = 0; // Always 0
+            pBasic->m_bSelected = nSel == 0 ? false : true;
 
-			pBasic->m_strBaseDestPath = m_strDesktopPath; // Not strDest
-			pBasic->SetCondition(strCondition);
+            pBasic->m_strBaseDestPath = m_strDesktopPath; // Not strDest
+            pBasic->SetCondition(strCondition);
 
-			m_arrRule.Add(pBasic);
-		}
+            m_arrRule.Add(pBasic);
+        }
 
         if (nType == ExtNameRule::ms_nType)
         {
@@ -434,10 +434,9 @@ void CategorizeMgr::loadRuleInfo()
 
             pRule1->m_nIndex = nIndex;
 
-
             pRule1->m_bSelected = nSel == 0 ? false : true;
 
-            pRule1->m_arrStrExtName.Add( strCondition );
+            pRule1->SetCondition( strCondition );
             pRule1->m_strBaseDestPath = strDest;  //___ZIP
 
             m_arrRule.Add(pRule1);
@@ -463,7 +462,74 @@ void CategorizeMgr::loadRuleInfo()
 
 void CategorizeMgr::saveRuleInfo()
 {
-    // TODO: save
+    // Delete all current nodes
+    wxXmlNode* pChild = m_pRoot->GetChildren();
+
+    wxXmlNode* pChildTemp = 0;
+    wxXmlNode* pChildChild = 0;
+    wxXmlNode* pChildChildTemp = 0;
+    while (pChild)
+    {
+        if (pChild->GetName() != _T("rule"))
+            break;
+
+        pChildTemp = pChild->GetNext();
+
+        pChildChild = pChild->GetChildren();
+        while (pChildChild)
+        {
+            pChildChildTemp = pChildChild->GetNext();
+
+            pChild->RemoveChild(pChildChild);
+            delete pChildChild;
+            pChildChild = 0;
+            //
+            pChildChild = pChildChildTemp;
+        }
+
+        m_pRoot->RemoveChild(pChild);
+        delete pChild;
+        pChild = 0;
+
+        //
+        pChild = pChildTemp;
+    }
+
+    ///////////////////////////////////////////////////////////////////
+    // Add nodes from m_arrRule array and save to xml file
+
+    int nCnt = m_arrRule.GetCount();
+    Rule* pRule = 0;
+    wxXmlNode *pNodeRule;
+    for (int i=0; i<nCnt; i++)
+    {
+        pRule = m_arrRule[i];
+
+        pNodeRule = new wxXmlNode(m_pRoot, wxXML_ELEMENT_NODE, _T("rule"));
+        // DestPath tag
+        wxXmlNode* pNodeDestTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[4]);
+        wxXmlNode* pNodeDestVal = new wxXmlNode(pNodeDestTag, wxXML_TEXT_NODE, _T(""), pRule->m_strBaseDestPath);
+        // Condition tag
+        wxXmlNode* pNodeConditionTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[3]);
+        wxXmlNode* pNodeConditionVal = new wxXmlNode(pNodeConditionTag, wxXML_TEXT_NODE, _T(""), pRule->GetCondition());
+        // Selected tag
+        wxXmlNode* pNodeSelectedTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[2]);
+        wxString strSel;
+        strSel = pRule->m_bSelected == true ? _T('1') : _T('0');
+        wxXmlNode* pNodeSelectedVal = new wxXmlNode(pNodeSelectedTag, wxXML_TEXT_NODE, _T(""), strSel);
+        // Type tag
+        wxXmlNode* pNodeTypeTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[1]);
+        wxString strType;
+        strType.Printf(_T("%d"), pRule->GetRuleType());
+        wxXmlNode* pNodeTypeVal = new wxXmlNode(pNodeTypeTag, wxXML_TEXT_NODE, _T(""), strType);
+        // Index tag
+        wxXmlNode *pNodeIndexTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[0]);
+        wxString strIndex;
+        strIndex.Printf( _T("%d"), pRule->m_nIndex);
+        wxXmlNode*  pNodeIndexVal = new wxXmlNode(pNodeIndexTag, wxXML_TEXT_NODE, _T(""), strIndex);
+
+    }
+
     bool bRet = m_docWords.Save(CSZ_RULES_DATA_XML);
     if (bRet)
     {// TODO:
@@ -477,44 +543,44 @@ void CategorizeMgr::saveRuleInfo()
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+
 void CategorizeMgr::AddRule(RuleInfo& info)
 {
     // Cal index value
     ms_nCurMaxIndex++;
     info.m_nIndex = ms_nCurMaxIndex;
 
-    // Save info to xml
-    wxXmlNode *pNodeRule;
-    pNodeRule = new wxXmlNode(m_pRoot, wxXML_ELEMENT_NODE, _T("rule"));
+//    // Save info to xml
+//    wxXmlNode *pNodeRule;
+//    pNodeRule = new wxXmlNode(m_pRoot, wxXML_ELEMENT_NODE, _T("rule"));
+//
+//    // DestPath tag
+//    wxXmlNode* pNodeDestTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[4]);
+//    wxXmlNode* pNodeDestVal = new wxXmlNode(pNodeDestTag, wxXML_TEXT_NODE, _T(""), info.m_strDestPath);
+//
+//    // Condition tag
+//    wxXmlNode* pNodeConditionTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[3]);
+//    wxXmlNode* pNodeConditionVal = new wxXmlNode(pNodeConditionTag, wxXML_TEXT_NODE, _T(""), info.m_strCondition);
+//
+//    // Selected tag
+//    wxXmlNode* pNodeSelectedTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[2]);
+//    wxString strSel;
+//    strSel = info.m_bSelected == true ? _T('1') : _T('0');
+//    wxXmlNode* pNodeSelectedVal = new wxXmlNode(pNodeSelectedTag, wxXML_TEXT_NODE, _T(""), strSel);
+//
+//    // Type tag
+//    wxXmlNode* pNodeTypeTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[1]);
+//    wxString strType;
+//    strType.Printf(_T("%d"), info.m_nType);
+//    wxXmlNode* pNodeTypeVal = new wxXmlNode(pNodeTypeTag, wxXML_TEXT_NODE, _T(""), strType);
+//
+//    // Index tag
+//    wxXmlNode *pNodeIndexTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[0]);
+//    wxString strIndex;
+//    strIndex.Printf( _T("%d"), info.m_nIndex);
+//    wxXmlNode*  pNodeIndexVal = new wxXmlNode(pNodeIndexTag, wxXML_TEXT_NODE, _T(""), strIndex);
 
-    // DestPath tag
-    wxXmlNode* pNodeDestTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[4]);
-    wxXmlNode* pNodeDestVal = new wxXmlNode(pNodeDestTag, wxXML_TEXT_NODE, _T(""), info.m_strDestPath);
 
-    // Condition tag
-    wxXmlNode* pNodeConditionTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[3]);
-    wxXmlNode* pNodeConditionVal = new wxXmlNode(pNodeConditionTag, wxXML_TEXT_NODE, _T(""), info.m_strCondition);
-
-    // Selected tag
-    wxXmlNode* pNodeSelectedTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[2]);
-    wxString strSel;
-    strSel = info.m_bSelected == true ? _T('1') : _T('0');
-    wxXmlNode* pNodeSelectedVal = new wxXmlNode(pNodeSelectedTag, wxXML_TEXT_NODE, _T(""), strSel);
-
-    // Type tag
-    wxXmlNode* pNodeTypeTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[1]);
-    wxString strType;
-    strType.Printf(_T("%d"), info.m_nType);
-    wxXmlNode* pNodeTypeVal = new wxXmlNode(pNodeTypeTag, wxXML_TEXT_NODE, _T(""), strType);
-
-    // Index tag
-    wxXmlNode *pNodeIndexTag = new wxXmlNode(pNodeRule, wxXML_ELEMENT_NODE, CSZ_RULE_TAG_NAMES[0]);
-    wxString strIndex;
-    strIndex.Printf( _T("%d"), info.m_nIndex);
-    wxXmlNode*  pNodeIndexVal = new wxXmlNode(pNodeIndexTag, wxXML_TEXT_NODE, _T(""), strIndex);
-
-    // Save
-    saveRuleInfo();
 
     //
     // New rule object
@@ -553,6 +619,8 @@ void CategorizeMgr::AddRule(RuleInfo& info)
         m_arrRule.Add(pRule);
     }
 
+    // Save to xml file
+    saveRuleInfo();
 }
 
 void CategorizeMgr::DeleteRule(int nIndex)
@@ -565,47 +633,9 @@ void CategorizeMgr::DeleteRule(int nIndex)
     }
     m_arrRule.RemoveAt(nIndex);
 
-	// TODO: Save to xml
-    wxXmlNode* pChild = m_pRoot->GetChildren();
-    wxXmlNode* pChildChild = 0;
-    while (pChild)
-    {
-        if (pChild->GetName() != _T("rule"))
-            break;
+	// Save to xml file
+	saveRuleInfo();
 
-        pChildChild = pChild->GetChildren();
-        wxString strIndex, strType, strSel, strCondition, strDest;
-
-        while (pChildChild)
-        {
-            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[0])
-            {// index
-                strIndex = pChildChild->GetNodeContent();
-            }
-
-            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[1])
-            {// type
-                strType = pChildChild->GetNodeContent();
-            }
-
-            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[2])
-            {// selected
-                strSel = pChildChild->GetNodeContent();
-            }
-
-            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[3])
-            {// condition
-                strCondition = pChildChild->GetNodeContent();
-            }
-
-            if (pChildChild->GetName() == CSZ_RULE_TAG_NAMES[4])
-            {// dest
-                strDest = pChildChild->GetNodeContent();
-            }
-            //
-            pChildChild = pChildChild->GetNext();
-        }
-    }
 }
 
 ///////////////////////////////////////////////////////////////////////

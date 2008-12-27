@@ -120,11 +120,13 @@ void ExtNameRule::SetCondition(wxString strCondition)
 	m_arrStrExtName.Clear();
 
 	//
-    wxStringTokenizer tkz(strCondition, _T(";"));
+    wxStringTokenizer tkz(strCondition, _T(';'));
     while ( tkz.HasMoreTokens() )
     {
         wxString token = tkz.GetNextToken();
-        m_arrStrExtName.Add(token);
+        token.Trim();
+        if(!token.IsEmpty())
+			m_arrStrExtName.Add(token);
     }
 }
 
