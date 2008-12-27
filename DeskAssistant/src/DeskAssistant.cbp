@@ -79,6 +79,8 @@
 		<Unit filename="MainDlg.h" />
 		<Unit filename="Rule.cpp" />
 		<Unit filename="Rule.h" />
+		<Unit filename="RuleInfo.cpp" />
+		<Unit filename="RuleInfo.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
