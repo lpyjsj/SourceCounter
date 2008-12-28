@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rules>
   <rule>
+    <index>2</index>
+    <type>2</type>
+    <selected>1</selected>
+    <condition>dalian</condition>
+    <dest>C:\Documents and Settings\boom\桌面\Dalian</dest>
+  </rule>
+  <rule>
+    <index>3</index>
+    <type>1</type>
+    <selected>1</selected>
+    <condition>doc;xls;</condition>
+    <dest>C:\Documents and Settings\boom\桌面\___XLS</dest>
+  </rule>
+  <rule>
     <index>0</index>
     <type>0</type>
     <selected>1</selected>
     <condition>-</condition>
-    <dest>-</dest>
+    <dest>C:\Documents and Settings\boom\桌面</dest>
+  </rule>
+  <rule>
+    <index>1</index>
+    <type>2</type>
+    <selected>1</selected>
+    <condition>ddc</condition>
+    <dest>C:\Documents and Settings\boom\桌面\sourcecounter</dest>
   </rule>
 </rules>

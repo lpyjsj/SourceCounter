@@ -93,6 +93,8 @@ private:
     void OnBtnTestClick(wxCommandEvent& event);
     void OnBtnEditClick(wxCommandEvent& event);
     void OnBtnDeleteClick(wxCommandEvent& event);
+    void OnBtnUpClick(wxCommandEvent& event);
+    void OnBtnDownClick(wxCommandEvent& event);
     //*)
 
 	void OnLbxRuleItemSelect(wxCommandEvent& event);

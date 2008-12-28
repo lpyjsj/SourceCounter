@@ -59,17 +59,14 @@
 									<enabled>0</enabled>
 									<handler function="OnBtnDeleteClick" entry="EVT_BUTTON" />
 								</object>
-								<flag>wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-								<border>5</border>
-							</object>
-							<object class="spacer">
-								<flag>wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 							</object>
 							<object class="sizeritem">
 								<object class="wxButton" name="ID_BUTTON8" variable="m_btnUp" member="yes">
 									<label>&amp;Up</label>
 									<enabled>0</enabled>
+									<handler function="OnBtnUpClick" entry="EVT_BUTTON" />
 								</object>
 								<flag>wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
@@ -79,8 +76,14 @@
 								<object class="wxButton" name="ID_BUTTON9" variable="m_btnDown" member="yes">
 									<label>Dow&amp;n</label>
 									<enabled>0</enabled>
+									<handler function="OnBtnDownClick" entry="EVT_BUTTON" />
 								</object>
 								<flag>wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="spacer">
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
@@ -97,6 +100,7 @@
 						<object class="wxCheckListBox" name="ID_CHECKLISTBOX1" variable="m_pLbxCustRules" member="yes">
 							<size>-1,80</size>
 							<style>wxLB_SINGLE|wxLB_NEEDED_SB</style>
+							<handler function="OnBtnEditClick" entry="EVT_LISTBOX_DCLICK" />
 						</object>
 						<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>

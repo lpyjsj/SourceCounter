@@ -71,7 +71,6 @@ const wxString CSZ_RULE_TAG_NAMES[] =
     _T("dest"),
 };
 
-
 const wxString CSZ_RULES_DATA_XML = _T("rules.xml");
 //const wxChar* CSZ_EXCLUDING_FILE_EXT[] = { _T("lnk")}; ///< excluding file type
 const wxString CSZ_EXCLUDING_FILE_EXT = _T("lnk");

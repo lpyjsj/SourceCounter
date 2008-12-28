@@ -107,7 +107,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     wxBoxSizer* BoxSizer1;
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
-    
+
     Create(parent, id, _("Desktop Assistant"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("id"));
     SetClientSize(wxDefaultSize);
     Move(wxDefaultPosition);
@@ -127,8 +127,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer3->Add(m_btnEdit, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnDelete = new wxButton(this, ID_BUTTON6, _("&Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON6"));
     m_btnDelete->Disable();
-    BoxSizer3->Add(m_btnDelete, 0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    BoxSizer3->Add(-1,-1,0, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(m_btnDelete, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnUp = new wxButton(this, ID_BUTTON8, _("&Up"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON8"));
     m_btnUp->Disable();
     BoxSizer3->Add(m_btnUp, 1, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -136,14 +135,15 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     m_btnDown->Disable();
     BoxSizer3->Add(m_btnDown, 1, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer3->Add(-1,-1,1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(-1,-1,1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer1->Add(BoxSizer3, 0, wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 2);
     m_pLbxCustRules = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxSize(-1,80), 0, 0, wxLB_SINGLE|wxLB_NEEDED_SB, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
     StaticBoxSizer1->Add(m_pLbxCustRules, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    wxString __wxRadioBoxChoices_1[2] = 
+    wxString __wxRadioBoxChoices_1[2] =
     {
-    _("By file modified time"),
-    _("None(Do nothing)")
+        _("By file modified time"),
+        _("None(Do nothing)")
     };
     m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -178,10 +178,13 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnNewClick);
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnEditClick);
     Connect(ID_BUTTON6,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnDeleteClick);
+    Connect(ID_BUTTON8,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnUpClick);
+    Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnDownClick);
+    Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_LISTBOX_DOUBLECLICKED,(wxObjectEventFunction)&MainDlg::OnBtnEditClick);
     Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnPreviewClick);
     Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnRunClick);
     Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnTestClick);
@@ -461,20 +464,64 @@ void MainDlg::OnBtnDeleteClick(wxCommandEvent& event)
     m_categorizeMgr.DeleteRule(nIndex + 1);
     // m_pLbxCustRules->Delete(nIndex);
 
-	updateRuleLbx(true);
+    updateRuleLbx(true);
     updateButtons();
 }
 
 void MainDlg::updateButtons()
 {
+    bool bEnable = false;
     if ( wxNOT_FOUND != m_pLbxCustRules->GetSelection())
     {
-        m_btnEdit->Enable();
-        m_btnDelete->Enable();
+        bEnable = true;
     }
-    else
-    {
-        m_btnEdit->Enable(false);
-        m_btnDelete->Enable(false);
-    }
+
+    m_btnEdit->Enable(bEnable);
+    m_btnDelete->Enable(bEnable);
+    m_btnUp->Enable(bEnable);
+    m_btnDown->Enable(bEnable);
+}
+
+void MainDlg::OnBtnUpClick(wxCommandEvent& event)
+{
+    int nIndex = m_pLbxCustRules->GetSelection();
+    if ( wxNOT_FOUND == nIndex)
+        return;
+
+    if (nIndex == 0)
+        return;
+
+	//
+	Rule* pRuleCur = m_categorizeMgr.GetRuleByIndex(nIndex + 1);	// Base 1
+	Rule* pRulePrev = m_categorizeMgr.GetRuleByIndex(nIndex);		// Base 1
+
+	pRuleCur->m_nIndex = nIndex;
+	pRulePrev->m_nIndex = nIndex + 1;
+
+	updateRuleLbx(true);
+
+	m_pLbxCustRules->SetSelection(nIndex - 1);
+}
+
+void MainDlg::OnBtnDownClick(wxCommandEvent& event)
+{
+	int nIndex = m_pLbxCustRules->GetSelection();
+    if ( wxNOT_FOUND == nIndex)
+        return;
+
+	int nCnt = m_pLbxCustRules->GetCount();
+    if (nIndex == nCnt - 1)
+        return;
+
+	//
+	Rule* pRuleCur = m_categorizeMgr.GetRuleByIndex(nIndex + 1);	// Base 1
+	Rule* pRuleForward = m_categorizeMgr.GetRuleByIndex(nIndex + 2);		// Base 1
+
+	pRuleCur->m_nIndex = nIndex + 2;
+	pRuleForward->m_nIndex = nIndex + 1;
+
+
+	updateRuleLbx(true);
+
+	m_pLbxCustRules->SetSelection(nIndex + 1);
 }
