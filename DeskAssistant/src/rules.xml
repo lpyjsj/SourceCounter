@@ -5,6 +5,20 @@
     <type>0</type>
     <selected>1</selected>
     <condition>-</condition>
-    <dest>C:\Documents and Settings\pengli\Desktop</dest>
+    <dest>C:\Documents and Settings\boom\桌面</dest>
+  </rule>
+  <rule>
+    <index>1</index>
+    <type>1</type>
+    <selected>1</selected>
+    <condition>doc;xls;pdf;</condition>
+    <dest>C:\temp</dest>
+  </rule>
+  <rule>
+    <index>2</index>
+    <type>2</type>
+    <selected>1</selected>
+    <condition>boomworks</condition>
+    <dest>C:\__W\boomworks</dest>
   </rule>
 </rules>
