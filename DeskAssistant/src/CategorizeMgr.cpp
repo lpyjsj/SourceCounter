@@ -323,7 +323,7 @@ void CategorizeMgr::Preview()
 
     for (int j=0; j<nCntRule; j++)
     {
-        pRule = m_arrRule[j];
+        pRule = getRuleByIndex(j + 1);
 
         if (pRule)
         {
@@ -337,18 +337,52 @@ void CategorizeMgr::Preview()
             for (int i=0; i<nCntFileInfo; i++)
             {
                 pFileInfo = m_arrCategorizationFileInfo[i];
-
                 pRule->Execute(pFileInfo);
-
-                //
-
             }
         }
 
     }// END FOR RULES
 
+    pRule = getRuleByIndex(0); // Basic rule
+
+    if (pRule)
+    {
+
+        int nCntFileInfo = m_arrCategorizationFileInfo.GetCount();
+        if (0 == nCntFileInfo)
+        {
+            return;
+        }
+
+        for (int i=0; i<nCntFileInfo; i++)
+        {
+            pFileInfo = m_arrCategorizationFileInfo[i];
+            pRule->Execute(pFileInfo);
+        }
+    }
+
     // Notify observer
     Notify();
+}
+Rule* CategorizeMgr::getRuleByIndex(unsigned int nIndex)
+{
+    Rule* pRet = 0;
+
+    int nCntRule = m_arrRule.GetCount();
+    Rule* pRule = 0;
+
+    for (int j=0; j<nCntRule; j++)
+    {
+        pRule = m_arrRule[j];
+
+        if (pRule->m_nIndex == nIndex)
+        {
+            pRet = pRule;
+            break;
+        }
+    }
+
+    return pRet;
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -633,8 +667,8 @@ void CategorizeMgr::DeleteRule(int nIndex)
     }
     m_arrRule.RemoveAt(nIndex);
 
-	// Save to xml file
-	saveRuleInfo();
+    // Save to xml file
+    saveRuleInfo();
 
 }
 

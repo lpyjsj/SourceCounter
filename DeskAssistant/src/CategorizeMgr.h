@@ -201,11 +201,14 @@ public:
 	void DeleteRule(int nIndex);
 	Rule* GetRule(int nIndex)			{ return m_arrRule[nIndex]; }
 
+	Rule* getRuleByIndex(unsigned int nIndex);
+
 	ArrayRule* GetRuleArray()			{ return &m_arrRule; }
 
 	//
 	void Preview();
 	void Categorize();
+
 
 	///////////////////////////////////////////////////////////////////
 
@@ -254,6 +257,8 @@ private:
 
 	void loadRuleInfo();
 	void saveRuleInfo();
+
+
 };
 
 #endif // CATEGORIZEMGR_H

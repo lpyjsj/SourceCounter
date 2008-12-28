@@ -107,7 +107,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     wxBoxSizer* BoxSizer1;
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
-    
+
     Create(parent, id, _("Desktop Assistant"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("id"));
     SetClientSize(wxDefaultSize);
     Move(wxDefaultPosition);
@@ -142,10 +142,10 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     m_pLbxCustRules = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxSize(-1,80), 0, 0, wxLB_SINGLE|wxLB_NEEDED_SB, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
     StaticBoxSizer1->Add(m_pLbxCustRules, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    wxString __wxRadioBoxChoices_1[2] = 
+    wxString __wxRadioBoxChoices_1[2] =
     {
-    _("By file modified time"),
-    _("None(Do nothing)")
+        _("By file modified time"),
+        _("None(Do nothing)")
     };
     m_pRbxBaseRules = new wxRadioBox(this, ID_RADIOBOX1, _("Select base categorization rules"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_VERTICAL, wxDefaultValidator, _T("ID_RADIOBOX1"));
     BoxSizer1->Add(m_pRbxBaseRules, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -180,7 +180,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnNewClick);
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnEditClick);
     Connect(ID_BUTTON6,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnDeleteClick);
@@ -241,9 +241,9 @@ void MainDlg::getDesktopPath(wxString& strPath)
 
 void MainDlg::OnInit(wxInitDialogEvent& event)
 {
-	// Set desktop path to mgt
+    // Set desktop path to mgt
     wxString strPath;
-	getDesktopPath(strPath);
+    getDesktopPath(strPath);
     m_categorizeMgr.Init(strPath);
 
     // Attach Observer object
@@ -382,8 +382,8 @@ void MainDlg::OnBtnNewClick(wxCommandEvent& event)
 //
 //        }
         m_categorizeMgr.AddRule(ruleInfo);
-		//
-		updateRuleLbx(true);
+        //
+        updateRuleLbx(true);
     }
 }
 
@@ -426,16 +426,24 @@ void MainDlg::updateRuleLbx(bool bClear)
     int nIndex = -1;
     for (int i=0; i<nCnt; i++)
     {
-        pRule = pArrRule->Item(i);
-
-		if(pRule->GetRuleType() != BasicRule::ms_nType)
-		{
-			pRule->GetDispStr(strTemp);
-			nIndex = m_pLbxCustRules->Append(strTemp);
-			//m_pLbxCustRules->SetClientData(nIndex, pRule);
-			if(pRule->m_bSelected)
-				m_pLbxCustRules->Check(nIndex);
-		}
+        pRule = m_categorizeMgr.getRuleByIndex(i + 1);
+        if (pRule)
+        {
+            pRule->GetDispStr(strTemp);
+            nIndex = m_pLbxCustRules->Append(strTemp);
+            if (pRule->m_bSelected)
+                m_pLbxCustRules->Check(nIndex);
+        }
+//        pRule = pArrRule->Item(i);
+//
+//		if(pRule->GetRuleType() != BasicRule::ms_nType)
+//		{
+//			pRule->GetDispStr(strTemp);
+//			nIndex = m_pLbxCustRules->Append(strTemp);
+//			//m_pLbxCustRules->SetClientData(nIndex, pRule);
+//			if(pRule->m_bSelected)
+//				m_pLbxCustRules->Check(nIndex);
+//		}
     }
 }
 
