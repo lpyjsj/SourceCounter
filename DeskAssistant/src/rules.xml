@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rules>
   <rule>
-    <index>1</index>
-    <type>1</type>
+    <index>0</index>
+    <type>0</type>
     <selected>1</selected>
-    <condition>doc;</condition>
-    <dest>C:\Documents and Settings\boom\桌面\___XLS</dest>
+    <condition>-</condition>
+    <dest>-</dest>
   </rule>
 </rules>
