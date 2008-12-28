@@ -323,7 +323,7 @@ void CategorizeMgr::Preview()
 
     for (int j=0; j<nCntRule; j++)
     {
-        pRule = getRuleByIndex(j + 1);
+        pRule = GetRuleByIndex(j + 1);
 
         if (pRule)
         {
@@ -343,7 +343,7 @@ void CategorizeMgr::Preview()
 
     }// END FOR RULES
 
-    pRule = getRuleByIndex(0); // Basic rule
+    pRule = GetRuleByIndex(0); // Basic rule
 
     if (pRule)
     {
@@ -364,7 +364,8 @@ void CategorizeMgr::Preview()
     // Notify observer
     Notify();
 }
-Rule* CategorizeMgr::getRuleByIndex(unsigned int nIndex)
+
+Rule* CategorizeMgr::GetRuleByIndex(unsigned int nIndex)
 {
     Rule* pRet = 0;
 

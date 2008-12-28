@@ -397,7 +397,7 @@ void MainDlg::OnBtnEditClick(wxCommandEvent& event)
         return;
 
     // Find pRule from CateMgr
-    Rule* pRule = m_categorizeMgr.GetRule(nIndex);
+    Rule* pRule = m_categorizeMgr.GetRuleByIndex(nIndex + 1);  // 1 base
 
     // Set pRule to dlg
     CustomRuleDlg dlg(this, CustomRuleDlg::RuleModeEdit);
@@ -420,17 +420,19 @@ void MainDlg::updateRuleLbx(bool bClear)
     // Init check list box
     ArrayRule* pArrRule = m_categorizeMgr.GetRuleArray();
 
-    int nCnt = pArrRule->GetCount();
+    // int nCnt = pArrRule->GetCount();
+    int nCnt = CategorizeMgr::ms_nCurMaxIndex;
     Rule* pRule = 0;
     wxString strTemp;
     int nIndex = -1;
     for (int i=0; i<nCnt; i++)
     {
-        pRule = m_categorizeMgr.getRuleByIndex(i + 1);
+        pRule = m_categorizeMgr.GetRuleByIndex(i + 1);
         if (pRule)
         {
             pRule->GetDispStr(strTemp);
             nIndex = m_pLbxCustRules->Append(strTemp);
+            pRule->m_nIndex = nIndex + 1;
             if (pRule->m_bSelected)
                 m_pLbxCustRules->Check(nIndex);
         }
@@ -458,9 +460,10 @@ void MainDlg::OnBtnDeleteClick(wxCommandEvent& event)
 
     // Delete item
     // m_categorizeMgr->DeleteRule(m_pLbxCustRules->GetString(nIndex));
-    m_categorizeMgr.DeleteRule(nIndex);
-    m_pLbxCustRules->Delete(nIndex);
+    m_categorizeMgr.DeleteRule(nIndex + 1);
+    // m_pLbxCustRules->Delete(nIndex);
 
+	updateRuleLbx(true);
     updateButtons();
 }
 

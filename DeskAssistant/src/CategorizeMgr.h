@@ -199,9 +199,9 @@ public:
 	//
 	void AddRule(RuleInfo& RuleInfo);
 	void DeleteRule(int nIndex);
-	Rule* GetRule(int nIndex)			{ return m_arrRule[nIndex]; }
+	// Rule* GetRule(int nIndex)			{ return m_arrRule[nIndex]; }
 
-	Rule* getRuleByIndex(unsigned int nIndex);
+	Rule* GetRuleByIndex(unsigned int nIndex);
 
 	ArrayRule* GetRuleArray()			{ return &m_arrRule; }
 
