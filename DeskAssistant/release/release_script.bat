@@ -25,8 +25,8 @@ delete 7z zip files
 del *.7z *.zip
 
 REM 7z a -t7z Files.7z *.txt -r
-7z a -t7z DesktopAssistant-1.0.7z DeskAssistant\ -mx7
+7z a -t7z DesktopAssistant-1.2.1.9.7z DeskAssistant\ -mx7
 REM zip
-7z a -tzip DesktopAssistant-1.0.zip DeskAssistant\ -mx9
+7z a -tzip DesktopAssistant-1.2.1.9.zip DeskAssistant\ -mx9
 
 REM End

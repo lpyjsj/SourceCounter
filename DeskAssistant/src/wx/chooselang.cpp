@@ -181,8 +181,8 @@ void ChangeUILanguage()
     SaveUILanguage(lang);
 //    wxString strMsg;
 //    strMsg.Printf( CSZ_MSG, CSZ_APP_NAME);
-    wxMessageBox( CSZ_MSG,
-                 CSZ_APP_NAME,
+    wxMessageBox( _("You must restart Desktop Assistant for this change to take effect."),
+                 _("Desktop Assistant"),
                  wxOK | wxCENTRE | wxICON_INFORMATION);
 }
 

@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rules>
   <rule>
-    <index>2</index>
-    <type>1</type>
-    <selected>1</selected>
-    <condition>xls;</condition>
-    <dest>C:\Documents and Settings\pengli\Desktop\新しいフォルダ</dest>
-  </rule>
-  <rule>
-    <index>1</index>
-    <type>2</type>
-    <selected>1</selected>
-    <condition>DDC</condition>
-    <dest>C:\Documents and Settings\pengli\Desktop\___DDC</dest>
-  </rule>
-  <rule>
     <index>0</index>
     <type>0</type>
     <selected>1</selected>

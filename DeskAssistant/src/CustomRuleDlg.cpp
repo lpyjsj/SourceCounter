@@ -44,22 +44,22 @@ CustomRuleDlg::CustomRuleDlg(wxWindow* parent, RuleMode nMode,wxWindowID id):
     m_rdbRuleType = new wxRadioBox(this, ID_RADIOBOX2, _("Select rule type"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_SPECIFY_ROWS, wxDefaultValidator, _T("ID_RADIOBOX2"));
     BoxSizer1->Add(m_rdbRuleType, 1, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
-    m_pLblCondition = new wxStaticText(this, ID_STATICTEXT1, _("Condition:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
-    BoxSizer2->Add(m_pLblCondition, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_pLblCondition = new wxStaticText(this, ID_STATICTEXT1, _("File extend name:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
+    BoxSizer2->Add(m_pLblCondition, 1, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_txtCondition = new wxTextCtrl(this, ID_TEXTCTRL1, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
-    BoxSizer2->Add(m_txtCondition, 4, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2->Add(m_txtCondition, 5, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(BoxSizer2, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
     StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Destination directory:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT2"));
-    BoxSizer3->Add(StaticText2, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(StaticText2, 1, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_txtDestPath = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY, wxDefaultValidator, _T("ID_TEXTCTRL2"));
-    BoxSizer3->Add(m_txtDestPath, 3, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(m_txtDestPath, 4, wxTOP|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnSelDir = new wxButton(this, ID_BUTTON3, _("&Select..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
-    BoxSizer3->Add(m_btnSelDir, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(m_btnSelDir, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(BoxSizer3, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer4 = new wxBoxSizer(wxHORIZONTAL);
     m_btnOK = new wxButton(this, wxID_OK, _("&OK"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_OK"));
-    BoxSizer4->Add(m_btnOK, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer4->Add(m_btnOK, 1, wxTOP|wxBOTTOM|wxLEFT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Button2 = new wxButton(this, wxID_CANCEL, _("&Cancel"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_CANCEL"));
     BoxSizer4->Add(Button2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(BoxSizer4, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
@@ -94,6 +94,23 @@ void CustomRuleDlg::OnInit(wxInitDialogEvent& event)
         m_rdbRuleType->Enable(false);
         m_txtCondition->SetValue(m_pRule->GetCondition());
         m_txtDestPath->SetValue(m_pRule->m_strBaseDestPath);
+    }
+
+    //
+    initConditionLabel();
+
+}
+
+void CustomRuleDlg::initConditionLabel()
+{
+    int nSel = m_rdbRuleType->GetSelection();
+    if (nSel == 0)
+    {
+        m_pLblCondition->SetLabel(_("File extend name:"));
+    }
+    else if (1 == nSel)
+    {
+        m_pLblCondition->SetLabel(_("Partion of file name:"));
     }
 }
 
@@ -154,14 +171,5 @@ void CustomRuleDlg::OnBtnSelDirClick(wxCommandEvent& event)
 
 void CustomRuleDlg::OnRdbRuleTypeSelect(wxCommandEvent& event)
 {
-	//
-	int nSel = m_rdbRuleType->GetSelection();
-	if(nSel == 0)
-	{
-		m_pLblCondition->SetLabel(_("File extend name:"));
-	}
-	else if(1 == nSel)
-	{
-		m_pLblCondition->SetLabel(_("Partion of file name:"));
-	}
+    initConditionLabel();
 }
