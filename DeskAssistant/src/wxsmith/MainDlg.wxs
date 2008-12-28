@@ -165,7 +165,7 @@
 							<style>wxNB_BOTTOM</style>
 							<object class="notebookpage">
 								<object class="wxListCtrl" name="ID_LISTCTRL1" variable="m_pLcResult" member="yes">
-									<style>wxLC_REPORT</style>
+									<style>wxLC_REPORT|wxLC_HRULES|wxLC_VRULES</style>
 								</object>
 								<label>Preview and run result</label>
 							</object>

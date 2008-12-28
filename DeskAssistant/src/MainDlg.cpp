@@ -161,7 +161,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer6 = new wxBoxSizer(wxVERTICAL);
     Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxDefaultPosition, wxSize(600,256), wxNB_BOTTOM, _T("ID_NOTEBOOK1"));
     Notebook1->SetMaxSize(wxSize(320,200));
-    m_pLcResult = new wxListCtrl(Notebook1, ID_LISTCTRL1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL1"));
+    m_pLcResult = new wxListCtrl(Notebook1, ID_LISTCTRL1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_HRULES|wxLC_VRULES, wxDefaultValidator, _T("ID_LISTCTRL1"));
     m_pLcFolderSize = new wxListCtrl(Notebook1, ID_LISTCTRL2, wxDefaultPosition, wxDefaultSize, wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL2"));
     Notebook1->AddPage(m_pLcResult, _("Preview and run result"), false);
     Notebook1->AddPage(m_pLcFolderSize, _("Folder size analysis"), false);
