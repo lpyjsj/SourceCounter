@@ -51,14 +51,17 @@
 						<option>1</option>
 					</object>
 					<object class="sizeritem">
-						<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="m_txtDestPath" member="yes" />
+						<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="m_txtDestPath" member="yes">
+							<style>wxTE_READONLY</style>
+						</object>
 						<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
 						<option>3</option>
 					</object>
 					<object class="sizeritem">
-						<object class="wxButton" name="ID_BUTTON3" variable="Button3" member="yes">
+						<object class="wxButton" name="ID_BUTTON3" variable="m_btnSelDir" member="yes">
 							<label>&amp;Select...</label>
+							<handler function="OnBtnSelDirClick" entry="EVT_BUTTON" />
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
@@ -91,6 +94,9 @@
 				<flag>wxBOTTOM|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
 				<border>5</border>
 			</object>
+		</object>
+		<object class="wxDirDialog" variable="m_dirDlg" member="yes">
+			<message>Select directory</message>
 		</object>
 	</object>
 </wxsmith>

@@ -8,6 +8,7 @@
 #include <wx/radiobox.h>
 #include <wx/textctrl.h>
 #include <wx/button.h>
+#include <wx/dirdlg.h>
 #include <wx/dialog.h>
 //*)
 #endif
@@ -37,8 +38,9 @@ public:
     wxButton* Button2;
     wxButton* m_btnOK;
     wxTextCtrl* m_txtDestPath;
-    wxButton* Button3;
+    wxDirDialog* m_dirDlg;
     wxTextCtrl* m_txtCondition;
+    wxButton* m_btnSelDir;
     //*)
 
     ///////////////////////////////////////////////////////////////////
@@ -61,6 +63,7 @@ private:
     //(*Handlers(CustomRuleDlg)
     void OnBtnOKClick(wxCommandEvent& event);
     void OnInit(wxInitDialogEvent& event);
+    void OnBtnSelDirClick(wxCommandEvent& event);
     //*)
 
     ///////////////////////////////////////////////////////////////////

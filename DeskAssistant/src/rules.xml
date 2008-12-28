@@ -4,15 +4,8 @@
     <index>2</index>
     <type>1</type>
     <selected>1</selected>
-    <condition>doc;</condition>
-    <dest>c:\___doc</dest>
-  </rule>
-  <rule>
-    <index>4</index>
-    <type>1</type>
-    <selected>1</selected>
-    <condition>zip;</condition>
-    <dest>C:\Documents and Settings\pengli\Desktop\___ZIP</dest>
+    <condition>xls;</condition>
+    <dest>C:\Documents and Settings\boom\桌面\___XLS</dest>
   </rule>
   <rule>
     <index>0</index>
@@ -22,10 +15,10 @@
     <dest>C:\Documents and Settings\boom\桌面</dest>
   </rule>
   <rule>
-    <index>5</index>
+    <index>1</index>
     <type>1</type>
     <selected>1</selected>
-    <condition>xls;</condition>
-    <dest>c:\123</dest>
+    <condition>doc;</condition>
+    <dest>C:\Documents and Settings\boom\桌面\___XLS</dest>
   </rule>
 </rules>
