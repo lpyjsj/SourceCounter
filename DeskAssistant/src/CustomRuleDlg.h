@@ -34,7 +34,7 @@ public:
     //(*Declarations(CustomRuleDlg)
     wxStaticText* StaticText2;
     wxRadioBox* m_rdbRuleType;
-    wxStaticText* StaticText1;
+    wxStaticText* m_pLblCondition;
     wxButton* Button2;
     wxButton* m_btnOK;
     wxTextCtrl* m_txtDestPath;
@@ -64,6 +64,7 @@ private:
     void OnBtnOKClick(wxCommandEvent& event);
     void OnInit(wxInitDialogEvent& event);
     void OnBtnSelDirClick(wxCommandEvent& event);
+    void OnRdbRuleTypeSelect(wxCommandEvent& event);
     //*)
 
     ///////////////////////////////////////////////////////////////////

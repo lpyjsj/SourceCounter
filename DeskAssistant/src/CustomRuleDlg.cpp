@@ -34,23 +34,23 @@ CustomRuleDlg::CustomRuleDlg(wxWindow* parent, RuleMode nMode,wxWindowID id):
     wxBoxSizer* BoxSizer1;
     wxBoxSizer* BoxSizer3;
 
-    Create(parent, id, _("Custom Rule Dialog"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
+    Create(parent, id, _("Customize Rule Dialog"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     wxString __wxRadioBoxChoices_1[2] =
     {
-        _("by extend name"),
-        _("by filename include")
+    _("by file extend name"),
+    _("by file name include")
     };
     m_rdbRuleType = new wxRadioBox(this, ID_RADIOBOX2, _("Select rule type"), wxDefaultPosition, wxDefaultSize, 2, __wxRadioBoxChoices_1, 1, wxRA_SPECIFY_ROWS, wxDefaultValidator, _T("ID_RADIOBOX2"));
     BoxSizer1->Add(m_rdbRuleType, 1, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
-    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("File extend name:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
-    BoxSizer2->Add(StaticText1, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_pLblCondition = new wxStaticText(this, ID_STATICTEXT1, _("Condition:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
+    BoxSizer2->Add(m_pLblCondition, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_txtCondition = new wxTextCtrl(this, ID_TEXTCTRL1, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
     BoxSizer2->Add(m_txtCondition, 4, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(BoxSizer2, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
-    StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Destination dir:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT2"));
+    StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Destination directory:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT2"));
     BoxSizer3->Add(StaticText2, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_txtDestPath = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY, wxDefaultValidator, _T("ID_TEXTCTRL2"));
     BoxSizer3->Add(m_txtDestPath, 3, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -69,6 +69,7 @@ CustomRuleDlg::CustomRuleDlg(wxWindow* parent, RuleMode nMode,wxWindowID id):
     BoxSizer1->SetSizeHints(this);
     Center();
 
+    Connect(ID_RADIOBOX2,wxEVT_COMMAND_RADIOBOX_SELECTED,(wxObjectEventFunction)&CustomRuleDlg::OnRdbRuleTypeSelect);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CustomRuleDlg::OnBtnSelDirClick);
     Connect(wxID_OK,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CustomRuleDlg::OnBtnOKClick);
     Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&CustomRuleDlg::OnInit);
@@ -102,7 +103,7 @@ void CustomRuleDlg::OnBtnOKClick(wxCommandEvent& event)
     strCondition.Trim();
     if (strCondition.IsEmpty())
     {
-        wxMessageBox(_("Please input conditon."));
+        wxMessageBox(_("Please input categorization condition."));
         return;
     }
 
@@ -110,7 +111,7 @@ void CustomRuleDlg::OnBtnOKClick(wxCommandEvent& event)
     strDestPath.Trim();
     if (strDestPath.IsEmpty())
     {
-        wxMessageBox(_("Please select dest path."));
+        wxMessageBox(_("Please select destination directory."));
         return;
     }
 
@@ -149,4 +150,18 @@ void CustomRuleDlg::OnBtnSelDirClick(wxCommandEvent& event)
         wxString strPath = m_dirDlg->GetPath();
         m_txtDestPath->SetValue(strPath);
     }
+}
+
+void CustomRuleDlg::OnRdbRuleTypeSelect(wxCommandEvent& event)
+{
+	//
+	int nSel = m_rdbRuleType->GetSelection();
+	if(nSel == 0)
+	{
+		m_pLblCondition->SetLabel(_("File extend name:"));
+	}
+	else if(1 == nSel)
+	{
+		m_pLblCondition->SetLabel(_("Partion of file name:"));
+	}
 }

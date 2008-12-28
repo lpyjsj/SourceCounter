@@ -87,6 +87,8 @@
 		<Unit filename="version.h" />
 		<Unit filename="wx\checkedlistctrl.cpp" />
 		<Unit filename="wx\checkedlistctrl.h" />
+		<Unit filename="wx\chooselang.cpp" />
+		<Unit filename="wx\chooselang.h" />
 		<Unit filename="wx\hyperlink.cpp" />
 		<Unit filename="wx\hyperlink.h" />
 		<Unit filename="wx_pch.h">

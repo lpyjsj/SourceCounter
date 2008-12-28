@@ -85,7 +85,7 @@
 					</object>
 					<object class="sizeritem">
 						<object class="wxButton" name="wxID_OK" variable="Button1" member="yes">
-							<label>&amp;Close</label>
+							<label>&amp;OK</label>
 						</object>
 						<flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>

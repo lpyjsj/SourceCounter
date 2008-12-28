@@ -1,0 +1,248 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DeskAssistant\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-12-28 21:14+0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Boom <boomworks@hotmail.com>\n"
+"Language-Team: BoomWorks <boomworks@hotmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: CHINA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: W:\\boomworks\\DeskAssistant\\\n"
+"X-Poedit-SearchPath-0: src\n"
+
+#: src/AboutDlg.cpp:88
+msgid "About..."
+msgstr "关于..."
+
+#: src/AboutDlg.cpp:93
+#: src/MainDlg.cpp:112
+#: src/wx/chooselang.cpp:38
+msgid "Desktop Assistant"
+msgstr "桌面整理助手(Desktop Assistant)"
+
+#: src/AboutDlg.cpp:95
+msgid "Unicode versin 1.0.1.0"
+msgstr "Unicode versin 1.0.1.0"
+
+#: src/AboutDlg.cpp:97
+msgid "(C) 1999 - 2009 BoomWorks.Net"
+msgstr "(C) 1999 - 2009 BoomWorks.Net"
+
+#: src/AboutDlg.cpp:99
+msgid "wx-build-info"
+msgstr "wx-build-info"
+
+#: src/AboutDlg.cpp:102
+msgid "Homepage:"
+msgstr "主页:"
+
+#: src/AboutDlg.cpp:106
+msgid "E-mail:"
+msgstr "邮箱:"
+
+#: src/AboutDlg.cpp:108
+msgid "boomworks@hotmail.com"
+msgstr "boomworks@hotmail.com"
+
+#: src/AboutDlg.cpp:112
+#: src/CustomRuleDlg.cpp:61
+msgid "&OK"
+msgstr "确定(&O)"
+
+#: src/CustomRuleDlg.cpp:37
+msgid "Customize Rule Dialog"
+msgstr "规则定制对话框"
+
+#: src/CustomRuleDlg.cpp:41
+msgid "by file extend name"
+msgstr "按文件扩展名"
+
+#: src/CustomRuleDlg.cpp:42
+msgid "by file name include"
+msgstr "按文件名包含"
+
+#: src/CustomRuleDlg.cpp:44
+msgid "Select rule type"
+msgstr "选择规则类型"
+
+#: src/CustomRuleDlg.cpp:47
+msgid "Condition:"
+msgstr "Condition:"
+
+#: src/CustomRuleDlg.cpp:53
+msgid "Destination directory:"
+msgstr "整理目标目录:"
+
+#: src/CustomRuleDlg.cpp:57
+msgid "&Select..."
+msgstr "选择(&S)..."
+
+#: src/CustomRuleDlg.cpp:63
+msgid "&Cancel"
+msgstr "取消(&C)"
+
+#: src/CustomRuleDlg.cpp:67
+msgid "Select directory"
+msgstr "选择目录"
+
+#: src/CustomRuleDlg.cpp:106
+msgid "Please input categorization condition."
+msgstr "请填写分类规则的条件。"
+
+#: src/CustomRuleDlg.cpp:114
+msgid "Please select destination directory."
+msgstr "请选择分类目标目录。"
+
+#: src/CustomRuleDlg.cpp:161
+msgid "File extend name:"
+msgstr "文件扩展名:"
+
+#: src/CustomRuleDlg.cpp:165
+msgid "Partion of file name:"
+msgstr "部分文件名:"
+
+#: src/MainDlg.cpp:65
+msgid "File"
+msgstr "File"
+
+#: src/MainDlg.cpp:66
+msgid "Destination directory"
+msgstr "Destination directory"
+
+#: src/MainDlg.cpp:67
+msgid "Progress"
+msgstr "Progress"
+
+#: src/MainDlg.cpp:75
+msgid "Folder"
+msgstr "Folder"
+
+#: src/MainDlg.cpp:76
+msgid "Size(KB)"
+msgstr "Size(KB)"
+
+#: src/MainDlg.cpp:87
+msgid "___Today"
+msgstr "___Today"
+
+#: src/MainDlg.cpp:88
+msgid "___Yesterday"
+msgstr "___Yesterday"
+
+#: src/MainDlg.cpp:119
+msgid ""
+"Desktop Assistant is a tool for Desktop file categorization.\n"
+"This tool can categorize files to folders by using the rule defined beforehand. \n"
+"The folders that stores the files is automatically created."
+msgstr ""
+"桌面整理助手(Desktop Assistant)是一个桌面文件分类整理的工具。\n"
+"这个工具能够按照事先设定好的规则把文件分类整理到相应的目录。\n"
+"存储文件的目录可以自动创建。"
+
+#: src/MainDlg.cpp:122
+msgid "Select customize categorization rules"
+msgstr "选择定制分类整理规则"
+
+#: src/MainDlg.cpp:124
+msgid "&New..."
+msgstr "新建(&N)..."
+
+#: src/MainDlg.cpp:126
+msgid "&Edit..."
+msgstr "编辑(&E)..."
+
+#: src/MainDlg.cpp:129
+msgid "&Delete"
+msgstr "删除(&D)..."
+
+#: src/MainDlg.cpp:132
+msgid "&Up"
+msgstr "向上(&U)"
+
+#: src/MainDlg.cpp:135
+msgid "Dow&n"
+msgstr "向下(&N)"
+
+#: src/MainDlg.cpp:146
+msgid "By file modified time"
+msgstr "按文件修改时间"
+
+#: src/MainDlg.cpp:147
+msgid "None(Do nothing)"
+msgstr "无(不整理)"
+
+#: src/MainDlg.cpp:149
+msgid "Select base categorization rules"
+msgstr "选择基本分类规则"
+
+#: src/MainDlg.cpp:152
+msgid "&Preview"
+msgstr "预览(&P)"
+
+#: src/MainDlg.cpp:154
+msgid "&Run"
+msgstr "整理(&R)"
+
+#: src/MainDlg.cpp:157
+msgid "test"
+msgstr "test"
+
+#: src/MainDlg.cpp:166
+msgid "Preview and run result"
+msgstr "预览和整理结果"
+
+#: src/MainDlg.cpp:167
+msgid "Folder size analysis"
+msgstr "文件夹大小分析"
+
+#: src/MainDlg.cpp:171
+msgid "C&heck for update..."
+msgstr "检查更新(&C)..."
+
+#: src/MainDlg.cpp:173
+msgid "U&I Language..."
+msgstr "界面语言(&I)..."
+
+#: src/MainDlg.cpp:175
+msgid "&About..."
+msgstr "关于(&A)..."
+
+#: src/MainDlg.cpp:177
+msgid "&Quit"
+msgstr "退出(&Q)"
+
+#: src/wx/chooselang.cpp:40
+msgid "You must restart Desktop Assistant for this change to take effect."
+msgstr "您必须重新启动“桌面整理助手”更改才会生效。"
+
+#: src/wx/chooselang.cpp:78
+#, c-format
+msgid "Uknown locale code '%s' in registry."
+msgstr "Uknown locale code '%s' in registry."
+
+#: src/wx/chooselang.cpp:95
+msgid "(Use default language)"
+msgstr "(使用默认语言)"
+
+#: src/wx/chooselang.cpp:167
+msgid "Select your prefered language"
+msgstr "选择您喜好的语言"
+
+#: src/wx/chooselang.cpp:168
+msgid "Language selection"
+msgstr "语言选择"
+
+#: src/wx/hyperlink.cpp:79
+msgid "Failed to create wxControl, needed by wxHyperLink!"
+msgstr "Failed to create wxControl, needed by wxHyperLink!"
+
+#~ msgid "SourceCounter"
+#~ msgstr "SourceCounter"
+#~ msgid "&Close"
+#~ msgstr "关闭"
+

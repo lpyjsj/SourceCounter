@@ -15,6 +15,8 @@
 #include <wx/image.h>
 //*)
 
+#include "wx/chooselang.h"
+
 IMPLEMENT_APP(DeskAssistantApp);
 
 bool DeskAssistantApp::OnInit()
@@ -22,6 +24,22 @@ bool DeskAssistantApp::OnInit()
     //
     this->SetVendorName(_T("BoomWorks"));
 
+    //
+    // Add catalog lookup path prefix
+    //
+#ifdef __WXMSW__   // Windows Only
+    // wxMSW 2.4.0 does not search the directory of the executable by default.
+    // Catalog path setting
+    m_locale.AddCatalogLookupPathPrefix(wxT("locales\\"));
+#endif
+
+    // Initial locale
+    m_locale.Init(GetUILanguage());
+
+    // Add catalog
+    m_locale.AddCatalog(wxT("DeskAssistant"));
+
+    ///////////////////////////////////////////////////////////////////
     //
     wxIcon ico;
     ico.LoadFile(wxT("img\\DesktopAssistant.ico"), wxBITMAP_TYPE_ICO);

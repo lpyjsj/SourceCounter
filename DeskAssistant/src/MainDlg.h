@@ -44,6 +44,7 @@ public:
     wxButton* m_btnPreview;
     wxStaticText* StaticText1;
     wxCheckListBox* m_pLbxCustRules;
+    wxButton* m_btnUiLang;
     wxButton* m_btnUp;
     wxRadioBox* m_pRbxBaseRules;
     wxButton* m_btnCheckUpdate;
@@ -77,6 +78,7 @@ protected:
     static const long ID_LISTCTRL2;
     static const long ID_NOTEBOOK1;
     static const long ID_BUTTON3;
+    static const long ID_BUTTON10;
     //*)
 
 private:
@@ -95,6 +97,7 @@ private:
     void OnBtnDeleteClick(wxCommandEvent& event);
     void OnBtnUpClick(wxCommandEvent& event);
     void OnBtnDownClick(wxCommandEvent& event);
+    void OnBtnUiLangClick(wxCommandEvent& event);
     //*)
 
 	void OnLbxRuleItemSelect(wxCommandEvent& event);

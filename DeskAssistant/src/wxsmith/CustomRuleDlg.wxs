@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
 	<object class="wxDialog" name="CustomRuleDlg">
-		<title>Custom Rule Dialog</title>
+		<title>Customize Rule Dialog</title>
 		<centered>1</centered>
 		<handler function="OnInit" entry="EVT_INIT_DIALOG" />
 		<object class="wxBoxSizer" variable="BoxSizer1" member="no">
@@ -10,11 +10,12 @@
 				<object class="wxRadioBox" name="ID_RADIOBOX2" variable="m_rdbRuleType" member="yes">
 					<label>Select rule type</label>
 					<content>
-						<item>by extend name</item>
-						<item>by filename include</item>
+						<item>by file extend name</item>
+						<item>by file name include</item>
 					</content>
 					<default>-1</default>
 					<style>wxRA_SPECIFY_ROWS</style>
+					<handler function="OnRdbRuleTypeSelect" entry="EVT_RADIOBOX" />
 				</object>
 				<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 				<border>5</border>
@@ -23,8 +24,8 @@
 			<object class="sizeritem">
 				<object class="wxBoxSizer" variable="BoxSizer2" member="no">
 					<object class="sizeritem">
-						<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
-							<label>File extend name:</label>
+						<object class="wxStaticText" name="ID_STATICTEXT1" variable="m_pLblCondition" member="yes">
+							<label>Condition:</label>
 						</object>
 						<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
@@ -44,7 +45,7 @@
 				<object class="wxBoxSizer" variable="BoxSizer3" member="no">
 					<object class="sizeritem">
 						<object class="wxStaticText" name="ID_STATICTEXT2" variable="StaticText2" member="yes">
-							<label>Destination dir:</label>
+							<label>Destination directory:</label>
 						</object>
 						<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>

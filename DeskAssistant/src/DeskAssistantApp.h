@@ -14,8 +14,11 @@
 
 class DeskAssistantApp : public wxApp
 {
-    public:
-        virtual bool OnInit();
+public:
+    virtual bool OnInit();
+
+private:
+    wxLocale m_locale;  ///< Locale
 };
 
 #endif // DESKASSISTANTAPP_H

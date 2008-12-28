@@ -2,30 +2,23 @@
 <rules>
   <rule>
     <index>2</index>
-    <type>2</type>
-    <selected>1</selected>
-    <condition>dalian</condition>
-    <dest>C:\Documents and Settings\boom\桌面\Dalian</dest>
-  </rule>
-  <rule>
-    <index>3</index>
     <type>1</type>
     <selected>1</selected>
-    <condition>doc;xls;</condition>
-    <dest>C:\Documents and Settings\boom\桌面\___XLS</dest>
+    <condition>xls;</condition>
+    <dest>C:\Documents and Settings\pengli\Desktop\新しいフォルダ</dest>
+  </rule>
+  <rule>
+    <index>1</index>
+    <type>2</type>
+    <selected>1</selected>
+    <condition>DDC</condition>
+    <dest>C:\Documents and Settings\pengli\Desktop\___DDC</dest>
   </rule>
   <rule>
     <index>0</index>
     <type>0</type>
     <selected>1</selected>
     <condition>-</condition>
-    <dest>C:\Documents and Settings\boom\桌面</dest>
-  </rule>
-  <rule>
-    <index>1</index>
-    <type>2</type>
-    <selected>1</selected>
-    <condition>ddc</condition>
-    <dest>C:\Documents and Settings\boom\桌面\sourcecounter</dest>
+    <dest>C:\Documents and Settings\pengli\Desktop</dest>
   </rule>
 </rules>
