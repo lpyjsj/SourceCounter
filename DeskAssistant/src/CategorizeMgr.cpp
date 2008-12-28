@@ -660,12 +660,15 @@ void CategorizeMgr::AddRule(RuleInfo& info)
 
 void CategorizeMgr::DeleteRule(int nIndex)
 {
-    Rule* pRule = m_arrRule[nIndex];
+	//Rule* pRule = m_arrRule[nIndex];
+	Rule* pRule = GetRuleByIndex(nIndex);
+    nIndex = m_arrRule.Index(pRule);
     if (pRule)
     {
         delete pRule;
         pRule = 0;
     }
+
     m_arrRule.RemoveAt(nIndex);
 
     // Save to xml file
