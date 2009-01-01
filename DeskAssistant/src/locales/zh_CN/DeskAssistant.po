@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DeskAssistant\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-28 21:14+0800\n"
+"POT-Creation-Date: 2009-01-01 17:43+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Boom <boomworks@hotmail.com>\n"
 "Language-Team: BoomWorks <boomworks@hotmail.com>\n"
@@ -20,8 +20,9 @@ msgid "About..."
 msgstr "关于..."
 
 #: src/AboutDlg.cpp:93
-#: src/MainDlg.cpp:112
+#: src/MainDlg.cpp:110
 #: src/wx/chooselang.cpp:38
+#: src/wx/chooselang.cpp:185
 msgid "Desktop Assistant"
 msgstr "桌面整理助手(Desktop Assistant)"
 
@@ -71,8 +72,9 @@ msgid "Select rule type"
 msgstr "选择规则类型"
 
 #: src/CustomRuleDlg.cpp:47
-msgid "Condition:"
-msgstr "Condition:"
+#: src/CustomRuleDlg.cpp:109
+msgid "File extend name:"
+msgstr "文件扩展名:"
 
 #: src/CustomRuleDlg.cpp:53
 msgid "Destination directory:"
@@ -90,39 +92,35 @@ msgstr "取消(&C)"
 msgid "Select directory"
 msgstr "选择目录"
 
-#: src/CustomRuleDlg.cpp:106
-msgid "Please input categorization condition."
-msgstr "请填写分类规则的条件。"
-
-#: src/CustomRuleDlg.cpp:114
-msgid "Please select destination directory."
-msgstr "请选择分类目标目录。"
-
-#: src/CustomRuleDlg.cpp:161
-msgid "File extend name:"
-msgstr "文件扩展名:"
-
-#: src/CustomRuleDlg.cpp:165
+#: src/CustomRuleDlg.cpp:113
 msgid "Partion of file name:"
 msgstr "部分文件名:"
 
+#: src/CustomRuleDlg.cpp:123
+msgid "Please input categorization condition."
+msgstr "请填写分类规则的条件。"
+
+#: src/CustomRuleDlg.cpp:131
+msgid "Please select destination directory."
+msgstr "请选择分类目标目录。"
+
 #: src/MainDlg.cpp:65
-msgid "File"
-msgstr "File"
+msgid "Status"
+msgstr "状态"
 
 #: src/MainDlg.cpp:66
-msgid "Destination directory"
-msgstr "Destination directory"
+msgid "Source directory"
+msgstr "源目录"
 
 #: src/MainDlg.cpp:67
-msgid "Progress"
-msgstr "Progress"
+msgid "Destination directory"
+msgstr "目标目录"
 
-#: src/MainDlg.cpp:75
+#: src/MainDlg.cpp:76
 msgid "Folder"
 msgstr "Folder"
 
-#: src/MainDlg.cpp:76
+#: src/MainDlg.cpp:77
 msgid "Size(KB)"
 msgstr "Size(KB)"
 
@@ -134,7 +132,7 @@ msgstr "___Today"
 msgid "___Yesterday"
 msgstr "___Yesterday"
 
-#: src/MainDlg.cpp:119
+#: src/MainDlg.cpp:117
 msgid ""
 "Desktop Assistant is a tool for Desktop file categorization.\n"
 "This tool can categorize files to folders by using the rule defined beforehand. \n"
@@ -144,79 +142,88 @@ msgstr ""
 "这个工具能够按照事先设定好的规则把文件分类整理到相应的目录。\n"
 "存储文件的目录可以自动创建。"
 
-#: src/MainDlg.cpp:122
+#: src/MainDlg.cpp:120
 msgid "Select customize categorization rules"
 msgstr "选择定制分类整理规则"
 
-#: src/MainDlg.cpp:124
+#: src/MainDlg.cpp:122
 msgid "&New..."
 msgstr "新建(&N)..."
 
-#: src/MainDlg.cpp:126
+#: src/MainDlg.cpp:124
 msgid "&Edit..."
 msgstr "编辑(&E)..."
 
-#: src/MainDlg.cpp:129
+#: src/MainDlg.cpp:127
 msgid "&Delete"
 msgstr "删除(&D)..."
 
-#: src/MainDlg.cpp:132
+#: src/MainDlg.cpp:130
 msgid "&Up"
 msgstr "向上(&U)"
 
-#: src/MainDlg.cpp:135
+#: src/MainDlg.cpp:133
 msgid "Dow&n"
 msgstr "向下(&N)"
 
-#: src/MainDlg.cpp:146
+#: src/MainDlg.cpp:144
 msgid "By file modified time"
 msgstr "按文件修改时间"
 
-#: src/MainDlg.cpp:147
+#: src/MainDlg.cpp:145
 msgid "None(Do nothing)"
 msgstr "无(不整理)"
 
-#: src/MainDlg.cpp:149
+#: src/MainDlg.cpp:147
 msgid "Select base categorization rules"
 msgstr "选择基本分类规则"
 
-#: src/MainDlg.cpp:152
+#: src/MainDlg.cpp:150
 msgid "&Preview"
 msgstr "预览(&P)"
 
-#: src/MainDlg.cpp:154
+#: src/MainDlg.cpp:152
 msgid "&Run"
 msgstr "整理(&R)"
 
-#: src/MainDlg.cpp:157
+#: src/MainDlg.cpp:155
 msgid "test"
 msgstr "test"
 
-#: src/MainDlg.cpp:166
+#: src/MainDlg.cpp:164
 msgid "Preview and run result"
 msgstr "预览和整理结果"
 
-#: src/MainDlg.cpp:167
+#: src/MainDlg.cpp:165
 msgid "Folder size analysis"
 msgstr "文件夹大小分析"
 
-#: src/MainDlg.cpp:171
+#: src/MainDlg.cpp:169
 msgid "C&heck for update..."
 msgstr "检查更新(&C)..."
 
-#: src/MainDlg.cpp:173
+#: src/MainDlg.cpp:171
 msgid "U&I Language..."
 msgstr "界面语言(&I)..."
 
-#: src/MainDlg.cpp:175
+#: src/MainDlg.cpp:173
 msgid "&About..."
 msgstr "关于(&A)..."
 
-#: src/MainDlg.cpp:177
+#: src/MainDlg.cpp:175
 msgid "&Quit"
 msgstr "退出(&Q)"
 
+#: src/MainDlg.cpp:362
+msgid "Previewed"
+msgstr "预览"
+
+#: src/MainDlg.cpp:366
+msgid "Processed"
+msgstr "已整理"
+
 #: src/wx/chooselang.cpp:40
+#: src/wx/chooselang.cpp:184
 msgid "You must restart Desktop Assistant for this change to take effect."
 msgstr "您必须重新启动“桌面整理助手”更改才会生效。"
 
@@ -241,6 +248,10 @@ msgstr "语言选择"
 msgid "Failed to create wxControl, needed by wxHyperLink!"
 msgstr "Failed to create wxControl, needed by wxHyperLink!"
 
+#~ msgid "Condition:"
+#~ msgstr "Condition:"
+#~ msgid "File"
+#~ msgstr "File"
 #~ msgid "SourceCounter"
 #~ msgstr "SourceCounter"
 #~ msgid "&Close"
