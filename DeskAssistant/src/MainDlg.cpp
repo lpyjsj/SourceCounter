@@ -62,11 +62,12 @@ const int N_COL_NUM = 3;	///< Result listctrl column number
 /** Result listctrl column names */
 const wxString CSZ_COL_NAMES[] =
 {
-    _("File"),
+	_("Status"),
+    _("Source directory"),
     _("Destination directory"),
-    _("Progress"),
+
 };
-const int N_COL_WIDTH[] = { 340, 140, 80};
+const int N_COL_WIDTH[] = { 80, 340, 340 };
 
 /** Folder size listctrl */
 const int N_FOLDER_SIZE_LC_COL_NUM = 2;
@@ -75,7 +76,7 @@ const wxString CSZ_FOLDER_SIZE_LC_COL_NAMES[] =
     _("Folder"),
     _("Size(KB)"),
 };
-const int N_FOLDER_SIZE_LC_COL_WIDTH[] = { 480, 80};
+const int N_FOLDER_SIZE_LC_COL_WIDTH[] = { 480, 80 };
 
 const wxChar* CSZ_DESKTOP_KEY_NAME = _T("Desktop");   ///<
 /** Desktop register path */
@@ -83,11 +84,8 @@ const wxString CSZ_DESKTOP_KEY_PATH =
     _T("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders");
 
 
-
 const wxString CSZ_TODAY = _("___Today");
 const wxString CSZ_YESTERDAY = _("___Yesterday");
-
-
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -108,7 +106,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     wxBoxSizer* BoxSizer1;
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
-    
+
     Create(parent, id, _("Desktop Assistant"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("id"));
     SetClientSize(wxDefaultSize);
     Move(wxDefaultPosition);
@@ -141,7 +139,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     m_pLbxCustRules = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxSize(-1,80), 0, 0, wxLB_SINGLE|wxLB_NEEDED_SB, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
     StaticBoxSizer1->Add(m_pLbxCustRules, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    wxString __wxRadioBoxChoices_1[2] = 
+    wxString __wxRadioBoxChoices_1[2] =
     {
     _("By file modified time"),
     _("None(Do nothing)")
@@ -181,7 +179,7 @@ MainDlg::MainDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize&
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnNewClick);
     Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnEditClick);
     Connect(ID_BUTTON6,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&MainDlg::OnBtnDeleteClick);
@@ -295,15 +293,13 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
 
     // Colect rules setting
     int nType = m_pRbxBaseRules->GetSelection();
-    // type = 0 pRule
+    Rule* pRule = m_categorizeMgr.GetRuleByIndex(0);
+    bool bSel = false;
     if (nType == NBaseRuleTypeTime)
     {
-        //info.m_bSelected = true;
+        bSel = true;
     }
-    else
-    {
-        //info.m_bSelected = false;
-    }
+	pRule->m_bSelected = bSel;
 
     // Preview and update UI
     m_categorizeMgr.Preview();
@@ -344,9 +340,6 @@ void MainDlg::UpdateCategorizationCtrls()
     {
         pFileInfo = pArrFileInfo->Item(i);
 
-        nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), pFileInfo->m_pFileName->GetFullPath());
-        // m_pLcResult->SetItem(nIndex, 1, pFileInfo->m_strDestFolderName);
-        m_pLcResult->SetItem(nIndex, 1, pFileInfo->GetDestFullPath());
 
         if (pFileInfo->m_bPreProcessed == true && pFileInfo->m_bProcessed == false )
         {
@@ -356,7 +349,10 @@ void MainDlg::UpdateCategorizationCtrls()
         {
             strTemp = _T("Processed");
         }
-        m_pLcResult->SetItem(nIndex, 2, strTemp);
+
+		nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), strTemp);
+        m_pLcResult->SetItem(nIndex, 1, pFileInfo->m_pFileName->GetFullPath());
+        m_pLcResult->SetItem(nIndex, 2, pFileInfo->GetDestFullPath());
     }
 }
 void MainDlg::OnLbxRuleItemSelect(wxCommandEvent& event)
@@ -413,7 +409,6 @@ void MainDlg::OnBtnEditClick(wxCommandEvent& event)
         //wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
         updateRuleLbx(true);
     }
-
 }
 
 void MainDlg::updateRuleLbx(bool bClear)
@@ -441,16 +436,6 @@ void MainDlg::updateRuleLbx(bool bClear)
             if (pRule->m_bSelected)
                 m_pLbxCustRules->Check(nIndex);
         }
-//        pRule = pArrRule->Item(i);
-//
-//		if(pRule->GetRuleType() != BasicRule::ms_nType)
-//		{
-//			pRule->GetDispStr(strTemp);
-//			nIndex = m_pLbxCustRules->Append(strTemp);
-//			//m_pLbxCustRules->SetClientData(nIndex, pRule);
-//			if(pRule->m_bSelected)
-//				m_pLbxCustRules->Check(nIndex);
-//		}
     }
 }
 

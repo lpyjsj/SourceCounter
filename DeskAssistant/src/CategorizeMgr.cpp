@@ -324,7 +324,7 @@ void CategorizeMgr::Preview()
     {
         pRule = GetRuleByIndex(j + 1);
 
-        if (pRule)
+        if (pRule && pRule->m_bSelected)
         {
 
             int nCntFileInfo = m_arrCategorizationFileInfo.GetCount();
@@ -339,12 +339,11 @@ void CategorizeMgr::Preview()
                 pRule->Execute(pFileInfo);
             }
         }
-
     }// END FOR RULES
 
     pRule = GetRuleByIndex(0); // Basic rule
 
-    if (pRule)
+    if (pRule && pRule->m_bSelected)
     {
 
         int nCntFileInfo = m_arrCategorizationFileInfo.GetCount();
