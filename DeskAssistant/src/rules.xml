@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rules>
   <rule>
+    <index>0</index>
+    <type>0</type>
+    <selected>0</selected>
+    <condition>-</condition>
+    <dest>C:\Documents and Settings\boom\桌面</dest>
+  </rule>
+  <rule>
+    <index>1</index>
+    <type>1</type>
+    <selected>0</selected>
+    <condition>doc;xls;pdf;</condition>
+    <dest>C:\Documents and Settings\boom\桌面\___DOC</dest>
+  </rule>
+  <rule>
     <index>2</index>
     <type>2</type>
     <selected>1</selected>
     <condition>boomworks</condition>
     <dest>C:\__W\boomworks</dest>
-  </rule>
-  <rule>
-    <index>1</index>
-    <type>1</type>
-    <selected>1</selected>
-    <condition>doc;xls;pdf;</condition>
-    <dest>C:\Documents and Settings\boom\桌面\___DOC</dest>
-  </rule>
-  <rule>
-    <index>0</index>
-    <type>0</type>
-    <selected>1</selected>
-    <condition>-</condition>
-    <dest>C:\Documents and Settings\boom\桌面</dest>
   </rule>
 </rules>

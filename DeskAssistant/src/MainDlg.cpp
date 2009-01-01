@@ -353,13 +353,17 @@ void MainDlg::UpdateCategorizationCtrls()
     {
         pFileInfo = pArrFileInfo->Item(i);
 
-        if (pFileInfo->m_bPreProcessed == true && pFileInfo->m_bProcessed == false )
+		if (pFileInfo->m_bPreProcessed == false && pFileInfo->m_bProcessed == false)
+		{
+			strTemp = _T("-");
+		}
+		else if (pFileInfo->m_bPreProcessed == true && pFileInfo->m_bProcessed == false )
         {
-            strTemp = _T("Previewed");
+            strTemp = _("Previewed");
         }
         else
         {
-            strTemp = _T("Processed");
+            strTemp = _("Processed");
         }
 
 		nIndex = m_pLcResult->InsertItem(m_pLcResult->GetItemCount(), strTemp);
