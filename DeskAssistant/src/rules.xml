@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rules>
   <rule>
-    <index>0</index>
-    <type>0</type>
+    <index>2</index>
+    <type>2</type>
     <selected>1</selected>
-    <condition>-</condition>
-    <dest>C:\Documents and Settings\boom\桌面</dest>
+    <condition>boomworks</condition>
+    <dest>C:\__W\boomworks</dest>
   </rule>
   <rule>
     <index>1</index>
@@ -15,10 +15,10 @@
     <dest>C:\temp</dest>
   </rule>
   <rule>
-    <index>2</index>
-    <type>2</type>
+    <index>0</index>
+    <type>0</type>
     <selected>1</selected>
-    <condition>boomworks</condition>
-    <dest>C:\__W\boomworks</dest>
+    <condition>-</condition>
+    <dest>C:\Documents and Settings\boom\桌面</dest>
   </rule>
 </rules>
