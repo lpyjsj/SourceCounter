@@ -263,6 +263,10 @@ void CategorizeMgr::Categorize()
         if (pFileInfo)
         {
             strTemp = pFileInfo->GetDestFolderPath();
+			if(strTemp.IsEmpty())
+			{
+				continue;
+			}
 
             if (!wxDirExists(strTemp))
             {

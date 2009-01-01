@@ -7,6 +7,7 @@ CategorizationFileInfo::CategorizationFileInfo(wxString& strPath):
 {
     //ctor
     m_pFileName = new wxFileName(strPath);
+    m_strDestFolderPath.Empty();
 }
 
 CategorizationFileInfo::~CategorizationFileInfo()

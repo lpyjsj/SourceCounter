@@ -293,7 +293,7 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
 
     // Colect rules setting
     int nType = m_pRbxBaseRules->GetSelection();
-    Rule* pRule = m_categorizeMgr.GetRuleByIndex(0);
+    Rule* pRule = m_categorizeMgr.GetRuleByIndex(0); // Basic rule
     bool bSel = false;
     if (nType == NBaseRuleTypeTime)
     {
@@ -301,7 +301,21 @@ void MainDlg::OnBtnPreviewClick(wxCommandEvent& event)
     }
 	pRule->m_bSelected = bSel;
 
+    // Get rule select status
+    int nCnt = m_pLbxCustRules->GetCount();
+    int nIndex = -1;
+    bool bChecked = false;
+    for (int i = 0; i < nCnt; i++)
+    {
+    	bChecked = m_pLbxCustRules->IsChecked(i);
+    	pRule = m_categorizeMgr.GetRuleByIndex(i + 1); // 1 start base index
+    	if(pRule)
+			pRule->m_bSelected = bChecked;
+    }
+
+	//
     // Preview and update UI
+    //
     m_categorizeMgr.Preview();
     updateUICtrls();
 }
@@ -324,7 +338,6 @@ void MainDlg::updateUICtrls()
 void MainDlg::OnBtnTestClick(wxCommandEvent& event)
 {
     // BoxSizer1->Show(BoxSizer5);
-
 }
 
 void MainDlg::UpdateCategorizationCtrls()
@@ -339,7 +352,6 @@ void MainDlg::UpdateCategorizationCtrls()
     for (int i=0; i<nCnt; i++)
     {
         pFileInfo = pArrFileInfo->Item(i);
-
 
         if (pFileInfo->m_bPreProcessed == true && pFileInfo->m_bProcessed == false )
         {
@@ -370,19 +382,11 @@ void MainDlg::OnBtnNewClick(wxCommandEvent& event)
 
     if (dlg.ShowModal() == wxID_OK)
     {
-        // wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
         RuleInfo ruleInfo;
         dlg.GetRuleInfo(ruleInfo);
 
-//        if (ruleInfo.m_nType == ExtNameRule::ms_nType)
-//        {// Extend name rule
-//
-//        }
-//        else if (ruleInfo.m_nType == ExtNameRule::ms_nType)
-//        {// File name rule
-//
-//        }
         m_categorizeMgr.AddRule(ruleInfo);
+
         //
         updateRuleLbx(true);
     }
@@ -406,7 +410,6 @@ void MainDlg::OnBtnEditClick(wxCommandEvent& event)
 
     if (dlg.ShowModal() == wxID_OK)
     {
-        //wxMessageBox(_T("The feature of Customization is still being developed.\nPlease wait for a while. "));
         updateRuleLbx(true);
     }
 }
@@ -416,7 +419,6 @@ void MainDlg::updateRuleLbx(bool bClear)
     if (bClear)
         m_pLbxCustRules->Clear();
 
-    //
     // Init check list box
     ArrayRule* pArrRule = m_categorizeMgr.GetRuleArray();
 
@@ -448,10 +450,7 @@ void MainDlg::OnBtnDeleteClick(wxCommandEvent& event)
     if (-1 == nIndex)
         return;
 
-    // Delete item
-    // m_categorizeMgr->DeleteRule(m_pLbxCustRules->GetString(nIndex));
     m_categorizeMgr.DeleteRule(nIndex + 1);
-    // m_pLbxCustRules->Delete(nIndex);
 
     updateRuleLbx(true);
     updateButtons();
@@ -503,7 +502,7 @@ void MainDlg::OnBtnDownClick(wxCommandEvent& event)
         return;
 
 	//
-	Rule* pRuleCur = m_categorizeMgr.GetRuleByIndex(nIndex + 1);	// Base 1
+	Rule* pRuleCur = m_categorizeMgr.GetRuleByIndex(nIndex + 1);			// Base 1
 	Rule* pRuleForward = m_categorizeMgr.GetRuleByIndex(nIndex + 2);		// Base 1
 
 	pRuleCur->m_nIndex = nIndex + 2;
