@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SrcCounter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-16 22:13+0800\n"
+"POT-Creation-Date: 2008-12-28 21:10+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Boom <boomworks@hotmail.com>\n"
 "Language-Team: \n"
@@ -15,36 +15,38 @@ msgstr ""
 "X-Poedit-Basepath: W:\\boomworks\\SrcCounter\n"
 "X-Poedit-SearchPath-0: src\n"
 
-#: src/aboutdlg.cpp:58
+#: src/aboutdlg.cpp:59
 msgid "About"
 msgstr "关于"
 
-#: src/aboutdlg.cpp:67
+#: src/aboutdlg.cpp:68
 #: src/chooselang.cpp:177
 msgid "SourceCounter"
 msgstr "源代码统计工具"
 
-#: src/aboutdlg.cpp:69
+#: src/aboutdlg.cpp:70
 msgid "Unicode version 1.0.1.0"
 msgstr "Unicode version 1.0.1.0"
 
-#: src/aboutdlg.cpp:71
-msgid "(C) 1999 - 2008 Boom (www.BoomWorks.Net)"
-msgstr "(C) 1999 - 2008 Boom (www.BoomWorks.Net)"
-
-#: src/aboutdlg.cpp:73
-msgid "mailto:boomworks@hotmail.com"
-msgstr "mailto:boomworks@hotmail.com"
-
-#: src/aboutdlg.cpp:75
-msgid "http://down.boomworks.net (Check For Updates)"
-msgstr "http://www.boomworks.net"
-
-#: src/aboutdlg.cpp:78
+#: src/aboutdlg.cpp:72
 msgid "Label"
 msgstr "Label"
 
-#: src/aboutdlg.cpp:83
+#: src/aboutdlg.cpp:74
+#, fuzzy
+msgid "(C) 1999 - 2008 BoomWorks.Net"
+msgstr "(C) 1999 - 2008 Boom (www.BoomWorks.Net)"
+
+#: src/aboutdlg.cpp:76
+msgid "mailto:boomworks@hotmail.com"
+msgstr "mailto:boomworks@hotmail.com"
+
+#: src/aboutdlg.cpp:79
+#, fuzzy
+msgid "http://www.boomworks.net"
+msgstr "http://www.boomworks.net"
+
+#: src/aboutdlg.cpp:88
 #: src/CntSettingDlg.cpp:78
 msgid "&Ok"
 msgstr "&Ok"
@@ -345,6 +347,10 @@ msgstr "请选择要统计的代码扩展名(&S):"
 #: src/SrcTypeSelDlg.cpp:86
 msgid "Select &all file types"
 msgstr "选择所有类型(&A)"
+
+#: src/wx/hyperlink.cpp:79
+msgid "Failed to create wxControl, needed by wxHyperLink!"
+msgstr "Failed to create wxControl, needed by wxHyperLink!"
 
 #~ msgid "Code production of one man-month(coding lines per man-month):"
 #~ msgstr "编码生产率（每人月编写代码行数）:"
