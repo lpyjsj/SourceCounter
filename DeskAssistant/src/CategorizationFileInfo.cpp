@@ -3,11 +3,13 @@
 CategorizationFileInfo::CategorizationFileInfo(wxString& strPath):
         m_pFileName( 0 ),
         m_bPreProcessed( false ),
-        m_bProcessed(false)
+        m_bProcessed(false),
+        m_strFullDestPath(_T("")),
+        m_strDestFolderPath(_T("")),
+        m_strDestFolderName(_T(""))
 {
     //ctor
     m_pFileName = new wxFileName(strPath);
-    m_strDestFolderPath.Empty();
 }
 
 CategorizationFileInfo::~CategorizationFileInfo()
