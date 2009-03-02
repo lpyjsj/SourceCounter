@@ -3,8 +3,8 @@
  * Purpose:   Header to create Pre-Compiled Header (PCH)
  * Author:    Boom (BoomWorks@hotmail.com)
  * Created:   2008-11-26
- * Copyright: Boom (http://www.boomworks.net)
- * License:   
+ * Copyright: Boom (http://www.boomworks.org)
+ * License:
  **************************************************************/
 
 #ifndef WX_PCH_H_INCLUDED

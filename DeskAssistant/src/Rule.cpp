@@ -1,8 +1,3 @@
-/**
- * Rule classes define.
- *
- */
-
 #include <wx/filename.h>
 #include <wx/tokenzr.h>
 
@@ -57,6 +52,7 @@ void BasicRule::GetDispStr(wxString& strDisp )
 {
     strDisp = CSZ_RULE_TYPE_NAMES[ms_nType];
 }
+
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////

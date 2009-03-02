@@ -94,7 +94,7 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	BoxSizer2->Add(StaticText1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	m_pLblVersion = new wxStaticText(this, ID_STATICTEXT2, _("Unicode versin 1.0.1.0"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT2"));
 	BoxSizer2->Add(m_pLblVersion, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("(C) 1999 - 2009 BoomWorks.Net"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT3"));
+	StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("(C) 1999 - 2009 BoomWorks.Org"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT3"));
 	BoxSizer2->Add(StaticText3, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	m_pLblWxBuildInfo = new wxStaticText(this, ID_STATICTEXT5, _("wx-build-info"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
 	BoxSizer2->Add(m_pLblWxBuildInfo, 0, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -118,8 +118,8 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	Center();
 	//*)
 
-	// Set link to boomworks.net
-	m_pLinkBmwHp = new wxHyperLink(this, ID_LINK_BMW_HP, _T("http://www.boomworks.net"));
+	// Set link to boomworks.Org
+	m_pLinkBmwHp = new wxHyperLink(this, ID_LINK_BMW_HP, _T("http://www.boomworks.org"));
 	BoxSizer3->Add(m_pLinkBmwHp, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 
 //	m_pLinkBmwMail = new wxHyperLink(this, ID_LINK_BMW_MAIL, _T("mailto:boomworks@gmail.com"));

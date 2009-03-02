@@ -3,7 +3,7 @@
  * Purpose:   Defines Application Class
  * Author:    Boom (BoomWorks@hotmail.com)
  * Created:   2008-11-26
- * Copyright: Boom (http://www.boomworks.net)
+ * Copyright: Boom (http://www.boomworks.org)
  * License:
  **************************************************************/
 
