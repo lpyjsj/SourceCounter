@@ -105,7 +105,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
     wxMenuItem* m_menuItemOpenDir;
-    
+
     Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
@@ -219,9 +219,8 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     StaticBoxSizer2->Add(BoxSizer10, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer2, 1, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer12 = new wxBoxSizer(wxHORIZONTAL);
-    BoxSizer12->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnCheckUpdate = new wxButton(this, ID_BUTTON11, _("&Check for updates..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON11"));
-    m_btnCheckUpdate->SetToolTip(_("Get the latest version from http://down.boomworks.net"));
+    m_btnCheckUpdate->SetToolTip(_("Get the latest version from http://down.boomworks.org"));
     BoxSizer12->Add(m_btnCheckUpdate, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnUiLang = new wxButton(this, ID_BUTTON10, _("U&I Language..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON10"));
     BoxSizer12->Add(m_btnUiLang, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -229,7 +228,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer12->Add(Button1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
     Button2 = new wxButton(this, wxID_EXIT, _("&Quit"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_EXIT"));
     BoxSizer12->Add(Button2, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
-    BoxSizer1->Add(BoxSizer12, 0, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer1->Add(BoxSizer12, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     SetSizer(BoxSizer1);
     m_dlgAddDir = new wxDirDialog(this, _("Select directory"), wxEmptyString, wxDD_DIR_MUST_EXIST, wxDefaultPosition, wxDefaultSize, _T("wxDirDialog"));
     m_dlgFile = new wxFileDialog(this, _("Select file"), wxEmptyString, wxEmptyString, _("CSV files (*.csv)|*.csv"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT, wxDefaultPosition, wxDefaultSize, _T("wxFileDialog"));
@@ -240,7 +239,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,(wxObjectEventFunction)&SourceCounterDialog::OnLbxSrcFolderCheck);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnAddDirClick);
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnDeleteClick);
@@ -684,7 +683,7 @@ void SourceCounterDialog::OnBtnUiLangClick(wxCommandEvent& event)
 
 void SourceCounterDialog::OnBtnCheckUpdateClick(wxCommandEvent& event)
 {
-	wxLaunchDefaultBrowser(_T("http://down.boomworks.net/"), wxBROWSER_NEW_WINDOW);
+	wxLaunchDefaultBrowser(_T("http://down.boomworks.org/"), wxBROWSER_NEW_WINDOW);
 }
 
 void SourceCounterDialog::OnLstResultItemRClick(wxListEvent& event)

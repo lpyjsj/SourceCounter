@@ -51,7 +51,7 @@
 							</object>
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
-									<label>(C) 1999 - 2008 BoomWorks.Net</label>
+									<label>(C) 1999 - 2009 BoomWorks.Org</label>
 									<size>214,13</size>
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
