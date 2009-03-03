@@ -2,7 +2,7 @@
  * @file PasCounter.cpp
  * @brief implementation of the PascalCounter class.
  * @author Boom( boomworks@hotmail.com )
- * @author Copyright(C) 2004-2005 BoomWorks.Net , All right reserved.
+ * @author Copyright(C) 2004-2005 boomworks.org , All right reserved.
  * $Author: $
  * $Date: $
  * $Revision: $
@@ -135,6 +135,6 @@ void PascalCounter::countingSourceFile( wxTextFile& file, int& nLines, int& nCod
             nCommentLines++;
             continue;
         }
-    	
+
 	}// End for
 }

@@ -54,8 +54,14 @@ public:
     int			m_nTotalCommentStatement;	///< total of comment statement
     int			m_nTotalBlankStatement;		///< total of blank of statement
 
-    float		m_fTotalManMonth;
-    float		m_fTotalCost;
+    float		m_fTotalManMonth;		///<
+    float		m_fTotalCost;			///<
+
+    // Boom: add UT and IT cases, defects on 2009-3-3
+    float		m_fTotalUtCases;		///<
+    float		m_fTotalUtDefects;		///<
+    float		m_fTotalItCases;		///<
+    float		m_fTotalItDefects;		///<
 
     ///////////////////////////////////////////////////////////////////
 
@@ -101,6 +107,12 @@ inline CountingInfo& CountingInfo::operator =( CountingInfo& srcInfo)
 
     m_fTotalManMonth		= srcInfo.m_fTotalManMonth;
     m_fTotalCost			= srcInfo.m_fTotalCost;
+
+    // Boom: add UT and IT counting information
+    m_fTotalUtCases			= srcInfo.m_fTotalUtCases;
+    m_fTotalUtDefects		= srcInfo.m_fTotalUtDefects;
+	m_fTotalItCases			= srcInfo.m_fTotalItCases;
+    m_fTotalItDefects		= srcInfo.m_fTotalItDefects;
 
     return *this;
 }

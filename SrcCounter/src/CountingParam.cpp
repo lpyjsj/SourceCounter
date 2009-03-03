@@ -2,7 +2,7 @@
  * @file CountingParam.cpp
  * @brief implementation of the CountingParam class.
  * @author Boom( boomworks@gmail.com )
- * @author Copyright(C) 2004-2005 BoomWorks.Net , All right reserved.
+ * @author Copyright(C) 2004-2005 boomworks.org , All right reserved.
  * @date 2005-12-10
  * $Revision: $
  */
@@ -20,6 +20,10 @@ static char THIS_FILE[]=__FILE__;
 
 SettingParam::SettingParam():
             m_nCountingMethodType(0),
+            m_nUtCaseDensity(50),
+            m_nUtDefectDensity(10),
+            m_nItCaseDensity(20),
+            m_nItDefectDensity(2),
             m_nLinesPerMM(4000),
             m_nDaysPerMM(20),
             m_nCostPerMM(10000)
@@ -30,7 +34,6 @@ SettingParam::~SettingParam()
 {}
 
 //////////////////////////////////////////////////////////////////////
-// Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
 CountingParam::CountingParam():

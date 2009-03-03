@@ -2,7 +2,7 @@
  * @file CountingManager.h
  * @brief CountingManager.h: interface for the CountingManager class.
  * @author Boom( boomworks@gmail.com )
- * @author Copyright(C) 2004-2005 BoomWorks.Net , All right reserved.
+ * @author Copyright(C) 2004-2005 boomworks.org , All right reserved.
  * @date 2005-11-23
  * $Revision: $
  */

@@ -25,8 +25,8 @@ delete 7z zip files
 del *.7z *.zip
 
 REM 7z a -t7z Files.7z *.txt -r
-7z a -t7z sourcecounter-2.1.27.22.7z SourceCounter\ -mx7
+7z a -t7z SourceCounter-2.2.30.36.7z SourceCounter\ -mx7
 REM zip
-7z a -tzip sourcecounter-2.1.27.22.zip SourceCounter\ -mx9
+7z a -tzip SourceCounter-2.2.30.36.zip SourceCounter\ -mx9
 
 REM End

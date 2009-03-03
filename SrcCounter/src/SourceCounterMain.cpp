@@ -56,18 +56,26 @@ const long SourceCounterDialog::ID_STATICTEXT3 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT11 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT12 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT4 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT22 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT21 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT5 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT14 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT13 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT6 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT23 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT26 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT18 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT20 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT16 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT8 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT27 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT24 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT19 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT17 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT7 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT15 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT25 = wxNewId();
+const long SourceCounterDialog::ID_STATICTEXT28 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT9 = wxNewId();
 const long SourceCounterDialog::ID_STATICTEXT10 = wxNewId();
 const long SourceCounterDialog::ID_BUTTON7 = wxNewId();
@@ -105,7 +113,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
     wxMenuItem* m_menuItemOpenDir;
-
+    
     Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
@@ -146,7 +154,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     StaticBoxSizer1->Add(BoxSizer5, 1, wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(StaticBoxSizer1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer11 = new wxBoxSizer(wxHORIZONTAL);
-    BoxSizer11->Add(-1,-1,2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer11->Add(-1,-1,3, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnStart = new wxButton(this, ID_BUTTON5, _("&Start"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON5"));
     BoxSizer11->Add(m_btnStart, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnStop = new wxButton(this, ID_BUTTON6, _("Sto&p"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON6"));
@@ -155,63 +163,81 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Add(BoxSizer11, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer2 = new wxStaticBoxSizer(wxVERTICAL, this, _("Counting result"));
     BoxSizer6 = new wxBoxSizer(wxVERTICAL);
-    m_lstResult = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxSize(500,160), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_HRULES|wxLC_VRULES, wxDefaultValidator, _T("ID_LISTCTRL1"));
-    BoxSizer6->Add(m_lstResult, 1, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lstResult = new wxListCtrl(this, ID_LISTCTRL1, wxDefaultPosition, wxSize(500,180), wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_HRULES|wxLC_VRULES, wxDefaultValidator, _T("ID_LISTCTRL1"));
+    BoxSizer6->Add(m_lstResult, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer2->Add(BoxSizer6, 1, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer7 = new wxBoxSizer(wxHORIZONTAL);
-    StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("Total files"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT3"));
-    BoxSizer7->Add(StaticText3, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("Total files:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT3"));
+    BoxSizer7->Add(StaticText3, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_lblTotalFiles = new wxStaticText(this, ID_STATICTEXT11, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT11"));
-    m_lblTotalFiles->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-    BoxSizer7->Add(m_lblTotalFiles, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    StaticText12 = new wxStaticText(this, ID_STATICTEXT12, _("Code lines"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT12"));
-    BoxSizer7->Add(StaticText12, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lblTotalFiles->SetForegroundColour(wxColour(128,0,64));
+    BoxSizer7->Add(m_lblTotalFiles, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText12 = new wxStaticText(this, ID_STATICTEXT12, _("Code lines:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT12"));
+    BoxSizer7->Add(StaticText12, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_lblCodeLines = new wxStaticText(this, ID_STATICTEXT4, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT4"));
     m_lblCodeLines->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-    BoxSizer7->Add(m_lblCodeLines, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer7->Add(m_lblCodeLines, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText10 = new wxStaticText(this, ID_STATICTEXT22, _("Total UT Cases:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT22"));
+    BoxSizer7->Add(StaticText10, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lblUtCases = new wxStaticText(this, ID_STATICTEXT21, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT21"));
+    m_lblUtCases->SetForegroundColour(wxColour(0,128,0));
+    BoxSizer7->Add(m_lblUtCases, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer2->Add(BoxSizer7, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer8 = new wxBoxSizer(wxHORIZONTAL);
-    StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("Total size (KB)"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
-    BoxSizer8->Add(StaticText5, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("Total size (KB):"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
+    BoxSizer8->Add(StaticText5, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_lblTotalSize = new wxStaticText(this, ID_STATICTEXT14, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT14"));
-    m_lblTotalSize->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-    BoxSizer8->Add(m_lblTotalSize, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    StaticText13 = new wxStaticText(this, ID_STATICTEXT13, _("Comment lines"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT13"));
-    BoxSizer8->Add(StaticText13, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lblTotalSize->SetForegroundColour(wxColour(128,0,64));
+    BoxSizer8->Add(m_lblTotalSize, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText13 = new wxStaticText(this, ID_STATICTEXT13, _("Comment lines:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT13"));
+    BoxSizer8->Add(StaticText13, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_lblCommentLines = new wxStaticText(this, ID_STATICTEXT6, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT6"));
     m_lblCommentLines->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-    BoxSizer8->Add(m_lblCommentLines, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer8->Add(m_lblCommentLines, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText11 = new wxStaticText(this, ID_STATICTEXT23, _("Total UT Defects:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT23"));
+    BoxSizer8->Add(StaticText11, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lblUtDefects = new wxStaticText(this, ID_STATICTEXT26, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT26"));
+    m_lblUtDefects->SetForegroundColour(wxColour(255,0,0));
+    BoxSizer8->Add(m_lblUtDefects, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer2->Add(BoxSizer8, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer9 = new wxBoxSizer(wxHORIZONTAL);
-    StaticText6 = new wxStaticText(this, ID_STATICTEXT18, _("Total man-month"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT18"));
-    BoxSizer9->Add(StaticText6, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText6 = new wxStaticText(this, ID_STATICTEXT18, _("Total man-month:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT18"));
+    BoxSizer9->Add(StaticText6, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_lblTotalMM = new wxStaticText(this, ID_STATICTEXT20, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT20"));
-    m_lblTotalMM->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-    BoxSizer9->Add(m_lblTotalMM, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    StaticText16 = new wxStaticText(this, ID_STATICTEXT16, _("Blank lines"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT16"));
-    BoxSizer9->Add(StaticText16, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lblTotalMM->SetForegroundColour(wxColour(255,0,255));
+    BoxSizer9->Add(m_lblTotalMM, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText16 = new wxStaticText(this, ID_STATICTEXT16, _("Blank lines:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT16"));
+    BoxSizer9->Add(StaticText16, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_lblBlankLines = new wxStaticText(this, ID_STATICTEXT8, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT8"));
     m_lblBlankLines->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-    BoxSizer9->Add(m_lblBlankLines, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer9->Add(m_lblBlankLines, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText18 = new wxStaticText(this, ID_STATICTEXT27, _("Total IT Cases:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT27"));
+    BoxSizer9->Add(StaticText18, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lblItCases = new wxStaticText(this, ID_STATICTEXT24, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT24"));
+    m_lblItCases->SetForegroundColour(wxColour(0,128,0));
+    BoxSizer9->Add(m_lblItCases, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer2->Add(BoxSizer9, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer16 = new wxBoxSizer(wxHORIZONTAL);
-    StaticText8 = new wxStaticText(this, ID_STATICTEXT19, _("Total cost"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT19"));
+    StaticText8 = new wxStaticText(this, ID_STATICTEXT19, _("Total cost:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT19"));
     BoxSizer16->Add(StaticText8, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_lblTotalCost = new wxStaticText(this, ID_STATICTEXT17, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT17"));
-    m_lblTotalCost->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-    BoxSizer16->Add(m_lblTotalCost, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Total lines"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT7"));
+    m_lblTotalCost->SetForegroundColour(wxColour(255,0,255));
+    BoxSizer16->Add(m_lblTotalCost, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Total lines:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT7"));
     BoxSizer16->Add(StaticText7, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_lblTotalLines = new wxStaticText(this, ID_STATICTEXT15, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT15"));
     m_lblTotalLines->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-    BoxSizer16->Add(m_lblTotalLines, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer16->Add(m_lblTotalLines, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticText15 = new wxStaticText(this, ID_STATICTEXT25, _("Total IT Defects:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT25"));
+    BoxSizer16->Add(StaticText15, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lblItDefects = new wxStaticText(this, ID_STATICTEXT28, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT28"));
+    m_lblItDefects->SetForegroundColour(wxColour(255,0,0));
+    BoxSizer16->Add(m_lblItDefects, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticBoxSizer2->Add(BoxSizer16, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer10 = new wxBoxSizer(wxHORIZONTAL);
-    StaticText9 = new wxStaticText(this, ID_STATICTEXT9, _("Counting status"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT9"));
+    StaticText9 = new wxStaticText(this, ID_STATICTEXT9, _("Counting status:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT9"));
     BoxSizer10->Add(StaticText9, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    m_lblStatus = new wxStaticText(this, ID_STATICTEXT10, _("Ready."), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT10"));
-    m_lblStatus->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-    m_lblStatus->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INFOBK));
+    m_lblStatus = new wxStaticText(this, ID_STATICTEXT10, _("Ready."), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT10"));
     BoxSizer10->Add(m_lblStatus, 4, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnSave = new wxButton(this, ID_BUTTON7, _("Sa&ve..."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON7"));
     m_btnSave->Disable();
@@ -228,6 +254,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer12->Add(Button1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
     Button2 = new wxButton(this, wxID_EXIT, _("&Quit"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_EXIT"));
     BoxSizer12->Add(Button2, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
+    BoxSizer12->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer1->Add(BoxSizer12, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     SetSizer(BoxSizer1);
     m_dlgAddDir = new wxDirDialog(this, _("Select directory"), wxEmptyString, wxDD_DIR_MUST_EXIST, wxDefaultPosition, wxDefaultSize, _T("wxDirDialog"));
@@ -239,7 +266,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-
+    
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,(wxObjectEventFunction)&SourceCounterDialog::OnLbxSrcFolderCheck);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnAddDirClick);
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnDeleteClick);
@@ -591,6 +618,16 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
 	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_nCost);
 	m_lstResult->SetItem(nIndex, 9, strTemp);
 
+	// Boom: add UT and IT counting information on 2009-3-3
+	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fUtCase);
+	m_lstResult->SetItem(nIndex, 10, strTemp);
+	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fUtDefect);
+	m_lstResult->SetItem(nIndex, 11, strTemp);
+	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fItCase);
+	m_lstResult->SetItem(nIndex, 12, strTemp);
+	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fItDefect);
+	m_lstResult->SetItem(nIndex, 13, strTemp);
+
 	// Set data to item
     m_lstResult->SetItemData(nIndex, (long)pCountingFileInfo);
 
@@ -599,7 +636,6 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
 		m_lstResult->EnsureVisible(nIndex);
 
 	///////////////////////////////////////////////////////////////////
-
     // Update labels
     strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalFile);
     m_lblTotalFiles->SetLabel(strTemp);
@@ -624,6 +660,16 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
 
 	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalCost);
 	m_lblTotalCost->SetLabel(strTemp);
+
+	// Boom 2009-3-3: add UT and IT counting info
+	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalUtCases);
+	m_lblUtCases->SetLabel(strTemp);
+	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalUtDefects);
+	m_lblUtDefects->SetLabel(strTemp);
+	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalItCases);
+	m_lblItCases->SetLabel(strTemp);
+	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalItDefects);
+	m_lblItDefects->SetLabel(strTemp);
 
 //    wxMessageBox(pCountingFileInfo->m_strFileFullPath);
 //    wxMessageBox(pCountingFileInfo->m_strFileName);

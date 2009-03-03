@@ -2,7 +2,7 @@
  * @file CountingParam.h
  * @brief CountingParam.h: interface for the CountingParam class.
  * @author Boom( boomworks@gmail.com )
- * @author Copyright(C) 2004-2005 BoomWorks.Net , All right reserved.
+ * @author Copyright(C) 2004-2005 boomworks.org , All right reserved.
  * @date 2005-11-23
  * $Revision: $
  */
@@ -70,6 +70,12 @@ public:
 public:
 
 	int m_nCountingMethodType;		///< when code and comment in one line
+
+	// Add UT and IT density param on 2009-3-3
+	int m_nUtCaseDensity;		///< Unit Testing case density
+	int m_nUtDefectDensity;		///< Unit Testing defect density
+	int m_nItCaseDensity;		///< Intefration Testing case density
+	int m_nItDefectDensity;		///< Integration Testing defect density
 
     int m_nLinesPerMM;      ///< Code production of one man-month
     int m_nDaysPerMM;       ///< Days per man-month

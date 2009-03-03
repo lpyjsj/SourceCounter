@@ -2,7 +2,7 @@
  * @file CountingInfo.cpp
  * @brief implementation of the CountingInfo class.
  * @author Boom( boomworks@gmail.com )
- * @author Copyright(C) 2004-2005 BoomWorks.Net , All right reserved.
+ * @author Copyright(C) 2004-2005 boomworks.org , All right reserved.
  * @date 2005-12-10
  * $Revision: $
  */
@@ -27,11 +27,38 @@ CountingInfo::CountingInfo() :
 		m_nTotalCommentStatement( 0 ),
 		m_nTotalBlankStatement( 0 ),
 		m_fTotalManMonth(0.0),
-		m_fTotalCost(0.0)
+		m_fTotalCost(0.0),
+		m_fTotalUtCases(0.0),
+		m_fTotalUtDefects(0.0),
+		m_fTotalItCases(0.0),
+		m_fTotalItDefects(0.0)
 {}
 
 CountingInfo::~CountingInfo()
 {
+	clearArrCountingFileInfo();
+}
+
+void CountingInfo::Clear()
+{
+    m_nTotalFile = 0;
+    m_nTotalSize = 0;
+
+    m_nTotalStatement			= 0;
+    m_nTotalCodeStatement		= 0;
+    m_nTotalCommentStatement	= 0;
+    m_nTotalBlankStatement		= 0;
+
+    m_fTotalManMonth		= 0.0;
+    m_fTotalCost			= 0.0;
+
+	// Boom: add UT and IT counting information on 2009-3-3
+	m_fTotalUtCases			= 0.0;
+	m_fTotalUtDefects		= 0.0;
+	m_fTotalItCases			= 0.0;
+	m_fTotalItDefects		= 0.0;
+
+	// Clear fileinfo array
 	clearArrCountingFileInfo();
 }
 
@@ -49,22 +76,4 @@ void CountingInfo::clearArrCountingFileInfo()
     }
 
     m_arrCountingFileInfo.Clear();
-
-}
-
-void CountingInfo::Clear()
-{
-    m_nTotalFile = 0;
-    m_nTotalSize = 0;
-
-    m_nTotalStatement			= 0;
-    m_nTotalCodeStatement		= 0;
-    m_nTotalCommentStatement	= 0;
-    m_nTotalBlankStatement		= 0;
-
-    m_fTotalManMonth		= 0.0;
-    m_fTotalCost			= 0.0;
-
-	// Clear fileinfo array
-	clearArrCountingFileInfo();
 }

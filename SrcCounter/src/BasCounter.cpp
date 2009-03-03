@@ -2,7 +2,7 @@
  * @file BasCounter.cpp
  * @brief VbsCounter.cpp: implementation of the CVbsCounter class.
  * @author Boom( boomworks@hotmail.com )
- * @author Copyright(C) 2004-2005 BoomWorks.Net , All right reserved.
+ * @author Copyright(C) 2004-2005 boomworks.org , All right reserved.
  * @date 2005-11-25
  * $Revision: $
  */

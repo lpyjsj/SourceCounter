@@ -2,7 +2,7 @@
  * @file CountingFileInfo.h
  * @brief CountingFileInfo.h: interface for the CountingFileInfo class.
  * @author Boom( boomworks@gmail.com )
- * @author Copyright(C) 2004-2005 BoomWorks.Net , All right reserved.
+ * @author Copyright(C) 2004-2005 boomworks.org , All right reserved.
  * @date 2005-11-23
  * $Revision: $
  */
@@ -57,6 +57,12 @@ public:
 
 	float		m_nManDay;		///< Source code man-days
 	float		m_nCost;		///< Cost of source code
+
+	// Boom: add UT and IT counting Info on 2009-3-3
+	float		m_fUtCase;
+	float		m_fUtDefect;
+	float		m_fItCase;
+	float		m_fItDefect;
 };
 
 inline void CountingFileInfo::Clear()
@@ -75,6 +81,12 @@ inline void CountingFileInfo::Clear()
 
 	m_nManDay	= 0.0;
 	m_nCost		= 0.0;
+
+	// Boom: add UT and IT counting info on 2009-3-3
+	m_fUtCase = 0.0;
+	m_fUtDefect = 0.0;
+	m_fItCase = 0.0;
+	m_fItDefect = 0.0;
 }
 
 

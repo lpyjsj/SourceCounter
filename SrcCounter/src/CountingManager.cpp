@@ -2,7 +2,7 @@
  * @file CountingManager.cpp
  * @brief CountingManager.cpp: implementation of the CountingManager class.
  * @author Boom( boomworks@gmail.com )
- * @author Copyright(C) 2004-2005 BoomWorks.Net , All right reserved.
+ * @author Copyright(C) 2004-2005 boomworks.org , All right reserved.
  * @date 2005-11-23
  * $Revision: $
  */
@@ -32,7 +32,7 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 
 /* Source types number */
-const int N_COLUMN_NUM = 10;
+const int N_COLUMN_NUM = 14;
 
 /* Source type */
 const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
@@ -46,10 +46,14 @@ const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
     _("Blank lines"),       // 6
     _("Size"),              // 7
     _("Man-Day"),			// 8
-    _("Cost")				// 9
+    _("Cost"),				// 9
+    _("UT Cases"),			// 10
+    _("UT Defects"),		// 11
+	_("IT Cases"),			// 12
+    _("IT Defects")			// 13
 };
 
-const wxString CSZ_CSV_HEADER_FORMAT = _T( "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" );
+const wxString CSZ_CSV_HEADER_FORMAT = _T( "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" );
 
 //////////////////////////////////////////////////////////////////////
 
@@ -426,7 +430,6 @@ void CountingManager::StartCounting()
                 pCounter->Counting( pCountingFileInfoCur, m_countingParam);
 
                 ///////////////////////////////////////////////////////
-
                 m_countingInfo.AddCountingFileInfo(pCountingFileInfoCur);
 
                 // total statistic infomation
@@ -440,6 +443,11 @@ void CountingManager::StartCounting()
                 m_countingInfo.m_fTotalManMonth				+= (float)pCountingFileInfoCur->m_nManDay / (float)m_countingParam.m_settingParam.m_nDaysPerMM;
                 m_countingInfo.m_fTotalCost					+= (float)pCountingFileInfoCur->m_nCost;
 
+				// Boom: add UT and IT counting information
+				m_countingInfo.m_fTotalUtCases				+= pCountingFileInfoCur->m_fUtCase;
+				m_countingInfo.m_fTotalUtDefects			+= pCountingFileInfoCur->m_fUtDefect;
+				m_countingInfo.m_fTotalItCases				+= pCountingFileInfoCur->m_fItCase;
+				m_countingInfo.m_fTotalItDefects			+= pCountingFileInfoCur->m_fItDefect;
                 ///////////////////////////////////////////////////////
 
                 // Notify UI to update counting info
@@ -551,9 +559,12 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
     file.AddLine(_T("# *** Author: boomworks@hotmail.com *** "));
     file.AddLine(_T( "\n" ));
 
+	// Header
     strText.Printf( CSZ_CSV_HEADER_FORMAT, CSZ_COLUMN_NAMES[2], CSZ_COLUMN_NAMES[0], CSZ_COLUMN_NAMES[1],
                     CSZ_COLUMN_NAMES[3], CSZ_COLUMN_NAMES[4], CSZ_COLUMN_NAMES[5], CSZ_COLUMN_NAMES[6],
-                    CSZ_COLUMN_NAMES[7], CSZ_COLUMN_NAMES[8], CSZ_COLUMN_NAMES[9] );
+                    CSZ_COLUMN_NAMES[7], CSZ_COLUMN_NAMES[8], CSZ_COLUMN_NAMES[9], CSZ_COLUMN_NAMES[10],
+                    CSZ_COLUMN_NAMES[11], CSZ_COLUMN_NAMES[12], CSZ_COLUMN_NAMES[13], CSZ_COLUMN_NAMES[14]
+                    );
     file.AddLine( strText );
 
     ///////////////////////////////////////////////////////////////////
@@ -575,9 +586,10 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
         strText = pFileInfo->m_strFolderPath +_T(",")+  pFileInfo->m_strFileName +_T(",")+ pFileInfo->m_strFileExtName;
 
         strTemp.Empty();
-        strTemp.Printf(_T(",%d,%d,%d,%d,%d,%2.2f,%2.2f"), pFileInfo->m_nTotalStatement, pFileInfo->m_nCodeStatement,
+        strTemp.Printf(_T(",%d,%d,%d,%d,%d,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f"), pFileInfo->m_nTotalStatement, pFileInfo->m_nCodeStatement,
                        pFileInfo->m_nCommentStatement, pFileInfo->m_nBlankStatement, pFileInfo->m_nSize,
-                       pFileInfo->m_nManDay, pFileInfo->m_nCost);
+                       pFileInfo->m_nManDay, pFileInfo->m_nCost,
+                       pFileInfo->m_fUtCase, pFileInfo->m_fUtDefect, pFileInfo->m_fItCase, pFileInfo->m_fItDefect);
 
 //        strText.Printf( CSZ_CSV_FORMAT_STR,
 //                        pFileInfo->m_strFileName, pFileInfo->m_strFileExtName, pFileInfo->m_strFolderPath,
@@ -617,6 +629,16 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
     strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[9], m_countingInfo.m_fTotalCost);
     file.AddLine(strTotal);
 
-    // save
+	// Boom: add UT and IT counint info on 2009-3-3
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[10], m_countingInfo.m_fTotalUtCases);
+    file.AddLine(strTotal);
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[11], m_countingInfo.m_fTotalUtDefects);
+    file.AddLine(strTotal);
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[12], m_countingInfo.m_fTotalItCases);
+    file.AddLine(strTotal);
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[13], m_countingInfo.m_fTotalItDefects);
+    file.AddLine(strTotal);
+
+    // Save and close
     file.Write();
 }
