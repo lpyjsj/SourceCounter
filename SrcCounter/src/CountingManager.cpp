@@ -87,6 +87,9 @@ void CountingManager::SetCountingParam( CountingParam* pParam )
     m_countingParam.m_settingParam.m_nCountingMethodType	= pParam->m_settingParam.m_nCountingMethodType;
 }
 
+/**
+ * Add support source code type
+ */
 Counter* CountingManager::CreateCounter(wxString strFileExtName)
 {
     Counter* pCounter = 0;
@@ -108,9 +111,11 @@ Counter* CountingManager::CreateCounter(wxString strFileExtName)
         }
     }
     else if (0 == strFileExtName.CmpNoCase(_T(".cpp")) || 0 == strFileExtName.CmpNoCase(_T(".cxx"))
+			 || 0 == strFileExtName.CmpNoCase(_T(".cc") ) || 0 == strFileExtName.CmpNoCase(_T(".c"))
+			 || 0 == strFileExtName.CmpNoCase(_T(".hhp") ) || 0 == strFileExtName.CmpNoCase(_T(".hh"))
              || 0 == strFileExtName.CmpNoCase(_T(".h") ) || 0 == strFileExtName.CmpNoCase(_T(".java"))
              || 0 == strFileExtName.CmpNoCase(_T(".tlh")) || 0 == strFileExtName.CmpNoCase(_T(".tli"))
-             || 0 == strFileExtName.CmpNoCase(_T(".cs")) || 0 == strFileExtName.CmpNoCase(_T(".c")) )
+             || 0 == strFileExtName.CmpNoCase(_T(".cs")) )
     {
         it = m_mapStrToCounter.find(_T(".cpp"));
         if (it != m_mapStrToCounter.end())
@@ -182,6 +187,7 @@ Counter* CountingManager::CreateCounter(wxString strFileExtName)
     }
     else
     { // TxtCounter for the other type files
+    	// rc, txt,
         it = m_mapStrToCounter.find(_T(".txt"));
         if (it != m_mapStrToCounter.end())
         { // Find instance in the pCount map
