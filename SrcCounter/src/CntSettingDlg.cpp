@@ -18,7 +18,6 @@ const long CntSettingDlg::ID_STATICTEXT6 = wxNewId();
 const long CntSettingDlg::ID_STATICTEXT8 = wxNewId();
 const long CntSettingDlg::ID_SPINCTRL3 = wxNewId();
 const long CntSettingDlg::ID_STATICTEXT7 = wxNewId();
-const long CntSettingDlg::ID_STATICLINE2 = wxNewId();
 const long CntSettingDlg::ID_STATICTEXT11 = wxNewId();
 const long CntSettingDlg::ID_SPINCTRL4 = wxNewId();
 const long CntSettingDlg::ID_STATICTEXT13 = wxNewId();
@@ -58,10 +57,10 @@ CntSettingDlg::CntSettingDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
 	wxBoxSizer* BoxSizer9;
 	wxStaticBoxSizer* StaticBoxSizer1;
 	wxBoxSizer* BoxSizer3;
-	
+
 	Create(parent, wxID_ANY, _("More settings dialog"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
-	wxString __wxRadioBoxChoices_1[3] = 
+	wxString __wxRadioBoxChoices_1[3] =
 	{
 	_("Code lines +1, comment lines +1"),
 	_("Code lines +1, comment lines +0"),
@@ -88,8 +87,6 @@ CntSettingDlg::CntSettingDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
 	StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("Defects/KLOC"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT7"));
 	BoxSizer7->Add(StaticText7, 1, wxTOP|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticBoxSizer2->Add(BoxSizer7, 1, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	StaticLine2 = new wxStaticLine(this, ID_STATICLINE2, wxDefaultPosition, wxSize(10,-1), wxLI_HORIZONTAL, _T("ID_STATICLINE2"));
-	StaticBoxSizer2->Add(StaticLine2, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer9 = new wxBoxSizer(wxHORIZONTAL);
 	StaticText11 = new wxStaticText(this, ID_STATICTEXT11, _("Integration testing case density:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT11"));
 	BoxSizer9->Add(StaticText11, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -150,7 +147,7 @@ CntSettingDlg::CntSettingDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
 	BoxSizer1->Fit(this);
 	BoxSizer1->SetSizeHints(this);
 	Center();
-	
+
 	Connect(ID_RADIOBOX1,wxEVT_COMMAND_RADIOBOX_SELECTED,(wxObjectEventFunction)&CntSettingDlg::OnRdbCountingMethodSelect);
 	Connect(wxID_OK,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CntSettingDlg::OnBtnOkClick);
 	Connect(wxID_CANCEL,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CntSettingDlg::OnBtnCancelClick);
@@ -164,7 +161,7 @@ CntSettingDlg::~CntSettingDlg()
 	//*)
 }
 
-void CntSettingDlg::SetSettingParam(SettingParam* pParam)
+void CntSettingDlg::SetSettingParam(SettingParam* pParam) //In
 {
     m_settingParam.m_nCountingMethodType = pParam->m_nCountingMethodType;
 
@@ -205,7 +202,7 @@ void CntSettingDlg::OnInit(wxInitDialogEvent& event)
     m_txtCost->SetValue(strTemp);
 }
 
-void CntSettingDlg::GetSettingParam(SettingParam& param)
+void CntSettingDlg::GetSettingParam(SettingParam& param) //Out
 {
     //
     param.m_nCountingMethodType = m_settingParam.m_nCountingMethodType;

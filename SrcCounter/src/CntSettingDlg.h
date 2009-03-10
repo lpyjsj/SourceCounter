@@ -14,7 +14,6 @@
 #endif
 //(*Headers(CntSettingDlg)
 #include <wx/spinctrl.h>
-#include <wx/statline.h>
 //*)
 
 #include "CountingParam.h"
@@ -43,7 +42,6 @@ class CntSettingDlg: public wxDialog
 		wxComboBox* m_cmbLinesPerMM;
 		wxButton* Button2;
 		wxTextCtrl* m_txtCost;
-		wxStaticLine* StaticLine2;
 		wxSpinCtrl* m_spinItDefectDensity;
 		wxStaticText* StaticText5;
 		wxStaticText* StaticText7;
@@ -68,7 +66,6 @@ class CntSettingDlg: public wxDialog
 		static const long ID_STATICTEXT8;
 		static const long ID_SPINCTRL3;
 		static const long ID_STATICTEXT7;
-		static const long ID_STATICLINE2;
 		static const long ID_STATICTEXT11;
 		static const long ID_SPINCTRL4;
 		static const long ID_STATICTEXT13;
