@@ -1,3 +1,0 @@
-icon_file ICON "img/DesktopAssistant.ico"
-
-#include "wx/msw/wx.rc"
