@@ -9,6 +9,10 @@ Counter::~Counter()
 {
     //dtor
 }
+
+/**
+ * Template method paterrn
+ */
 void Counter::Counting(CountingFileInfo* countingFileInfo, CountingParam& countingParam)
 {
     m_nLineCountingType = countingParam.m_settingParam.m_nCountingMethodType;
