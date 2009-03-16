@@ -113,13 +113,13 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
     wxMenuItem* m_menuItemOpenDir;
-
+    
     Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
     BoxSizer4 = new wxBoxSizer(wxVERTICAL);
     StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Source code &folder:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT2"));
-    BoxSizer4->Add(StaticText2, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer4->Add(StaticText2, 0, wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
     BoxSizer14 = new wxBoxSizer(wxHORIZONTAL);
     m_lbxSrcFolder = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxSize(387,80), 0, 0, wxLB_SINGLE, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
@@ -266,7 +266,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-
+    
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,(wxObjectEventFunction)&SourceCounterDialog::OnLbxSrcFolderCheck);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnAddDirClick);
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnDeleteClick);

@@ -1,7 +1,4 @@
 
-#include "wx_pch.h"
-#include "SrcTypeSelDlg.h"
-
 #ifndef WX_PRECOMP
 //(*InternalHeadersPCH(SrcTypeSelDlg)
 #include <wx/intl.h>
@@ -9,9 +6,12 @@
 //*)
 #endif
 
+#include "wx_pch.h"
+#include "SrcTypeSelDlg.h"
+#include "CounterRuleDlg.h"
+
 //(*InternalHeaders(SrcTypeSelDlg)
 //*)
-
 
 /* Source types number */
 const int N_SRC_TYPE_NUM = 28;
@@ -66,6 +66,10 @@ const wxChar* CSZ_SRC_TYPES[N_SRC_TYPE_NUM] =
 const long SrcTypeSelDlg::ID_STATICTEXT1 = wxNewId();
 const long SrcTypeSelDlg::ID_CHECKLISTBOX1 = wxNewId();
 const long SrcTypeSelDlg::ID_CHECKBOX1 = wxNewId();
+const long SrcTypeSelDlg::ID_BUTTON1 = wxNewId();
+const long SrcTypeSelDlg::ID_BUTTON2 = wxNewId();
+const long SrcTypeSelDlg::ID_BUTTON3 = wxNewId();
+const long SrcTypeSelDlg::ID_STATICLINE1 = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(SrcTypeSelDlg,wxDialog)
@@ -78,28 +82,43 @@ SrcTypeSelDlg::SrcTypeSelDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
     //(*Initialize(SrcTypeSelDlg)
     wxBoxSizer* BoxSizer2;
     wxBoxSizer* BoxSizer1;
+    wxBoxSizer* BoxSizer3;
 
     Create(parent, wxID_ANY, _("Select types dialog"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("&Select source file types for counting:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     BoxSizer1->Add(StaticText1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_lbxSrcTypes = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxSize(180,200), 0, 0, 0, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
-    BoxSizer1->Add(m_lbxSrcTypes, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    m_ckbSelAll = new wxCheckBox(this, ID_CHECKBOX1, _("Select &all file types"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
+    BoxSizer1->Add(m_lbxSrcTypes, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
+    m_ckbSelAll = new wxCheckBox(this, ID_CHECKBOX1, _("&Select all file types"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
     m_ckbSelAll->SetValue(false);
-    BoxSizer1->Add(m_ckbSelAll, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(m_ckbSelAll, 0, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer3->Add(0,0,1, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_btnAdd = new wxButton(this, ID_BUTTON1, _("&Add"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
+    BoxSizer3->Add(m_btnAdd, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_btnEdit = new wxButton(this, ID_BUTTON2, _("&Edit"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
+    m_btnEdit->Disable();
+    BoxSizer3->Add(m_btnEdit, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_btnDel = new wxButton(this, ID_BUTTON3, _("&Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
+    m_btnDel->Disable();
+    BoxSizer3->Add(m_btnDel, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer1->Add(BoxSizer3, 0, wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticLine1 = new wxStaticLine(this, ID_STATICLINE1, wxDefaultPosition, wxSize(10,-1), wxLI_HORIZONTAL, _T("ID_STATICLINE1"));
+    BoxSizer1->Add(StaticLine1, 0, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
-    m_btnOk = new wxButton(this, wxID_OK, _("&OK"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_OK"));
+    m_btnOk = new wxButton(this, wxID_OK, _("&OK"), wxDefaultPosition, wxSize(-1,-1), 0, wxDefaultValidator, _T("wxID_OK"));
     BoxSizer2->Add(m_btnOk, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_btnCancel = new wxButton(this, wxID_CANCEL, _("&Cancel"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_CANCEL"));
     BoxSizer2->Add(m_btnCancel, 2, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    BoxSizer1->Add(BoxSizer2, 0, wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer1->Add(BoxSizer2, 0, wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
     SetSizer(BoxSizer1);
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
 
     Connect(ID_CHECKBOX1,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::Onm_ckbSelAllClick);
+    Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::OnBtnAddClick);
     Connect(wxID_OK,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::OnBtnOkClick);
     Connect(wxID_CANCEL,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::OnBtnCancelClick);
     Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&SrcTypeSelDlg::OnInit);
@@ -160,4 +179,10 @@ void SrcTypeSelDlg::Onm_ckbSelAllClick(wxCommandEvent& event)
     {
         m_lbxSrcTypes->Check(i, bChecked);
     }
+}
+
+void SrcTypeSelDlg::OnBtnAddClick(wxCommandEvent& event)
+{
+	CounterRuleDlg dlg(this);
+	dlg.ShowModal();
 }

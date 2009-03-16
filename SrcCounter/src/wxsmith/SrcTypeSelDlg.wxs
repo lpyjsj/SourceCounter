@@ -20,14 +20,55 @@
 				</object>
 				<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 				<border>5</border>
-				<option>1</option>
 			</object>
 			<object class="sizeritem">
-				<object class="wxCheckBox" name="ID_CHECKBOX1" variable="m_ckbSelAll" member="yes">
-					<label>Select &amp;all file types</label>
-					<handler function="Onm_ckbSelAllClick" entry="EVT_CHECKBOX" />
+				<object class="wxBoxSizer" variable="BoxSizer3" member="no">
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX1" variable="m_ckbSelAll" member="yes">
+							<label>&amp;Select all file types</label>
+							<handler function="Onm_ckbSelAllClick" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+					<object class="spacer">
+						<flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+					<object class="sizeritem">
+						<object class="wxButton" name="ID_BUTTON1" variable="m_btnAdd" member="yes">
+							<label>&amp;Add</label>
+							<handler function="OnBtnAddClick" entry="EVT_BUTTON" />
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxButton" name="ID_BUTTON2" variable="m_btnEdit" member="yes">
+							<label>&amp;Edit</label>
+							<enabled>0</enabled>
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxButton" name="ID_BUTTON3" variable="m_btnDel" member="yes">
+							<label>&amp;Delete</label>
+							<enabled>0</enabled>
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
 				</object>
-				<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+				<flag>wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+				<border>5</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxStaticLine" name="ID_STATICLINE1" variable="StaticLine1" member="yes">
+					<size>10,-1</size>
+				</object>
+				<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 				<border>5</border>
 			</object>
 			<object class="sizeritem">
@@ -35,6 +76,7 @@
 					<object class="sizeritem">
 						<object class="wxButton" name="wxID_OK" variable="m_btnOk" member="yes">
 							<label>&amp;OK</label>
+							<size>-1,-1</size>
 							<handler function="OnBtnOkClick" entry="EVT_BUTTON" />
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -51,7 +93,7 @@
 						<option>2</option>
 					</object>
 				</object>
-				<flag>wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+				<flag>wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
 				<border>5</border>
 			</object>
 		</object>

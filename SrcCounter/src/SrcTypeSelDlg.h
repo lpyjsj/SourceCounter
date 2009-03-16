@@ -13,6 +13,7 @@
 #endif
 
 //(*Headers(SrcTypeSelDlg)
+#include <wx/statline.h>
 //*)
 
 class SrcTypeSelDlg: public wxDialog
@@ -23,10 +24,14 @@ public:
     virtual ~SrcTypeSelDlg();
 
     //(*Declarations(SrcTypeSelDlg)
+    wxButton* m_btnEdit;
     wxStaticText* StaticText1;
+    wxButton* m_btnAdd;
     wxCheckBox* m_ckbSelAll;
     wxCheckListBox* m_lbxSrcTypes;
     wxButton* m_btnCancel;
+    wxStaticLine* StaticLine1;
+    wxButton* m_btnDel;
     wxButton* m_btnOk;
     //*)
 
@@ -41,6 +46,10 @@ protected:
     static const long ID_STATICTEXT1;
     static const long ID_CHECKLISTBOX1;
     static const long ID_CHECKBOX1;
+    static const long ID_BUTTON1;
+    static const long ID_BUTTON2;
+    static const long ID_BUTTON3;
+    static const long ID_STATICLINE1;
     //*)
 
 private:
@@ -50,6 +59,7 @@ private:
     void OnInit(wxInitDialogEvent& event);
     void OnBtnOkClick(wxCommandEvent& event);
     void Onm_ckbSelAllClick(wxCommandEvent& event);
+    void OnBtnAddClick(wxCommandEvent& event);
     //*)
 
 

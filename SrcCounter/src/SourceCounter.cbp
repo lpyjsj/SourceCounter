@@ -76,6 +76,8 @@
 		<Unit filename="Counter.h" />
 		<Unit filename="CounterObserver.cpp" />
 		<Unit filename="CounterObserver.h" />
+		<Unit filename="CounterRuleDlg.cpp" />
+		<Unit filename="CounterRuleDlg.h" />
 		<Unit filename="CountingFileInfo.cpp" />
 		<Unit filename="CountingFileInfo.h" />
 		<Unit filename="CountingInfo.cpp" />
@@ -129,6 +131,7 @@
 					<wxDialog wxs="wxsmith/AboutDlg.wxs" src="AboutDlg.cpp" hdr="AboutDlg.h" name="AboutDlg" language="CPP" />
 					<wxDialog wxs="wxsmith/CntSettingDlg.wxs" src="CntSettingDlg.cpp" hdr="CntSettingDlg.h" name="CntSettingDlg" language="CPP" />
 					<wxDialog wxs="wxsmith/SrcTypeSelDlg.wxs" src="SrcTypeSelDlg.cpp" hdr="SrcTypeSelDlg.h" name="SrcTypeSelDlg" language="CPP" />
+					<wxDialog wxs="wxsmith/CounterRuleDlg.wxs" src="CounterRuleDlg.cpp" hdr="CounterRuleDlg.h" name="CounterRuleDlg" language="CPP" />
 				</resources>
 			</wxsmith>
 			<AutoVersioning>
