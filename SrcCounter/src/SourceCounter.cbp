@@ -76,6 +76,8 @@
 		<Unit filename="Counter.h" />
 		<Unit filename="CounterObserver.cpp" />
 		<Unit filename="CounterObserver.h" />
+		<Unit filename="CounterRule.cpp" />
+		<Unit filename="CounterRule.h" />
 		<Unit filename="CounterRuleDlg.cpp" />
 		<Unit filename="CounterRuleDlg.h" />
 		<Unit filename="CountingFileInfo.cpp" />

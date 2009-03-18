@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rules>
+  <rule>
+    <index>1</index>
+    <type>c</type>
+    <desc>C style</desc>
+      <extension>
+        <name>.cpp</name>
+        <desc>c plus plus source file.</desc>
+      </extension>
+      <extension>
+        <name>.java</name>
+        <desc>java source file.</desc>
+      </extension>
+  </rule>
+  <rule>
+    <index>2</index>
+    <type>basic</type>
+    <desc>Basic style</desc>
+      <extension>
+        <name>.vb</name>
+        <desc>vb source file.</desc>
+      </extension>
+      <extension>
+        <name>.vbs</name>
+        <desc>vbs source file.</desc>
+      </extension>
+  </rule>
+    <rule>
+    <index>2</index>
+    <type>txt</type>
+    <desc>Text file</desc>
+      <extension>
+        <name>.txt</name>
+        <desc>txt file.</desc>
+      </extension>
+      <extension>
+        <name>.rc</name>
+        <desc>rc file.</desc>
+      </extension>
+  </rule>
+</rules>
