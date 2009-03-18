@@ -113,7 +113,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
     wxMenuItem* m_menuItemOpenDir;
-    
+
     Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
@@ -266,7 +266,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,(wxObjectEventFunction)&SourceCounterDialog::OnLbxSrcFolderCheck);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnAddDirClick);
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnDeleteClick);
@@ -370,6 +370,7 @@ void SourceCounterDialog::OnBtnSelSrcTypeClick(wxCommandEvent& event)
 {
     //
     SrcTypeSelDlg dlg(this);
+	dlg.SetMapData(m_pCountingMgr->GetCunterRules());
 
     if (wxID_OK == dlg.ShowModal())
     {
@@ -685,6 +686,9 @@ void SourceCounterDialog::OnInit(wxInitDialogEvent& event)
 {
 	if(!m_pCountingMgr)
 		m_pCountingMgr = new CountingManager();
+
+	// Load rule xml file date etc.
+	m_pCountingMgr->Init();
 
     for (int i=0; i<N_COLUMN_NUM; i++)
     {

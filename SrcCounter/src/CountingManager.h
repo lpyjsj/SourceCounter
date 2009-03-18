@@ -18,8 +18,178 @@
 #include "CountingParam.h"
 #include "CountingInfo.h"
 #include "CounterObserver.h"
+#include "CounterRule.h"
 
-//////////////////////////////////////////////////////////////////////////
+#include <wx/xml/xml.h>
+#include <wx/wfstream.h>
+
+// write string to output:
+inline static void OutputString(wxOutputStream& stream, const wxString& str,
+                                wxMBConv *convMem = NULL,
+                                wxMBConv *convFile = NULL)
+{
+    if (str.empty())
+        return;
+
+#if wxUSE_UNICODE
+    wxUnusedVar(convMem);
+
+    const wxWX2MBbuf buf(str.mb_str(*(convFile ? convFile : &wxConvUTF8)));
+    stream.Write((const char*)buf, strlen((const char*)buf));
+#else // !wxUSE_UNICODE
+    if ( convFile && convMem )
+    {
+        wxString str2(str.wc_str(*convMem), *convFile);
+        stream.Write(str2.mb_str(), str2.Len());
+    }
+    else // no conversions to do
+    {
+        stream.Write(str.mb_str(), str.Len());
+    }
+#endif // wxUSE_UNICODE/!wxUSE_UNICODE
+}
+
+// flags for OutputStringEnt()
+enum
+{
+    XML_ESCAPE_QUOTES = 1
+};
+
+// Same as above, but create entities first.
+// Translates '<' to "&lt;", '>' to "&gt;" and '&' to "&amp;"
+static void OutputStringEnt(wxOutputStream& stream, const wxString& str,
+                            wxMBConv *convMem = NULL,
+                            wxMBConv *convFile = NULL,
+                            int flags = 0)
+{
+    wxString buf;
+    size_t i, last, len;
+    wxChar c;
+
+    len = str.Len();
+    last = 0;
+    for (i = 0; i < len; i++)
+    {
+        c = str.GetChar(i);
+        if (c == wxT('<') || c == wxT('>') ||
+                (c == wxT('&') && str.Mid(i+1, 4) != wxT("amp;")) ||
+                ((flags & XML_ESCAPE_QUOTES) && c == wxT('"')))
+        {
+            OutputString(stream, str.Mid(last, i - last), convMem, convFile);
+            switch (c)
+            {
+            case wxT('<'):
+                OutputString(stream, wxT("&lt;"));
+                break;
+            case wxT('>'):
+                OutputString(stream, wxT("&gt;"));
+                break;
+            case wxT('&'):
+                OutputString(stream, wxT("&amp;"));
+                break;
+            case wxT('"'):
+                OutputString(stream, wxT("&quot;"));
+                break;
+            default:
+                break;
+            }
+            last = i + 1;
+        }
+    }
+    OutputString(stream, str.Mid(last, i - last), convMem, convFile);
+}
+
+inline static void OutputIndentation(wxOutputStream& stream, int indent)
+{
+    wxString str = wxT("\n");
+    for (int i = 0; i < indent; i++)
+        str << wxT(' ') << wxT(' ');
+    OutputString(stream, str);
+}
+
+static void OutputNode(wxOutputStream& stream, wxXmlNode *node, int indent,
+                       wxMBConv *convMem, wxMBConv *convFile, int indentstep)
+{
+    wxXmlNode *n, *prev;
+    wxXmlProperty *prop;
+
+    switch (node->GetType())
+    {
+    case wxXML_CDATA_SECTION_NODE:
+        OutputString( stream, wxT("<![CDATA["));
+        OutputString( stream, node->GetContent() );
+        OutputString( stream, wxT("]]>") );
+        break;
+
+    case wxXML_TEXT_NODE:
+        OutputStringEnt(stream, node->GetContent(), convMem, convFile);
+        break;
+
+    case wxXML_ELEMENT_NODE:
+        OutputString(stream, wxT("<"));
+        OutputString(stream, node->GetName());
+
+        prop = node->GetProperties();
+        while (prop)
+        {
+            OutputString(stream, wxT(" ") + prop->GetName() +  wxT("=\""));
+            OutputStringEnt(stream, prop->GetValue(), convMem, convFile,
+                            XML_ESCAPE_QUOTES);
+            OutputString(stream, wxT("\""));
+            prop = prop->GetNext();
+        }
+
+        if (node->GetChildren())
+        {
+            OutputString(stream, wxT(">"));
+            prev = NULL;
+            n = node->GetChildren();
+            while (n)
+            {
+                if (indentstep >= 0 && n && n->GetType() != wxXML_TEXT_NODE)
+                    OutputIndentation(stream, indent + indentstep);
+                OutputNode(stream, n, indent + indentstep, convMem, convFile, indentstep);
+                prev = n;
+                n = n->GetNext();
+            }
+            if (indentstep >= 0 && prev && prev->GetType() != wxXML_TEXT_NODE)
+                OutputIndentation(stream, indent);
+            OutputString(stream, wxT("</"));
+            OutputString(stream, node->GetName());
+            OutputString(stream, wxT(">"));
+        }
+        else
+            OutputString(stream, wxT("/>"));
+        break;
+
+    case wxXML_COMMENT_NODE:
+        OutputString(stream, wxT("<!--"));
+        OutputString(stream, node->GetContent(), convMem, convFile);
+        OutputString(stream, wxT("-->"));
+        break;
+
+    default:
+        wxFAIL_MSG(wxT("unsupported node type"));
+    }
+}
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+class wxXmlDocumentEx: public wxXmlDocument
+{
+public:
+
+    // Saves document as .xml file.
+    virtual bool Save(const wxString& filename, int indentstep = 1) const;
+    virtual bool Save(wxOutputStream& stream, int indentstep = 1) const;
+
+};
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 
 /** Source types number */
 extern const int N_COLUMN_NUM;
@@ -39,7 +209,12 @@ enum NManagerStatus
 //typedef CMap<int, int, CCounter*, CCounter*&> MapStrToCounter;
 WX_DECLARE_STRING_HASH_MAP( Counter*, MapStrToCounter);
 
-//////////////////////////////////////////////////////////////////////////
+//WX_DEFINE_ARRAY(CounterRule*, ArrayCounterRule);
+WX_DECLARE_STRING_HASH_MAP( CounterRule*, MapStrToCounterRule);
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 
 /**
  * @class CountingManager
@@ -64,6 +239,11 @@ public:
 public:
 
     /**
+     * Initiation
+     */
+    void Init();
+
+    /**
      * set statistic condition.
      *
      * @param pParam statistic condition object
@@ -73,7 +253,12 @@ public:
     /**
      * Get counting parameters
      */
-    CountingParam*    GetCountingParam(void) {return &m_countingParam;}
+    CountingParam*    GetCountingParam(void)
+    {
+        return &m_countingParam;
+    }
+
+	MapStrToCounterRule* GetCunterRules() { return &m_mapStrToCounterRule;}
 
     /**
      * Create counter by source file extend name.
@@ -108,8 +293,8 @@ public:
      */
     void SetStatus( NManagerStatus nStatus );
 
-	//
-	// Strating and stop counting method
+    //
+    // Strating and stop counting method
 
     /**
      * start statistic source files.
@@ -146,19 +331,36 @@ public:
 
 private:
 
-	// Counter pointer section
+    // Counter pointer section
     CCounterObserver*		m_pObserver;		///< Observer for counting
     MapStrToCounter		    m_mapStrToCounter;  ///< Hashmap for store counter pointer
 
-	// Counting parameter and result information section
+    // Counting parameter and result information section
     CountingParam		    m_countingParam;	///< Counting parametera
     CountingInfo			m_countingInfo;		///< preserver statistic infomation
 
-	// Counting status info
+    // Counting status info
     BOOL					m_bStopCounting;	///< stop statistic flag
     NManagerStatus			m_countingStatus;	///< statistic status
 
+    // Rule xml data
+    wxXmlDocumentEx 		m_docRules;
+    wxXmlNode*				m_pRoot;
+
+    // CounterRule
+	MapStrToCounterRule		m_mapStrToCounterRule; ///< Hashmap for store counterRule pointer
+
     //////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Load rule data from xml file
+     */
+    void loadRules();
+
+    /**
+     * Save rule data to xml file
+     */
+    void saveRules();
 
     /**
      * Add sub folder to arraylist for counting.

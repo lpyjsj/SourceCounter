@@ -16,6 +16,8 @@
 #include <wx/statline.h>
 //*)
 
+#include "CountingManager.h"
+
 class SrcTypeSelDlg: public wxDialog
 {
 public:
@@ -40,6 +42,9 @@ public:
     void GetSrcTypes(wxString& strSrcTypes) { strSrcTypes = m_strSrcTypes; }
     void SetSrcTypes(wxString strSrcTypes);
 
+
+    void SetMapData(MapStrToCounterRule* pMapRule) { m_pMapRule = pMapRule; }
+
 protected:
 
     //(*Identifiers(SrcTypeSelDlg)
@@ -60,10 +65,15 @@ private:
     void OnBtnOkClick(wxCommandEvent& event);
     void Onm_ckbSelAllClick(wxCommandEvent& event);
     void OnBtnAddClick(wxCommandEvent& event);
+    void OnLbxSrcTypesSelect(wxCommandEvent& event);
     //*)
 
 
     wxString m_strSrcTypes;
+
+	MapStrToCounterRule* m_pMapRule;
+    ///////////////////////////////////////////////////////////////////
+    void updateButtons();
 
     DECLARE_EVENT_TABLE()
 };

@@ -29,7 +29,59 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-//////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+bool wxXmlDocumentEx::Save(const wxString& filename, int indentstep) const
+{
+    wxFileOutputStream stream(filename);
+    if (!stream.Ok())
+        return false;
+    return Save(stream, indentstep);
+}
+
+bool wxXmlDocumentEx::Save(wxOutputStream& stream, int indentstep) const
+{
+    if ( !IsOk() )
+        return false;
+
+    wxString s;
+
+    wxMBConv *convMem = NULL, *convFile;
+
+#if wxUSE_UNICODE
+    convFile = new wxCSConv(GetFileEncoding());
+    convMem = NULL;
+#else
+    if ( GetFileEncoding().CmpNoCase(GetEncoding()) != 0 )
+    {
+        convFile = new wxCSConv(GetFileEncoding());
+        convMem = new wxCSConv(GetEncoding());
+    }
+    else // file and in-memory encodings are the same, no conversion needed
+    {
+        convFile =
+            convMem = NULL;
+    }
+#endif
+
+    s.Printf(wxT("<?xml version=\"%s\" encoding=\"%s\"?>\n"),
+             GetVersion().c_str(), GetFileEncoding().c_str());
+    OutputString(stream, s);
+
+    OutputNode(stream, GetRoot(), 0, convMem, convFile, indentstep);
+    OutputString(stream, wxT("\n"));
+
+    delete convFile;
+    delete convMem;
+
+    return true;
+}
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 
 /* Source types number */
 const int N_COLUMN_NUM = 14;
@@ -49,17 +101,21 @@ const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
     _("Cost"),				// 9
     _("UT Cases"),			// 10
     _("UT Defects"),		// 11
-	_("IT Cases"),			// 12
+    _("IT Cases"),			// 12
     _("IT Defects")			// 13
 };
 
 const wxString CSZ_CSV_HEADER_FORMAT = _T( "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" );
 
+/* Counter rule data file */
+const wxString CSZ_RULES_DATA_XML = _T("rules.xml");
+
 //////////////////////////////////////////////////////////////////////
 
 CountingManager::CountingManager() :
         m_pObserver( 0 ),
-        m_countingStatus( NManagerStatusNormal )
+        m_countingStatus( NManagerStatusNormal ),
+        m_pRoot(0)
 {}
 
 CountingManager::~CountingManager()
@@ -75,6 +131,103 @@ CountingManager::~CountingManager()
     }
     //
     m_mapStrToCounter.clear();
+}
+
+void CountingManager::Init()
+{
+    //
+    loadRules();
+}
+
+void CountingManager::loadRules()
+{
+    if (!m_docRules.Load(CSZ_RULES_DATA_XML))
+        return;
+
+    // start processing the XML file
+    m_pRoot = m_docRules.GetRoot();
+    if (m_pRoot->GetName() != _T("rules"))
+        return;
+
+    wxXmlNode* pChild = m_pRoot->GetChildren();
+    wxXmlNode* pChildChild = 0;
+    wxXmlNode* pChildChildChild = 0;
+    CounterRule* pRule = 0;
+    while (pChild)
+    {
+        if (pChild->GetName() != _T("rule"))
+            break;
+
+        pChildChild = pChild->GetChildren();
+        wxString strIndex, strType, strDesc, strExtName, strExtDesc;
+        pRule = new CounterRule();
+
+        while (pChildChild)
+        {
+            if (pChildChild->GetName() == _T("index"))
+            {// Index
+                strIndex = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == _T("type"))
+            {// Type
+                strType = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == _T("desc"))
+            {// Desc
+                strDesc = pChildChild->GetNodeContent();
+            }
+
+
+
+            if (pChildChild->GetName() == _T("extension"))
+            {// Extensions
+                pChildChildChild = pChildChild->GetChildren();
+
+                while (pChildChildChild)
+                {
+                    if (pChildChildChild->GetName() == _T("name"))
+                    {
+                        strExtName = pChildChildChild->GetNodeContent();
+                    }
+
+                    if (pChildChildChild->GetName() == _T("desc"))
+                    {
+                        strExtDesc = pChildChildChild->GetNodeContent();
+                    }
+
+
+                    // Next
+                    pChildChildChild = pChildChildChild->GetNext();
+                }// End while
+
+
+                // New fileExtension pointer, and add fileExt to rule object
+                FileExtension* pFileExt = new FileExtension(strExtName, strType, strExtDesc);
+                pRule->AddFileExtension(pFileExt);
+
+            }
+
+            //
+            pChildChild = pChildChild->GetNext();
+        }
+
+
+        // New rule point and add to map
+        //pRule = new CounterRule(strType, strDesc);
+        pRule->m_strType = strType;
+        pRule->m_strDesc = strDesc;
+        m_mapStrToCounterRule[strType] = pRule;
+
+        //
+        pChild = pChild->GetNext();
+    }
+
+}
+
+void CountingManager::saveRules()
+{
 }
 
 void CountingManager::SetCountingParam( CountingParam* pParam )
@@ -111,8 +264,8 @@ Counter* CountingManager::CreateCounter(wxString strFileExtName)
         }
     }
     else if (0 == strFileExtName.CmpNoCase(_T(".cpp")) || 0 == strFileExtName.CmpNoCase(_T(".cxx"))
-			 || 0 == strFileExtName.CmpNoCase(_T(".cc") ) || 0 == strFileExtName.CmpNoCase(_T(".c"))
-			 || 0 == strFileExtName.CmpNoCase(_T(".hhp") ) || 0 == strFileExtName.CmpNoCase(_T(".hh"))
+             || 0 == strFileExtName.CmpNoCase(_T(".cc") ) || 0 == strFileExtName.CmpNoCase(_T(".c"))
+             || 0 == strFileExtName.CmpNoCase(_T(".hhp") ) || 0 == strFileExtName.CmpNoCase(_T(".hh"))
              || 0 == strFileExtName.CmpNoCase(_T(".h") ) || 0 == strFileExtName.CmpNoCase(_T(".java"))
              || 0 == strFileExtName.CmpNoCase(_T(".tlh")) || 0 == strFileExtName.CmpNoCase(_T(".tli"))
              || 0 == strFileExtName.CmpNoCase(_T(".cs")) )
@@ -187,7 +340,7 @@ Counter* CountingManager::CreateCounter(wxString strFileExtName)
     }
     else
     { // TxtCounter for the other type files
-    	// rc, txt,
+        // rc, txt,
         it = m_mapStrToCounter.find(_T(".txt"));
         if (it != m_mapStrToCounter.end())
         { // Find instance in the pCount map
@@ -449,11 +602,11 @@ void CountingManager::StartCounting()
                 m_countingInfo.m_fTotalManMonth				+= (float)pCountingFileInfoCur->m_nManDay / (float)m_countingParam.m_settingParam.m_nDaysPerMM;
                 m_countingInfo.m_fTotalCost					+= (float)pCountingFileInfoCur->m_nCost;
 
-				// Boom: add UT and IT counting information
-				m_countingInfo.m_fTotalUtCases				+= pCountingFileInfoCur->m_fUtCase;
-				m_countingInfo.m_fTotalUtDefects			+= pCountingFileInfoCur->m_fUtDefect;
-				m_countingInfo.m_fTotalItCases				+= pCountingFileInfoCur->m_fItCase;
-				m_countingInfo.m_fTotalItDefects			+= pCountingFileInfoCur->m_fItDefect;
+                // Boom: add UT and IT counting information
+                m_countingInfo.m_fTotalUtCases				+= pCountingFileInfoCur->m_fUtCase;
+                m_countingInfo.m_fTotalUtDefects			+= pCountingFileInfoCur->m_fUtDefect;
+                m_countingInfo.m_fTotalItCases				+= pCountingFileInfoCur->m_fItCase;
+                m_countingInfo.m_fTotalItDefects			+= pCountingFileInfoCur->m_fItDefect;
                 ///////////////////////////////////////////////////////
 
                 // Notify UI to update counting info
@@ -565,12 +718,12 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
     file.AddLine(_T("# *** Author: boomworks@hotmail.com *** "));
     file.AddLine(_T( "\n" ));
 
-	// Header
+    // Header
     strText.Printf( CSZ_CSV_HEADER_FORMAT, CSZ_COLUMN_NAMES[2], CSZ_COLUMN_NAMES[0], CSZ_COLUMN_NAMES[1],
                     CSZ_COLUMN_NAMES[3], CSZ_COLUMN_NAMES[4], CSZ_COLUMN_NAMES[5], CSZ_COLUMN_NAMES[6],
                     CSZ_COLUMN_NAMES[7], CSZ_COLUMN_NAMES[8], CSZ_COLUMN_NAMES[9], CSZ_COLUMN_NAMES[10],
                     CSZ_COLUMN_NAMES[11], CSZ_COLUMN_NAMES[12], CSZ_COLUMN_NAMES[13], CSZ_COLUMN_NAMES[14]
-                    );
+                  );
     file.AddLine( strText );
 
     ///////////////////////////////////////////////////////////////////
@@ -635,7 +788,7 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
     strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[9], m_countingInfo.m_fTotalCost);
     file.AddLine(strTotal);
 
-	// Boom: add UT and IT counint info on 2009-3-3
+    // Boom: add UT and IT counint info on 2009-3-3
     strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[10], m_countingInfo.m_fTotalUtCases);
     file.AddLine(strTotal);
     strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[11], m_countingInfo.m_fTotalUtDefects);
