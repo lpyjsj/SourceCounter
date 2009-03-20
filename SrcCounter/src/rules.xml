@@ -3,40 +3,40 @@
   <rule>
     <index>1</index>
     <type>c</type>
-    <desc>C style</desc>
+    <desc>C/C++/JAVA source style</desc>
       <extension>
         <name>.cpp</name>
         <desc>c plus plus source file.</desc>
       </extension>
       <extension>
         <name>.java</name>
-        <desc>java source file.</desc>
+        <desc>JAVA source file.</desc>
       </extension>
   </rule>
   <rule>
     <index>2</index>
     <type>basic</type>
-    <desc>Basic style</desc>
+    <desc>Basic source style</desc>
       <extension>
         <name>.vb</name>
-        <desc>vb source file.</desc>
+        <desc>VB source file.</desc>
       </extension>
       <extension>
         <name>.vbs</name>
-        <desc>vbs source file.</desc>
+        <desc>VBScript source file.</desc>
       </extension>
   </rule>
     <rule>
-    <index>2</index>
+    <index>3</index>
     <type>txt</type>
-    <desc>Text file</desc>
+    <desc>Text file style</desc>
       <extension>
         <name>.txt</name>
-        <desc>txt file.</desc>
+        <desc>Plain text file.</desc>
       </extension>
       <extension>
         <name>.rc</name>
-        <desc>rc file.</desc>
+        <desc>RC file.</desc>
       </extension>
   </rule>
 </rules>
