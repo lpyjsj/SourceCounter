@@ -370,7 +370,7 @@ void SourceCounterDialog::OnBtnSelSrcTypeClick(wxCommandEvent& event)
 {
     //
     SrcTypeSelDlg dlg(this);
-	dlg.SetMapData(m_pCountingMgr->GetCunterRules());
+	dlg.SetMapData(m_pCountingMgr->GetCounterRules());
 
     if (wxID_OK == dlg.ShowModal())
     {

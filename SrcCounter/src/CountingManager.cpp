@@ -205,7 +205,7 @@ void CountingManager::loadRules()
 
                 // New fileExtension pointer, and add fileExt to rule object
                 FileExtension* pFileExt = new FileExtension(strExtName, strType, strExtDesc);
-                pRule->AddFileExtension(pFileExt);
+                m_mapFileExtension[strExtName] = pFileExt;
 
             }
 
@@ -218,7 +218,7 @@ void CountingManager::loadRules()
         //pRule = new CounterRule(strType, strDesc);
         pRule->m_strType = strType;
         pRule->m_strDesc = strDesc;
-        m_mapStrToCounterRule[strType] = pRule;
+        m_mapCounterRule[strType] = pRule;
 
         //
         pChild = pChild->GetNext();
@@ -228,6 +228,20 @@ void CountingManager::loadRules()
 
 void CountingManager::saveRules()
 {
+}
+
+FileExtension* CountingManager::FindFileExtension(wxString& strFileExt)
+{
+    FileExtension* pFileExt = 0;
+    MapStrToFileExtension::iterator it;
+
+    it = m_mapFileExtension.find( strFileExt );
+    if (it != m_mapFileExtension.end())
+    { // Find instance in map
+        pFileExt = it->second;
+    }
+
+    return pFileExt;
 }
 
 void CountingManager::SetCountingParam( CountingParam* pParam )

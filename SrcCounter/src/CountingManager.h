@@ -210,8 +210,8 @@ enum NManagerStatus
 WX_DECLARE_STRING_HASH_MAP( Counter*, MapStrToCounter);
 
 //WX_DEFINE_ARRAY(CounterRule*, ArrayCounterRule);
-WX_DECLARE_STRING_HASH_MAP( CounterRule*, MapStrToCounterRule);
-
+WX_DECLARE_STRING_HASH_MAP(CounterRule*, MapStrToCounterRule);		///< Hashmap for CouterRule obj
+WX_DECLARE_STRING_HASH_MAP(FileExtension*, MapStrToFileExtension);	///< Hashmap for FileExtension obj
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -258,7 +258,11 @@ public:
         return &m_countingParam;
     }
 
-	MapStrToCounterRule* GetCunterRules() { return &m_mapStrToCounterRule;}
+	MapStrToCounterRule* GetCounterRules() 			{ return &m_mapCounterRule; }
+	MapStrToFileExtension* GetFileExtensions() 		{ return &m_mapFileExtension; }
+
+	FileExtension* FindFileExtension(wxString& strFileExt);
+
 
     /**
      * Create counter by source file extend name.
@@ -348,7 +352,9 @@ private:
     wxXmlNode*				m_pRoot;
 
     // CounterRule
-	MapStrToCounterRule		m_mapStrToCounterRule; ///< Hashmap for store counterRule pointer
+	MapStrToCounterRule		m_mapCounterRule; ///< Hashmap for store counter rule obj
+	MapStrToFileExtension	m_mapFileExtension;		///< Hashmap for store file extension obj
+
 
     //////////////////////////////////////////////////////////////////////////
 

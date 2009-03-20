@@ -22,7 +22,7 @@ public:
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
-WX_DECLARE_STRING_HASH_MAP(FileExtension*, MapStrToFileExtension);
+
 //WX_DECLARE_STRING_HASH_MAP( Counter*, MapStrToCounter);
 
 ///////////////////////////////////////////////////////////////////////
@@ -37,14 +37,7 @@ public:
     //
     wxString m_strType;
     wxString m_strDesc;
-    MapStrToFileExtension m_mapStrToFileExtension;
 
-    //
-    void AddFileExtension(FileExtension* pFileExt)
-    {
-        m_mapStrToFileExtension[pFileExt->m_strName] = pFileExt;
-    }
-    FileExtension* FindFileExtension(wxString& strFileExt);
 
 protected:
 private:

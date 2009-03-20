@@ -66,6 +66,8 @@ private:
     void Onm_ckbSelAllClick(wxCommandEvent& event);
     void OnBtnAddClick(wxCommandEvent& event);
     void OnLbxSrcTypesSelect(wxCommandEvent& event);
+    void OnBtnEditClick(wxCommandEvent& event);
+    void OnBtnDelClick(wxCommandEvent& event);
     //*)
 
 
@@ -73,6 +75,7 @@ private:
 
 	MapStrToCounterRule* m_pMapRule;
     ///////////////////////////////////////////////////////////////////
+    void updateSrcTypeLbx();
     void updateButtons();
 
     DECLARE_EVENT_TABLE()

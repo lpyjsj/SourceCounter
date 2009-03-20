@@ -17,6 +17,7 @@
 			<object class="sizeritem">
 				<object class="wxCheckListBox" name="ID_CHECKLISTBOX1" variable="m_lbxSrcTypes" member="yes">
 					<size>180,200</size>
+					<style>wxLB_HSCROLL</style>
 					<handler function="OnLbxSrcTypesSelect" entry="EVT_LISTBOX" />
 				</object>
 				<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -49,6 +50,7 @@
 						<object class="wxButton" name="ID_BUTTON2" variable="m_btnEdit" member="yes">
 							<label>&amp;Edit</label>
 							<enabled>0</enabled>
+							<handler function="OnBtnEditClick" entry="EVT_BUTTON" />
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
@@ -57,6 +59,7 @@
 						<object class="wxButton" name="ID_BUTTON3" variable="m_btnDel" member="yes">
 							<label>&amp;Delete</label>
 							<enabled>0</enabled>
+							<handler function="OnBtnDelClick" entry="EVT_BUTTON" />
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
