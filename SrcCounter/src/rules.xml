@@ -1,42 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rules>
   <rule>
-    <index>1</index>
-    <type>c</type>
-    <desc>C/C++/JAVA source style</desc>
-      <extension>
-        <name>.cpp</name>
-        <desc>c plus plus source file.</desc>
-      </extension>
-      <extension>
-        <name>.java</name>
-        <desc>JAVA source file.</desc>
-      </extension>
+    <extension>
+      <ruletype>PHP</ruletype>
+      <desc>PHP file.</desc>
+      <name>.php3</name>
+    </extension>
+    <extension>
+      <ruletype>PHP</ruletype>
+      <desc>PHP file.</desc>
+      <name>.php</name>
+    </extension>
+    <multi-line-comment-end>*/</multi-line-comment-end>
+    <multi-line-comment-begin>/*</multi-line-comment-begin>
+    <single-line-comment>//</single-line-comment>
+    <desc>PHP source style</desc>
+    <type>PHP</type>
   </rule>
   <rule>
-    <index>2</index>
-    <type>basic</type>
-    <desc>Basic source style</desc>
-      <extension>
-        <name>.vb</name>
-        <desc>VB source file.</desc>
-      </extension>
-      <extension>
-        <name>.vbs</name>
-        <desc>VBScript source file.</desc>
-      </extension>
+    <extension>
+      <ruletype>C</ruletype>
+      <desc>C++ source file.</desc>
+      <name>.cxx</name>
+    </extension>
+    <extension>
+      <ruletype>C</ruletype>
+      <desc>C++ header file.</desc>
+      <name>.hpp</name>
+    </extension>
+    <extension>
+      <ruletype>C</ruletype>
+      <desc>Tlh file.</desc>
+      <name>.tlh</name>
+    </extension>
+    <extension>
+      <ruletype>C</ruletype>
+      <desc>C source file.</desc>
+      <name>.cc</name>
+    </extension>
+    <extension>
+      <ruletype>C</ruletype>
+      <desc>C header file.</desc>
+      <name>.hh</name>
+    </extension>
+    <extension>
+      <ruletype>C</ruletype>
+      <desc>Tli file.</desc>
+      <name>.tli</name>
+    </extension>
+    <extension>
+      <ruletype>C</ruletype>
+      <desc>C source file.</desc>
+      <name>.c</name>
+    </extension>
+    <extension>
+      <ruletype>C</ruletype>
+      <desc>JAVA source file.</desc>
+      <name>.java</name>
+    </extension>
+    <extension>
+      <ruletype>C</ruletype>
+      <desc>C/C++ source file.</desc>
+      <name>.cpp</name>
+    </extension>
+    <extension>
+      <ruletype>C</ruletype>
+      <desc>C# source file.</desc>
+      <name>.cs</name>
+    </extension>
+    <extension>
+      <ruletype>C</ruletype>
+      <desc>C/C++ header file.</desc>
+      <name>.h</name>
+    </extension>
+    <multi-line-comment-end>*/</multi-line-comment-end>
+    <multi-line-comment-begin>/*</multi-line-comment-begin>
+    <single-line-comment>//</single-line-comment>
+    <desc>C/C++/JAVA/C# source style</desc>
+    <type>C</type>
   </rule>
-    <rule>
-    <index>3</index>
-    <type>txt</type>
+  <rule>
+    <extension>
+      <ruletype>Text</ruletype>
+      <desc>HTML file.</desc>
+      <name>.html</name>
+    </extension>
+    <extension>
+      <ruletype>Text</ruletype>
+      <desc>HTML file.</desc>
+      <name>.htm</name>
+    </extension>
+    <extension>
+      <ruletype>Text</ruletype>
+      <desc>Resource file.</desc>
+      <name>.rc</name>
+    </extension>
+    <extension>
+      <ruletype>Text</ruletype>
+      <desc>SQL file.</desc>
+      <name>.sql</name>
+    </extension>
+    <extension>
+      <ruletype>Text</ruletype>
+      <desc>Delphi form define file.</desc>
+      <name>.dfm</name>
+    </extension>
+    <multi-line-comment-end></multi-line-comment-end>
+    <multi-line-comment-begin></multi-line-comment-begin>
+    <single-line-comment></single-line-comment>
     <desc>Text file style</desc>
-      <extension>
-        <name>.txt</name>
-        <desc>Plain text file.</desc>
-      </extension>
-      <extension>
-        <name>.rc</name>
-        <desc>RC file.</desc>
-      </extension>
+    <type>Text</type>
+  </rule>
+  <rule>
+    <extension>
+      <ruletype>JSP</ruletype>
+      <desc>JSP file.</desc>
+      <name>.jsp</name>
+    </extension>
+    <multi-line-comment-end>*/</multi-line-comment-end>
+    <multi-line-comment-begin>/*</multi-line-comment-begin>
+    <single-line-comment>//</single-line-comment>
+    <desc>JSP source style.</desc>
+    <type>JSP</type>
+  </rule>
+  <rule>
+    <extension>
+      <ruletype>ASPX</ruletype>
+      <desc>Aspx file.</desc>
+      <name>.aspx</name>
+    </extension>
+    <extension>
+      <ruletype>ASPX</ruletype>
+      <desc>Asp file.</desc>
+      <name>.asp</name>
+    </extension>
+    <multi-line-comment-end></multi-line-comment-end>
+    <multi-line-comment-begin></multi-line-comment-begin>
+    <single-line-comment>'</single-line-comment>
+    <desc>ASPX source style</desc>
+    <type>ASPX</type>
+  </rule>
+  <rule>
+    <extension>
+      <ruletype>Pascal</ruletype>
+      <desc>Delphi pascal source file.</desc>
+      <name>.pas</name>
+    </extension>
+    <multi-line-comment-end>}</multi-line-comment-end>
+    <multi-line-comment-begin>{</multi-line-comment-begin>
+    <single-line-comment>//</single-line-comment>
+    <desc>Pascal source style</desc>
+    <type>Pascal</type>
+  </rule>
+  <rule>
+    <extension>
+      <ruletype>Basic</ruletype>
+      <desc>Frm file.</desc>
+      <name>.frm</name>
+    </extension>
+    <extension>
+      <ruletype>Basic</ruletype>
+      <desc>Ctl file.</desc>
+      <name>.ctl</name>
+    </extension>
+    <extension>
+      <ruletype>Basic</ruletype>
+      <desc>Cls file.</desc>
+      <name>.cls</name>
+    </extension>
+    <extension>
+      <ruletype>Basic</ruletype>
+      <desc>Visual Basic source file.</desc>
+      <name>.vb</name>
+    </extension>
+    <multi-line-comment-end></multi-line-comment-end>
+    <multi-line-comment-begin></multi-line-comment-begin>
+    <single-line-comment>'</single-line-comment>
+    <desc>Basic source style</desc>
+    <type>Basic</type>
   </rule>
 </rules>

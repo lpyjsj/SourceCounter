@@ -9,14 +9,14 @@
 			<orient>wxVERTICAL</orient>
 			<object class="sizeritem">
 				<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
-					<label>&amp;Select source file types for counting:</label>
+					<label>Se&amp;lect source file types for counting:</label>
 				</object>
 				<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 				<border>5</border>
 			</object>
 			<object class="sizeritem">
 				<object class="wxCheckListBox" name="ID_CHECKLISTBOX1" variable="m_lbxSrcTypes" member="yes">
-					<size>180,200</size>
+					<size>180,220</size>
 					<style>wxLB_HSCROLL</style>
 					<handler function="OnLbxSrcTypesSelect" entry="EVT_LISTBOX" />
 				</object>

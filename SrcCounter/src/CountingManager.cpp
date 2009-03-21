@@ -195,8 +195,9 @@ void CountingManager::loadRules()
             break;
 
         pChildChild = pChild->GetChildren();
-        wxString strType, strDesc, strExtName, strExtDesc;
-        pRule = new CounterRule();
+        wxString strType, strDesc;
+        wxString strSlgLnComm, strMltLnCommBegin, strMltLnCommEnd;
+        wxString strExtName, strExtDesc, strExtRuleType;
         while (pChildChild)
         {
             if (pChildChild->GetName() == _T("type"))
@@ -207,6 +208,21 @@ void CountingManager::loadRules()
             if (pChildChild->GetName() == _T("desc"))
             {// Desc
                 strDesc = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == _T("single-line-comment"))
+            {// Single line comment
+				strSlgLnComm = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == _T("multi-line-comment-begin"))
+            {// Single line comment
+				strMltLnCommBegin = pChildChild->GetNodeContent();
+            }
+
+            if (pChildChild->GetName() == _T("multi-line-comment-end"))
+            {// Single line comment
+				strMltLnCommEnd = pChildChild->GetNodeContent();
             }
 
             if (pChildChild->GetName() == _T("extension"))
@@ -225,12 +241,17 @@ void CountingManager::loadRules()
                         strExtDesc = pChildChildChild->GetNodeContent();
                     }
 
+                    if (pChildChildChild->GetName() == _T("ruletype"))
+                    {
+                        strExtRuleType = pChildChildChild->GetNodeContent();
+                    }
+
                     // Next
                     pChildChildChild = pChildChildChild->GetNext();
                 }// End while
 
                 // New fileExtension pointer
-                pFileExt = new FileExtension(strExtName, strType, strExtDesc);
+                pFileExt = new FileExtension(strExtName, strExtRuleType, strExtDesc);
                 m_mapFileExtension[strExtName] = pFileExt;
             }
 
@@ -238,12 +259,21 @@ void CountingManager::loadRules()
             pChildChild = pChildChild->GetNext();
         }
 
+		//
         // New rule point and add to map
+        //
+		pRule = new CounterRule();
+		// Rule propertise
         pRule->m_strType = strType;
         pRule->m_strDesc = strDesc;
+        // Comment
+        pRule->m_strSlgLnComm = strSlgLnComm;
+        pRule->m_strMltLnCommBegin = strMltLnCommBegin;
+        pRule->m_strMltLnCommEnd = strMltLnCommEnd;
+        // Add to map
         m_mapCounterRule[strType] = pRule;
 
-        //
+        // Next
         pChild = pChild->GetNext();
     }
 }
@@ -275,6 +305,9 @@ void CountingManager::saveRules()
             // <type>
             // <desc>
             // <extension>
+            // <single-line-comment>
+            // <multi-line-comment-begin>
+            // <multi-line-comment-end>
             pChildChildTemp = pChildChild->GetNext();
             pChildChildChild = pChildChild->GetChildren();
             while (pChildChildChild)
@@ -282,8 +315,9 @@ void CountingManager::saveRules()
                 if (pChildChildChild->GetName() != _T("extension"))
                     break;
 
-                // name
-                // desc
+                // <name>
+                // <desc>
+                // <ruletype>
                 pChildChildChildTemp = pChildChildChild->GetNext();
 
                 pChildChild->RemoveChild(pChildChildChild);
@@ -333,11 +367,19 @@ void CountingManager::saveRules()
         // <desc>
         wxXmlNode* pNDescTag = new wxXmlNode(pNRuleTag, wxXML_ELEMENT_NODE, _T("desc"));
         wxXmlNode* pNDescVal = new wxXmlNode(pNDescTag, wxXML_TEXT_NODE, _T(""), pRule->m_strDesc);
+        // <single-line-comment>
+        wxXmlNode* pNSlgLnCommTag = new wxXmlNode(pNRuleTag, wxXML_ELEMENT_NODE, _T("single-line-comment"));
+        wxXmlNode* pNSlgLnCommVal = new wxXmlNode(pNSlgLnCommTag, wxXML_TEXT_NODE, _T(""), pRule->m_strSlgLnComm);
+        // <multi-line-comment-begin>
+        wxXmlNode* pNMltLnBeginTag = new wxXmlNode(pNRuleTag, wxXML_ELEMENT_NODE, _T("multi-line-comment-begin"));
+        wxXmlNode* pNMltLnBeginVal = new wxXmlNode(pNMltLnBeginTag, wxXML_TEXT_NODE, _T(""), pRule->m_strMltLnCommBegin);
+		// <multi-line-comment-end>
+        wxXmlNode* pNMltLnEndTag = new wxXmlNode(pNRuleTag, wxXML_ELEMENT_NODE, _T("multi-line-comment-end"));
+        wxXmlNode* pNMltLnEndVal = new wxXmlNode(pNMltLnEndTag, wxXML_TEXT_NODE, _T(""), pRule->m_strMltLnCommEnd);
 
         //
         // Create extension tags
         //
-
         for (ite = m_mapFileExtension.begin(); ite != m_mapFileExtension.end(); ++ite)
         {
             pExt = ite->second;

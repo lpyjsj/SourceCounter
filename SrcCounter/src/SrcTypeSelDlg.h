@@ -84,6 +84,7 @@ private:
 
     ///////////////////////////////////////////////////////////////////
 
+	FileExtension* getSelItemData();
     void updateSrcTypeLbx();
     void updateButtons();
 

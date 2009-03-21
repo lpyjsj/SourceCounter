@@ -34,10 +34,14 @@ public:
     CounterRule(wxString& strType, wxString& strDesc = _T(""));
     virtual ~CounterRule();
 
-    //
+    // Rult propertise
     wxString m_strType;
     wxString m_strDesc;
 
+    // Comment
+    wxString m_strSlgLnComm;
+    wxString m_strMltLnCommBegin;
+    wxString m_strMltLnCommEnd;
 
 protected:
 private:

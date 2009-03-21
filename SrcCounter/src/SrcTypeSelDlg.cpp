@@ -85,12 +85,12 @@ SrcTypeSelDlg::SrcTypeSelDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
     wxBoxSizer* BoxSizer2;
     wxBoxSizer* BoxSizer1;
     wxBoxSizer* BoxSizer3;
-
+    
     Create(parent, wxID_ANY, _("Select types dialog"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
-    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("&Select source file types for counting:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
+    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Se&lect source file types for counting:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     BoxSizer1->Add(StaticText1, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    m_lbxSrcTypes = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxSize(180,200), 0, 0, wxLB_HSCROLL, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
+    m_lbxSrcTypes = new wxCheckListBox(this, ID_CHECKLISTBOX1, wxDefaultPosition, wxSize(180,220), 0, 0, wxLB_HSCROLL, wxDefaultValidator, _T("ID_CHECKLISTBOX1"));
     BoxSizer1->Add(m_lbxSrcTypes, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
     m_ckbSelAll = new wxCheckBox(this, ID_CHECKBOX1, _("&Select all file types"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
@@ -118,7 +118,7 @@ SrcTypeSelDlg::SrcTypeSelDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-
+    
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_LISTBOX_SELECTED,(wxObjectEventFunction)&SrcTypeSelDlg::OnLbxSrcTypesSelect);
     Connect(ID_CHECKBOX1,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::Onm_ckbSelAllClick);
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::OnBtnAddClick);
@@ -159,7 +159,7 @@ void SrcTypeSelDlg::updateSrcTypeLbx()
     for ( itFileExt = m_pMapFileExtension->begin(); itFileExt != m_pMapFileExtension->end(); ++itFileExt)
     {
         pFileExt = itFileExt->second;
-        nIndex = m_lbxSrcTypes->Append(pFileExt->m_strName + _T(" - ") + pFileExt->m_strDesc + _T(" => ") + pFileExt->m_strCounterType);
+        nIndex = m_lbxSrcTypes->Append(pFileExt->m_strName + _T(" - ") + pFileExt->m_strDesc + _T(" ( ") + pFileExt->m_strCounterType + _T(" style )"));
 
         if(pFileExt->m_bSel)
 			m_lbxSrcTypes->Check(nIndex);
@@ -173,9 +173,6 @@ void SrcTypeSelDlg::updateSrcTypeLbx()
 
 void SrcTypeSelDlg::OnBtnOkClick(wxCommandEvent& event)
 {
-    // Get checked item list
-    int nNum = m_lbxSrcTypes->GetCount();
-
 	//
 	// UnSelect fileExt obj
 	//
@@ -184,12 +181,15 @@ void SrcTypeSelDlg::OnBtnOkClick(wxCommandEvent& event)
     for ( it = m_pMapFileExtension->begin(); it != m_pMapFileExtension->end(); ++it )
     {
         pExt = it->second;
-        pExt->m_bSel = false;
+        if (pExt)
+			pExt->m_bSel = false;
     }
 
 	//
 	// Build return src types string
 	//
+
+    int nNum = m_lbxSrcTypes->GetCount();
     wxString strTemp;
     for (int i = 0; i < nNum; i++)
     {
@@ -263,7 +263,21 @@ void SrcTypeSelDlg::OnBtnAddClick(wxCommandEvent& event)
 	dlg.SetRuleData(m_pMapRule, pFileExt);
 
     if( wxID_OK == dlg.ShowModal())
-    {// Add pFileExt obj to FileExtMap
+    {
+    	//
+    	// Check exist
+    	//
+    	MapStrToFileExtension::iterator it;
+    	it = m_pMapFileExtension->find(pFileExt->m_strName);
+    	if(it != m_pMapFileExtension->end())
+		{
+			wxMessageBox(_("Extension has existed!"));
+			return;
+		}
+
+    	//
+    	// Add pFileExt obj to FileExtMap
+		//
 		(*m_pMapFileExtension)[pFileExt->m_strName] = pFileExt;
 
 		//
@@ -275,7 +289,7 @@ void SrcTypeSelDlg::OnBtnAddClick(wxCommandEvent& event)
     }
 }
 
-void SrcTypeSelDlg::OnBtnEditClick(wxCommandEvent& event)
+FileExtension* SrcTypeSelDlg::getSelItemData()
 {
     // Get selected rule
     int nNum = m_lbxSrcTypes->GetCount();
@@ -303,9 +317,14 @@ void SrcTypeSelDlg::OnBtnEditClick(wxCommandEvent& event)
             break;
     }
 
-	//
+    return pFileExt;
+}
+
+void SrcTypeSelDlg::OnBtnEditClick(wxCommandEvent& event)
+{
+	FileExtension* pFileExt = getSelItemData();
     if (!pFileExt)
-        wxMessageBox(_("Rule file data error!"));
+        wxMessageBox(_T("Error!"));
 
     CounterRuleDlg dlg(this, CounterRuleDlg::RuleModeEdit);
     dlg.SetRuleData(m_pMapRule, pFileExt);
@@ -314,10 +333,18 @@ void SrcTypeSelDlg::OnBtnEditClick(wxCommandEvent& event)
     {// Refresh listbox content
         updateSrcTypeLbx();
     }
-
 }
 
 void SrcTypeSelDlg::OnBtnDelClick(wxCommandEvent& event)
 {
-	wxMessageBox(_T("Not implement!"));
+	FileExtension* pFileExt = getSelItemData();
+    if (!pFileExt)
+        wxMessageBox(_T("Error!"));
+
+	m_pMapFileExtension->erase(pFileExt->m_strName);
+
+	delete pFileExt;
+	pFileExt = 0;
+
+	updateSrcTypeLbx();
 }

@@ -12,6 +12,7 @@
 //*)
 #endif
 //(*Headers(CounterRuleDlg)
+#include <wx/statline.h>
 //*)
 
 #include "CountingManager.h"
@@ -44,6 +45,7 @@ public:
     wxStaticText* StaticText5;
     wxStaticText* StaticText7;
     wxButton* m_btnCancel;
+    wxStaticLine* StaticLine1;
     wxComboBox* m_cmbMethod;
     wxTextCtrl* m_txtExtDesc;
     wxTextCtrl* m_txtExtName;
@@ -72,6 +74,7 @@ protected:
     static const long ID_TEXTCTRL4;
     static const long ID_STATICTEXT6;
     static const long ID_TEXTCTRL5;
+    static const long ID_STATICLINE1;
     //*)
 
 private:
