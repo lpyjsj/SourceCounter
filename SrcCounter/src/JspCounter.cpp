@@ -15,6 +15,8 @@ static char THIS_FILE[]=__FILE__;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+wxString JspCounter::ms_strType = _T("JSP");
+
 JspCounter::JspCounter()
 {
 }
@@ -133,7 +135,7 @@ void JspCounter::countingSourceFile(
         }
 
 		///////////////////////////////////////////////////////////////
-    	
+
         if ( bufCurLine.Find( _T( "//" ) ) == -1
                 && bufCurLine.Find( _T( "<%" ) ) == -1
                 && bufCurLine.Find( _T( "%>" ) ) == -1 )

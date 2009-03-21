@@ -8,7 +8,7 @@
 class FileExtension
 {
 public:
-    FileExtension(wxString& strName, wxString& strCounterType = _T("txt"), wxString& strDesc = _T(""), bool bSel = false);
+    FileExtension(wxString& strName, wxString& strCounterType = _T(""), wxString& strDesc = _T(""), bool bSel = false);
     virtual ~FileExtension();
 
     wxString m_strName;

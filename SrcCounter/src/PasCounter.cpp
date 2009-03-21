@@ -23,6 +23,8 @@ static char THIS_FILE[]=__FILE__;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+wxString PascalCounter::ms_strType = _T("Pascal");
+
 PascalCounter::PascalCounter()
 {}
 

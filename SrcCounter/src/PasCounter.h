@@ -46,6 +46,8 @@ public:
 	 * @param nBlankLines blank lines
 	 */
 	virtual void countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
+
+	static wxString ms_strType;
 };
 
 #endif // !defined(AFX_PASCOUNTER_H__0849CEC0_88C4_4F29_8591_0AEDFA9DD605__INCLUDED_)

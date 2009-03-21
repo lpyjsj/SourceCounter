@@ -348,11 +348,11 @@ private:
     NManagerStatus			m_countingStatus;	///< statistic status
 
     // Rule xml data
-    wxXmlDocumentEx 		m_docRules;
-    wxXmlNode*				m_pRoot;
+    wxXmlDocumentEx 		m_docRules;		///< Rule xml doc obj
+    wxXmlNode*				m_pRoot;		///< Rule xml doc root obj
 
     // CounterRule
-	MapStrToCounterRule		m_mapCounterRule; ///< Hashmap for store counter rule obj
+	MapStrToCounterRule		m_mapCounterRule; 		///< Hashmap for store counter rule obj
 	MapStrToFileExtension	m_mapFileExtension;		///< Hashmap for store file extension obj
 
 
@@ -376,7 +376,7 @@ private:
     /**
      * Is counting file
      */
-    bool isCountingFile(wxString& strFileExtName);
+    bool isCountingFile(wxString& strFileExtName/*IN*/, wxString& strCounterType/*OUT*/);
 
     /**
      * get file ext name string.

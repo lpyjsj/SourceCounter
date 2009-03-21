@@ -44,6 +44,7 @@ public:
 	 * @param nBlankLines blank lines
 	 */
 	virtual void countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
+    static wxString ms_strType;
 };
 
 #endif // !defined(AFX_TXTCOUNTER_H__1F68A35F_E30B_4222_AFA3_4F6E39142801__INCLUDED_)

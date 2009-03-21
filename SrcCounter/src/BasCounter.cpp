@@ -20,6 +20,8 @@ static char THIS_FILE[]=__FILE__;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+wxString BasicCounter::ms_strType = _T("Basic");
+
 BasicCounter* BasicCounter::ms_instance = 0;
 
 BasicCounter::BasicCounter()

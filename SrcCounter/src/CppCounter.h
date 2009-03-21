@@ -51,6 +51,8 @@ public:
 	 */
 	virtual void countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
 
+    static wxString ms_strType;
+
 private:
 
 	static CppCounter* ms_instance;		///< static instance

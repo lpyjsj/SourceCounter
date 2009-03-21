@@ -120,7 +120,14 @@ CountingManager::CountingManager() :
 
 CountingManager::~CountingManager()
 {
+    //
+    // Save rule info to xml file
+    //
+    saveRules();
+
+    //
     // Clear counter objs
+    //
     MapStrToCounter::iterator it;
     Counter* pCounter = 0;
     for ( it = m_mapStrToCounter.begin(); it != m_mapStrToCounter.end(); ++it )
@@ -131,6 +138,34 @@ CountingManager::~CountingManager()
     }
     //
     m_mapStrToCounter.clear();
+
+    //
+    // Clear CounterRule map
+    //
+    MapStrToCounterRule::iterator itRule;
+    CounterRule* pRule = 0;
+    for ( itRule = m_mapCounterRule.begin(); itRule != m_mapCounterRule.end(); ++itRule )
+    {
+        pRule = itRule->second;
+        delete pRule ;
+        pRule = 0;
+    }
+    //
+    m_mapCounterRule.clear();
+
+    //
+    // Clear FileExtension map
+    //
+    MapStrToFileExtension::iterator itExt;
+    FileExtension* pExt = 0;
+    for ( itExt = m_mapFileExtension.begin(); itExt != m_mapFileExtension.end(); ++itExt )
+    {
+        pExt = itExt->second;
+        delete pExt ;
+        pExt = 0;
+    }
+    //
+    m_mapFileExtension.clear();
 }
 
 void CountingManager::Init()
@@ -150,25 +185,20 @@ void CountingManager::loadRules()
         return;
 
     wxXmlNode* pChild = m_pRoot->GetChildren();
-    wxXmlNode* pChildChild = 0;
-    wxXmlNode* pChildChildChild = 0;
-    CounterRule* pRule = 0;
+    wxXmlNode* pChildChild 			= 0;
+    wxXmlNode* pChildChildChild 	= 0;
+    CounterRule* pRule 				= 0;
+    FileExtension* pFileExt 		= 0;
     while (pChild)
     {
         if (pChild->GetName() != _T("rule"))
             break;
 
         pChildChild = pChild->GetChildren();
-        wxString strIndex, strType, strDesc, strExtName, strExtDesc;
+        wxString strType, strDesc, strExtName, strExtDesc;
         pRule = new CounterRule();
-
         while (pChildChild)
         {
-            if (pChildChild->GetName() == _T("index"))
-            {// Index
-                strIndex = pChildChild->GetNodeContent();
-            }
-
             if (pChildChild->GetName() == _T("type"))
             {// Type
                 strType = pChildChild->GetNodeContent();
@@ -178,8 +208,6 @@ void CountingManager::loadRules()
             {// Desc
                 strDesc = pChildChild->GetNodeContent();
             }
-
-
 
             if (pChildChild->GetName() == _T("extension"))
             {// Extensions
@@ -197,25 +225,20 @@ void CountingManager::loadRules()
                         strExtDesc = pChildChildChild->GetNodeContent();
                     }
 
-
                     // Next
                     pChildChildChild = pChildChildChild->GetNext();
                 }// End while
 
-
-                // New fileExtension pointer, and add fileExt to rule object
-                FileExtension* pFileExt = new FileExtension(strExtName, strType, strExtDesc);
+                // New fileExtension pointer
+                pFileExt = new FileExtension(strExtName, strType, strExtDesc);
                 m_mapFileExtension[strExtName] = pFileExt;
-
             }
 
             //
             pChildChild = pChildChild->GetNext();
         }
 
-
         // New rule point and add to map
-        //pRule = new CounterRule(strType, strDesc);
         pRule->m_strType = strType;
         pRule->m_strDesc = strDesc;
         m_mapCounterRule[strType] = pRule;
@@ -223,11 +246,122 @@ void CountingManager::loadRules()
         //
         pChild = pChild->GetNext();
     }
-
 }
 
 void CountingManager::saveRules()
 {
+    //
+    // Delete all current nodes
+    //
+    wxXmlNode* pChild = m_pRoot->GetChildren();
+
+    wxXmlNode* pChildTemp 			= 0;
+    wxXmlNode* pChildChild 			= 0;
+    wxXmlNode* pChildChildTemp 		= 0;
+    wxXmlNode* pChildChildChild		= 0;
+    wxXmlNode* pChildChildChildTemp	= 0;
+
+    while (pChild)
+    {
+        // <rule>
+        if (pChild->GetName() != _T("rule"))
+            break;
+
+        pChildTemp = pChild->GetNext();
+        pChildChild = pChild->GetChildren();
+        while (pChildChild)
+        {
+            // <index>
+            // <type>
+            // <desc>
+            // <extension>
+            pChildChildTemp = pChildChild->GetNext();
+            pChildChildChild = pChildChild->GetChildren();
+            while (pChildChildChild)
+            {
+                if (pChildChildChild->GetName() != _T("extension"))
+                    break;
+
+                // name
+                // desc
+                pChildChildChildTemp = pChildChildChild->GetNext();
+
+                pChildChild->RemoveChild(pChildChildChild);
+                delete pChildChildChild;
+
+                pChildChildChild = pChildChildChildTemp;
+            }
+
+            // Delete childchild
+            pChild->RemoveChild(pChildChild);
+            delete pChildChild;
+            pChildChild = 0;
+
+            // Next
+            pChildChild = pChildChildTemp;
+        }
+
+        // Delete child
+        m_pRoot->RemoveChild(pChild);
+        delete pChild;
+        pChild = 0;
+
+        // Next
+        pChild = pChildTemp;
+    }
+
+    //
+    // Add nodes from CounterRuleMap and FileExtensionMap and save to xml file
+    //
+    wxXmlNode* pNRuleTag = 0;
+
+    MapStrToCounterRule::iterator it;
+    CounterRule* pRule = 0;
+    MapStrToFileExtension::iterator ite;
+    FileExtension* pExt = 0;
+    wxString strCounterType;
+    for (it = m_mapCounterRule.begin(); it != m_mapCounterRule.end(); ++it)
+    {
+        pRule = it->second;
+        strCounterType = pRule->m_strType;
+
+        // <rule>
+        pNRuleTag = new wxXmlNode(m_pRoot, wxXML_ELEMENT_NODE, _T("rule"));
+        // <type>
+        wxXmlNode* pNTypeTag = new wxXmlNode(pNRuleTag, wxXML_ELEMENT_NODE, _T("type"));
+        wxXmlNode* pNTypeVal = new wxXmlNode(pNTypeTag, wxXML_TEXT_NODE, _T(""), strCounterType);
+        // <desc>
+        wxXmlNode* pNDescTag = new wxXmlNode(pNRuleTag, wxXML_ELEMENT_NODE, _T("desc"));
+        wxXmlNode* pNDescVal = new wxXmlNode(pNDescTag, wxXML_TEXT_NODE, _T(""), pRule->m_strDesc);
+
+        //
+        // Create extension tags
+        //
+
+        for (ite = m_mapFileExtension.begin(); ite != m_mapFileExtension.end(); ++ite)
+        {
+            pExt = ite->second;
+            if (strCounterType.CmpNoCase(pExt->m_strCounterType) == 0)
+            {
+                // <extension>
+                wxXmlNode* pNExtTag = new wxXmlNode(pNRuleTag, wxXML_ELEMENT_NODE, _T("extension"));
+                // <name>
+                wxXmlNode* pNNameTag = new wxXmlNode(pNExtTag, wxXML_ELEMENT_NODE, _T("name"));
+                wxXmlNode* pNNameVal = new wxXmlNode(pNNameTag, wxXML_TEXT_NODE, _T(""), pExt->m_strName);
+                // <desc>
+                wxXmlNode* pNExtDescTag = new wxXmlNode(pNExtTag, wxXML_ELEMENT_NODE, _T("desc"));
+                wxXmlNode* pNExtDescVal = new wxXmlNode(pNExtDescTag, wxXML_TEXT_NODE, _T(""), pExt->m_strDesc);
+                // <ruletype>
+                wxXmlNode* pNExtRuleTypeTag = new wxXmlNode(pNExtTag, wxXML_ELEMENT_NODE, _T("ruletype"));
+                wxXmlNode* pNExtRuleTypeVal = new wxXmlNode(pNExtRuleTypeTag, wxXML_TEXT_NODE, _T(""), pExt->m_strCounterType);
+            }
+        }
+    }
+
+    //
+    // Save to file.
+    //
+    bool bRet = m_docRules.Save(CSZ_RULES_DATA_XML);
 }
 
 FileExtension* CountingManager::FindFileExtension(wxString& strFileExt)
@@ -257,116 +391,59 @@ void CountingManager::SetCountingParam( CountingParam* pParam )
 /**
  * Add support source code type
  */
-Counter* CountingManager::CreateCounter(wxString strFileExtName)
+Counter* CountingManager::CreateCounter(wxString strCounterType)
 {
     Counter* pCounter = 0;
-    MapStrToCounter::iterator it;
 
-    // TxtConter
-    if (0 == strFileExtName.CmpNoCase(_T(".pas")))
-    {
-        it = m_mapStrToCounter.find(_T(".pas"));
-        if (it != m_mapStrToCounter.end())
-        { // Find instance in the pCount map
-            pCounter = it->second;
-        }
-        else
-        {
-            // PasCounter
-            pCounter = new PascalCounter;
-            m_mapStrToCounter[_T(".pas")] = pCounter;
-        }
-    }
-    else if (0 == strFileExtName.CmpNoCase(_T(".cpp")) || 0 == strFileExtName.CmpNoCase(_T(".cxx"))
-             || 0 == strFileExtName.CmpNoCase(_T(".cc") ) || 0 == strFileExtName.CmpNoCase(_T(".c"))
-             || 0 == strFileExtName.CmpNoCase(_T(".hhp") ) || 0 == strFileExtName.CmpNoCase(_T(".hh"))
-             || 0 == strFileExtName.CmpNoCase(_T(".h") ) || 0 == strFileExtName.CmpNoCase(_T(".java"))
-             || 0 == strFileExtName.CmpNoCase(_T(".tlh")) || 0 == strFileExtName.CmpNoCase(_T(".tli"))
-             || 0 == strFileExtName.CmpNoCase(_T(".cs")) )
-    {
-        it = m_mapStrToCounter.find(_T(".cpp"));
-        if (it != m_mapStrToCounter.end())
-        { // Find instance in the pCount map
-            pCounter = it->second;
-        }
-        else
-        {
-            // CppCounter
-            pCounter = CppCounter::GetInstance();
-            m_mapStrToCounter[_T(".cpp")] = pCounter;
-        }
-    }
-    else if (0 == strFileExtName.CmpNoCase(_T(".vb")) || 0 == strFileExtName.CmpNoCase(_T(".bas"))
-             || 0 == strFileExtName.CmpNoCase(_T(".ctl")) || 0 == strFileExtName.CmpNoCase(_T(".cls"))
-             || 0 == strFileExtName.CmpNoCase(_T(".frm")) )
-    {
-        //
-        it = m_mapStrToCounter.find(_T(".vb"));
-        if (it != m_mapStrToCounter.end())
-        { // Find instance in the pCount map
-            pCounter = it->second;
-        }
-        else
-        {
-            // BasicCounter
-            pCounter = BasicCounter::GetInstance();
-            m_mapStrToCounter[_T(".vb")] = pCounter;
-        }
-    }
-    else if ( 0 == strFileExtName.CmpNoCase(_T(".php")) || 0 == strFileExtName.CmpNoCase(_T(".php3")) )
-    {
-        it = m_mapStrToCounter.find(_T(".php"));
-        if (it != m_mapStrToCounter.end())
-        { // Find instance in the pCount map
-            pCounter = it->second;
-        }
-        else
-        {
-            pCounter = new PhpCounter;
-            m_mapStrToCounter[_T(".php")] = pCounter;
-        }
-    }
-    else if (0 == strFileExtName.CmpNoCase(_T(".asp")) || 0 == strFileExtName.CmpNoCase(_T(".aspx"))  )
-    {
-        it = m_mapStrToCounter.find(_T(".aspx"));
-        if (it != m_mapStrToCounter.end())
-        { // Find instance in the pCount map
-            pCounter = it->second;
-        }
-        else
-        {
-            pCounter = new AspxCounter;
-            m_mapStrToCounter[_T(".aspx")] = pCounter;
-        }
-    }
-    else if (0 == strFileExtName.CmpNoCase(_T(".jsp")) )
-    { // JSP Counter
-        it = m_mapStrToCounter.find(_T(".jsp"));
-        if (it != m_mapStrToCounter.end())
-        { // Find instance in the pCount map
-            pCounter = it->second;
-        }
-        else
-        {
-            pCounter = new JspCounter;
-            m_mapStrToCounter[_T(".jsp")] = pCounter;
-        }
+    MapStrToCounter::iterator it;
+    it = m_mapStrToCounter.find(strCounterType);
+    if (it != m_mapStrToCounter.end())
+    {// Find already created instance in the pCount map
+        pCounter = it->second;
+        return pCounter;
     }
     else
-    { // TxtCounter for the other type files
-        // rc, txt,
-        it = m_mapStrToCounter.find(_T(".txt"));
-        if (it != m_mapStrToCounter.end())
-        { // Find instance in the pCount map
-            pCounter = it->second;
+    {// Not found in map, create
+        if (0 == strCounterType.CmpNoCase(BasicCounter::ms_strType))
+        {// BasCounter
+            pCounter = BasicCounter::GetInstance();
         }
-        else
-        {
+
+        if (0 == strCounterType.CmpNoCase(CppCounter::ms_strType))
+        {// CppCounter
+            pCounter = CppCounter::GetInstance();
+        }
+
+        if (0 == strCounterType.CmpNoCase(PascalCounter::ms_strType))
+        {// PascalCounter
+            pCounter = new PascalCounter;
+        }
+
+        if (0 == strCounterType.CmpNoCase(PhpCounter::ms_strType))
+        {// PhpCounter
+            pCounter = new PhpCounter;
+        }
+
+        if (0 == strCounterType.CmpNoCase(AspxCounter::ms_strType))
+        {// AspxCounter
+            pCounter = new AspxCounter;
+        }
+
+        if (0 == strCounterType.CmpNoCase(JspCounter::ms_strType))
+        {// JspCounter
+            pCounter = new JspCounter;
+        }
+
+        if (0 == strCounterType.CmpNoCase(TxtCounter::ms_strType))
+        {// TxtCounter
             pCounter = new TxtCounter;
-            m_mapStrToCounter[_T(".txt")] = pCounter;
         }
+
+        // Store to map
+        m_mapStrToCounter[strCounterType] = pCounter;
     }
 
+    //
     return pCounter;
 }
 
@@ -584,7 +661,8 @@ void CountingManager::StartCounting()
             getFileExtName(fname, strFileExtName);
 
             // Check whether counting strFileExtName type source code file
-            if (isCountingFile(strFileExtName))
+            wxString strCounterType;
+            if (isCountingFile(strFileExtName, strCounterType))
             {
                 pCountingFileInfoCur = new CountingFileInfo();
 
@@ -596,7 +674,7 @@ void CountingManager::StartCounting()
                                               pCountingFileInfoCur->m_strFolderPath);
 
                 // Create pCounter
-                pCounter = CreateCounter(strFileExtName);
+                pCounter = CreateCounter(strCounterType);
                 assert(pCounter);
 
                 // Counting start...
@@ -647,21 +725,34 @@ void CountingManager::StartCounting()
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
-bool CountingManager::isCountingFile(wxString& strFileExtName)
+bool CountingManager::isCountingFile(wxString& strFileExtName, wxString& strCounterType)
 {
     bool bRet = false;
 
-    int nItemCount = m_countingParam.m_arrSrcType.GetCount();
-    wxString strTemp;
-    for (int i=0; i<nItemCount; i++)
+    MapStrToFileExtension::iterator it;
+    it = m_mapFileExtension.find(strFileExtName);
+    FileExtension* pExt = 0;
+    if (it != m_mapFileExtension.end())
     {
-        strTemp = m_countingParam.m_arrSrcType.Item(i);
-        if (0 == strTemp.CmpNoCase(strFileExtName))
+        pExt = it->second;
+        if (pExt->m_bSel)
         {
+            strCounterType = pExt->m_strCounterType;
             bRet = true;
-            break;
         }
     }
+
+//    int nItemCount = m_countingParam.m_arrSrcType.GetCount();
+//    wxString strTemp;
+//    for (int i=0; i<nItemCount; i++)
+//    {
+//        strTemp = m_countingParam.m_arrSrcType.Item(i);
+//        if (0 == strTemp.CmpNoCase(strFileExtName))
+//        {
+//            bRet = true;
+//            break;
+//        }
+//    }
 
     return bRet;
 }

@@ -1,5 +1,7 @@
 #include "AspxCounter.h"
 
+wxString AspxCounter::ms_strType = _T("Aspx");
+
 AspxCounter::AspxCounter()
 {
     //ctor

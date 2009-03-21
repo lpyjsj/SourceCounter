@@ -32,18 +32,18 @@ public:
     Counter();
     virtual ~Counter();
 
+    //
+    // method
+    //
     int GetnLineCountingType()
     {
         return m_nLineCountingType;
     }
+
     void SetnLineCountingType(int val)
     {
         m_nLineCountingType = val;
     }
-
-    //
-    // method
-    //
 
     /**
      * Counting source file method.
@@ -52,6 +52,8 @@ public:
      * @param nLineCountingType couting method type
      */
     void Counting( CountingFileInfo* countingFileInfo, CountingParam& countingParam);
+
+	///////////////////////////////////////////////////////////////////
 
 protected:
     /**
@@ -68,6 +70,7 @@ protected:
     //////////////////////////////////////////////////////////////////////////
 
     int m_nLineCountingType;    ///<
+
 };
 
 #endif // COUNTER_H

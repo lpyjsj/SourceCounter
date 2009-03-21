@@ -30,6 +30,7 @@ public:
 	 */
 	virtual void countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
 
+    static wxString ms_strType;
 };
 
 #endif // !defined(AFX_JSPCOUNTER_H__BF0BF2A8_B755_4584_A951_0E06761ADC5A__INCLUDED_)

@@ -39,11 +39,18 @@ public:
 
 
     //
-    void GetSrcTypes(wxString& strSrcTypes) { strSrcTypes = m_strSrcTypes; }
-    void SetSrcTypes(wxString strSrcTypes);
+    void GetSrcTypes(wxString& strSrcTypes)
+    {
+        strSrcTypes = m_strSrcTypes;
+    }
+    // void SetSrcTypes(wxString strSrcTypes);
 
 
-    void SetMapData(MapStrToCounterRule* pMapRule) { m_pMapRule = pMapRule; }
+    void SetMapData(MapStrToCounterRule* pMapRule, MapStrToFileExtension* pMapFileExt)
+    {
+        m_pMapRule = pMapRule;
+        m_pMapFileExtension = pMapFileExt;
+    }
 
 protected:
 
@@ -72,9 +79,11 @@ private:
 
 
     wxString m_strSrcTypes;
+    MapStrToCounterRule* m_pMapRule;
+    MapStrToFileExtension* m_pMapFileExtension;
 
-	MapStrToCounterRule* m_pMapRule;
     ///////////////////////////////////////////////////////////////////
+
     void updateSrcTypeLbx();
     void updateButtons();
 

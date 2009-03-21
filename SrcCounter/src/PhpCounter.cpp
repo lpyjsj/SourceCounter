@@ -38,6 +38,8 @@ const wxString CSZ_INTEREST[N_INTEREST_SZ_NUM] =
 
 ///////////////////////////////////////////////////////////////////////
 
+wxString PhpCounter::ms_strType = _T("PHP");
+
 PhpCounter::PhpCounter()
 {
 }

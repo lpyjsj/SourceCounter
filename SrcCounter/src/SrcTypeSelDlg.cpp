@@ -77,7 +77,9 @@ BEGIN_EVENT_TABLE(SrcTypeSelDlg,wxDialog)
     //*)
 END_EVENT_TABLE()
 
-SrcTypeSelDlg::SrcTypeSelDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
+SrcTypeSelDlg::SrcTypeSelDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size):
+        m_pMapRule(0),
+        m_pMapFileExtension(0)
 {
     //(*Initialize(SrcTypeSelDlg)
     wxBoxSizer* BoxSizer2;
@@ -142,44 +144,52 @@ void SrcTypeSelDlg::OnInit(wxInitDialogEvent& event)
 //        m_lbxSrcTypes->Append(CSZ_SRC_TYPES[i]);
 //    }
 
-	updateSrcTypeLbx();
+    updateSrcTypeLbx();
 }
 
 void SrcTypeSelDlg::updateSrcTypeLbx()
 {
-	int nCnt = m_lbxSrcTypes->GetCount();
-	if (nCnt > 0)
-		m_lbxSrcTypes->Clear();
+    int nCnt = m_lbxSrcTypes->GetCount();
+    if (nCnt > 0)
+        m_lbxSrcTypes->Clear();
 
-    MapStrToCounterRule::iterator it;
-    CounterRule* pRule = 0;
     MapStrToFileExtension::iterator itFileExt;
     FileExtension* pFileExt = 0;
-    for ( it = m_pMapRule->begin(); it != m_pMapRule->end(); ++it )
+	int nIndex = 0;
+    for ( itFileExt = m_pMapFileExtension->begin(); itFileExt != m_pMapFileExtension->end(); ++itFileExt)
     {
-        pRule = it->second;
+        pFileExt = itFileExt->second;
+        nIndex = m_lbxSrcTypes->Append(pFileExt->m_strName + _T(" - ") + pFileExt->m_strDesc + _T(" => ") + pFileExt->m_strCounterType);
 
-        if (pRule)
-        {
-            for ( itFileExt = pRule->m_mapStrToFileExtension.begin(); itFileExt != pRule->m_mapStrToFileExtension.end(); ++itFileExt)
-            {
-                pFileExt = itFileExt->second;
-                m_lbxSrcTypes->Append(pFileExt->m_strName + _T(" - ") + pFileExt->m_strDesc + _T(" => ") + pFileExt->m_strCounterType);
-            }
-        }
+        if(pFileExt->m_bSel)
+			m_lbxSrcTypes->Check(nIndex);
     }
 }
 
-void SrcTypeSelDlg::SetSrcTypes(wxString strSrcTypes)
-{
-    m_strSrcTypes = strSrcTypes;
-}
+//void SrcTypeSelDlg::SetSrcTypes(wxString strSrcTypes)
+//{
+//    m_strSrcTypes = strSrcTypes;
+//}
 
 void SrcTypeSelDlg::OnBtnOkClick(wxCommandEvent& event)
 {
     // Get checked item list
     int nNum = m_lbxSrcTypes->GetCount();
 
+	//
+	// UnSelect fileExt obj
+	//
+	MapStrToFileExtension::iterator it;
+	FileExtension* pExt = 0;
+    for ( it = m_pMapFileExtension->begin(); it != m_pMapFileExtension->end(); ++it )
+    {
+        pExt = it->second;
+        pExt->m_bSel = false;
+    }
+
+	//
+	// Build return src types string
+	//
     wxString strTemp;
     for (int i = 0; i < nNum; i++)
     {
@@ -189,8 +199,18 @@ void SrcTypeSelDlg::OnBtnOkClick(wxCommandEvent& event)
             strTemp = m_lbxSrcTypes->GetString(i);
             int index = strTemp.Find(_T('-'));
             strTemp = strTemp.Left(index - 1); // .cpp - : .cpp
-            // strcpy();
+			//
             m_strSrcTypes =  m_strSrcTypes + strTemp + _T(";");
+
+            //
+            // Set pFileExt m_bSel to true
+            //
+			it = m_pMapFileExtension->find(strTemp);
+			if(it != m_pMapFileExtension->end())
+			{
+				pExt = it->second;
+				pExt->m_bSel = true;
+			}
         }
     }
 
@@ -236,8 +256,23 @@ void SrcTypeSelDlg::updateButtons()
 
 void SrcTypeSelDlg::OnBtnAddClick(wxCommandEvent& event)
 {
+	wxString strTemp = _T("tmp");
+	FileExtension* pFileExt = new FileExtension(strTemp, strTemp, strTemp);
+
     CounterRuleDlg dlg(this);
-    dlg.ShowModal();
+	dlg.SetRuleData(m_pMapRule, pFileExt);
+
+    if( wxID_OK == dlg.ShowModal())
+    {// Add pFileExt obj to FileExtMap
+		(*m_pMapFileExtension)[pFileExt->m_strName] = pFileExt;
+
+		//
+		updateSrcTypeLbx();
+    }
+    else
+    {// Delete pFIleExt obj
+    	delete pFileExt;
+    }
 }
 
 void SrcTypeSelDlg::OnBtnEditClick(wxCommandEvent& event)
@@ -257,48 +292,32 @@ void SrcTypeSelDlg::OnBtnEditClick(wxCommandEvent& event)
         }
     }
 
-    // Find rule object in map
-    MapStrToCounterRule::iterator it;
-    CounterRule* pRule = 0;
+    // Find file extension in map
     MapStrToFileExtension::iterator itFileExt;
     FileExtension* pFileExt = 0;
-    bool bFound = false;
-    for ( it = m_pMapRule->begin(); it != m_pMapRule->end(); ++it )
+
+    for ( itFileExt = m_pMapFileExtension->begin(); itFileExt != m_pMapFileExtension->end(); ++itFileExt)
     {
-        pRule = it->second;
-
-        if (pRule)
-        {
-            for ( itFileExt = pRule->m_mapStrToFileExtension.begin(); itFileExt != pRule->m_mapStrToFileExtension.end(); ++itFileExt)
-            {
-                pFileExt = itFileExt->second;
-                if (strTemp.CmpNoCase( pFileExt->m_strName) == 0 )
-                {
-                	bFound = true;
-                    break;
-                }
-            }
-        }
-
-        if(bFound)
-			break;
+        pFileExt = itFileExt->second;
+        if (strTemp.CmpNoCase( pFileExt->m_strName) == 0 )
+            break;
     }
 
-    //
-    if (pFileExt)
-    {
-        CounterRuleDlg dlg(this);
-        dlg.SetRuleData(pFileExt);
+	//
+    if (!pFileExt)
+        wxMessageBox(_("Rule file data error!"));
 
-        if (wxID_OK ==dlg.ShowModal())
-        {// Refresh listbox content
-			updateSrcTypeLbx();
-        }
+    CounterRuleDlg dlg(this, CounterRuleDlg::RuleModeEdit);
+    dlg.SetRuleData(m_pMapRule, pFileExt);
 
+    if (wxID_OK ==dlg.ShowModal())
+    {// Refresh listbox content
+        updateSrcTypeLbx();
     }
 
 }
 
 void SrcTypeSelDlg::OnBtnDelClick(wxCommandEvent& event)
 {
+	wxMessageBox(_T("Not implement!"));
 }

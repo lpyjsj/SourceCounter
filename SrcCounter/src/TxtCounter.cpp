@@ -19,6 +19,8 @@ static char THIS_FILE[]=__FILE__;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+wxString TxtCounter::ms_strType = _T("Text");
+
 TxtCounter::TxtCounter()
 {
 

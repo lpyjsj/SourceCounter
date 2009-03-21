@@ -2,78 +2,94 @@
 #define COUNTERRULEDLG_H
 
 #ifndef WX_PRECOMP
-	//(*HeadersPCH(CounterRuleDlg)
-	#include <wx/sizer.h>
-	#include <wx/stattext.h>
-	#include <wx/textctrl.h>
-	#include <wx/button.h>
-	#include <wx/dialog.h>
-	#include <wx/combobox.h>
-	//*)
+//(*HeadersPCH(CounterRuleDlg)
+#include <wx/sizer.h>
+#include <wx/stattext.h>
+#include <wx/textctrl.h>
+#include <wx/button.h>
+#include <wx/dialog.h>
+#include <wx/combobox.h>
+//*)
 #endif
 //(*Headers(CounterRuleDlg)
 //*)
 
+#include "CountingManager.h"
 #include "CounterRule.h"
 
 class CounterRuleDlg: public wxDialog
 {
-	public:
+public:
 
-		CounterRuleDlg(wxWindow* parent,wxWindowID id=wxID_ANY,const wxPoint& pos=wxDefaultPosition,const wxSize& size=wxDefaultSize);
-		virtual ~CounterRuleDlg();
+    enum RuleMode
+    {
+        RuleModeNew,
+        RuleModeEdit,
+    };
 
-		//(*Declarations(CounterRuleDlg)
-		wxTextCtrl* TextCtrl4;
-		wxStaticText* StaticText2;
-		wxStaticText* StaticText6;
-		wxStaticText* StaticText1;
-		wxStaticText* StaticText3;
-		wxButton* m_btnOK;
-		wxStaticText* StaticText5;
-		wxStaticText* StaticText7;
-		wxButton* m_btnCancel;
-		wxTextCtrl* TextCtrl2;
-		wxTextCtrl* TextCtrl1;
-		wxComboBox* m_cmbMethod;
-		wxTextCtrl* m_txtExtDesc;
-		wxStaticText* StaticText4;
-		wxTextCtrl* TextCtrl3;
-		wxTextCtrl* m_txtExtName;
-		//*)
+    CounterRuleDlg(wxWindow* parent,RuleMode nMode=RuleModeNew, wxWindowID id=wxID_ANY,const wxPoint& pos=wxDefaultPosition,const wxSize& size=wxDefaultSize);
+    virtual ~CounterRuleDlg();
 
-		void SetRuleData(FileExtension* pFileExt) { m_pFileExt = pFileExt; }
+    //(*Declarations(CounterRuleDlg)
+    wxStaticText* StaticText2;
+    wxStaticText* StaticText6;
+    wxTextCtrl* m_txtSlgLnComm;
+    wxStaticText* m_txtSLComm;
+    wxStaticText* StaticText1;
+    wxTextCtrl* m_txtRuleDesc;
+    wxTextCtrl* m_txtMltLnCommBegin;
+    wxStaticText* StaticText3;
+    wxTextCtrl* m_txtMltLnCommEnd;
+    wxButton* m_btnOK;
+    wxStaticText* StaticText5;
+    wxStaticText* StaticText7;
+    wxButton* m_btnCancel;
+    wxComboBox* m_cmbMethod;
+    wxTextCtrl* m_txtExtDesc;
+    wxTextCtrl* m_txtExtName;
+    //*)
 
-	protected:
+    void SetRuleData(MapStrToCounterRule* pMapCounterRule, FileExtension* pFileExt)
+    {
+        m_pMapCounterRule = pMapCounterRule;
+        m_pFileExt = pFileExt;
+    }
 
-		//(*Identifiers(CounterRuleDlg)
-		static const long ID_STATICTEXT1;
-		static const long ID_TEXTCTRL1;
-		static const long ID_STATICTEXT3;
-		static const long ID_TEXTCTRL2;
-		static const long ID_STATICTEXT2;
-		static const long ID_COMBOBOX1;
-		static const long ID_STATICTEXT7;
-		static const long ID_TEXTCTRL6;
-		static const long ID_STATICTEXT4;
-		static const long ID_TEXTCTRL3;
-		static const long ID_STATICTEXT5;
-		static const long ID_TEXTCTRL4;
-		static const long ID_STATICTEXT6;
-		static const long ID_TEXTCTRL5;
-		//*)
+protected:
 
-	private:
+    //(*Identifiers(CounterRuleDlg)
+    static const long ID_STATICTEXT1;
+    static const long ID_TEXTCTRL1;
+    static const long ID_STATICTEXT3;
+    static const long ID_TEXTCTRL2;
+    static const long ID_STATICTEXT2;
+    static const long ID_COMBOBOX1;
+    static const long ID_STATICTEXT7;
+    static const long ID_TEXTCTRL6;
+    static const long ID_STATICTEXT4;
+    static const long ID_TEXTCTRL3;
+    static const long ID_STATICTEXT5;
+    static const long ID_TEXTCTRL4;
+    static const long ID_STATICTEXT6;
+    static const long ID_TEXTCTRL5;
+    //*)
 
-		//(*Handlers(CounterRuleDlg)
-		void OnInit(wxInitDialogEvent& event);
-		void OnBtnOKClick(wxCommandEvent& event);
-		void OnBtnCancelClick(wxCommandEvent& event);
-		//*)
+private:
 
-		FileExtension* m_pFileExt;
+    //(*Handlers(CounterRuleDlg)
+    void OnInit(wxInitDialogEvent& event);
+    void OnBtnOKClick(wxCommandEvent& event);
+    void OnBtnCancelClick(wxCommandEvent& event);
+    void OnCmbMethodSelect(wxCommandEvent& event);
+    //*)
 
-		DECLARE_EVENT_TABLE()
+	RuleMode m_nMode;
+    MapStrToCounterRule* m_pMapCounterRule;
+    FileExtension* m_pFileExt;
+
+	void updateRuleCtrls();
+
+    DECLARE_EVENT_TABLE()
 };
 
 #endif

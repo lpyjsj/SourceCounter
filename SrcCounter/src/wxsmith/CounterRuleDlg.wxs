@@ -41,7 +41,7 @@
 					</object>
 					<object class="sizeritem">
 						<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="m_txtExtDesc" member="yes">
-							<maxlength>256</maxlength>
+							<maxlength>128</maxlength>
 							<size>-1,48</size>
 							<style>wxTE_MULTILINE</style>
 						</object>
@@ -67,6 +67,8 @@
 					<object class="sizeritem">
 						<object class="wxComboBox" name="ID_COMBOBOX1" variable="m_cmbMethod" member="yes">
 							<bg>wxSYS_COLOUR_INFOBK</bg>
+							<style>wxCB_READONLY</style>
+							<handler function="OnCmbMethodSelect" entry="EVT_COMBOBOX" />
 						</object>
 						<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
@@ -87,8 +89,8 @@
 						<option>1</option>
 					</object>
 					<object class="sizeritem">
-						<object class="wxTextCtrl" name="ID_TEXTCTRL6" variable="TextCtrl4" member="yes">
-							<maxlength>256</maxlength>
+						<object class="wxTextCtrl" name="ID_TEXTCTRL6" variable="m_txtRuleDesc" member="yes">
+							<maxlength>128</maxlength>
 							<size>0,48</size>
 							<bg>wxSYS_COLOUR_INFOBK</bg>
 							<style>wxTE_MULTILINE</style>
@@ -108,7 +110,7 @@
 						<border>5</border>
 					</object>
 					<object class="sizeritem">
-						<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText4" member="yes">
+						<object class="wxStaticText" name="ID_STATICTEXT4" variable="m_txtSLComm" member="yes">
 							<label>Single line comment:</label>
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -116,7 +118,8 @@
 						<option>1</option>
 					</object>
 					<object class="sizeritem">
-						<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="TextCtrl1" member="yes">
+						<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="m_txtSlgLnComm" member="yes">
+							<maxlength>4</maxlength>
 							<bg>wxSYS_COLOUR_INFOBK</bg>
 						</object>
 						<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -142,7 +145,8 @@
 						<option>1</option>
 					</object>
 					<object class="sizeritem">
-						<object class="wxTextCtrl" name="ID_TEXTCTRL4" variable="TextCtrl2" member="yes">
+						<object class="wxTextCtrl" name="ID_TEXTCTRL4" variable="m_txtMltLnCommBegin" member="yes">
+							<maxlength>4</maxlength>
 							<bg>wxSYS_COLOUR_INFOBK</bg>
 						</object>
 						<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -168,7 +172,8 @@
 						<option>1</option>
 					</object>
 					<object class="sizeritem">
-						<object class="wxTextCtrl" name="ID_TEXTCTRL5" variable="TextCtrl3" member="yes">
+						<object class="wxTextCtrl" name="ID_TEXTCTRL5" variable="m_txtMltLnCommEnd" member="yes">
+							<maxlength>4</maxlength>
 							<bg>wxSYS_COLOUR_INFOBK</bg>
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
