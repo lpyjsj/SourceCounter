@@ -40,7 +40,7 @@
 					</object>
 					<object class="sizeritem">
 						<object class="wxButton" name="ID_BUTTON1" variable="m_btnAdd" member="yes">
-							<label>&amp;Add</label>
+							<label>&amp;Add...</label>
 							<handler function="OnBtnAddClick" entry="EVT_BUTTON" />
 						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -48,7 +48,7 @@
 					</object>
 					<object class="sizeritem">
 						<object class="wxButton" name="ID_BUTTON2" variable="m_btnEdit" member="yes">
-							<label>&amp;Edit</label>
+							<label>&amp;Edit...</label>
 							<enabled>0</enabled>
 							<handler function="OnBtnEditClick" entry="EVT_BUTTON" />
 						</object>

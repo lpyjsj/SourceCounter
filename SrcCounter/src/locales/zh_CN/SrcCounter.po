@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SrcCounter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-03 16:56+0800\n"
+"POT-Creation-Date: 2009-03-21 23:21+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Boom <boomworks@hotmail.com>\n"
 "Language-Team: \n"
@@ -69,169 +69,215 @@ msgstr "语言选择"
 msgid "You must restart SourceCounter for this change to take effect."
 msgstr "您必须重新启动 SourceCounter 更改才会生效。"
 
-#: src/CntSettingDlg.cpp:62
+#: src/CntSettingDlg.cpp:61
 msgid "More settings dialog"
 msgstr "更多设定对话框"
 
-#: src/CntSettingDlg.cpp:66
+#: src/CntSettingDlg.cpp:65
 msgid "Code lines +1, comment lines +1"
 msgstr "代码行数 +1, 注释行数 +1"
 
-#: src/CntSettingDlg.cpp:67
+#: src/CntSettingDlg.cpp:66
 msgid "Code lines +1, comment lines +0"
 msgstr "代码行数 +1, 注释行数 +0"
 
-#: src/CntSettingDlg.cpp:68
+#: src/CntSettingDlg.cpp:67
 msgid "Code lines +0, comment lines +1"
 msgstr "代码行数 +0, 注释行数 +1"
 
-#: src/CntSettingDlg.cpp:70
+#: src/CntSettingDlg.cpp:69
 msgid "When code and comment in same line, please select one counting method"
 msgstr "注释和代码在同一行的时候，请选择统计的方式"
 
-#: src/CntSettingDlg.cpp:72
+#: src/CntSettingDlg.cpp:71
 msgid "Quality index criteria setting"
 msgstr "质量指标设定"
 
-#: src/CntSettingDlg.cpp:74
+#: src/CntSettingDlg.cpp:73
 msgid "Unit testing case density:"
 msgstr "单元测试用例密度:"
 
-#: src/CntSettingDlg.cpp:79
-#: src/CntSettingDlg.cpp:99
+#: src/CntSettingDlg.cpp:78
+#: src/CntSettingDlg.cpp:96
 msgid "Cases/KLOC"
 msgstr "Cases/KLOC"
 
-#: src/CntSettingDlg.cpp:83
+#: src/CntSettingDlg.cpp:82
 msgid "Unit testing defect density:"
 msgstr "单元测试缺陷密度:"
 
-#: src/CntSettingDlg.cpp:88
-#: src/CntSettingDlg.cpp:108
+#: src/CntSettingDlg.cpp:87
+#: src/CntSettingDlg.cpp:105
 msgid "Defects/KLOC"
 msgstr "Defects/KLOC"
 
-#: src/CntSettingDlg.cpp:94
+#: src/CntSettingDlg.cpp:91
 msgid "Integration testing case density:"
 msgstr "结合测试用例密度:"
 
-#: src/CntSettingDlg.cpp:103
+#: src/CntSettingDlg.cpp:100
 msgid "Integration testing defect density:"
 msgstr "结合测试缺陷密度:"
 
-#: src/CntSettingDlg.cpp:112
+#: src/CntSettingDlg.cpp:109
 msgid "Effort and cost analysis setting"
 msgstr "工数和成本分析的设定"
 
-#: src/CntSettingDlg.cpp:114
+#: src/CntSettingDlg.cpp:111
 msgid "Coding production:"
 msgstr "编码生产率:"
 
-#: src/CntSettingDlg.cpp:117
+#: src/CntSettingDlg.cpp:114
 msgid "6000"
 msgstr "6000"
 
-#: src/CntSettingDlg.cpp:118
+#: src/CntSettingDlg.cpp:115
 msgid "4000"
 msgstr "4000"
 
-#: src/CntSettingDlg.cpp:119
+#: src/CntSettingDlg.cpp:116
 msgid "3000"
 msgstr "3000"
 
-#: src/CntSettingDlg.cpp:120
+#: src/CntSettingDlg.cpp:117
 msgid "2000"
 msgstr "2000"
 
-#: src/CntSettingDlg.cpp:122
+#: src/CntSettingDlg.cpp:119
 msgid "lines per man-month"
 msgstr "行/人月"
 
-#: src/CntSettingDlg.cpp:126
+#: src/CntSettingDlg.cpp:123
 msgid "Man-days of one man-month:"
 msgstr "一个人月的人日数:"
 
-#: src/CntSettingDlg.cpp:131
+#: src/CntSettingDlg.cpp:128
 msgid "days"
 msgstr "天"
 
-#: src/CntSettingDlg.cpp:135
+#: src/CntSettingDlg.cpp:132
 msgid "Cost of one man-month:"
 msgstr "一个人月的成本:"
 
-#: src/CntSettingDlg.cpp:137
+#: src/CntSettingDlg.cpp:134
 msgid "10000"
 msgstr "10000"
 
-#: src/CntSettingDlg.cpp:139
+#: src/CntSettingDlg.cpp:136
 msgid "$"
 msgstr "$"
 
-#: src/CntSettingDlg.cpp:144
+#: src/CntSettingDlg.cpp:141
+#: src/CounterRuleDlg.cpp:112
 msgid "&OK"
 msgstr "&OK"
 
-#: src/CntSettingDlg.cpp:146
+#: src/CntSettingDlg.cpp:143
+#: src/CounterRuleDlg.cpp:114
 msgid "&Cancel"
 msgstr "&Cancel"
 
-#: src/CountingManager.cpp:40
+#: src/CounterRuleDlg.cpp:52
+msgid "File type setting dialog"
+msgstr "文件类型设定对话框"
+
+#: src/CounterRuleDlg.cpp:55
+msgid "&Extension:"
+msgstr "扩展名(&E):"
+
+#: src/CounterRuleDlg.cpp:62
+msgid "&Description:"
+msgstr "描述(&D):"
+
+#: src/CounterRuleDlg.cpp:69
+msgid "&Source style:"
+msgstr "源代码语言风格(&T):"
+
+#: src/CounterRuleDlg.cpp:76
+msgid "S&tyle Description:"
+msgstr "风格描述(&T):"
+
+#: src/CounterRuleDlg.cpp:84
+msgid "Sing&le line comment:"
+msgstr "单行注释(&L):"
+
+#: src/CounterRuleDlg.cpp:93
+msgid "Multi-line comment &begin:"
+msgstr "多行注释开始(&B):"
+
+#: src/CounterRuleDlg.cpp:102
+msgid "Multi-line comment &end:"
+msgstr "多行注释结束(&E):"
+
+#: src/CounterRuleDlg.cpp:196
+msgid "Please input file extension description!"
+msgstr "请输入文件扩展名描述！"
+
+#: src/CounterRuleDlg.cpp:205
+msgid "Please input file extension!"
+msgstr "请输入文件扩展名！"
+
+#: src/CounterRuleDlg.cpp:221
+msgid "Please input style description!"
+msgstr "请输入语言风格描述！"
+
+#: src/CountingManager.cpp:92
 msgid "File"
 msgstr "文件"
 
-#: src/CountingManager.cpp:41
+#: src/CountingManager.cpp:93
 msgid "Type"
 msgstr "类型"
 
-#: src/CountingManager.cpp:42
+#: src/CountingManager.cpp:94
 msgid "Folder"
 msgstr "文件夹"
 
-#: src/CountingManager.cpp:43
+#: src/CountingManager.cpp:95
 msgid "Lines"
 msgstr "行数"
 
-#: src/CountingManager.cpp:44
+#: src/CountingManager.cpp:96
 msgid "Code lines"
 msgstr "代码行数"
 
-#: src/CountingManager.cpp:45
+#: src/CountingManager.cpp:97
 msgid "Comment lines"
 msgstr "注释行数"
 
-#: src/CountingManager.cpp:46
+#: src/CountingManager.cpp:98
 msgid "Blank lines"
 msgstr "空行数"
 
-#: src/CountingManager.cpp:47
+#: src/CountingManager.cpp:99
 msgid "Size"
 msgstr "大小"
 
-#: src/CountingManager.cpp:48
+#: src/CountingManager.cpp:100
 msgid "Man-Day"
 msgstr "人日"
 
-#: src/CountingManager.cpp:49
+#: src/CountingManager.cpp:101
 msgid "Cost"
 msgstr "成本"
 
-#: src/CountingManager.cpp:50
+#: src/CountingManager.cpp:102
 msgid "UT Cases"
 msgstr "单元测试用例"
 
-#: src/CountingManager.cpp:51
+#: src/CountingManager.cpp:103
 msgid "UT Defects"
 msgstr "单元测试缺陷"
 
-#: src/CountingManager.cpp:52
+#: src/CountingManager.cpp:104
 msgid "IT Cases"
 msgstr "结合测试用例"
 
-#: src/CountingManager.cpp:53
+#: src/CountingManager.cpp:105
 msgid "IT Defects"
 msgstr "结合测试缺陷"
 
-#: src/CountingManager.cpp:604
+#: src/CountingManager.cpp:910
 msgid "# *** Total ***"
 msgstr "# *** Total ***"
 
@@ -261,10 +307,12 @@ msgid "Source code &folder:"
 msgstr "源代码文件夹(&F):"
 
 #: src/SourceCounterMain.cpp:129
+#: src/SrcTypeSelDlg.cpp:100
 msgid "&Add..."
 msgstr "添加...(&A)"
 
 #: src/SourceCounterMain.cpp:131
+#: src/SrcTypeSelDlg.cpp:105
 msgid "&Delete"
 msgstr "删除(&D)"
 
@@ -391,55 +439,65 @@ msgstr "关于...(&B)"
 msgid "&Quit"
 msgstr "退出(&Q)"
 
-#: src/SourceCounterMain.cpp:259
+#: src/SourceCounterMain.cpp:260
 msgid "Select directory"
 msgstr "选择目录"
 
-#: src/SourceCounterMain.cpp:260
+#: src/SourceCounterMain.cpp:261
 msgid "Select file"
 msgstr "选择文件"
 
-#: src/SourceCounterMain.cpp:260
+#: src/SourceCounterMain.cpp:261
 msgid "CSV files (*.csv)|*.csv"
 msgstr "CSV文件 (*.csv)|*.csv"
 
-#: src/SourceCounterMain.cpp:261
+#: src/SourceCounterMain.cpp:262
 msgid "Open file"
 msgstr "打开文件"
 
-#: src/SourceCounterMain.cpp:263
+#: src/SourceCounterMain.cpp:264
 msgid "Open directory"
 msgstr "打开目录"
 
-#: src/SourceCounterMain.cpp:410
+#: src/SourceCounterMain.cpp:415
 msgid "Please add source folder."
 msgstr "请添加要统计的源代码的目录。"
 
-#: src/SourceCounterMain.cpp:427
+#: src/SourceCounterMain.cpp:432
 msgid "Please check counting folder."
 msgstr "请选择要统计的源代码目录。"
 
-#: src/SourceCounterMain.cpp:437
+#: src/SourceCounterMain.cpp:442
 msgid "Please select source types."
 msgstr "请选择要统计的源代码类型。"
 
-#: src/SrcTypeSelDlg.cpp:80
-#, fuzzy
-msgid "Select types"
+#: src/SrcTypeSelDlg.cpp:89
+msgid "Select types dialog"
 msgstr "选择类型对话框"
 
-#: src/SrcTypeSelDlg.cpp:82
-msgid "&Select source file types for counting:"
-msgstr "请选择要统计的代码扩展名(&S):"
+#: src/SrcTypeSelDlg.cpp:91
+msgid "Se&lect source file types for counting:"
+msgstr "请选择要统计的代码扩展名(&L):"
 
-#: src/SrcTypeSelDlg.cpp:86
-msgid "Select &all file types"
-msgstr "选择所有类型(&A)"
+#: src/SrcTypeSelDlg.cpp:96
+msgid "&Select all file types"
+msgstr "选择所有类型(&S)"
+
+#: src/SrcTypeSelDlg.cpp:102
+msgid "&Edit..."
+msgstr "编辑...(&E)"
+
+#: src/SrcTypeSelDlg.cpp:274
+msgid "Extension has existed!"
+msgstr "文件扩展名已经存在！"
 
 #: src/wx/hyperlink.cpp:79
 msgid "Failed to create wxControl, needed by wxHyperLink!"
 msgstr "Failed to create wxControl, needed by wxHyperLink!"
 
+#, fuzzy
+#~ msgid "&Add"
+#~ msgstr "添加...(&A)"
 #~ msgid "Code production of one man-month(coding lines per man-month):"
 #~ msgstr "编码生产率（每人月编写代码行数）:"
 #~ msgid "# *** Generated by BoomWorks.Net(C) SourceCounter *** "

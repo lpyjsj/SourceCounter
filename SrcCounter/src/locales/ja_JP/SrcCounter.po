@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SrcCounter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-03 17:05+0800\n"
+"POT-Creation-Date: 2009-03-21 23:21+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Boom <boomworks@hotmail.com>\n"
 "Language-Team: \n"
@@ -69,169 +69,215 @@ msgstr "言語の選択"
 msgid "You must restart SourceCounter for this change to take effect."
 msgstr "変更を有効にするには SourceCounter を再起動してください。"
 
-#: src/CntSettingDlg.cpp:62
+#: src/CntSettingDlg.cpp:61
 msgid "More settings dialog"
 msgstr "その他設定ダイアログ"
 
-#: src/CntSettingDlg.cpp:66
+#: src/CntSettingDlg.cpp:65
 msgid "Code lines +1, comment lines +1"
 msgstr "ソースコードの行数 +1, コメントの行数 +1"
 
-#: src/CntSettingDlg.cpp:67
+#: src/CntSettingDlg.cpp:66
 msgid "Code lines +1, comment lines +0"
 msgstr "ソースコードの行数 +1, コメントの行数 +0"
 
-#: src/CntSettingDlg.cpp:68
+#: src/CntSettingDlg.cpp:67
 msgid "Code lines +0, comment lines +1"
 msgstr "ソースコードの行数 +0, コメントの行数 +1"
 
-#: src/CntSettingDlg.cpp:70
+#: src/CntSettingDlg.cpp:69
 msgid "When code and comment in same line, please select one counting method"
 msgstr "コメントとソースコードが一つのラインに書いている場合、カウント方式を選択してください"
 
-#: src/CntSettingDlg.cpp:72
+#: src/CntSettingDlg.cpp:71
 msgid "Quality index criteria setting"
 msgstr "品質指標設定"
 
-#: src/CntSettingDlg.cpp:74
+#: src/CntSettingDlg.cpp:73
 msgid "Unit testing case density:"
 msgstr "単体テストケース密度:"
 
-#: src/CntSettingDlg.cpp:79
-#: src/CntSettingDlg.cpp:99
+#: src/CntSettingDlg.cpp:78
+#: src/CntSettingDlg.cpp:96
 msgid "Cases/KLOC"
 msgstr "Cases/KLOC"
 
-#: src/CntSettingDlg.cpp:83
+#: src/CntSettingDlg.cpp:82
 msgid "Unit testing defect density:"
 msgstr "単体テスト欠陥密度:"
 
-#: src/CntSettingDlg.cpp:88
-#: src/CntSettingDlg.cpp:108
+#: src/CntSettingDlg.cpp:87
+#: src/CntSettingDlg.cpp:105
 msgid "Defects/KLOC"
 msgstr "Defects/KLOC"
 
-#: src/CntSettingDlg.cpp:94
+#: src/CntSettingDlg.cpp:91
 msgid "Integration testing case density:"
 msgstr "結合テストケース密度:"
 
-#: src/CntSettingDlg.cpp:103
+#: src/CntSettingDlg.cpp:100
 msgid "Integration testing defect density:"
 msgstr "結合テスト欠陥密度:"
 
-#: src/CntSettingDlg.cpp:112
+#: src/CntSettingDlg.cpp:109
 msgid "Effort and cost analysis setting"
 msgstr "工数とコスト分析の設定"
 
-#: src/CntSettingDlg.cpp:114
+#: src/CntSettingDlg.cpp:111
 msgid "Coding production:"
 msgstr "コーディング生産率:"
 
-#: src/CntSettingDlg.cpp:117
+#: src/CntSettingDlg.cpp:114
 msgid "6000"
 msgstr "6000"
 
-#: src/CntSettingDlg.cpp:118
+#: src/CntSettingDlg.cpp:115
 msgid "4000"
 msgstr "4000"
 
-#: src/CntSettingDlg.cpp:119
+#: src/CntSettingDlg.cpp:116
 msgid "3000"
 msgstr "3000"
 
-#: src/CntSettingDlg.cpp:120
+#: src/CntSettingDlg.cpp:117
 msgid "2000"
 msgstr "2000"
 
-#: src/CntSettingDlg.cpp:122
+#: src/CntSettingDlg.cpp:119
 msgid "lines per man-month"
 msgstr "行／人月"
 
-#: src/CntSettingDlg.cpp:126
+#: src/CntSettingDlg.cpp:123
 msgid "Man-days of one man-month:"
 msgstr "１人月あたりの人日数:"
 
-#: src/CntSettingDlg.cpp:131
+#: src/CntSettingDlg.cpp:128
 msgid "days"
 msgstr "日"
 
-#: src/CntSettingDlg.cpp:135
+#: src/CntSettingDlg.cpp:132
 msgid "Cost of one man-month:"
 msgstr "１人月単価:"
 
-#: src/CntSettingDlg.cpp:137
+#: src/CntSettingDlg.cpp:134
 msgid "10000"
 msgstr "10000"
 
-#: src/CntSettingDlg.cpp:139
+#: src/CntSettingDlg.cpp:136
 msgid "$"
 msgstr "$"
 
-#: src/CntSettingDlg.cpp:144
+#: src/CntSettingDlg.cpp:141
+#: src/CounterRuleDlg.cpp:112
 msgid "&OK"
 msgstr "&OK"
 
-#: src/CntSettingDlg.cpp:146
+#: src/CntSettingDlg.cpp:143
+#: src/CounterRuleDlg.cpp:114
 msgid "&Cancel"
 msgstr "&Cancel"
 
-#: src/CountingManager.cpp:40
+#: src/CounterRuleDlg.cpp:52
+msgid "File type setting dialog"
+msgstr "ファイル種類の設定ダイアログ"
+
+#: src/CounterRuleDlg.cpp:55
+msgid "&Extension:"
+msgstr "拡張子(&E):"
+
+#: src/CounterRuleDlg.cpp:62
+msgid "&Description:"
+msgstr "説明(&D):"
+
+#: src/CounterRuleDlg.cpp:69
+msgid "&Source style:"
+msgstr "ソース言語のスタイル(&S):"
+
+#: src/CounterRuleDlg.cpp:76
+msgid "S&tyle Description:"
+msgstr "スタイルの説明(&T):"
+
+#: src/CounterRuleDlg.cpp:84
+msgid "Sing&le line comment:"
+msgstr "行コメント(&L):"
+
+#: src/CounterRuleDlg.cpp:93
+msgid "Multi-line comment &begin:"
+msgstr "ブロックコメントスタート(&B):"
+
+#: src/CounterRuleDlg.cpp:102
+msgid "Multi-line comment &end:"
+msgstr "ブロックコメントエンド(&E):"
+
+#: src/CounterRuleDlg.cpp:196
+msgid "Please input file extension description!"
+msgstr "拡張子説明を入力してください。"
+
+#: src/CounterRuleDlg.cpp:205
+msgid "Please input file extension!"
+msgstr "拡張子を入力してください。"
+
+#: src/CounterRuleDlg.cpp:221
+msgid "Please input style description!"
+msgstr "言語スタイルの説明を入力してください。"
+
+#: src/CountingManager.cpp:92
 msgid "File"
 msgstr "ファイル"
 
-#: src/CountingManager.cpp:41
+#: src/CountingManager.cpp:93
 msgid "Type"
 msgstr "種類"
 
-#: src/CountingManager.cpp:42
+#: src/CountingManager.cpp:94
 msgid "Folder"
 msgstr "フォルダ"
 
-#: src/CountingManager.cpp:43
+#: src/CountingManager.cpp:95
 msgid "Lines"
 msgstr "Lines"
 
-#: src/CountingManager.cpp:44
+#: src/CountingManager.cpp:96
 msgid "Code lines"
 msgstr "ステップ数"
 
-#: src/CountingManager.cpp:45
+#: src/CountingManager.cpp:97
 msgid "Comment lines"
 msgstr "コメント行数"
 
-#: src/CountingManager.cpp:46
+#: src/CountingManager.cpp:98
 msgid "Blank lines"
 msgstr "空白行数"
 
-#: src/CountingManager.cpp:47
+#: src/CountingManager.cpp:99
 msgid "Size"
 msgstr "サイズ"
 
-#: src/CountingManager.cpp:48
+#: src/CountingManager.cpp:100
 msgid "Man-Day"
 msgstr "人日"
 
-#: src/CountingManager.cpp:49
+#: src/CountingManager.cpp:101
 msgid "Cost"
 msgstr "コスト"
 
-#: src/CountingManager.cpp:50
+#: src/CountingManager.cpp:102
 msgid "UT Cases"
 msgstr "単体テストケース"
 
-#: src/CountingManager.cpp:51
+#: src/CountingManager.cpp:103
 msgid "UT Defects"
 msgstr "単体テスト欠陥"
 
-#: src/CountingManager.cpp:52
+#: src/CountingManager.cpp:104
 msgid "IT Cases"
 msgstr "結合テストケース"
 
-#: src/CountingManager.cpp:53
+#: src/CountingManager.cpp:105
 msgid "IT Defects"
 msgstr "結合テスト欠陥"
 
-#: src/CountingManager.cpp:604
+#: src/CountingManager.cpp:910
 msgid "# *** Total ***"
 msgstr "# *** Total ***"
 
@@ -261,10 +307,12 @@ msgid "Source code &folder:"
 msgstr "ソースコードの格納先(&F):"
 
 #: src/SourceCounterMain.cpp:129
+#: src/SrcTypeSelDlg.cpp:100
 msgid "&Add..."
 msgstr "追加...(&A)"
 
 #: src/SourceCounterMain.cpp:131
+#: src/SrcTypeSelDlg.cpp:105
 msgid "&Delete"
 msgstr "削除(&D)"
 
@@ -391,50 +439,57 @@ msgstr "このプログラムについて...(&B)"
 msgid "&Quit"
 msgstr "終了(&Q)"
 
-#: src/SourceCounterMain.cpp:259
+#: src/SourceCounterMain.cpp:260
 msgid "Select directory"
 msgstr "ディレクトリの選択"
 
-#: src/SourceCounterMain.cpp:260
+#: src/SourceCounterMain.cpp:261
 msgid "Select file"
 msgstr "ファイルの選択"
 
-#: src/SourceCounterMain.cpp:260
+#: src/SourceCounterMain.cpp:261
 msgid "CSV files (*.csv)|*.csv"
 msgstr "CSV ファイル (*.csv)|*.csv"
 
-#: src/SourceCounterMain.cpp:261
+#: src/SourceCounterMain.cpp:262
 msgid "Open file"
 msgstr "ファイルを開く"
 
-#: src/SourceCounterMain.cpp:263
+#: src/SourceCounterMain.cpp:264
 msgid "Open directory"
 msgstr "ディレクトリを開く"
 
-#: src/SourceCounterMain.cpp:410
+#: src/SourceCounterMain.cpp:415
 msgid "Please add source folder."
 msgstr "カウントするソースコードの格納先を追加してください。"
 
-#: src/SourceCounterMain.cpp:427
+#: src/SourceCounterMain.cpp:432
 msgid "Please check counting folder."
 msgstr "カウントするソースコードの格納先を選択してください。"
 
-#: src/SourceCounterMain.cpp:437
+#: src/SourceCounterMain.cpp:442
 msgid "Please select source types."
 msgstr "カウントするソースコードの種類を選択してください。"
 
-#: src/SrcTypeSelDlg.cpp:80
-#, fuzzy
-msgid "Select types"
-msgstr "種類選択ダイアログ"
+#: src/SrcTypeSelDlg.cpp:89
+msgid "Select types dialog"
+msgstr "ファイル種類選択ダイアログ"
 
-#: src/SrcTypeSelDlg.cpp:82
-msgid "&Select source file types for counting:"
-msgstr "カウントするソースファイルの拡張子を選択してください(&S):"
+#: src/SrcTypeSelDlg.cpp:91
+msgid "Se&lect source file types for counting:"
+msgstr "カウントするソースファイルの拡張子を選択してください(&L):"
 
-#: src/SrcTypeSelDlg.cpp:86
-msgid "Select &all file types"
-msgstr "すべて選択(&A)"
+#: src/SrcTypeSelDlg.cpp:96
+msgid "&Select all file types"
+msgstr "すべて選択(&S)"
+
+#: src/SrcTypeSelDlg.cpp:102
+msgid "&Edit..."
+msgstr "編集...(&E)"
+
+#: src/SrcTypeSelDlg.cpp:274
+msgid "Extension has existed!"
+msgstr "ファイルの拡張子は既に存在しました。"
 
 #: src/wx/hyperlink.cpp:79
 msgid "Failed to create wxControl, needed by wxHyperLink!"
