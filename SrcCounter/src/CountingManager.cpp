@@ -433,7 +433,7 @@ void CountingManager::SetCountingParam( CountingParam* pParam )
 /**
  * Add support source code type
  */
-Counter* CountingManager::CreateCounter(wxString strCounterType)
+Counter* CountingManager::CreateCounter(wxString& strCounterType)
 {
     Counter* pCounter = 0;
 

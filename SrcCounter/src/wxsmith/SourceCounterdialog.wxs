@@ -39,7 +39,7 @@
 										</object>
 										<flag>wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 										<border>5</border>
-										<option>5</option>
+										<option>1</option>
 									</object>
 									<object class="sizeritem">
 										<object class="wxBoxSizer" variable="BoxSizer13" member="no">
@@ -76,24 +76,17 @@
 					<object class="sizeritem">
 						<object class="wxBoxSizer" variable="BoxSizer3" member="no">
 							<object class="sizeritem">
-								<object class="wxBoxSizer" variable="BoxSizer15" member="no">
-									<object class="sizeritem">
-										<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
-											<label>Source &amp;type:</label>
-										</object>
-										<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-										<border>5</border>
-									</object>
-									<object class="sizeritem">
-										<object class="wxComboBox" name="ID_COMBOBOX1" variable="m_cmbSrcTypes" member="yes">
-											<style>wxCB_READONLY</style>
-										</object>
-										<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-										<border>5</border>
-										<option>1</option>
-									</object>
+								<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
+									<label>Source &amp;type:</label>
 								</object>
-								<flag>wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxComboBox" name="ID_COMBOBOX1" variable="m_cmbSrcTypes" member="yes">
+									<style>wxCB_READONLY</style>
+								</object>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
@@ -140,7 +133,17 @@
 			</object>
 			<object class="sizeritem">
 				<object class="wxBoxSizer" variable="BoxSizer11" member="no">
-					<object class="spacer">
+					<object class="sizeritem">
+						<object class="wxStaticText" name="ID_STATICTEXT9" variable="StaticText9" member="yes">
+							<label>Counting status:</label>
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxStaticText" name="ID_STATICTEXT10" variable="m_lblStatus" member="yes">
+							<label>Ready.</label>
+						</object>
 						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
 						<option>3</option>
@@ -193,24 +196,6 @@
 					<object class="sizeritem">
 						<object class="wxBoxSizer" variable="BoxSizer7" member="no">
 							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
-									<label>Total files:</label>
-								</object>
-								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-								<border>5</border>
-								<option>1</option>
-							</object>
-							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT11" variable="m_lblTotalFiles" member="yes">
-									<label>0</label>
-									<fg>#800040</fg>
-									<style>wxSUNKEN_BORDER</style>
-								</object>
-								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-								<border>5</border>
-								<option>1</option>
-							</object>
-							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT12" variable="StaticText12" member="yes">
 									<label>Code lines:</label>
 								</object>
@@ -246,22 +231,16 @@
 								<border>5</border>
 								<option>1</option>
 							</object>
-						</object>
-						<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-						<border>5</border>
-					</object>
-					<object class="sizeritem">
-						<object class="wxBoxSizer" variable="BoxSizer8" member="no">
 							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT5" variable="StaticText5" member="yes">
-									<label>Total size (KB):</label>
+								<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
+									<label>Total files:</label>
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
 							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT14" variable="m_lblTotalSize" member="yes">
+								<object class="wxStaticText" name="ID_STATICTEXT11" variable="m_lblTotalFiles" member="yes">
 									<label>0</label>
 									<fg>#800040</fg>
 									<style>wxSUNKEN_BORDER</style>
@@ -270,6 +249,12 @@
 								<border>5</border>
 								<option>1</option>
 							</object>
+						</object>
+						<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer8" member="no">
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT13" variable="StaticText13" member="yes">
 									<label>Comment lines:</label>
@@ -306,30 +291,30 @@
 								<border>5</border>
 								<option>1</option>
 							</object>
-						</object>
-						<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-						<border>5</border>
-					</object>
-					<object class="sizeritem">
-						<object class="wxBoxSizer" variable="BoxSizer9" member="no">
 							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT18" variable="StaticText6" member="yes">
-									<label>Total man-month:</label>
+								<object class="wxStaticText" name="ID_STATICTEXT5" variable="StaticText5" member="yes">
+									<label>Total size (KB):</label>
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
 							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT20" variable="m_lblTotalMM" member="yes">
+								<object class="wxStaticText" name="ID_STATICTEXT14" variable="m_lblTotalSize" member="yes">
 									<label>0</label>
-									<fg>#FF00FF</fg>
+									<fg>#800040</fg>
 									<style>wxSUNKEN_BORDER</style>
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
+						</object>
+						<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer9" member="no">
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT16" variable="StaticText16" member="yes">
 									<label>Blank lines:</label>
@@ -366,6 +351,24 @@
 								<border>5</border>
 								<option>1</option>
 							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT18" variable="StaticText6" member="yes">
+									<label>Total man-month:</label>
+								</object>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT20" variable="m_lblTotalMM" member="yes">
+									<label>0</label>
+									<fg>#FF00FF</fg>
+									<style>wxSUNKEN_BORDER</style>
+								</object>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
 						</object>
 						<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 						<border>5</border>
@@ -373,10 +376,46 @@
 					<object class="sizeritem">
 						<object class="wxBoxSizer" variable="BoxSizer16" member="no">
 							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT19" variable="StaticText8" member="yes">
-									<label>Total cost:</label>
+								<object class="wxStaticText" name="ID_STATICTEXT29" variable="StaticText4" member="yes">
+									<label>Code// Comment:</label>
 								</object>
-								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT30" variable="StaticText14" member="yes">
+									<label>0</label>
+									<fg>wxSYS_COLOUR_ACTIVECAPTION</fg>
+									<style>wxSUNKEN_BORDER</style>
+								</object>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT25" variable="StaticText15" member="yes">
+									<label>Total IT Defects:</label>
+								</object>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT28" variable="m_lblItDefects" member="yes">
+									<label>0</label>
+									<fg>#FF0000</fg>
+									<style>wxSUNKEN_BORDER</style>
+								</object>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT19" variable="StaticText8" member="yes">
+									<label>Total cost($):</label>
+								</object>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
@@ -386,10 +425,16 @@
 									<fg>#FF00FF</fg>
 									<style>wxSUNKEN_BORDER</style>
 								</object>
-								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
+						</object>
+						<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer17" member="no">
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT7" variable="StaticText7" member="yes">
 									<label>Total lines:</label>
@@ -408,46 +453,10 @@
 								<border>5</border>
 								<option>1</option>
 							</object>
-							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT25" variable="StaticText15" member="yes">
-									<label>Total IT Defects:</label>
-								</object>
-								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+							<object class="spacer">
+								<flag>wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
-								<option>1</option>
-							</object>
-							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT28" variable="m_lblItDefects" member="yes">
-									<label>0</label>
-									<fg>#FF0000</fg>
-									<style>wxSUNKEN_BORDER</style>
-								</object>
-								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-								<border>5</border>
-								<option>1</option>
-							</object>
-						</object>
-						<flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-						<border>5</border>
-					</object>
-					<object class="sizeritem">
-						<object class="wxBoxSizer" variable="BoxSizer10" member="no">
-							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT9" variable="StaticText9" member="yes">
-									<label>Counting status:</label>
-								</object>
-								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-								<border>5</border>
-								<option>1</option>
-							</object>
-							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT10" variable="m_lblStatus" member="yes">
-									<label>Ready.</label>
-									<style>wxSUNKEN_BORDER</style>
-								</object>
-								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-								<border>5</border>
-								<option>4</option>
+								<option>3</option>
 							</object>
 							<object class="sizeritem">
 								<object class="wxButton" name="ID_BUTTON7" variable="m_btnSave" member="yes">
@@ -455,7 +464,7 @@
 									<enabled>0</enabled>
 									<handler function="OnBtnSaveClick" entry="EVT_BUTTON" />
 								</object>
-								<flag>wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>

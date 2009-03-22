@@ -270,7 +270,7 @@ public:
      * @param strFileExtendName counter identify name
      * @return counter object pointer
      */
-    Counter*		CreateCounter( wxString strFileExtendName );
+    Counter*		CreateCounter( wxString& strCounterType );
 
     /**
      * Get counting information.
