@@ -1,0 +1,506 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SrcCounter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-03-21 23:21+0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Boom <boomworks@hotmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: CHINA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: W:\\boomworks\\SrcCounter\n"
+"X-Poedit-SearchPath-0: src\n"
+
+#: src/aboutdlg.cpp:59
+msgid "About"
+msgstr "このプログラムについて"
+
+#: src/aboutdlg.cpp:68
+#: src/chooselang.cpp:177
+msgid "SourceCounter"
+msgstr "ソースカウンター"
+
+#: src/aboutdlg.cpp:70
+msgid "Unicode version 1.0.1.0"
+msgstr "Unicode version 1.0.1.0"
+
+#: src/aboutdlg.cpp:72
+msgid "Label"
+msgstr "Label"
+
+#: src/aboutdlg.cpp:74
+msgid "(C) 1999 - 2009 BoomWorks.Org"
+msgstr "(C) 1999 - 2009 BoomWorks.Org"
+
+#: src/aboutdlg.cpp:76
+msgid "mailto:boomworks@hotmail.com"
+msgstr "mailto:boomworks@hotmail.com"
+
+#: src/aboutdlg.cpp:79
+msgid "http://www.boomworks.org"
+msgstr "http://www.boomworks.org"
+
+#: src/aboutdlg.cpp:87
+msgid "&Ok"
+msgstr "&OK"
+
+#: src/chooselang.cpp:72
+#, c-format
+msgid "Uknown locale code '%s' in registry."
+msgstr "不明なロケールコード '%s' は登録されていません。"
+
+#: src/chooselang.cpp:89
+msgid "(Use default language)"
+msgstr "ディフォルト言語を使用する"
+
+#: src/chooselang.cpp:161
+msgid "Select your prefered language"
+msgstr "SourceCounterの操作に用いる言語を選んでください"
+
+#: src/chooselang.cpp:162
+msgid "Language selection"
+msgstr "言語の選択"
+
+#: src/chooselang.cpp:176
+msgid "You must restart SourceCounter for this change to take effect."
+msgstr "変更を有効にするには SourceCounter を再起動してください。"
+
+#: src/CntSettingDlg.cpp:61
+msgid "More settings dialog"
+msgstr "その他設定ダイアログ"
+
+#: src/CntSettingDlg.cpp:65
+msgid "Code lines +1, comment lines +1"
+msgstr "ソースコードの行数 +1, コメントの行数 +1"
+
+#: src/CntSettingDlg.cpp:66
+msgid "Code lines +1, comment lines +0"
+msgstr "ソースコードの行数 +1, コメントの行数 +0"
+
+#: src/CntSettingDlg.cpp:67
+msgid "Code lines +0, comment lines +1"
+msgstr "ソースコードの行数 +0, コメントの行数 +1"
+
+#: src/CntSettingDlg.cpp:69
+msgid "When code and comment in same line, please select one counting method"
+msgstr "コメントとソースコードが一つのラインに書いている場合、カウント方式を選択してください"
+
+#: src/CntSettingDlg.cpp:71
+msgid "Quality index criteria setting"
+msgstr "品質指標設定"
+
+#: src/CntSettingDlg.cpp:73
+msgid "Unit testing case density:"
+msgstr "単体テストケース密度:"
+
+#: src/CntSettingDlg.cpp:78
+#: src/CntSettingDlg.cpp:96
+msgid "Cases/KLOC"
+msgstr "Cases/KLOC"
+
+#: src/CntSettingDlg.cpp:82
+msgid "Unit testing defect density:"
+msgstr "単体テスト欠陥密度:"
+
+#: src/CntSettingDlg.cpp:87
+#: src/CntSettingDlg.cpp:105
+msgid "Defects/KLOC"
+msgstr "Defects/KLOC"
+
+#: src/CntSettingDlg.cpp:91
+msgid "Integration testing case density:"
+msgstr "結合テストケース密度:"
+
+#: src/CntSettingDlg.cpp:100
+msgid "Integration testing defect density:"
+msgstr "結合テスト欠陥密度:"
+
+#: src/CntSettingDlg.cpp:109
+msgid "Effort and cost analysis setting"
+msgstr "工数とコスト分析の設定"
+
+#: src/CntSettingDlg.cpp:111
+msgid "Coding production:"
+msgstr "コーディング生産率:"
+
+#: src/CntSettingDlg.cpp:114
+msgid "6000"
+msgstr "6000"
+
+#: src/CntSettingDlg.cpp:115
+msgid "4000"
+msgstr "4000"
+
+#: src/CntSettingDlg.cpp:116
+msgid "3000"
+msgstr "3000"
+
+#: src/CntSettingDlg.cpp:117
+msgid "2000"
+msgstr "2000"
+
+#: src/CntSettingDlg.cpp:119
+msgid "lines per man-month"
+msgstr "行／人月"
+
+#: src/CntSettingDlg.cpp:123
+msgid "Man-days of one man-month:"
+msgstr "１人月あたりの人日数:"
+
+#: src/CntSettingDlg.cpp:128
+msgid "days"
+msgstr "日"
+
+#: src/CntSettingDlg.cpp:132
+msgid "Cost of one man-month:"
+msgstr "１人月単価:"
+
+#: src/CntSettingDlg.cpp:134
+msgid "10000"
+msgstr "10000"
+
+#: src/CntSettingDlg.cpp:136
+msgid "$"
+msgstr "$"
+
+#: src/CntSettingDlg.cpp:141
+#: src/CounterRuleDlg.cpp:112
+msgid "&OK"
+msgstr "&OK"
+
+#: src/CntSettingDlg.cpp:143
+#: src/CounterRuleDlg.cpp:114
+msgid "&Cancel"
+msgstr "&Cancel"
+
+#: src/CounterRuleDlg.cpp:52
+msgid "File type setting dialog"
+msgstr "ファイル種類の設定ダイアログ"
+
+#: src/CounterRuleDlg.cpp:55
+msgid "&Extension:"
+msgstr "拡張子(&E):"
+
+#: src/CounterRuleDlg.cpp:62
+msgid "&Description:"
+msgstr "説明(&D):"
+
+#: src/CounterRuleDlg.cpp:69
+msgid "&Source style:"
+msgstr "ソース言語のスタイル(&S):"
+
+#: src/CounterRuleDlg.cpp:76
+msgid "S&tyle Description:"
+msgstr "スタイルの説明(&T):"
+
+#: src/CounterRuleDlg.cpp:84
+msgid "Sing&le line comment:"
+msgstr "行コメント(&L):"
+
+#: src/CounterRuleDlg.cpp:93
+msgid "Multi-line comment &begin:"
+msgstr "ブロックコメントスタート(&B):"
+
+#: src/CounterRuleDlg.cpp:102
+msgid "Multi-line comment &end:"
+msgstr "ブロックコメントエンド(&E):"
+
+#: src/CounterRuleDlg.cpp:196
+msgid "Please input file extension description!"
+msgstr "拡張子説明を入力してください。"
+
+#: src/CounterRuleDlg.cpp:205
+msgid "Please input file extension!"
+msgstr "拡張子を入力してください。"
+
+#: src/CounterRuleDlg.cpp:221
+msgid "Please input style description!"
+msgstr "言語スタイルの説明を入力してください。"
+
+#: src/CountingManager.cpp:92
+msgid "File"
+msgstr "ファイル"
+
+#: src/CountingManager.cpp:93
+msgid "Type"
+msgstr "種類"
+
+#: src/CountingManager.cpp:94
+msgid "Folder"
+msgstr "フォルダ"
+
+#: src/CountingManager.cpp:95
+msgid "Lines"
+msgstr "Lines"
+
+#: src/CountingManager.cpp:96
+msgid "Code lines"
+msgstr "ステップ数"
+
+#: src/CountingManager.cpp:97
+msgid "Comment lines"
+msgstr "コメント行数"
+
+#: src/CountingManager.cpp:98
+msgid "Blank lines"
+msgstr "空白行数"
+
+#: src/CountingManager.cpp:99
+msgid "Size"
+msgstr "サイズ"
+
+#: src/CountingManager.cpp:100
+msgid "Man-Day"
+msgstr "人日"
+
+#: src/CountingManager.cpp:101
+msgid "Cost"
+msgstr "コスト"
+
+#: src/CountingManager.cpp:102
+msgid "UT Cases"
+msgstr "単体テストケース"
+
+#: src/CountingManager.cpp:103
+msgid "UT Defects"
+msgstr "単体テスト欠陥"
+
+#: src/CountingManager.cpp:104
+msgid "IT Cases"
+msgstr "結合テストケース"
+
+#: src/CountingManager.cpp:105
+msgid "IT Defects"
+msgstr "結合テスト欠陥"
+
+#: src/CountingManager.cpp:910
+msgid "# *** Total ***"
+msgstr "# *** Total ***"
+
+#: src/SourceCounterMain.cpp:32
+#: src/SourceCounterMain.cpp:240
+msgid "Ready."
+msgstr "Ready."
+
+#: src/SourceCounterMain.cpp:33
+msgid "Counting..."
+msgstr "カウント中..."
+
+#: src/SourceCounterMain.cpp:34
+msgid "Completed."
+msgstr "完了しました。"
+
+#: src/SourceCounterMain.cpp:35
+msgid "Canceled."
+msgstr "キャンセルしました。"
+
+#: src/SourceCounterMain.cpp:119
+msgid "Options"
+msgstr "カウントの設定"
+
+#: src/SourceCounterMain.cpp:121
+msgid "Source code &folder:"
+msgstr "ソースコードの格納先(&F):"
+
+#: src/SourceCounterMain.cpp:129
+#: src/SrcTypeSelDlg.cpp:100
+msgid "&Add..."
+msgstr "追加...(&A)"
+
+#: src/SourceCounterMain.cpp:131
+#: src/SrcTypeSelDlg.cpp:105
+msgid "&Delete"
+msgstr "削除(&D)"
+
+#: src/SourceCounterMain.cpp:139
+msgid "Source &type:"
+msgstr "ソースコードの種類(&T):"
+
+#: src/SourceCounterMain.cpp:144
+msgid "S&elect..."
+msgstr "選択...(&E)"
+
+#: src/SourceCounterMain.cpp:148
+msgid "&Recursive file counting"
+msgstr "サブフォルダも含めて(再帰的に)カウント(&R)"
+
+#: src/SourceCounterMain.cpp:150
+msgid "Check this box if you wish to count all files that located in the subfolders of source code folder."
+msgstr "Check this box if you wish to count all files that located in the subfolders of source code folder."
+
+#: src/SourceCounterMain.cpp:152
+msgid "&More settings..."
+msgstr "その他設定...(&M)"
+
+#: src/SourceCounterMain.cpp:158
+msgid "&Start"
+msgstr "スタート(&S)"
+
+#: src/SourceCounterMain.cpp:160
+msgid "Sto&p"
+msgstr "停止(&P)"
+
+#: src/SourceCounterMain.cpp:164
+msgid "Counting result"
+msgstr "カウントの結果"
+
+#: src/SourceCounterMain.cpp:170
+msgid "Total files:"
+msgstr "ファイル総数:"
+
+#: src/SourceCounterMain.cpp:172
+#: src/SourceCounterMain.cpp:177
+#: src/SourceCounterMain.cpp:182
+#: src/SourceCounterMain.cpp:189
+#: src/SourceCounterMain.cpp:194
+#: src/SourceCounterMain.cpp:199
+#: src/SourceCounterMain.cpp:206
+#: src/SourceCounterMain.cpp:211
+#: src/SourceCounterMain.cpp:216
+#: src/SourceCounterMain.cpp:223
+#: src/SourceCounterMain.cpp:228
+#: src/SourceCounterMain.cpp:233
+msgid "0"
+msgstr "0"
+
+#: src/SourceCounterMain.cpp:175
+msgid "Code lines:"
+msgstr "ステップ数:"
+
+#: src/SourceCounterMain.cpp:180
+msgid "Total UT Cases:"
+msgstr "単体テストケース総数:"
+
+#: src/SourceCounterMain.cpp:187
+msgid "Total size (KB):"
+msgstr "合計サイズ(KB):"
+
+#: src/SourceCounterMain.cpp:192
+msgid "Comment lines:"
+msgstr "コメント行数:"
+
+#: src/SourceCounterMain.cpp:197
+msgid "Total UT Defects:"
+msgstr "単体テスト欠陥総数:"
+
+#: src/SourceCounterMain.cpp:204
+msgid "Total man-month:"
+msgstr "合計人月数:"
+
+#: src/SourceCounterMain.cpp:209
+msgid "Blank lines:"
+msgstr "空白行数:"
+
+#: src/SourceCounterMain.cpp:214
+msgid "Total IT Cases:"
+msgstr "結合テストケース総数:"
+
+#: src/SourceCounterMain.cpp:221
+msgid "Total cost:"
+msgstr "総コスト:"
+
+#: src/SourceCounterMain.cpp:226
+msgid "Total lines:"
+msgstr "総行数:"
+
+#: src/SourceCounterMain.cpp:231
+msgid "Total IT Defects:"
+msgstr "結合テスト欠陥総数:"
+
+#: src/SourceCounterMain.cpp:238
+msgid "Counting status:"
+msgstr "ステータス:"
+
+#: src/SourceCounterMain.cpp:242
+msgid "Sa&ve..."
+msgstr "保存...(&V)"
+
+#: src/SourceCounterMain.cpp:248
+msgid "&Check for updates..."
+msgstr "アップデートチェック...(&C)"
+
+#: src/SourceCounterMain.cpp:249
+msgid "Get the latest version from http://down.boomworks.org"
+msgstr "http://down.boomworks.org から新しいバージョンを取得する。"
+
+#: src/SourceCounterMain.cpp:251
+msgid "U&I Language..."
+msgstr "UI言語...(&I)"
+
+#: src/SourceCounterMain.cpp:253
+msgid "A&bout..."
+msgstr "このプログラムについて...(&B)"
+
+#: src/SourceCounterMain.cpp:255
+msgid "&Quit"
+msgstr "終了(&Q)"
+
+#: src/SourceCounterMain.cpp:260
+msgid "Select directory"
+msgstr "ディレクトリの選択"
+
+#: src/SourceCounterMain.cpp:261
+msgid "Select file"
+msgstr "ファイルの選択"
+
+#: src/SourceCounterMain.cpp:261
+msgid "CSV files (*.csv)|*.csv"
+msgstr "CSV ファイル (*.csv)|*.csv"
+
+#: src/SourceCounterMain.cpp:262
+msgid "Open file"
+msgstr "ファイルを開く"
+
+#: src/SourceCounterMain.cpp:264
+msgid "Open directory"
+msgstr "ディレクトリを開く"
+
+#: src/SourceCounterMain.cpp:415
+msgid "Please add source folder."
+msgstr "カウントするソースコードの格納先を追加してください。"
+
+#: src/SourceCounterMain.cpp:432
+msgid "Please check counting folder."
+msgstr "カウントするソースコードの格納先を選択してください。"
+
+#: src/SourceCounterMain.cpp:442
+msgid "Please select source types."
+msgstr "カウントするソースコードの種類を選択してください。"
+
+#: src/SrcTypeSelDlg.cpp:89
+msgid "Select types dialog"
+msgstr "ファイル種類選択ダイアログ"
+
+#: src/SrcTypeSelDlg.cpp:91
+msgid "Se&lect source file types for counting:"
+msgstr "カウントするソースファイルの拡張子を選択してください(&L):"
+
+#: src/SrcTypeSelDlg.cpp:96
+msgid "&Select all file types"
+msgstr "すべて選択(&S)"
+
+#: src/SrcTypeSelDlg.cpp:102
+msgid "&Edit..."
+msgstr "編集...(&E)"
+
+#: src/SrcTypeSelDlg.cpp:274
+msgid "Extension has existed!"
+msgstr "ファイルの拡張子は既に存在しました。"
+
+#: src/wx/hyperlink.cpp:79
+msgid "Failed to create wxControl, needed by wxHyperLink!"
+msgstr "Failed to create wxControl, needed by wxHyperLink!"
+
+#~ msgid "Code production of one man-month(coding lines per man-month):"
+#~ msgstr "コーディング生産率（１人月のコーディング行数）:"
+#~ msgid "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
+#~ msgstr "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
+#~ msgid "http://down.boomworks.net (Check for updates)"
+#~ msgstr "http://down.boomworks.net (更新確認)"
+#~ msgid "Files"
+#~ msgstr "Files"
+

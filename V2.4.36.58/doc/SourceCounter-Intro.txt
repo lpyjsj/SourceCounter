@@ -1,0 +1,51 @@
+﻿<h2>简介</h2>
+
+<p>免费的源代码行数统计工具，支持20多种代码格式。具有统计迅速、准确的优点，是程序开发人员的必备工具。可以对 C++、VB.Net、VB、C#、JAVA、Delphi、ASP.Net、ASP、JSP、HTML 等项目的代码进行统计，并能保存统计的结果。</p>
+<br>
+
+<h2>下载地址</h2>
+
+<p><a href="http://boomworks.googlecode.com/files/sourcecounter-2.0.10.61.7z">http://boomworks.googlecode.com/files/sourcecounter-2.0.10.61.7z</a></p>
+<br>
+
+<h2>主要功能和特点(Features)</h2> 
+<ol>
+	<li>统计速度快、准确</li>
+	<li>支持对 20 多种代码格式进行统计</li>
+	<li>支持多目录和包含子目录的统计方式</li>
+	<li>支持统计结果保存为 .CSV 文件格式（可以方便地导入到 Excel）  </li>
+	<li>支持多国语言界面（英文、简体中文、繁体中文、日语等）</li>
+	<li>支持自由选择要统计的代码格式</li>
+</ol>
+
+<h2>主要更新</h2>
+
+<ul>
+	<li>2.0.10.61版 - BOOM 2008-11-1</li>
+	<ul>
+		<li>支持多路径统计</li>
+		<li>支持更多文件格式</li>
+		<li>.csv统计结果保存格式更改</li>
+		<li>支持多国语言界面（英文、简体中文、繁体中文、日语等）</li>
+	</ul>
+
+	<li>1.6.6.4 版 - Boom 2006-1-26</li>
+	<ul>
+		<li>支持对 ASP 和 HTML 文件的统计</li>
+		<li>保存统计源代码的文件夹路径</li>
+	</ul>
+</ul>
+
+<h2>界面截图</h2>
+<ul>
+<li><img alt="" src="http://boomworks.googlecode.com/files/SourceCounter-Screenshot-main-en.png" align="">
+</li>
+<li>
+<img alt="" src="http://boomworks.googlecode.com/files/SourceCounter-Screenshot-main-cn.png" align="">
+</li>
+<li>
+<img alt="" src="http://boomworks.googlecode.com/files/SourceCounter-Screenshot-main-jp.png" align="">
+</li>
+
+
+</ul>

@@ -1,0 +1,451 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SrcCounter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-03-03 17:37+0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Boom <boomworks@hotmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: CHINA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: W:\\boomworks\\SrcCounter\n"
+"X-Poedit-SearchPath-0: src\n"
+
+#: src/aboutdlg.cpp:59
+msgid "About"
+msgstr "關於"
+
+#: src/aboutdlg.cpp:68
+#: src/chooselang.cpp:177
+msgid "SourceCounter"
+msgstr "程式碼統計工具"
+
+#: src/aboutdlg.cpp:70
+msgid "Unicode version 1.0.1.0"
+msgstr "Unicode version 1.0.1.0"
+
+#: src/aboutdlg.cpp:72
+msgid "Label"
+msgstr "Label"
+
+#: src/aboutdlg.cpp:74
+msgid "(C) 1999 - 2009 BoomWorks.Org"
+msgstr "(C) 1999 - 2009 BoomWorks.Org"
+
+#: src/aboutdlg.cpp:76
+msgid "mailto:boomworks@hotmail.com"
+msgstr "mailto:boomworks@hotmail.com"
+
+#: src/aboutdlg.cpp:79
+msgid "http://www.boomworks.org"
+msgstr "http://www.boomworks.org"
+
+#: src/aboutdlg.cpp:87
+msgid "&Ok"
+msgstr "&Ok"
+
+#: src/chooselang.cpp:72
+#, c-format
+msgid "Uknown locale code '%s' in registry."
+msgstr "登錄中有未知的當地語系碼 '%s'。"
+
+#: src/chooselang.cpp:89
+msgid "(Use default language)"
+msgstr "(使用預設的語言)"
+
+#: src/chooselang.cpp:161
+msgid "Select your prefered language"
+msgstr "選擇妳偏好的語言"
+
+#: src/chooselang.cpp:162
+msgid "Language selection"
+msgstr "選擇語言"
+
+#: src/chooselang.cpp:176
+msgid "You must restart SourceCounter for this change to take effect."
+msgstr "妳得要重新啟動 SourceCounter 後這項變更纔會生效。"
+
+#: src/CntSettingDlg.cpp:62
+msgid "More settings dialog"
+msgstr "更多設定對話窗"
+
+#: src/CntSettingDlg.cpp:66
+msgid "Code lines +1, comment lines +1"
+msgstr "程式碼行數 +1, 註釋行數 +1"
+
+#: src/CntSettingDlg.cpp:67
+msgid "Code lines +1, comment lines +0"
+msgstr "程式碼行數 +1, 註釋行數 +0"
+
+#: src/CntSettingDlg.cpp:68
+msgid "Code lines +0, comment lines +1"
+msgstr "程式碼行數 +0, 註釋行數 +1"
+
+#: src/CntSettingDlg.cpp:70
+msgid "When code and comment in same line, please select one counting method"
+msgstr "註釋和程式碼在同一行的時候，請選擇統計的方式"
+
+#: src/CntSettingDlg.cpp:72
+msgid "Quality index criteria setting"
+msgstr "品質指標設定"
+
+#: src/CntSettingDlg.cpp:74
+msgid "Unit testing case density:"
+msgstr "單元測試用例密度:"
+
+#: src/CntSettingDlg.cpp:79
+#: src/CntSettingDlg.cpp:99
+msgid "Cases/KLOC"
+msgstr "Cases/KLOC"
+
+#: src/CntSettingDlg.cpp:83
+msgid "Unit testing defect density:"
+msgstr "單元測試缺陷密度:"
+
+#: src/CntSettingDlg.cpp:88
+#: src/CntSettingDlg.cpp:108
+msgid "Defects/KLOC"
+msgstr "Defects/KLOC"
+
+#: src/CntSettingDlg.cpp:94
+msgid "Integration testing case density:"
+msgstr "集成測試用例密度:"
+
+#: src/CntSettingDlg.cpp:103
+msgid "Integration testing defect density:"
+msgstr "集成測試缺陷密度:"
+
+#: src/CntSettingDlg.cpp:112
+msgid "Effort and cost analysis setting"
+msgstr "工數和成本分析的設定"
+
+#: src/CntSettingDlg.cpp:114
+msgid "Coding production:"
+msgstr "編碼生産率:"
+
+#: src/CntSettingDlg.cpp:117
+msgid "6000"
+msgstr "6000"
+
+#: src/CntSettingDlg.cpp:118
+msgid "4000"
+msgstr "4000"
+
+#: src/CntSettingDlg.cpp:119
+msgid "3000"
+msgstr "3000"
+
+#: src/CntSettingDlg.cpp:120
+msgid "2000"
+msgstr "2000"
+
+#: src/CntSettingDlg.cpp:122
+msgid "lines per man-month"
+msgstr "行/人月"
+
+#: src/CntSettingDlg.cpp:126
+msgid "Man-days of one man-month:"
+msgstr "一個人月的人日數:"
+
+#: src/CntSettingDlg.cpp:131
+msgid "days"
+msgstr "日"
+
+#: src/CntSettingDlg.cpp:135
+msgid "Cost of one man-month:"
+msgstr "一個人月的成本:"
+
+#: src/CntSettingDlg.cpp:137
+msgid "10000"
+msgstr "10000"
+
+#: src/CntSettingDlg.cpp:139
+msgid "$"
+msgstr "$"
+
+#: src/CntSettingDlg.cpp:144
+msgid "&OK"
+msgstr "&OK"
+
+#: src/CntSettingDlg.cpp:146
+msgid "&Cancel"
+msgstr "&Cancel"
+
+#: src/CountingManager.cpp:40
+msgid "File"
+msgstr "檔案"
+
+#: src/CountingManager.cpp:41
+msgid "Type"
+msgstr "類型"
+
+#: src/CountingManager.cpp:42
+msgid "Folder"
+msgstr "資料夾"
+
+#: src/CountingManager.cpp:43
+msgid "Lines"
+msgstr "行數"
+
+#: src/CountingManager.cpp:44
+msgid "Code lines"
+msgstr "程式碼行數"
+
+#: src/CountingManager.cpp:45
+msgid "Comment lines"
+msgstr "註釋行數"
+
+#: src/CountingManager.cpp:46
+msgid "Blank lines"
+msgstr "空行數"
+
+#: src/CountingManager.cpp:47
+msgid "Size"
+msgstr "大小"
+
+#: src/CountingManager.cpp:48
+msgid "Man-Day"
+msgstr "人日"
+
+#: src/CountingManager.cpp:49
+msgid "Cost"
+msgstr "成本"
+
+#: src/CountingManager.cpp:50
+msgid "UT Cases"
+msgstr "單元測試用例"
+
+#: src/CountingManager.cpp:51
+msgid "UT Defects"
+msgstr "單元測試缺陷"
+
+#: src/CountingManager.cpp:52
+msgid "IT Cases"
+msgstr "集成測試用例"
+
+#: src/CountingManager.cpp:53
+msgid "IT Defects"
+msgstr "集成測試缺陷"
+
+#: src/CountingManager.cpp:604
+msgid "# *** Total ***"
+msgstr "# *** Total ***"
+
+#: src/SourceCounterMain.cpp:32
+#: src/SourceCounterMain.cpp:240
+msgid "Ready."
+msgstr "就緒."
+
+#: src/SourceCounterMain.cpp:33
+msgid "Counting..."
+msgstr "統計中..."
+
+#: src/SourceCounterMain.cpp:34
+msgid "Completed."
+msgstr "完成。"
+
+#: src/SourceCounterMain.cpp:35
+msgid "Canceled."
+msgstr "已取消。"
+
+#: src/SourceCounterMain.cpp:119
+msgid "Options"
+msgstr "統計設置"
+
+#: src/SourceCounterMain.cpp:121
+msgid "Source code &folder:"
+msgstr "程式碼資料夾(&F):"
+
+#: src/SourceCounterMain.cpp:129
+msgid "&Add..."
+msgstr "添加...(&A)"
+
+#: src/SourceCounterMain.cpp:131
+msgid "&Delete"
+msgstr "刪除(&D)"
+
+#: src/SourceCounterMain.cpp:139
+msgid "Source &type:"
+msgstr "程式碼類型(&T):"
+
+#: src/SourceCounterMain.cpp:144
+msgid "S&elect..."
+msgstr "選擇...(&E)"
+
+#: src/SourceCounterMain.cpp:148
+msgid "&Recursive file counting"
+msgstr "遞迴統計子目錄(&R)"
+
+#: src/SourceCounterMain.cpp:150
+msgid "Check this box if you wish to count all files that located in the subfolders of source code folder."
+msgstr "如果想統計子目錄裏的程式碼，請選擇這個選擇框。"
+
+#: src/SourceCounterMain.cpp:152
+msgid "&More settings..."
+msgstr "更多設定...(&M)"
+
+#: src/SourceCounterMain.cpp:158
+msgid "&Start"
+msgstr "開始(&S)"
+
+#: src/SourceCounterMain.cpp:160
+msgid "Sto&p"
+msgstr "停止(&P)"
+
+#: src/SourceCounterMain.cpp:164
+msgid "Counting result"
+msgstr "統計結果"
+
+#: src/SourceCounterMain.cpp:170
+msgid "Total files:"
+msgstr "縂檔案數:"
+
+#: src/SourceCounterMain.cpp:172
+#: src/SourceCounterMain.cpp:177
+#: src/SourceCounterMain.cpp:182
+#: src/SourceCounterMain.cpp:189
+#: src/SourceCounterMain.cpp:194
+#: src/SourceCounterMain.cpp:199
+#: src/SourceCounterMain.cpp:206
+#: src/SourceCounterMain.cpp:211
+#: src/SourceCounterMain.cpp:216
+#: src/SourceCounterMain.cpp:223
+#: src/SourceCounterMain.cpp:228
+#: src/SourceCounterMain.cpp:233
+msgid "0"
+msgstr "0"
+
+#: src/SourceCounterMain.cpp:175
+msgid "Code lines:"
+msgstr "程式碼行數:"
+
+#: src/SourceCounterMain.cpp:180
+msgid "Total UT Cases:"
+msgstr "縂單元測試用例數:"
+
+#: src/SourceCounterMain.cpp:187
+msgid "Total size (KB):"
+msgstr "縂文件大小(KB):"
+
+#: src/SourceCounterMain.cpp:192
+msgid "Comment lines:"
+msgstr "註釋行數:"
+
+#: src/SourceCounterMain.cpp:197
+msgid "Total UT Defects:"
+msgstr "縂單元測試缺陷數:"
+
+#: src/SourceCounterMain.cpp:204
+msgid "Total man-month:"
+msgstr "縂人月數:"
+
+#: src/SourceCounterMain.cpp:209
+msgid "Blank lines:"
+msgstr "空行數:"
+
+#: src/SourceCounterMain.cpp:214
+msgid "Total IT Cases:"
+msgstr "縂集成測試用例數"
+
+#: src/SourceCounterMain.cpp:221
+msgid "Total cost:"
+msgstr "縂成本:"
+
+#: src/SourceCounterMain.cpp:226
+msgid "Total lines:"
+msgstr "縂行數:"
+
+#: src/SourceCounterMain.cpp:231
+msgid "Total IT Defects:"
+msgstr "縂集成測試缺陷數:"
+
+#: src/SourceCounterMain.cpp:238
+msgid "Counting status:"
+msgstr "狀態:"
+
+#: src/SourceCounterMain.cpp:242
+msgid "Sa&ve..."
+msgstr "儲存...(&V)"
+
+#: src/SourceCounterMain.cpp:248
+msgid "&Check for updates..."
+msgstr "查看新版本...(&C)"
+
+#: src/SourceCounterMain.cpp:249
+msgid "Get the latest version from http://down.boomworks.org"
+msgstr "訪問 http://down.boomworks.org 查看最新版本。"
+
+#: src/SourceCounterMain.cpp:251
+msgid "U&I Language..."
+msgstr "介面語言...(&I)"
+
+#: src/SourceCounterMain.cpp:253
+msgid "A&bout..."
+msgstr "關於...(&B)"
+
+#: src/SourceCounterMain.cpp:255
+msgid "&Quit"
+msgstr "退出(&Q)"
+
+#: src/SourceCounterMain.cpp:260
+msgid "Select directory"
+msgstr "目錄選擇"
+
+#: src/SourceCounterMain.cpp:261
+msgid "Select file"
+msgstr "檔案選擇"
+
+#: src/SourceCounterMain.cpp:261
+msgid "CSV files (*.csv)|*.csv"
+msgstr "CSV檔案 (*.csv)|*.csv"
+
+#: src/SourceCounterMain.cpp:262
+msgid "Open file"
+msgstr "打開檔案"
+
+#: src/SourceCounterMain.cpp:264
+msgid "Open directory"
+msgstr "打開目錄"
+
+#: src/SourceCounterMain.cpp:411
+msgid "Please add source folder."
+msgstr "請添加要統計的程式碼目錄。"
+
+#: src/SourceCounterMain.cpp:428
+msgid "Please check counting folder."
+msgstr "請選擇要統計的程式碼目錄。"
+
+#: src/SourceCounterMain.cpp:438
+msgid "Please select source types."
+msgstr "請選擇要統計的程式碼類型。"
+
+#: src/SrcTypeSelDlg.cpp:80
+#, fuzzy
+msgid "Select types"
+msgstr "類型選擇對話窗"
+
+#: src/SrcTypeSelDlg.cpp:82
+msgid "&Select source file types for counting:"
+msgstr "請選擇要統計的程式碼類型(&S):"
+
+#: src/SrcTypeSelDlg.cpp:86
+msgid "Select &all file types"
+msgstr "選擇所有類型(&A)"
+
+#: src/wx/hyperlink.cpp:79
+msgid "Failed to create wxControl, needed by wxHyperLink!"
+msgstr "Failed to create wxControl, needed by wxHyperLink!"
+
+#~ msgid "Code production of one man-month(coding lines per man-month):"
+#~ msgstr "程式碼生産性（一個人月編寫代碼的行數）:"
+#~ msgid "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
+#~ msgstr "# *** Generated by BoomWorks.Net(C) SourceCounter *** "
+#~ msgid "http://down.boomworks.net (Check for updates)"
+#~ msgstr "http://down.boomworks.net (检查更新)"
+#~ msgid "Files"
+#~ msgstr "文件数"
+
