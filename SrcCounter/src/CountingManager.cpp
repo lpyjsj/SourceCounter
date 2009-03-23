@@ -84,7 +84,7 @@ bool wxXmlDocumentEx::Save(wxOutputStream& stream, int indentstep) const
 ///////////////////////////////////////////////////////////////////////
 
 /* Source types number */
-const int N_COLUMN_NUM = 14;
+const int N_COLUMN_NUM = 15;
 
 /* Source type */
 const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
@@ -102,10 +102,11 @@ const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
     _("UT Cases"),			// 10
     _("UT Defects"),		// 11
     _("IT Cases"),			// 12
-    _("IT Defects")			// 13
+    _("IT Defects"),		// 13
+    _("Code//Comment")		// 14
 };
 
-const wxString CSZ_CSV_HEADER_FORMAT = _T( "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" );
+const wxString CSZ_CSV_HEADER_FORMAT = _T( "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" );
 
 /* Counter rule data file */
 const wxString CSZ_RULES_DATA_XML = _T("rules.xml");
@@ -212,17 +213,17 @@ void CountingManager::loadRules()
 
             if (pChildChild->GetName() == _T("single-line-comment"))
             {// Single line comment
-				strSlgLnComm = pChildChild->GetNodeContent();
+                strSlgLnComm = pChildChild->GetNodeContent();
             }
 
             if (pChildChild->GetName() == _T("multi-line-comment-begin"))
             {// Single line comment
-				strMltLnCommBegin = pChildChild->GetNodeContent();
+                strMltLnCommBegin = pChildChild->GetNodeContent();
             }
 
             if (pChildChild->GetName() == _T("multi-line-comment-end"))
             {// Single line comment
-				strMltLnCommEnd = pChildChild->GetNodeContent();
+                strMltLnCommEnd = pChildChild->GetNodeContent();
             }
 
             if (pChildChild->GetName() == _T("extension"))
@@ -259,11 +260,11 @@ void CountingManager::loadRules()
             pChildChild = pChildChild->GetNext();
         }
 
-		//
+        //
         // New rule point and add to map
         //
-		pRule = new CounterRule();
-		// Rule propertise
+        pRule = new CounterRule();
+        // Rule propertise
         pRule->m_strType = strType;
         pRule->m_strDesc = strDesc;
         // Comment
@@ -373,7 +374,7 @@ void CountingManager::saveRules()
         // <multi-line-comment-begin>
         wxXmlNode* pNMltLnBeginTag = new wxXmlNode(pNRuleTag, wxXML_ELEMENT_NODE, _T("multi-line-comment-begin"));
         wxXmlNode* pNMltLnBeginVal = new wxXmlNode(pNMltLnBeginTag, wxXML_TEXT_NODE, _T(""), pRule->m_strMltLnCommBegin);
-		// <multi-line-comment-end>
+        // <multi-line-comment-end>
         wxXmlNode* pNMltLnEndTag = new wxXmlNode(pNRuleTag, wxXML_ELEMENT_NODE, _T("multi-line-comment-end"));
         wxXmlNode* pNMltLnEndVal = new wxXmlNode(pNMltLnEndTag, wxXML_TEXT_NODE, _T(""), pRule->m_strMltLnCommEnd);
 
@@ -426,8 +427,6 @@ void CountingManager::SetCountingParam( CountingParam* pParam )
     m_countingParam.m_arrSrcType		        = pParam->m_arrSrcType;
 
     m_countingParam.m_bRecursiveCounting		= pParam->m_bRecursiveCounting;
-
-    m_countingParam.m_settingParam.m_nCountingMethodType	= pParam->m_settingParam.m_nCountingMethodType;
 }
 
 /**
@@ -479,6 +478,15 @@ Counter* CountingManager::CreateCounter(wxString& strCounterType)
         if (0 == strCounterType.CmpNoCase(TxtCounter::ms_strType))
         {// TxtCounter
             pCounter = new TxtCounter;
+        }
+
+        // Find CounterRule
+        MapStrToCounterRule::iterator itr;
+        itr = m_mapCounterRule.find(strCounterType);
+        if (itr != m_mapCounterRule.end())
+        {
+            // Set CounterRule to counter obj
+            pCounter->SetRule(itr->second);
         }
 
         // Store to map
@@ -731,6 +739,7 @@ void CountingManager::StartCounting()
                 m_countingInfo.m_nTotalStatement			+= pCountingFileInfoCur->m_nTotalStatement;
                 m_countingInfo.m_nTotalCodeStatement		+= pCountingFileInfoCur->m_nCodeStatement;
                 m_countingInfo.m_nTotalCommentStatement		+= pCountingFileInfoCur->m_nCommentStatement;
+                m_countingInfo.m_nTotalCodeCommentStatement += pCountingFileInfoCur->m_nCodeCommentStatement;
                 m_countingInfo.m_nTotalBlankStatement	    += pCountingFileInfoCur->m_nBlankStatement;
 
                 m_countingInfo.m_fTotalManMonth				+= (float)pCountingFileInfoCur->m_nManDay / (float)m_countingParam.m_settingParam.m_nDaysPerMM;
@@ -866,10 +875,11 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
     file.AddLine(_T( "\n" ));
 
     // Header
-    strText.Printf( CSZ_CSV_HEADER_FORMAT, CSZ_COLUMN_NAMES[2], CSZ_COLUMN_NAMES[0], CSZ_COLUMN_NAMES[1],
-                    CSZ_COLUMN_NAMES[3], CSZ_COLUMN_NAMES[4], CSZ_COLUMN_NAMES[5], CSZ_COLUMN_NAMES[6],
+    strText.Printf( CSZ_CSV_HEADER_FORMAT,
+                    CSZ_COLUMN_NAMES[2], CSZ_COLUMN_NAMES[0], CSZ_COLUMN_NAMES[1], CSZ_COLUMN_NAMES[3],
+                    CSZ_COLUMN_NAMES[4], CSZ_COLUMN_NAMES[5], CSZ_COLUMN_NAMES[14], CSZ_COLUMN_NAMES[6],
                     CSZ_COLUMN_NAMES[7], CSZ_COLUMN_NAMES[8], CSZ_COLUMN_NAMES[9], CSZ_COLUMN_NAMES[10],
-                    CSZ_COLUMN_NAMES[11], CSZ_COLUMN_NAMES[12], CSZ_COLUMN_NAMES[13], CSZ_COLUMN_NAMES[14]
+                    CSZ_COLUMN_NAMES[11], CSZ_COLUMN_NAMES[12], CSZ_COLUMN_NAMES[13]
                   );
     file.AddLine( strText );
 
@@ -892,10 +902,14 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
         strText = pFileInfo->m_strFolderPath +_T(",")+  pFileInfo->m_strFileName +_T(",")+ pFileInfo->m_strFileExtName;
 
         strTemp.Empty();
-        strTemp.Printf(_T(",%d,%d,%d,%d,%d,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f"), pFileInfo->m_nTotalStatement, pFileInfo->m_nCodeStatement,
-                       pFileInfo->m_nCommentStatement, pFileInfo->m_nBlankStatement, pFileInfo->m_nSize,
+
+        // Add: Code + Comment line - 2009-3-22
+        strTemp.Printf(_T(",%d,%d,%d,%d,%d,%d,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f"),
+                       pFileInfo->m_nTotalStatement, pFileInfo->m_nCodeStatement, pFileInfo->m_nCommentStatement,
+                       pFileInfo->m_nCodeCommentStatement, pFileInfo->m_nBlankStatement, pFileInfo->m_nSize,
                        pFileInfo->m_nManDay, pFileInfo->m_nCost,
-                       pFileInfo->m_fUtCase, pFileInfo->m_fUtDefect, pFileInfo->m_fItCase, pFileInfo->m_fItDefect);
+                       pFileInfo->m_fUtCase, pFileInfo->m_fUtDefect,
+                       pFileInfo->m_fItCase, pFileInfo->m_fItDefect);
 
 //        strText.Printf( CSZ_CSV_FORMAT_STR,
 //                        pFileInfo->m_strFileName, pFileInfo->m_strFileExtName, pFileInfo->m_strFolderPath,
@@ -924,6 +938,9 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
     file.AddLine( strTotal );
 
     strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[5], m_countingInfo.m_nTotalCommentStatement, 100. * m_countingInfo.m_nTotalCommentStatement / m_countingInfo.m_nTotalStatement );
+    file.AddLine( strTotal );
+    // Add: Code + Comment lines - 2009-3-22
+    strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[14], m_countingInfo.m_nTotalCodeCommentStatement, 100. * m_countingInfo.m_nTotalCodeCommentStatement / m_countingInfo.m_nTotalStatement );
     file.AddLine( strTotal );
 
     strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[6], m_countingInfo.m_nTotalBlankStatement, 100. * m_countingInfo.m_nTotalBlankStatement / m_countingInfo.m_nTotalStatement  );

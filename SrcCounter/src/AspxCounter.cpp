@@ -12,8 +12,8 @@ AspxCounter::~AspxCounter()
     //dtor
 }
 
-void AspxCounter::countingSourceFile(
-    wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
+void AspxCounter::countingSourceFile(wxTextFile& file, int& nLines, int& nCodeLines,
+                                     int& nCommentLines, int& nCodeCommentLines, int& nBlankLines )
 
 {
 #ifdef __WXDEBUG__

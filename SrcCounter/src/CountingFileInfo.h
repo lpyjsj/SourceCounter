@@ -53,6 +53,7 @@ public:
 	int			m_nTotalStatement;		///< current counting file statement
 	int			m_nCodeStatement;		///< current counting file code statement
 	int			m_nCommentStatement;	///< current counting file comment statement
+	int			m_nCodeCommentStatement;	///< current counnting file code comment at one line
 	int			m_nBlankStatement;		///< current counting file blank statement
 
 	float		m_nManDay;		///< Source code man-days
@@ -77,6 +78,7 @@ inline void CountingFileInfo::Clear()
 	m_nTotalStatement		= 0;
 	m_nCodeStatement		= 0;
 	m_nCommentStatement		= 0;
+	m_nCodeCommentStatement = 0;
 	m_nBlankStatement		= 0;
 
 	m_nManDay	= 0.0;

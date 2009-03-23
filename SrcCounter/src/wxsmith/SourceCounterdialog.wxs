@@ -384,7 +384,7 @@
 								<option>1</option>
 							</object>
 							<object class="sizeritem">
-								<object class="wxStaticText" name="ID_STATICTEXT30" variable="StaticText14" member="yes">
+								<object class="wxStaticText" name="ID_STATICTEXT30" variable="m_lblCodeCommentLines" member="yes">
 									<label>0</label>
 									<fg>wxSYS_COLOUR_ACTIVECAPTION</fg>
 									<style>wxSUNKEN_BORDER</style>

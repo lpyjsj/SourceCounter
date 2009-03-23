@@ -18,43 +18,6 @@
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
-/** define source type id */
-enum NSourceFileType
-{
-	// TODO:
-
-	// c and cpp
-	NTypeH			= 1,		///<
-	NTypeC			= 2,		///<
-	NTypeCPP		= 4,		///< .cpp
-	NTypeCXX		= 8,		///<
-	NTypeRC			= 32,		///< plaint text
-	NTypeTLH		= 64,		///<
-	NTypeTLI		= 128,		///<
-
-	// delphi
-	NTypePAS		= 256,		///<
-	NTypeDFM		= 512,		///<  plaint text
-
-	// vb
-	NTypeBAS		= 1024,		///<
-	NTypeFRM		= 2048,		///<
-	NTypeCTL		= 4096,		///<
-	NTypeCLS		= 8192,		///<
-
-	// java
-	NTypeJAVA		= 16384,	///<
-
-	NTypeHTML		= 32768,	///< macro script (VBA)
-	NTypeASP		= 65536,		///<
-	NTypeJSP		= 65536 + 65536,		///<
-
-};
-
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
 /**
  * @class SettingParam
  * More setting pramaeter for Counting.
@@ -69,8 +32,6 @@ public:
 
 public:
 
-	int m_nCountingMethodType;		///< when code and comment in one line
-
 	// Add UT and IT density param on 2009-3-3
 	int m_nUtCaseDensity;		///< Unit Testing case density
 	int m_nUtDefectDensity;		///< Unit Testing defect density
@@ -82,7 +43,6 @@ public:
     int m_nCostPerMM;       ///< Cost per man-month
 
     ///////////////////////////////////////////////////////////////////
-
 
 private:
 

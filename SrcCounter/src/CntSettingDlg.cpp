@@ -11,7 +11,6 @@
 //*)
 
 //(*IdInit(CntSettingDlg)
-const long CntSettingDlg::ID_RADIOBOX1 = wxNewId();
 const long CntSettingDlg::ID_STATICTEXT5 = wxNewId();
 const long CntSettingDlg::ID_SPINCTRL2 = wxNewId();
 const long CntSettingDlg::ID_STATICTEXT6 = wxNewId();
@@ -57,17 +56,9 @@ CntSettingDlg::CntSettingDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
 	wxBoxSizer* BoxSizer9;
 	wxStaticBoxSizer* StaticBoxSizer1;
 	wxBoxSizer* BoxSizer3;
-	
+
 	Create(parent, wxID_ANY, _("More settings dialog"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
-	wxString __wxRadioBoxChoices_1[3] = 
-	{
-	_("Code lines +1, comment lines +1"),
-	_("Code lines +1, comment lines +0"),
-	_("Code lines +0, comment lines +1")
-	};
-	m_rdbCountingMethod = new wxRadioBox(this, ID_RADIOBOX1, _("When code and comment in same line, please select one counting method"), wxDefaultPosition, wxDefaultSize, 3, __wxRadioBoxChoices_1, 1, 0, wxDefaultValidator, _T("ID_RADIOBOX1"));
-	BoxSizer1->Add(m_rdbCountingMethod, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticBoxSizer2 = new wxStaticBoxSizer(wxVERTICAL, this, _("Quality index criteria setting"));
 	BoxSizer6 = new wxBoxSizer(wxHORIZONTAL);
 	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("Unit testing case density:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
@@ -147,8 +138,7 @@ CntSettingDlg::CntSettingDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
 	BoxSizer1->Fit(this);
 	BoxSizer1->SetSizeHints(this);
 	Center();
-	
-	Connect(ID_RADIOBOX1,wxEVT_COMMAND_RADIOBOX_SELECTED,(wxObjectEventFunction)&CntSettingDlg::OnRdbCountingMethodSelect);
+
 	Connect(wxID_OK,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CntSettingDlg::OnBtnOkClick);
 	Connect(wxID_CANCEL,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CntSettingDlg::OnBtnCancelClick);
 	Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&CntSettingDlg::OnInit);
@@ -163,8 +153,6 @@ CntSettingDlg::~CntSettingDlg()
 
 void CntSettingDlg::SetSettingParam(SettingParam* pParam) //In
 {
-    m_settingParam.m_nCountingMethodType = pParam->m_nCountingMethodType;
-
 	// Boom: Add UT and IT density param on 2009-3-3
 	m_settingParam.m_nUtCaseDensity		= pParam->m_nUtCaseDensity;
 	m_settingParam.m_nUtDefectDensity	= pParam->m_nUtDefectDensity;
@@ -178,9 +166,6 @@ void CntSettingDlg::SetSettingParam(SettingParam* pParam) //In
 
 void CntSettingDlg::OnInit(wxInitDialogEvent& event)
 {
-	// Counting method
-    m_rdbCountingMethod->SetSelection(m_settingParam.m_nCountingMethodType);
-
     wxString strTemp;
 
 	// Boom: add UT and IT density on 2009-3-3
@@ -204,9 +189,6 @@ void CntSettingDlg::OnInit(wxInitDialogEvent& event)
 
 void CntSettingDlg::GetSettingParam(SettingParam& param) //Out
 {
-    //
-    param.m_nCountingMethodType = m_settingParam.m_nCountingMethodType;
-
 	// Boom: Add get UT and IT density code on 2009-3-3
 	param.m_nUtCaseDensity 		= m_spinUtCaseDensity->GetValue();
 	param.m_nUtDefectDensity	= m_spinUtDefectDensity->GetValue();
@@ -236,10 +218,4 @@ void CntSettingDlg::OnBtnOkClick(wxCommandEvent& event)
 void CntSettingDlg::OnBtnCancelClick(wxCommandEvent& event)
 {
 	EndModal(wxID_CANCEL);
-}
-
-void CntSettingDlg::OnRdbCountingMethodSelect(wxCommandEvent& event)
-{
-    // wxMessageBox( event.GetString() );
-    m_settingParam.m_nCountingMethodType = event.GetSelection();
 }

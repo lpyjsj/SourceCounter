@@ -30,54 +30,69 @@ BasicCounter::BasicCounter()
 BasicCounter::~BasicCounter()
 {}
 
-void BasicCounter::countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
+void BasicCounter::countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines,
+                     int& nCommentLines, int& nCodeCommentLines, int& nBlankLines )
 {
-	wxString bufRead;
 
-    for ( bufRead = file.GetFirstLine(); !file.Eof(); bufRead = file.GetNextLine() )
-	{
-		nLines++;
+    countLines(file, m_pRule, nLines, nCodeLines, nCommentLines, nCodeCommentLines, nBlankLines );
 
-		bufRead.Trim(false);
+//wxTextFile& file, LanguageDef &language, long int &total_lines,
+//                         long int &code_lines, long int &codecomments_lines,
+//                         long int &comment_lines, long int &empty_lines
 
-		if( bufRead.Len() == 0 )
-		{
-			nBlankLines++;
-			continue;
-		}
 
-		if( bufRead.Find( _T("'") ) == 0 )
-		{
-			nCommentLines++;
-			continue;
-		}
 
-		//
-		if( bufRead.Find( _T("'") ) == -1 )
-		{
-			nCodeLines++;
-		}
-		else
-		{
-			switch( m_nLineCountingType )
-			{
-				case NStatisticAll:
-				nCodeLines++;
-				nCommentLines++;
-				break;
+    /*
+    	wxString bufRead;
+        for ( bufRead = file.GetFirstLine(); !file.Eof(); bufRead = file.GetNextLine() )
+    	{
+    		nLines++;
 
-				case NStatisticCodeOnly:
-				nCodeLines++;
-				break;
+    		bufRead.Trim(false);
 
-				case NStatisticCommentOnly:
-				nCommentLines++;
-				break;
 
-				default:
-				break;
-			}
-			continue;
-		}
-	}
+
+    	}
+
+    		if( bufRead.Len() == 0 )
+    		{
+    			nBlankLines++;
+    			continue;
+    		}
+
+    		if( bufRead.Find( _T("'") ) == 0 )
+    		{
+    			nCommentLines++;
+    			continue;
+    		}
+
+    		//
+    		if( bufRead.Find( _T("'") ) == -1 )
+    		{
+    			nCodeLines++;
+    		}
+    		else
+    		{
+    			switch( m_nLineCountingType )
+    			{
+    				case NStatisticAll:
+    				nCodeLines++;
+    				nCommentLines++;
+    				break;
+
+    				case NStatisticCodeOnly:
+    				nCodeLines++;
+    				break;
+
+    				case NStatisticCommentOnly:
+    				nCommentLines++;
+    				break;
+
+    				default:
+    				break;
+    			}
+    			continue;
+    		}
+    	}
+    	*/
 }

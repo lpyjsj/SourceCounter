@@ -31,7 +31,8 @@ TxtCounter::~TxtCounter()
 
 }
 
-void TxtCounter::countingSourceFile(wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
+void TxtCounter::countingSourceFile(wxTextFile& file, int& nLines, int& nCodeLines,
+                                     int& nCommentLines, int& nCodeCommentLines, int& nBlankLines )
 {
     wxString str;
     for ( str = file.GetFirstLine(); !file.Eof(); str = file.GetNextLine() )

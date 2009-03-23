@@ -52,6 +52,7 @@ public:
     int			m_nTotalStatement;			///< total of statement
     int			m_nTotalCodeStatement;		///< total of code statement
     int			m_nTotalCommentStatement;	///< total of comment statement
+    int			m_nTotalCodeCommentStatement;
     int			m_nTotalBlankStatement;		///< total of blank of statement
 
     float		m_fTotalManMonth;		///<
@@ -103,6 +104,7 @@ inline CountingInfo& CountingInfo::operator =( CountingInfo& srcInfo)
     m_nTotalStatement			= srcInfo.m_nTotalStatement;
     m_nTotalCodeStatement		= srcInfo.m_nTotalCodeStatement;
     m_nTotalCommentStatement	= srcInfo.m_nTotalCommentStatement;
+    m_nTotalCodeCommentStatement = srcInfo.m_nTotalCodeCommentStatement;
     m_nTotalBlankStatement		= srcInfo.m_nTotalBlankStatement;
 
     m_fTotalManMonth		= srcInfo.m_fTotalManMonth;

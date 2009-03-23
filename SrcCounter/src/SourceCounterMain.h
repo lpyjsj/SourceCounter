@@ -113,8 +113,8 @@ private:
     wxListCtrl* m_lstResult;
     wxStaticText* StaticText2;
     wxStaticText* m_lblTotalLines;
-    wxStaticText* StaticText14;
     wxDirDialog* m_dlgAddDir;
+    wxStaticText* m_lblCodeCommentLines;
     wxButton* Button1;
     wxButton* m_btnDelete;
     wxStaticText* StaticText6;

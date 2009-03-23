@@ -8,20 +8,6 @@
 		<object class="wxBoxSizer" variable="BoxSizer1" member="no">
 			<orient>wxVERTICAL</orient>
 			<object class="sizeritem">
-				<object class="wxRadioBox" name="ID_RADIOBOX1" variable="m_rdbCountingMethod" member="yes">
-					<label>When code and comment in same line, please select one counting method</label>
-					<content>
-						<item>Code lines +1, comment lines +1</item>
-						<item>Code lines +1, comment lines +0</item>
-						<item>Code lines +0, comment lines +1</item>
-					</content>
-					<default>-1</default>
-					<handler function="OnRdbCountingMethodSelect" entry="EVT_RADIOBOX" />
-				</object>
-				<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
-				<border>5</border>
-			</object>
-			<object class="sizeritem">
 				<object class="wxStaticBoxSizer" variable="StaticBoxSizer2" member="no">
 					<label>Quality index criteria setting</label>
 					<orient>wxVERTICAL</orient>

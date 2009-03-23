@@ -48,8 +48,8 @@ public:
 	 * @param nCommentLines comment lines
 	 * @param nBlankLines blank lines
 	 */
-	virtual void countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines );
-
+    virtual void countingSourceFile( wxTextFile& file, int& nLines, int& nCodeLines,
+                                     int& nCommentLines, int& nCodeCommentLines, int& nBlankLines );
 	///////////////////////////////////////////////////////////////////
 
     static wxString ms_strType;

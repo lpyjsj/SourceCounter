@@ -19,7 +19,6 @@ static char THIS_FILE[]=__FILE__;
 ///////////////////////////////////////////////////////////////////////
 
 SettingParam::SettingParam():
-            m_nCountingMethodType(0),
             m_nUtCaseDensity(50),
             m_nUtDefectDensity(10),
             m_nItCaseDensity(20),

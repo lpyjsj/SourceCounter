@@ -114,7 +114,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     wxStaticBoxSizer* StaticBoxSizer1;
     wxBoxSizer* BoxSizer3;
     wxMenuItem* m_menuItemOpenDir;
-    
+
     Create(parent, wxID_ANY, _("SourceCounter"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _("Options"));
@@ -222,9 +222,9 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer16 = new wxBoxSizer(wxHORIZONTAL);
     StaticText4 = new wxStaticText(this, ID_STATICTEXT29, _("Code// Comment:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT29"));
     BoxSizer16->Add(StaticText4, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    StaticText14 = new wxStaticText(this, ID_STATICTEXT30, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT30"));
-    StaticText14->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
-    BoxSizer16->Add(StaticText14, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    m_lblCodeCommentLines = new wxStaticText(this, ID_STATICTEXT30, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT30"));
+    m_lblCodeCommentLines->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_ACTIVECAPTION));
+    BoxSizer16->Add(m_lblCodeCommentLines, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticText15 = new wxStaticText(this, ID_STATICTEXT25, _("Total IT Defects:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT25"));
     BoxSizer16->Add(StaticText15, 1, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     m_lblItDefects = new wxStaticText(this, ID_STATICTEXT28, _("0"), wxDefaultPosition, wxDefaultSize, wxSUNKEN_BORDER, _T("ID_STATICTEXT28"));
@@ -270,7 +270,7 @@ SourceCounterDialog::SourceCounterDialog(wxWindow* parent,wxWindowID id):
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_CHECKLISTBOX_TOGGLED,(wxObjectEventFunction)&SourceCounterDialog::OnLbxSrcFolderCheck);
     Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnAddDirClick);
     Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SourceCounterDialog::OnBtnDeleteClick);
@@ -636,6 +636,9 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
 	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fItDefect);
 	m_lstResult->SetItem(nIndex, 13, strTemp);
 
+    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nCodeCommentStatement);
+    m_lstResult->SetItem(nIndex, 14, strTemp);
+
 	// Set data to item
     m_lstResult->SetItemData(nIndex, (long)pCountingFileInfo);
 
@@ -659,6 +662,10 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
 
     strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalCommentStatement);
     m_lblCommentLines->SetLabel(strTemp);
+
+	// Add : COde + Comment lines - 2009-3-22
+	strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalCodeCommentStatement);
+    m_lblCodeCommentLines->SetLabel(strTemp);
 
     strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalBlankStatement);
     m_lblBlankLines->SetLabel(strTemp);

@@ -25,8 +25,8 @@ JspCounter::~JspCounter()
 {
 }
 
-void JspCounter::countingSourceFile(
-    wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
+void JspCounter::countingSourceFile(wxTextFile& file, int& nLines, int& nCodeLines,
+                                     int& nCommentLines, int& nCodeCommentLines, int& nBlankLines )
 {
     //
     wxString bufCurLine;

@@ -48,8 +48,8 @@ PhpCounter::~PhpCounter()
 {
 }
 
-void PhpCounter::countingSourceFile(
-    wxTextFile& file, int& nLines, int& nCodeLines, int& nCommentLines, int& nBlankLines )
+void PhpCounter::countingSourceFile(wxTextFile& file, int& nLines, int& nCodeLines,
+                                     int& nCommentLines, int& nCodeCommentLines, int& nBlankLines)
 {
     //
     wxString strCurLine;
