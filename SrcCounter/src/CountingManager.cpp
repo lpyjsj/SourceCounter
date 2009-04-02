@@ -268,7 +268,7 @@ void CountingManager::loadRules()
         pRule->m_strType = strType;
         pRule->m_strDesc = strDesc;
         // Comment
-        pRule->m_strSlgLnComm = strSlgLnComm;
+        pRule->m_strSglLnComm = strSlgLnComm;
         pRule->m_strMltLnCommBegin = strMltLnCommBegin;
         pRule->m_strMltLnCommEnd = strMltLnCommEnd;
         // Add to map
@@ -370,7 +370,7 @@ void CountingManager::saveRules()
         wxXmlNode* pNDescVal = new wxXmlNode(pNDescTag, wxXML_TEXT_NODE, _T(""), pRule->m_strDesc);
         // <single-line-comment>
         wxXmlNode* pNSlgLnCommTag = new wxXmlNode(pNRuleTag, wxXML_ELEMENT_NODE, _T("single-line-comment"));
-        wxXmlNode* pNSlgLnCommVal = new wxXmlNode(pNSlgLnCommTag, wxXML_TEXT_NODE, _T(""), pRule->m_strSlgLnComm);
+        wxXmlNode* pNSlgLnCommVal = new wxXmlNode(pNSlgLnCommTag, wxXML_TEXT_NODE, _T(""), pRule->m_strSglLnComm);
         // <multi-line-comment-begin>
         wxXmlNode* pNMltLnBeginTag = new wxXmlNode(pNRuleTag, wxXML_ELEMENT_NODE, _T("multi-line-comment-begin"));
         wxXmlNode* pNMltLnBeginVal = new wxXmlNode(pNMltLnBeginTag, wxXML_TEXT_NODE, _T(""), pRule->m_strMltLnCommBegin);

@@ -72,7 +72,13 @@ protected:
     void countLines(wxTextFile& file, CounterRule* language, int &total_lines, int &code_lines,
                          int &comment_lines, int &codecomments_lines, int &empty_lines);
 
-    void analyseLine(CounterRule* language, wxString line, bool &comment, bool &code, bool &multi_line_comment);
+    void analyseLine(CounterRule* language, wxString line, bool &comment, bool &code, bool &multi_line_comment);	//
+	//
+	//
+    void countLines2(wxTextFile& file, CounterRule* language, int &total_lines, int &code_lines,
+                         int &comment_lines, int &codecomments_lines, int &empty_lines);
+
+    void analyseLine2(CounterRule* language, wxString line, bool& bScriptMode,  bool &comment, bool &code, bool &multi_line_comment);
 
     //////////////////////////////////////////////////////////////////////////
 

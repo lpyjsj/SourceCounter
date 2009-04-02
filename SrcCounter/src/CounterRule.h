@@ -38,8 +38,11 @@ public:
     wxString m_strType;
     wxString m_strDesc;
 
+	// Script signs
+    wxString m_strScriptBegin;
+    wxString m_strScriptEnd;
     // Comment
-    wxString m_strSlgLnComm;
+    wxString m_strSglLnComm;
     wxString m_strMltLnCommBegin;
     wxString m_strMltLnCommEnd;
 

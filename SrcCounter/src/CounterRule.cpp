@@ -25,7 +25,9 @@ FileExtension::~FileExtension()
 CounterRule::CounterRule(wxString& strType, wxString& strDesc):
         m_strType(strType),
         m_strDesc(strDesc),
-        m_strSlgLnComm(_T("")),
+        m_strScriptBegin(_T("")),
+        m_strScriptEnd(_T("")),
+        m_strSglLnComm(_T("")),
         m_strMltLnCommBegin(_T("")),
         m_strMltLnCommEnd(_T(""))
 {

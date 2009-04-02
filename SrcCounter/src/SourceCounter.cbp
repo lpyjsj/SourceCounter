@@ -92,8 +92,6 @@
 		<Unit filename="CppCounter.h" />
 		<Unit filename="JspCounter.cpp" />
 		<Unit filename="JspCounter.h" />
-		<Unit filename="NormalCounter.cpp" />
-		<Unit filename="NormalCounter.h" />
 		<Unit filename="PasCounter.cpp" />
 		<Unit filename="PasCounter.h" />
 		<Unit filename="PhpCounter.cpp" />

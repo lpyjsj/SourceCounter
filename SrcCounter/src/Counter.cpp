@@ -78,96 +78,244 @@ void Counter::Counting(CountingFileInfo* countingFileInfo, CountingParam& counti
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
-/** This function analyses a given source file and count the lines of code, comments etc...
+/** This function analyses a given source file and count the lines of bCode, comments etc...
  */
-void Counter::countLines(wxTextFile& file, CounterRule* language, int &total_lines, int &code_lines,
+void Counter::countLines(wxTextFile& file, CounterRule* pRule, int &total_lines, int &code_lines,
                          int &comment_lines, int &codecomments_lines, int &empty_lines)
 {
-    bool multi_line_comment = false;
+    bool bDelimitedCommentMode = false;
     total_lines += file.GetLineCount();
     for (unsigned int i=0; i<file.GetLineCount(); ++i)
     {
-        wxString line(file[i]);
-        line = line.Trim(true);
-        line = line.Trim(false);
-        bool comment = false;
-        bool code = false;
-        if (line.IsEmpty())
+        // Trim space
+        wxString strLine(file[i]);
+        strLine = strLine.Trim(true);
+        strLine = strLine.Trim(false);
+
+        bool bComment = false;
+        bool bCode = false;
+        if (strLine.IsEmpty())
             ++empty_lines;
         else
         {
-            analyseLine(language, line, comment, code, multi_line_comment);
-            if (comment&&code) ++codecomments_lines;
-            else if (comment) ++comment_lines;
-            else if (code) ++code_lines;
+            analyseLine(pRule, strLine, bComment, bCode, bDelimitedCommentMode);
+            if (bComment&&bCode) ++codecomments_lines;
+            else if (bComment) ++comment_lines;
+            else if (bCode) ++code_lines;
+        }
+    }// End for
+}
+
+/** This function determines the caracteristics of a given strLine (bCode strLine, bComment strLine etc...).
+ *  It is called by the "CountLines" function.
+ *  @see CountLines
+ */
+void Counter::analyseLine(CounterRule* pRule, wxString strLine, bool &bComment, bool &bCode, bool &bDelimitedCommentMode)
+{
+    int nIdxFirstSglLnComm, nIdxFirstMltLnCommBegin, nIdxFirstMltLnCommEnd;
+
+    // Delete first and trailing spaces
+    strLine = strLine.Trim(true);
+    strLine = strLine.Trim(false);
+
+    if (strLine.IsEmpty())
+        return;
+
+    // Searching for single and multi-lines bComment signs
+    if (pRule->m_strSglLnComm.Len() > 0)
+        nIdxFirstSglLnComm = strLine.Find(pRule->m_strSglLnComm);
+    else nIdxFirstSglLnComm = -1;
+    if (pRule->m_strMltLnCommBegin.Len() > 0)
+        nIdxFirstMltLnCommBegin = strLine.Find(pRule->m_strMltLnCommBegin);
+    else nIdxFirstMltLnCommBegin = -1;
+    if (pRule->m_strMltLnCommEnd.Len() > 0)
+        nIdxFirstMltLnCommEnd = strLine.Find(pRule->m_strMltLnCommEnd);
+    else nIdxFirstMltLnCommEnd = -1;
+
+    // We are in a multiple strLine bComment => finding the "end of multiple strLine bComment" sign
+    if (bDelimitedCommentMode)
+    {
+        bComment = true;
+        if (nIdxFirstMltLnCommEnd > -1)
+        {
+            bDelimitedCommentMode = false;
+            if (nIdxFirstMltLnCommEnd+pRule->m_strMltLnCommEnd.Len() < strLine.Length())
+                analyseLine(pRule, strLine.Mid(nIdxFirstMltLnCommEnd+pRule->m_strMltLnCommEnd.Length()),
+                            bComment, bCode, bDelimitedCommentMode);
+        }
+    }
+    // We are not in a multiple strLine bComment
+    else if (!bDelimitedCommentMode)
+    {
+        // First bComment sign found is a single strLine bComment sign
+        if ( (nIdxFirstSglLnComm>-1)
+                &&((nIdxFirstMltLnCommBegin==-1)
+                   ||((nIdxFirstMltLnCommBegin>-1)&&(nIdxFirstSglLnComm<nIdxFirstMltLnCommBegin))) )
+        {
+            bComment = true;
+            if (nIdxFirstSglLnComm > 0)
+                bCode = true;
+        }
+        // First bComment sign found is a multi-strLine bComment begin sign
+        else if (nIdxFirstMltLnCommBegin>-1)
+        {
+            bDelimitedCommentMode = true;
+            bComment = true;
+            if (nIdxFirstMltLnCommBegin > 0)
+                bCode = true;
+            if (nIdxFirstMltLnCommBegin+pRule->m_strMltLnCommBegin.Len() < strLine.Length())
+                analyseLine(pRule, strLine.Mid(nIdxFirstMltLnCommBegin+pRule->m_strMltLnCommBegin.Length()),
+                            bComment, bCode, bDelimitedCommentMode);
+        }
+        else
+        {
+            bCode = true;
         }
     }
 }
 
-/** This function determines the caracteristics of a given line (code line, comment line etc...).
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+/** This function analyses a given source file and count the lines of bCode, comments etc...
+ */
+void Counter::countLines2(wxTextFile& file, CounterRule* pRule, int &total_lines, int &code_lines,
+                          int &comment_lines, int &codecomments_lines, int &empty_lines)
+{
+    bool bDelimitedCommentMode = false;
+    bool bScriptMode = false;
+
+    total_lines += file.GetLineCount();
+    for (unsigned int i=0; i<file.GetLineCount(); ++i)
+    {
+        wxString strLine(file[i]);
+        strLine = strLine.Trim(true);
+        strLine = strLine.Trim(false);
+        bool bComment = false;
+        bool bCode = false;
+        if (strLine.IsEmpty())
+            ++empty_lines;
+        else
+        {
+            analyseLine2(pRule, strLine, bScriptMode, bComment, bCode, bDelimitedCommentMode);
+            if (bScriptMode)
+            {
+                if (bComment&&bCode) ++codecomments_lines;
+                else if (bComment) ++comment_lines;
+                else if (bCode) ++code_lines;
+            }
+        }
+    }
+}
+
+/** This function determines the caracteristics of a given strLine (bCode strLine, bComment strLine etc...).
  *  It is called by the "CountLines" function.
  *  @see CountLines
  */
-void Counter::analyseLine(CounterRule* language, wxString line, bool &comment, bool &code, bool &multi_line_comment)
+void Counter::analyseLine2(CounterRule* pRule, wxString strLine, bool& bScriptMode, bool &bComment, bool &bCode, bool &bDelimitedCommentMode)
 {
-    int first_single_line_comment, first_multi_line_comment_begin, first_multi_line_comment_end;
+    int nIdxFirstScriptBegin, nIdxFirstScriptEnd;
+    int nIdxFirstSglLnComm, nIdxFirstMltLnCommBegin, nIdxFirstMltLnCommEnd;
 
+    //
     // Delete first and trailing spaces
-    line = line.Trim(true);
-    line = line.Trim(false);
+    //
+    strLine = strLine.Trim(true);
+    strLine = strLine.Trim(false);
 
-    if (line.IsEmpty())
+    if (strLine.IsEmpty())
         return;
 
-    // Searching for single and multi-lines comment signs
-    if (language->m_strSlgLnComm.Length() > 0)
-        first_single_line_comment = line.Find(language->m_strSlgLnComm);
-    else first_single_line_comment = -1;
-    if (language->m_strMltLnCommBegin.Length() > 0)
-        first_multi_line_comment_begin = line.Find(language->m_strMltLnCommBegin);
-    else first_multi_line_comment_begin = -1;
-    if (language->m_strMltLnCommEnd.Length() > 0)
-        first_multi_line_comment_end = line.Find(language->m_strMltLnCommEnd);
-    else first_multi_line_comment_end = -1;
+    //
+    // Searching for script signs
+    //
+    if (pRule->m_strScriptBegin.Len() > 0)
+        nIdxFirstScriptBegin = strLine.Find(pRule->m_strScriptBegin);
+    else nIdxFirstScriptBegin = -1;
+    if (pRule->m_strScriptEnd.Len() > 0)
+        nIdxFirstScriptEnd = strLine.Find(pRule->m_strScriptEnd);
+    else nIdxFirstScriptEnd = -1;
 
-    // We are in a multiple line comment => finding the "end of multiple line comment" sign
-    if (multi_line_comment)
+    //
+    // Searching for single and multi-lines bComment signs
+    //
+    if (pRule->m_strSglLnComm.Len() > 0)
+        nIdxFirstSglLnComm = strLine.Find(pRule->m_strSglLnComm);
+    else nIdxFirstSglLnComm = -1;
+    if (pRule->m_strMltLnCommBegin.Len() > 0)
+        nIdxFirstMltLnCommBegin = strLine.Find(pRule->m_strMltLnCommBegin);
+    else nIdxFirstMltLnCommBegin = -1;
+    if (pRule->m_strMltLnCommEnd.Len() > 0)
+        nIdxFirstMltLnCommEnd = strLine.Find(pRule->m_strMltLnCommEnd);
+    else nIdxFirstMltLnCommEnd = -1;
+
+    //
+    // Analyse
+    //
+
+
+    if (bScriptMode)
     {
-        comment = true;
-        if (first_multi_line_comment_end > -1)
+        // We are in a multiple strLine Comment => finding the "end of multiple Line Comment" sign
+        if (bDelimitedCommentMode)
         {
-            multi_line_comment = false;
-            if (first_multi_line_comment_end+language->m_strMltLnCommEnd.Length() < line.Length())
-                analyseLine(language, line.Mid(first_multi_line_comment_end+language->m_strMltLnCommEnd.Length()),
-                            comment, code, multi_line_comment);
+            bComment = true;
+            if (nIdxFirstMltLnCommEnd > -1)
+            {
+                bDelimitedCommentMode = false;
+                if (nIdxFirstMltLnCommEnd + pRule->m_strMltLnCommEnd.Len() < strLine.Length())
+                    analyseLine2(pRule, strLine.Mid(nIdxFirstMltLnCommEnd + pRule->m_strMltLnCommEnd.Length()),
+                                 bScriptMode, bComment, bCode, bDelimitedCommentMode);
+            }
+        }
+        // We are not in a multiple strLine bComment
+        else if (!bDelimitedCommentMode)
+        {
+            // First bComment sign found is a single strLine bComment sign
+            if ( (nIdxFirstSglLnComm>-1)
+                    &&((nIdxFirstMltLnCommBegin==-1)
+                       ||((nIdxFirstMltLnCommBegin>-1)&&(nIdxFirstSglLnComm<nIdxFirstMltLnCommBegin))) )
+            {
+                bComment = true;
+                if (nIdxFirstSglLnComm > 0)
+                    bCode = true;
+            }
+            // First bComment sign found is a multi-strLine bComment begin sign
+            else if (nIdxFirstMltLnCommBegin>-1)
+            {
+                bDelimitedCommentMode = true;
+                bComment = true;
+                if (nIdxFirstMltLnCommBegin > 0)
+                    bCode = true;
+                if (nIdxFirstMltLnCommBegin+pRule->m_strMltLnCommBegin.Len() < strLine.Length())
+                    analyseLine2(pRule, strLine.Mid(nIdxFirstMltLnCommBegin + pRule->m_strMltLnCommBegin.Length()),
+                                 bScriptMode, bComment, bCode, bDelimitedCommentMode);
+            }
+            else
+            {
+                bCode = true;
+            }
+        }
+
+    }
+    else if (!bScriptMode)
+    {
+        if (nIdxFirstScriptBegin > -1)
+        {
+            bScriptMode = true;
+
+            if (nIdxFirstScriptEnd > -1)
+            {
+                bScriptMode = false;
+                if (nIdxFirstScriptEnd + pRule->m_strScriptEnd.Len() < strLine.Len())
+                {
+                    analyseLine2(pRule, strLine.Mid(nIdxFirstScriptEnd + pRule->m_strScriptEnd.Length()),
+                                 bScriptMode, bComment, bCode, bDelimitedCommentMode);
+                }
+            }
         }
     }
-    // We are not in a multiple line comment
-    else if (!multi_line_comment)
-    {
-        // First comment sign found is a single line comment sign
-        if ( (first_single_line_comment>-1)
-                &&((first_multi_line_comment_begin==-1)
-                   ||((first_multi_line_comment_begin>-1)&&(first_single_line_comment<first_multi_line_comment_begin))) )
-        {
-            comment = true;
-            if (first_single_line_comment > 0)
-                code = true;
-        }
-        // First comment sign found is a multi-line comment begin sign
-        else if (first_multi_line_comment_begin>-1)
-        {
-            multi_line_comment = true;
-            comment = true;
-            if (first_multi_line_comment_begin > 0)
-                code = true;
-            if (first_multi_line_comment_begin+language->m_strMltLnCommBegin.Length() < line.Length())
-                analyseLine(language, line.Mid(first_multi_line_comment_begin+language->m_strMltLnCommBegin.Length()),
-                            comment, code, multi_line_comment);
-        }
-        else
-        {
-            code = true;
-        }
-    }
+
+
 }

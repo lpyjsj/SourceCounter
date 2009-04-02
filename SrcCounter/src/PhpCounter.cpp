@@ -55,7 +55,7 @@ void PhpCounter::countingSourceFile(wxTextFile& file, int& nLines, int& nCodeLin
     wxString strCurLine;
 
     bool bPhpCodeMode				= false;	// When start with "<?" is TRUE, otherwise "?>" is FALSE
-    bool bDelimitedCommentMode		= false;	// Limited Comment Mode /* */
+    bool bDelimitedCommentMode		= false;	// Delimited Comment Mode /* */
     bool bSingleLineCommentMode		= false;
     bool bSingleQuoteMode			= false;	//
     bool bDoubleQuoteMode			= false;
