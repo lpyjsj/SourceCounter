@@ -1,5 +1,48 @@
-icon_file ICON "img/SourceCounter.ico"
-
 #include "wx/msw/wx.rc"
 
+icon_file ICON "img/SourceCounter.ico"
 
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,4,0,0
+ PRODUCTVERSION 2,4,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "BoomWorks.Org\0"
+            VALUE "FileDescription", "SourceCounter Application\0"
+            VALUE "FileVersion", "2, 4, x, x\0"
+            VALUE "InternalName", "SourceCounter\0"
+            VALUE "LegalCopyright", "(C)1999 - 2009 Boom(BoomWorks.Org)\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "SourceCounter.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "SourceCounter\0"
+            VALUE "ProductVersion", "2. 4. x. x\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
