@@ -16,6 +16,7 @@
 #include <wx/tokenzr.h>
 #include <wx/msgdlg.h>
 #include <wx/mimetype.h>
+#include <wx/config.h>
 
 #include "wx_pch.h"
 
@@ -313,6 +314,42 @@ void SourceCounterDialog::OnQuit(wxCommandEvent& event)
         m_pCountingMgr->SetStatus(NManagerStatusStop);
     }
 
+    //
+    // Save source folder path and source types to registy
+    //
+
+    wxString strSrcTypes = m_cmbSrcTypes->GetValue();
+
+    wxConfigBase* pConf = wxConfig::Get();
+    pConf->SetPath(wxT("/"));
+
+    pConf->Write(wxT("SrcTypes"), strSrcTypes);
+
+    // Get current source folder number
+    int nSrcFolderNum = m_lbxSrcFolder->GetCount();
+
+    // Write source folder number to Registry
+    pConf->Write(wxT("SrcFolderNum"), (long)nSrcFolderNum);
+
+    // Source folder exists, write path to Registry
+    if(nSrcFolderNum)
+    {
+        pConf->SetPath(wxT("SrcFolderHistory"));
+
+        wxString strTemp;
+        for(int i=0; i<nSrcFolderNum; i++)
+        {
+            strTemp.Printf(wxT("%d"), i);
+            pConf->Write(strTemp, m_lbxSrcFolder->GetString(i));
+        }
+    }
+
+    // finally set path to root
+    pConf->SetPath(wxT("/"));
+
+    //
+    // Close dialog
+    //
     Close();
 }
 
@@ -484,7 +521,6 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
 
     // Collect recursive counting
     countingParam.m_bRecursiveCounting = m_chbRecursiveCouting->GetValue();
-    // TODO: countingParam.m_settingParam.m_nCountingMethodType = ;
 
     // Set counting parameter to CountingManager
     m_pCountingMgr->SetCountingParam( &countingParam );
@@ -705,6 +741,38 @@ void SourceCounterDialog::OnInit(wxInitDialogEvent& event)
     {
         m_lstResult->InsertColumn(i, CSZ_COLUMN_NAMES[i]);
     }
+
+    //
+    // Initial source folders and source file types from registry
+    //
+
+    wxConfigBase* pConf = wxConfig::Get();
+
+    // Source file types
+    wxString strSrcTypes = pConf->Read(wxT("SrcTypes"));
+    m_cmbSrcTypes->Append(strSrcTypes);
+    m_cmbSrcTypes->SetValue(strSrcTypes);
+
+    // Source folders
+    int nSrcFolderNum = pConf->Read(wxT("SrcFolderNum"), 0l); // 0L
+
+    wxString strTemp, strPathTemp;
+    pConf->SetPath(wxT("SrcFolderHistory"));
+    int nIdx = 0;
+    for(int i=0; i< nSrcFolderNum; i++ )
+    {
+        strTemp.Printf(wxT("%d"), i);
+        strPathTemp = pConf->Read(strTemp);
+
+        if(!strPathTemp.IsEmpty())
+        {
+            nIdx = m_lbxSrcFolder->Append(strPathTemp);
+            m_lbxSrcFolder->Check(nIdx, true);
+        }
+    }
+
+    // finally set path to root
+    pConf->SetPath(wxT("/"));
 
 #ifdef __WXDEBUG__
 	int nIndex = m_lbxSrcFolder->Append(_T("W:\\boomworks\\SrcCounter\\testcase\\"));
