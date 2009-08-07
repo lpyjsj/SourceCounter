@@ -81,6 +81,18 @@
   </rule>
   <rule>
     <extension>
+      <ruletype>Sql</ruletype>
+      <desc>SQL file.</desc>
+      <name>.sql</name>
+    </extension>
+    <multi-line-comment-end>*/</multi-line-comment-end>
+    <multi-line-comment-begin>/*</multi-line-comment-begin>
+    <single-line-comment>--</single-line-comment>
+    <desc>Sql file style</desc>
+    <type>Sql</type>
+  </rule>
+  <rule>
+    <extension>
       <ruletype>Text</ruletype>
       <desc>HTML file.</desc>
       <name>.html</name>
@@ -94,11 +106,6 @@
       <ruletype>Text</ruletype>
       <desc>Resource file.</desc>
       <name>.rc</name>
-    </extension>
-    <extension>
-      <ruletype>Text</ruletype>
-      <desc>SQL file.</desc>
-      <name>.sql</name>
     </extension>
     <extension>
       <ruletype>Text</ruletype>

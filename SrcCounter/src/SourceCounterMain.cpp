@@ -318,12 +318,13 @@ void SourceCounterDialog::OnQuit(wxCommandEvent& event)
     // Save source folder path and source types to registy
     //
 
-    wxString strSrcTypes = m_cmbSrcTypes->GetValue();
-
     wxConfigBase* pConf = wxConfig::Get();
     pConf->SetPath(wxT("/"));
 
-    pConf->Write(wxT("SrcTypes"), strSrcTypes);
+// TODO: The code of below doesnt work, because the source file types is not selected
+//		 from dialog
+//    wxString strSrcTypes = m_cmbSrcTypes->GetValue();
+//    pConf->Write(wxT("SrcTypes"), strSrcTypes);
 
     // Get current source folder number
     int nSrcFolderNum = m_lbxSrcFolder->GetCount();
@@ -748,10 +749,11 @@ void SourceCounterDialog::OnInit(wxInitDialogEvent& event)
 
     wxConfigBase* pConf = wxConfig::Get();
 
+// TODO: The code of below doesnt work
     // Source file types
-    wxString strSrcTypes = pConf->Read(wxT("SrcTypes"));
-    m_cmbSrcTypes->Append(strSrcTypes);
-    m_cmbSrcTypes->SetValue(strSrcTypes);
+//    wxString strSrcTypes = pConf->Read(wxT("SrcTypes"));
+//    m_cmbSrcTypes->Append(strSrcTypes);
+//    m_cmbSrcTypes->SetValue(strSrcTypes);
 
     // Source folders
     int nSrcFolderNum = pConf->Read(wxT("SrcFolderNum"), 0l); // 0L

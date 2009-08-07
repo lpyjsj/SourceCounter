@@ -21,7 +21,7 @@
 #include "PhpCounter.h"
 #include "JspCounter.h"
 #include "AspxCounter.h"
-
+#include "SqlCounter.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -473,6 +473,11 @@ Counter* CountingManager::CreateCounter(wxString& strCounterType)
         if (0 == strCounterType.CmpNoCase(JspCounter::ms_strType))
         {// JspCounter
             pCounter = new JspCounter;
+        }
+
+        if (0 == strCounterType.CmpNoCase(SqlCounter::ms_strType))
+        {// SqlCounter
+            pCounter = new SqlCounter;
         }
 
         if (0 == strCounterType.CmpNoCase(TxtCounter::ms_strType))
