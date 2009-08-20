@@ -13,54 +13,54 @@
 //(*InternalHeaders(SrcTypeSelDlg)
 //*)
 
-/* Source types number */
-const int N_SRC_TYPE_NUM = 28;
-
-/* Source type */
-const wxChar* CSZ_SRC_TYPES[N_SRC_TYPE_NUM] =
-{
-    // Cpp related
-    _T(".cpp"), // 1
-    _T(".cxx"), // 2
-    _T(".cc"),
-    _T(".c"),	// 4
-    _T(".hpp"),	// 5
-    _T(".hh"),
-    _T(".h"),
-    _T(".rc"),
-    _T(".tlh"), // 9
-    _T(".tli"),	// 10
-    _T(".java"),
-    _T(".cs"),
-
-    // Script related
-    _T(".aspx"),    // 13
-    _T(".asp"),     // 14
-    _T(".php"),
-    _T(".php3"),
-    _T(".jsp"),
-
-    // Text related
-    _T(".htm"),		// 18
-    _T(".html"),	// 19
-
-    // Basic related
-    _T(".vb"),		// 20
-    _T(".bas"),
-    _T(".frm"),
-    _T(".ctl"),
-    _T(".cls"),		// 24
-
-    // Pasic related
-    _T(".pas"), // 25
-    _T(".dfm"),
-
-    // TODO: SqlCounter
-    _T(".sql"), // 27
-
-    _T(".txt"), // 28
-
-};
+///* Source types number */
+//const int N_SRC_TYPE_NUM = 28;
+//
+///* Source type */
+//const wxChar* CSZ_SRC_TYPES[N_SRC_TYPE_NUM] =
+//{
+//    // Cpp related
+//    _T(".cpp"), // 1
+//    _T(".cxx"), // 2
+//    _T(".cc"),
+//    _T(".c"),	// 4
+//    _T(".hpp"),	// 5
+//    _T(".hh"),
+//    _T(".h"),
+//    _T(".rc"),
+//    _T(".tlh"), // 9
+//    _T(".tli"),	// 10
+//    _T(".java"),
+//    _T(".cs"),
+//
+//    // Script related
+//    _T(".aspx"),    // 13
+//    _T(".asp"),     // 14
+//    _T(".php"),
+//    _T(".php3"),
+//    _T(".jsp"),
+//
+//    // Text related
+//    _T(".htm"),		// 18
+//    _T(".html"),	// 19
+//
+//    // Basic related
+//    _T(".vb"),		// 20
+//    _T(".bas"),
+//    _T(".frm"),
+//    _T(".ctl"),
+//    _T(".cls"),		// 24
+//
+//    // Pasic related
+//    _T(".pas"), // 25
+//    _T(".dfm"),
+//
+//    // TODO: SqlCounter
+//    _T(".sql"), // 27
+//
+//    _T(".txt"), // 28
+//
+//};
 
 //(*IdInit(SrcTypeSelDlg)
 const long SrcTypeSelDlg::ID_STATICTEXT1 = wxNewId();
@@ -85,7 +85,7 @@ SrcTypeSelDlg::SrcTypeSelDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
     wxBoxSizer* BoxSizer2;
     wxBoxSizer* BoxSizer1;
     wxBoxSizer* BoxSizer3;
-    
+
     Create(parent, wxID_ANY, _("Select types dialog"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Se&lect source file types for counting:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
@@ -118,7 +118,7 @@ SrcTypeSelDlg::SrcTypeSelDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-    
+
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_LISTBOX_SELECTED,(wxObjectEventFunction)&SrcTypeSelDlg::OnLbxSrcTypesSelect);
     Connect(ID_CHECKBOX1,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::Onm_ckbSelAllClick);
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::OnBtnAddClick);

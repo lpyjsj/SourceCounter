@@ -648,33 +648,33 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
     strTemp.Printf(_T("%d"), pCountingFileInfo->m_nCodeStatement);
     m_lstResult->SetItem(nIndex, 4, strTemp);
 
-    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nCommentStatement);
+    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nCodeCommentStatement);
     m_lstResult->SetItem(nIndex, 5, strTemp);
 
-    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nBlankStatement);
+    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nCommentStatement);
     m_lstResult->SetItem(nIndex, 6, strTemp);
 
-    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nSize);
+    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nBlankStatement);
     m_lstResult->SetItem(nIndex, 7, strTemp);
 
+    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nSize);
+    m_lstResult->SetItem(nIndex, 8, strTemp);
+
 	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_nManDay);
-	m_lstResult->SetItem(nIndex, 8, strTemp);
+	m_lstResult->SetItem(nIndex, 9, strTemp);
 
 	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_nCost);
-	m_lstResult->SetItem(nIndex, 9, strTemp);
+	m_lstResult->SetItem(nIndex, 10, strTemp);
 
 	// Boom: add UT and IT counting information on 2009-3-3
 	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fUtCase);
-	m_lstResult->SetItem(nIndex, 10, strTemp);
-	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fUtDefect);
 	m_lstResult->SetItem(nIndex, 11, strTemp);
-	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fItCase);
+	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fUtDefect);
 	m_lstResult->SetItem(nIndex, 12, strTemp);
-	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fItDefect);
+	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fItCase);
 	m_lstResult->SetItem(nIndex, 13, strTemp);
-
-    strTemp.Printf(_T("%d"), pCountingFileInfo->m_nCodeCommentStatement);
-    m_lstResult->SetItem(nIndex, 14, strTemp);
+	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fItDefect);
+	m_lstResult->SetItem(nIndex, 14, strTemp);
 
 	// Set data to item
     m_lstResult->SetItemData(nIndex, (long)pCountingFileInfo);

@@ -106,6 +106,8 @@
 		<Unit filename="SrcTypeSelDlg.h" />
 		<Unit filename="TxtCounter.cpp" />
 		<Unit filename="TxtCounter.h" />
+		<Unit filename="XmlCounter.cpp" />
+		<Unit filename="XmlCounter.h" />
 		<Unit filename="aboutdlg.cpp" />
 		<Unit filename="aboutdlg.h" />
 		<Unit filename="chooselang.cpp" />

@@ -1,13 +1,13 @@
-#ifndef SQLCOUNTER_H
-#define SQLCOUNTER_H
+#ifndef XMLCOUNTER_H
+#define XMLCOUNTER_H
 
 #include "Counter.h"
 
-class SqlCounter : public Counter
+class XmlCounter : public Counter
 {
 public:
-    SqlCounter();
-    virtual ~SqlCounter();
+    XmlCounter();
+    virtual ~XmlCounter();
 
     /**
     * counting source file.
@@ -27,4 +27,4 @@ protected:
 private:
 };
 
-#endif // SQLCOUNTER_H
+#endif // XMLCOUNTER_H

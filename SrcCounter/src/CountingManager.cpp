@@ -22,6 +22,7 @@
 #include "JspCounter.h"
 #include "AspxCounter.h"
 #include "SqlCounter.h"
+#include "XmlCounter.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -92,20 +93,24 @@ const wxChar* CSZ_COLUMN_NAMES[N_COLUMN_NUM] =
     _("File"),              // 0
     _("Type"),              // 1
     _("Folder"),            // 2
+
     _("Lines"),             // 3
     _("Code lines"),        // 4
-    _("Comment lines"),     // 5
-    _("Blank lines"),       // 6
-    _("Size"),              // 7
-    _("Man-Day"),			// 8
-    _("Cost"),				// 9
-    _("UT Cases"),			// 10
-    _("UT Defects"),		// 11
-    _("IT Cases"),			// 12
-    _("IT Defects"),		// 13
-    _("Code//Comment")		// 14
+	_("Code//Comment"),		// 5
+    _("Comment lines"),     // 6
+    _("Blank lines"),       // 7
+
+    _("Size"),              // 8
+    _("Man-Day"),			// 9
+    _("Cost"),				// 10
+
+    _("UT Cases"),			// 11
+    _("UT Defects"),		// 12
+    _("IT Cases"),			// 13
+    _("IT Defects"),		// 14
 };
 
+/*******************************************#1,#2,#3,#4,#5,#6,#7,#8,#9,10,11,12,13,14,15*/
 const wxString CSZ_CSV_HEADER_FORMAT = _T( "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" );
 
 /* Counter rule data file */
@@ -478,6 +483,12 @@ Counter* CountingManager::CreateCounter(wxString& strCounterType)
         if (0 == strCounterType.CmpNoCase(SqlCounter::ms_strType))
         {// SqlCounter
             pCounter = new SqlCounter;
+        }
+
+        // Add new counter type XmlCounter - boom 20090820
+        if (0 == strCounterType.CmpNoCase(XmlCounter::ms_strType))
+        {// SqlCounter
+            pCounter = new XmlCounter;
         }
 
         if (0 == strCounterType.CmpNoCase(TxtCounter::ms_strType))

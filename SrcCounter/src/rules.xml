@@ -81,6 +81,28 @@
   </rule>
   <rule>
     <extension>
+      <ruletype>Xml</ruletype>
+      <desc>HTML file.</desc>
+      <name>.html</name>
+    </extension>
+    <extension>
+      <ruletype>Xml</ruletype>
+      <desc>Html file.</desc>
+      <name>.htm</name>
+    </extension>
+    <extension>
+      <ruletype>Xml</ruletype>
+      <desc>XML file.</desc>
+      <name>.xml</name>
+    </extension>
+    <multi-line-comment-end>--&gt;</multi-line-comment-end>
+    <multi-line-comment-begin>&lt;!--</multi-line-comment-begin>
+    <single-line-comment></single-line-comment>
+    <desc>Xml file style</desc>
+    <type>Xml</type>
+  </rule>
+  <rule>
+    <extension>
       <ruletype>Sql</ruletype>
       <desc>SQL file.</desc>
       <name>.sql</name>
@@ -92,16 +114,6 @@
     <type>Sql</type>
   </rule>
   <rule>
-    <extension>
-      <ruletype>Text</ruletype>
-      <desc>HTML file.</desc>
-      <name>.html</name>
-    </extension>
-    <extension>
-      <ruletype>Text</ruletype>
-      <desc>HTML file.</desc>
-      <name>.htm</name>
-    </extension>
     <extension>
       <ruletype>Text</ruletype>
       <desc>Resource file.</desc>
