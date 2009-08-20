@@ -1,0 +1,19 @@
+<?php
+die('Hacking attempt...');
+else
+elseif (isset($txt[$_GET['help']]))
+function ShowAdminHelp()
+function ShowHelp()
+global $settings, $user_info, $language, $context, $txt;
+global $txt, $helptxt, $context;
+help center.  It does this with two simple functions:
+if (!defined('SMF'))
+if (!isset($_GET['page']) || !isset($context['all_pages'][$_GET['page']]))
+if (isset($_GET['help']) && substr($_GET['help'], 0, 14) == 'permissionhelp')
+if (isset($helptxt[$_GET['help']]))
+loadLanguage('Help');
+loadLanguage('ManagePermissions');
+loadLanguage('Manual');
+loadTemplate('Help');
+loadTemplate('Help');
+?>

@@ -1,0 +1,7 @@
+<?php
+
+	wxString str = 'abcd\/*" aa *\/efg'; # Comment
+	wxString str = "a\/* aa '*/efg"; # Comment
+
+code; /* Comment */ 
+?>
