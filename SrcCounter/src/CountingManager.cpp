@@ -23,6 +23,7 @@
 #include "AspxCounter.h"
 #include "SqlCounter.h"
 #include "XmlCounter.h"
+#include "ShellCounter.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -487,8 +488,14 @@ Counter* CountingManager::CreateCounter(wxString& strCounterType)
 
         // Add new counter type XmlCounter - boom 20090820
         if (0 == strCounterType.CmpNoCase(XmlCounter::ms_strType))
-        {// SqlCounter
+        {// XmlCounter
             pCounter = new XmlCounter;
+        }
+
+        // Add new counter type ShellCounter - boom 20090820
+        if (0 == strCounterType.CmpNoCase(ShellCounter::ms_strType))
+        {// ShellCounter
+            pCounter = new ShellCounter;
         }
 
         if (0 == strCounterType.CmpNoCase(TxtCounter::ms_strType))

@@ -96,6 +96,8 @@
 		<Unit filename="PasCounter.h" />
 		<Unit filename="PhpCounter.cpp" />
 		<Unit filename="PhpCounter.h" />
+		<Unit filename="ShellCounter.cpp" />
+		<Unit filename="ShellCounter.h" />
 		<Unit filename="SourceCounterApp.cpp" />
 		<Unit filename="SourceCounterApp.h" />
 		<Unit filename="SourceCounterMain.cpp" />

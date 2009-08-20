@@ -2,6 +2,23 @@
 <rules>
   <rule>
     <extension>
+      <ruletype>Shell</ruletype>
+      <desc>Properties file.</desc>
+      <name>.properties</name>
+    </extension>
+    <extension>
+      <ruletype>Shell</ruletype>
+      <desc>Shell file.</desc>
+      <name>.sh</name>
+    </extension>
+    <multi-line-comment-end></multi-line-comment-end>
+    <multi-line-comment-begin></multi-line-comment-begin>
+    <single-line-comment>#</single-line-comment>
+    <desc>Shell file style only use # for single line comment.</desc>
+    <type>Shell</type>
+  </rule>
+  <rule>
+    <extension>
       <ruletype>PHP</ruletype>
       <desc>PHP file.</desc>
       <name>.php3</name>
