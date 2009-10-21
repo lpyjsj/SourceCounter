@@ -258,6 +258,7 @@ void CountingManager::loadRules()
                 }// End while
 
                 // New fileExtension pointer
+                strExtName = strExtName.Lower(); // fix extname Case-sensitive - boom 2009/10/21
                 pFileExt = new FileExtension(strExtName, strExtRuleType, strExtDesc);
                 m_mapFileExtension[strExtName] = pFileExt;
             }
@@ -732,6 +733,7 @@ void CountingManager::StartCounting()
             ///////////////////////////////////////////////////////////
             // Collect counting info
             getFileExtName(fname, strFileExtName);
+            strFileExtName = strFileExtName.Lower();
 
             // Check whether counting strFileExtName type source code file
             wxString strCounterType;
@@ -900,9 +902,9 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
     // Header
     strText.Printf( CSZ_CSV_HEADER_FORMAT,
                     CSZ_COLUMN_NAMES[2], CSZ_COLUMN_NAMES[0], CSZ_COLUMN_NAMES[1], CSZ_COLUMN_NAMES[3],
-                    CSZ_COLUMN_NAMES[4], CSZ_COLUMN_NAMES[5], CSZ_COLUMN_NAMES[14], CSZ_COLUMN_NAMES[6],
-                    CSZ_COLUMN_NAMES[7], CSZ_COLUMN_NAMES[8], CSZ_COLUMN_NAMES[9], CSZ_COLUMN_NAMES[10],
-                    CSZ_COLUMN_NAMES[11], CSZ_COLUMN_NAMES[12], CSZ_COLUMN_NAMES[13]
+                    CSZ_COLUMN_NAMES[4], CSZ_COLUMN_NAMES[5], CSZ_COLUMN_NAMES[6], CSZ_COLUMN_NAMES[7],
+                    CSZ_COLUMN_NAMES[8], CSZ_COLUMN_NAMES[9], CSZ_COLUMN_NAMES[10], CSZ_COLUMN_NAMES[11],
+                    CSZ_COLUMN_NAMES[12], CSZ_COLUMN_NAMES[13],CSZ_COLUMN_NAMES[14]
                   );
     file.AddLine( strText );
 
@@ -927,7 +929,8 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
         strTemp.Empty();
 
         // Add: Code + Comment line - 2009-3-22
-        strTemp.Printf(_T(",%d,%d,%d,%d,%d,%d,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f"),
+        //                 ,#4,#5, 6, 7, 8, 9,   10,   11,   12,   13,   14,   15
+		strTemp.Printf(_T(",%d,%d,%d,%d,%d,%d,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f,%2.2f"),
                        pFileInfo->m_nTotalStatement, pFileInfo->m_nCodeStatement, pFileInfo->m_nCommentStatement,
                        pFileInfo->m_nCodeCommentStatement, pFileInfo->m_nBlankStatement, pFileInfo->m_nSize,
                        pFileInfo->m_nManDay, pFileInfo->m_nCost,
@@ -951,7 +954,7 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
     strTotal.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[0], m_countingInfo.m_nTotalFile);
     file.AddLine( strTotal );
 
-    strTotal.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[7], m_countingInfo.m_nTotalSize);
+    strTotal.Printf( _T( "# %s,%d" ), CSZ_COLUMN_NAMES[8], m_countingInfo.m_nTotalSize);
     file.AddLine( strTotal );
 
     strTotal.Printf( _T( "# %s,%d,100%%" ), CSZ_COLUMN_NAMES[3], m_countingInfo.m_nTotalStatement );
@@ -960,29 +963,30 @@ void CountingManager::SaveCountingResultToCSV( wxString filename )
     strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[4], m_countingInfo.m_nTotalCodeStatement, 100. * m_countingInfo.m_nTotalCodeStatement / m_countingInfo.m_nTotalStatement );
     file.AddLine( strTotal );
 
-    strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[5], m_countingInfo.m_nTotalCommentStatement, 100. * m_countingInfo.m_nTotalCommentStatement / m_countingInfo.m_nTotalStatement );
-    file.AddLine( strTotal );
     // Add: Code + Comment lines - 2009-3-22
-    strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[14], m_countingInfo.m_nTotalCodeCommentStatement, 100. * m_countingInfo.m_nTotalCodeCommentStatement / m_countingInfo.m_nTotalStatement );
+    strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[5], m_countingInfo.m_nTotalCodeCommentStatement, 100. * m_countingInfo.m_nTotalCodeCommentStatement / m_countingInfo.m_nTotalStatement );
     file.AddLine( strTotal );
 
-    strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[6], m_countingInfo.m_nTotalBlankStatement, 100. * m_countingInfo.m_nTotalBlankStatement / m_countingInfo.m_nTotalStatement  );
+    strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[6], m_countingInfo.m_nTotalCommentStatement, 100. * m_countingInfo.m_nTotalCommentStatement / m_countingInfo.m_nTotalStatement );
     file.AddLine( strTotal );
 
-    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[8], m_countingInfo.m_fTotalManMonth);
+    strTotal.Printf( _T( "# %s,%d,%2.1f%%" ), CSZ_COLUMN_NAMES[7], m_countingInfo.m_nTotalBlankStatement, 100. * m_countingInfo.m_nTotalBlankStatement / m_countingInfo.m_nTotalStatement  );
+    file.AddLine( strTotal );
+
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[9], m_countingInfo.m_fTotalManMonth);
     file.AddLine(strTotal);
 
-    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[9], m_countingInfo.m_fTotalCost);
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[10], m_countingInfo.m_fTotalCost);
     file.AddLine(strTotal);
 
     // Boom: add UT and IT counint info on 2009-3-3
-    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[10], m_countingInfo.m_fTotalUtCases);
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[11], m_countingInfo.m_fTotalUtCases);
     file.AddLine(strTotal);
-    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[11], m_countingInfo.m_fTotalUtDefects);
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[12], m_countingInfo.m_fTotalUtDefects);
     file.AddLine(strTotal);
-    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[12], m_countingInfo.m_fTotalItCases);
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[13], m_countingInfo.m_fTotalItCases);
     file.AddLine(strTotal);
-    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[13], m_countingInfo.m_fTotalItDefects);
+    strTotal.Printf(_T("# %s, %2.2f"), CSZ_COLUMN_NAMES[14], m_countingInfo.m_fTotalItDefects);
     file.AddLine(strTotal);
 
     // Save and close

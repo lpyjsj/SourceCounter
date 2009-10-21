@@ -48,7 +48,7 @@ CounterRuleDlg::CounterRuleDlg(wxWindow* parent, RuleMode nMode, wxWindowID id,c
     wxBoxSizer* BoxSizer1;
     wxBoxSizer* BoxSizer9;
     wxBoxSizer* BoxSizer3;
-
+    
     Create(parent, wxID_ANY, _("File type setting dialog"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
@@ -118,7 +118,7 @@ CounterRuleDlg::CounterRuleDlg(wxWindow* parent, RuleMode nMode, wxWindowID id,c
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-
+    
     Connect(ID_COMBOBOX1,wxEVT_COMMAND_COMBOBOX_SELECTED,(wxObjectEventFunction)&CounterRuleDlg::OnCmbMethodSelect);
     Connect(wxID_OK,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CounterRuleDlg::OnBtnOKClick);
     Connect(wxID_CANCEL,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&CounterRuleDlg::OnBtnCancelClick);

@@ -56,10 +56,12 @@ END_EVENT_TABLE()
 AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 {
 	//(*Initialize(AboutDlg)
+	wxBoxSizer* BoxSizer4;
+
 	Create(parent, id, _("About"), wxDefaultPosition, wxDefaultSize, 0, _T("id"));
 	SetClientSize(wxSize(17,16));
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
-	StaticBitmap1 = new wxStaticBitmap(this, ID_STATICBITMAP1, wxBitmap(wxImage(_T("img\\bmw_logo.bmp"))), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICBITMAP1"));
+	StaticBitmap1 = new wxStaticBitmap(this, ID_STATICBITMAP1, wxBitmap(wxImage(_T("img\\boomworks_logo.bmp"))), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICBITMAP1"));
 	BoxSizer1->Add(StaticBitmap1, 0, wxALL|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 0);
 	BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
 	StaticBitmap2 = new wxStaticBitmap(this, ID_STATICBITMAP2, wxBitmap(wxImage(_T("img\\SourceCounter.ico"))), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICBITMAP2"));
@@ -75,17 +77,15 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	BoxSizer3->Add(StaticText3, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("mailto:boomworks@hotmail.com"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
 	BoxSizer3->Add(StaticText5, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-
-	m_pLinkBMW = new wxHyperLink(this, ID_TXT_BMW, _("http://www.boomworks.org"));
-	BoxSizer3->Add(m_pLinkBMW, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-
-	BoxSizer3->Add(-1,-1,0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	BoxSizer4 = new wxBoxSizer(wxHORIZONTAL);
+	BoxSizer3->Add(BoxSizer4, 1, wxBOTTOM|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	m_bmpBtnBMW = new wxBitmapButton(this, ID_BITMAPBUTTON1, wxBitmap(wxImage(_T("img\\www.boomworks.net--thumb.jpg"))), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW, wxDefaultValidator, _T("ID_BITMAPBUTTON1"));
 	m_bmpBtnBMW->SetDefault();
 	BoxSizer3->Add(m_bmpBtnBMW, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer3->Add(-1,-1,0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	Button1 = new wxButton(this, wxID_OK, _("&Ok"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_OK"));
 	BoxSizer3->Add(Button1, 0, wxALL|wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL, 5);
+	BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer2->Add(BoxSizer3, 2, wxTOP|wxBOTTOM|wxRIGHT|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL, 5);
 	BoxSizer1->Add(BoxSizer2, 1, wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	SetSizer(BoxSizer1);
@@ -97,9 +97,9 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	//*)
 
 	// Set link to boomworks.net
-//	m_pLinkBMW = new wxHyperLink(this, ID_TXT_BMW, _("http://www.boomworks.org"));
-//	BoxSizer3->Add(m_pLinkBMW, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-
+	//	BoxSizer3->Add(m_pLinkBMW, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	m_pLinkBMW = new wxHyperLink(this, ID_TXT_BMW, _("http://www.boomworks.org"));
+	BoxSizer4->Add(m_pLinkBMW, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	// Set Version by AutoVersioning tool
 	wxString strVersion(AutoVersion::FULLVERSION_STRING, wxConvUTF8);
 	wxString strStatus(AutoVersion::STATUS, wxConvUTF8);

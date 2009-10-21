@@ -85,7 +85,7 @@ SrcTypeSelDlg::SrcTypeSelDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
     wxBoxSizer* BoxSizer2;
     wxBoxSizer* BoxSizer1;
     wxBoxSizer* BoxSizer3;
-
+    
     Create(parent, wxID_ANY, _("Select types dialog"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Se&lect source file types for counting:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
@@ -118,7 +118,7 @@ SrcTypeSelDlg::SrcTypeSelDlg(wxWindow* parent,wxWindowID id,const wxPoint& pos,c
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
     Center();
-
+    
     Connect(ID_CHECKLISTBOX1,wxEVT_COMMAND_LISTBOX_SELECTED,(wxObjectEventFunction)&SrcTypeSelDlg::OnLbxSrcTypesSelect);
     Connect(ID_CHECKBOX1,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::Onm_ckbSelAllClick);
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&SrcTypeSelDlg::OnBtnAddClick);
@@ -155,14 +155,14 @@ void SrcTypeSelDlg::updateSrcTypeLbx()
 
     MapStrToFileExtension::iterator itFileExt;
     FileExtension* pFileExt = 0;
-	int nIndex = 0;
+    int nIndex = 0;
     for ( itFileExt = m_pMapFileExtension->begin(); itFileExt != m_pMapFileExtension->end(); ++itFileExt)
     {
         pFileExt = itFileExt->second;
         nIndex = m_lbxSrcTypes->Append(pFileExt->m_strName + _T(" - ") + pFileExt->m_strDesc + _T(" ( ") + pFileExt->m_strCounterType + _T(" style )"));
 
-        if(pFileExt->m_bSel)
-			m_lbxSrcTypes->Check(nIndex);
+        if (pFileExt->m_bSel)
+            m_lbxSrcTypes->Check(nIndex);
     }
 }
 
@@ -173,21 +173,21 @@ void SrcTypeSelDlg::updateSrcTypeLbx()
 
 void SrcTypeSelDlg::OnBtnOkClick(wxCommandEvent& event)
 {
-	//
-	// UnSelect fileExt obj
-	//
-	MapStrToFileExtension::iterator it;
-	FileExtension* pExt = 0;
+    //
+    // UnSelect fileExt obj
+    //
+    MapStrToFileExtension::iterator it;
+    FileExtension* pExt = 0;
     for ( it = m_pMapFileExtension->begin(); it != m_pMapFileExtension->end(); ++it )
     {
         pExt = it->second;
         if (pExt)
-			pExt->m_bSel = false;
+            pExt->m_bSel = false;
     }
 
-	//
-	// Build return src types string
-	//
+    //
+    // Build return src types string
+    //
 
     int nNum = m_lbxSrcTypes->GetCount();
     wxString strTemp;
@@ -199,18 +199,18 @@ void SrcTypeSelDlg::OnBtnOkClick(wxCommandEvent& event)
             strTemp = m_lbxSrcTypes->GetString(i);
             int index = strTemp.Find(_T('-'));
             strTemp = strTemp.Left(index - 1); // .cpp - : .cpp
-			//
+            //
             m_strSrcTypes =  m_strSrcTypes + strTemp + _T(";");
 
             //
             // Set pFileExt m_bSel to true
             //
-			it = m_pMapFileExtension->find(strTemp);
-			if(it != m_pMapFileExtension->end())
-			{
-				pExt = it->second;
-				pExt->m_bSel = true;
-			}
+            it = m_pMapFileExtension->find(strTemp);
+            if (it != m_pMapFileExtension->end())
+            {
+                pExt = it->second;
+                pExt->m_bSel = true;
+            }
         }
     }
 
@@ -256,36 +256,36 @@ void SrcTypeSelDlg::updateButtons()
 
 void SrcTypeSelDlg::OnBtnAddClick(wxCommandEvent& event)
 {
-	wxString strTemp = _T("tmp");
-	FileExtension* pFileExt = new FileExtension(strTemp, strTemp, strTemp);
+    wxString strTemp = _T("tmp");
+    FileExtension* pFileExt = new FileExtension(strTemp, strTemp, strTemp);
 
     CounterRuleDlg dlg(this);
-	dlg.SetRuleData(m_pMapRule, pFileExt);
+    dlg.SetRuleData(m_pMapRule, pFileExt);
 
-    if( wxID_OK == dlg.ShowModal())
+    if ( wxID_OK == dlg.ShowModal())
     {
-    	//
-    	// Check exist
-    	//
-    	MapStrToFileExtension::iterator it;
-    	it = m_pMapFileExtension->find(pFileExt->m_strName);
-    	if(it != m_pMapFileExtension->end())
-		{
-			wxMessageBox(_("Extension has existed!"));
-			return;
-		}
+        //
+        // Check exist
+        //
+        MapStrToFileExtension::iterator it;
+        it = m_pMapFileExtension->find(pFileExt->m_strName);
+        if (it != m_pMapFileExtension->end())
+        {
+            wxMessageBox(_("Extension has existed!"));
+            return;
+        }
 
-    	//
-    	// Add pFileExt obj to FileExtMap
-		//
-		(*m_pMapFileExtension)[pFileExt->m_strName] = pFileExt;
+        //
+        // Add pFileExt obj to FileExtMap
+        //
+        (*m_pMapFileExtension)[pFileExt->m_strName] = pFileExt;
 
-		//
-		updateSrcTypeLbx();
+        //
+        updateSrcTypeLbx();
     }
     else
     {// Delete pFIleExt obj
-    	delete pFileExt;
+        delete pFileExt;
     }
 }
 
@@ -322,7 +322,7 @@ FileExtension* SrcTypeSelDlg::getSelItemData()
 
 void SrcTypeSelDlg::OnBtnEditClick(wxCommandEvent& event)
 {
-	FileExtension* pFileExt = getSelItemData();
+    FileExtension* pFileExt = getSelItemData();
     if (!pFileExt)
         wxMessageBox(_T("Error!"));
 
@@ -337,14 +337,20 @@ void SrcTypeSelDlg::OnBtnEditClick(wxCommandEvent& event)
 
 void SrcTypeSelDlg::OnBtnDelClick(wxCommandEvent& event)
 {
-	FileExtension* pFileExt = getSelItemData();
-    if (!pFileExt)
-        wxMessageBox(_T("Error!"));
+    // Confirm when the Delete button be clicked - Boom 20090821
+    int nRet = wxMessageBox(_("Do you want to delete it?"), _("Confirm"),
+                            wxYES_NO, this);
+    if (nRet == wxYES)
+    {
+        FileExtension* pFileExt = getSelItemData();
+        if (!pFileExt)
+            wxMessageBox(_T("Error!"));
 
-	m_pMapFileExtension->erase(pFileExt->m_strName);
+        m_pMapFileExtension->erase(pFileExt->m_strName);
 
-	delete pFileExt;
-	pFileExt = 0;
+        delete pFileExt;
+        pFileExt = 0;
 
-	updateSrcTypeLbx();
+        updateSrcTypeLbx();
+    }
 }

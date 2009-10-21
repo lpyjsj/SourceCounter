@@ -300,15 +300,6 @@ SourceCounterDialog::~SourceCounterDialog()
     //(*Destroy(SourceCounterDialog)
     //*)
 
-    if (m_pCountingMgr)
-    {
-        delete m_pCountingMgr;
-        m_pCountingMgr = 0;
-    }
-}
-
-void SourceCounterDialog::OnQuit(wxCommandEvent& event)
-{
     if (m_pCountingMgr->GetStatus() == NManagerStatusRunning)
     {
         m_pCountingMgr->SetStatus(NManagerStatusStop);
@@ -333,12 +324,12 @@ void SourceCounterDialog::OnQuit(wxCommandEvent& event)
     pConf->Write(wxT("SrcFolderNum"), (long)nSrcFolderNum);
 
     // Source folder exists, write path to Registry
-    if(nSrcFolderNum)
+    if (nSrcFolderNum)
     {
         pConf->SetPath(wxT("SrcFolderHistory"));
 
         wxString strTemp;
-        for(int i=0; i<nSrcFolderNum; i++)
+        for (int i=0; i<nSrcFolderNum; i++)
         {
             strTemp.Printf(wxT("%d"), i);
             pConf->Write(strTemp, m_lbxSrcFolder->GetString(i));
@@ -347,6 +338,24 @@ void SourceCounterDialog::OnQuit(wxCommandEvent& event)
 
     // finally set path to root
     pConf->SetPath(wxT("/"));
+
+	//
+	//
+	//
+
+    if (m_pCountingMgr)
+    {
+        delete m_pCountingMgr;
+        m_pCountingMgr = 0;
+    }
+}
+
+void SourceCounterDialog::OnQuit(wxCommandEvent& event)
+{
+    if (m_pCountingMgr->GetStatus() == NManagerStatusRunning)
+    {
+        m_pCountingMgr->SetStatus(NManagerStatusStop);
+    }
 
     //
     // Close dialog
@@ -381,13 +390,13 @@ void SourceCounterDialog::OnBtnAddDirClick(wxCommandEvent& event)
 {
 //    try
 //    {
-        if ( wxID_OK == m_dlgAddDir->ShowModal())
-        {
-            //
-            wxString strPath = m_dlgAddDir->GetPath();
-            int nIndex = m_lbxSrcFolder->Append(strPath);
-            m_lbxSrcFolder->Check(nIndex, true);
-        }
+    if ( wxID_OK == m_dlgAddDir->ShowModal())
+    {
+        //
+        wxString strPath = m_dlgAddDir->GetPath();
+        int nIndex = m_lbxSrcFolder->Append(strPath);
+        m_lbxSrcFolder->Check(nIndex, true);
+    }
 //    }
 //    catch (...)
 //    {
@@ -397,22 +406,29 @@ void SourceCounterDialog::OnBtnAddDirClick(wxCommandEvent& event)
 
 void SourceCounterDialog::OnBtnDeleteClick(wxCommandEvent& event)
 {
-    // Get selection
-    int nIndex = -1;
-    nIndex = m_lbxSrcFolder->GetSelection();
+    // Confirm when the delete button be clicked - Boom 20090821
+    int nRet = wxMessageBox(_("Do you want to delete it?"), _("Confirm"),
+                            wxYES_NO, this);
+    if (nRet == wxYES)
+    {
+        // Get selection
+        int nIndex = -1;
+        nIndex = m_lbxSrcFolder->GetSelection();
+        if (-1 == nIndex)
+            return;
 
-    if (-1 == nIndex)
-        return;
-    // Delete item
-    m_lbxSrcFolder->Delete(nIndex);
-    updateOptionsCtrls();
+        // Delete item
+        m_lbxSrcFolder->Delete(nIndex);
+
+        updateOptionsCtrls();
+    }
 }
 
 void SourceCounterDialog::OnBtnSelSrcTypeClick(wxCommandEvent& event)
 {
     //
     SrcTypeSelDlg dlg(this);
-	dlg.SetMapData(m_pCountingMgr->GetCounterRules(), m_pCountingMgr->GetFileExtensions());
+    dlg.SetMapData(m_pCountingMgr->GetCounterRules(), m_pCountingMgr->GetFileExtensions());
 
     if (wxID_OK == dlg.ShowModal())
     {
@@ -421,7 +437,6 @@ void SourceCounterDialog::OnBtnSelSrcTypeClick(wxCommandEvent& event)
         //wxMessageBox(strSrcTypes);
         m_cmbSrcTypes->Append(strSrcTypes);
         m_cmbSrcTypes->SetValue(strSrcTypes);
-
     }
 }
 
@@ -541,8 +556,8 @@ void SourceCounterDialog::OnBtnStartClick(wxCommandEvent& event)
 
 //    try
 //    {
-        // Start counting
-        m_pCountingMgr->StartCounting();
+    // Start counting
+    m_pCountingMgr->StartCounting();
 //    }
 //    catch (...)
 //    {
@@ -614,7 +629,7 @@ void SourceCounterDialog::initCountingCtrls()
     m_lstResult->DeleteAllItems();
 
     // Initial labels
-	wxString strTemp(_T("0"));
+    wxString strTemp(_T("0"));
     m_lblTotalFiles->SetLabel(strTemp);
     m_lblTotalSize->SetLabel(strTemp);
     m_lblTotalLines->SetLabel(strTemp);
@@ -629,8 +644,8 @@ void SourceCounterDialog::initCountingCtrls()
 
 void SourceCounterDialog::UpdateCountingInfoCtrls()
 {
-	// Get countingInfo
-	CountingInfo* pCountingInfo = m_pCountingMgr->GetCountingInfo();
+    // Get countingInfo
+    CountingInfo* pCountingInfo = m_pCountingMgr->GetCountingInfo();
     CountingFileInfo* pCountingFileInfo = pCountingInfo->GetLastCountingFileInfo();
 
     //
@@ -660,30 +675,30 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
     strTemp.Printf(_T("%d"), pCountingFileInfo->m_nSize);
     m_lstResult->SetItem(nIndex, 8, strTemp);
 
-	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_nManDay);
-	m_lstResult->SetItem(nIndex, 9, strTemp);
+    strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_nManDay);
+    m_lstResult->SetItem(nIndex, 9, strTemp);
 
-	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_nCost);
-	m_lstResult->SetItem(nIndex, 10, strTemp);
+    strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_nCost);
+    m_lstResult->SetItem(nIndex, 10, strTemp);
 
-	// Boom: add UT and IT counting information on 2009-3-3
-	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fUtCase);
-	m_lstResult->SetItem(nIndex, 11, strTemp);
-	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fUtDefect);
-	m_lstResult->SetItem(nIndex, 12, strTemp);
-	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fItCase);
-	m_lstResult->SetItem(nIndex, 13, strTemp);
-	strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fItDefect);
-	m_lstResult->SetItem(nIndex, 14, strTemp);
+    // Boom: add UT and IT counting information on 2009-3-3
+    strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fUtCase);
+    m_lstResult->SetItem(nIndex, 11, strTemp);
+    strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fUtDefect);
+    m_lstResult->SetItem(nIndex, 12, strTemp);
+    strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fItCase);
+    m_lstResult->SetItem(nIndex, 13, strTemp);
+    strTemp.Printf(_T("%2.2f"), pCountingFileInfo->m_fItDefect);
+    m_lstResult->SetItem(nIndex, 14, strTemp);
 
-	// Set data to item
+    // Set data to item
     m_lstResult->SetItemData(nIndex, (long)pCountingFileInfo);
 
-	// Ensure visible
-	if (nIndex % 3 == 0)
-		m_lstResult->EnsureVisible(nIndex);
+    // Ensure visible
+    if (nIndex % 3 == 0)
+        m_lstResult->EnsureVisible(nIndex);
 
-	///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
     // Update labels
     strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalFile);
     m_lblTotalFiles->SetLabel(strTemp);
@@ -700,43 +715,43 @@ void SourceCounterDialog::UpdateCountingInfoCtrls()
     strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalCommentStatement);
     m_lblCommentLines->SetLabel(strTemp);
 
-	// Add : COde + Comment lines - 2009-3-22
-	strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalCodeCommentStatement);
+    // Add : COde + Comment lines - 2009-3-22
+    strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalCodeCommentStatement);
     m_lblCodeCommentLines->SetLabel(strTemp);
 
     strTemp.Printf(_T("%d"), pCountingInfo->m_nTotalBlankStatement);
     m_lblBlankLines->SetLabel(strTemp);
 
-	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalManMonth);
-	m_lblTotalMM->SetLabel(strTemp);
+    strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalManMonth);
+    m_lblTotalMM->SetLabel(strTemp);
 
-	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalCost);
-	m_lblTotalCost->SetLabel(strTemp);
+    strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalCost);
+    m_lblTotalCost->SetLabel(strTemp);
 
-	// Boom 2009-3-3: add UT and IT counting info
-	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalUtCases);
-	m_lblUtCases->SetLabel(strTemp);
-	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalUtDefects);
-	m_lblUtDefects->SetLabel(strTemp);
-	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalItCases);
-	m_lblItCases->SetLabel(strTemp);
-	strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalItDefects);
-	m_lblItDefects->SetLabel(strTemp);
+    // Boom 2009-3-3: add UT and IT counting info
+    strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalUtCases);
+    m_lblUtCases->SetLabel(strTemp);
+    strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalUtDefects);
+    m_lblUtDefects->SetLabel(strTemp);
+    strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalItCases);
+    m_lblItCases->SetLabel(strTemp);
+    strTemp.Printf(_T("%2.2f"), pCountingInfo->m_fTotalItDefects);
+    m_lblItDefects->SetLabel(strTemp);
 
 //    wxMessageBox(pCountingFileInfo->m_strFileFullPath);
 //    wxMessageBox(pCountingFileInfo->m_strFileName);
 //    if (nIndex % 11 == 0)
-	m_lblStatus->SetLabel(pCountingFileInfo->m_strFileFullPath);
+    m_lblStatus->SetLabel(pCountingFileInfo->m_strFileFullPath);
 
 }
 
 void SourceCounterDialog::OnInit(wxInitDialogEvent& event)
 {
-	if(!m_pCountingMgr)
-		m_pCountingMgr = new CountingManager();
+    if (!m_pCountingMgr)
+        m_pCountingMgr = new CountingManager();
 
-	// Load rule xml file date etc.
-	m_pCountingMgr->Init();
+    // Load rule xml file date etc.
+    m_pCountingMgr->Init();
 
     for (int i=0; i<N_COLUMN_NUM; i++)
     {
@@ -761,12 +776,12 @@ void SourceCounterDialog::OnInit(wxInitDialogEvent& event)
     wxString strTemp, strPathTemp;
     pConf->SetPath(wxT("SrcFolderHistory"));
     int nIdx = 0;
-    for(int i=0; i< nSrcFolderNum; i++ )
+    for (int i=0; i< nSrcFolderNum; i++ )
     {
         strTemp.Printf(wxT("%d"), i);
         strPathTemp = pConf->Read(strTemp);
 
-        if(!strPathTemp.IsEmpty())
+        if (!strPathTemp.IsEmpty())
         {
             nIdx = m_lbxSrcFolder->Append(strPathTemp);
             m_lbxSrcFolder->Check(nIdx, true);
@@ -777,11 +792,11 @@ void SourceCounterDialog::OnInit(wxInitDialogEvent& event)
     pConf->SetPath(wxT("/"));
 
 #ifdef __WXDEBUG__
-	int nIndex = m_lbxSrcFolder->Append(_T("W:\\boomworks\\SrcCounter\\testcase\\"));
-	m_lbxSrcFolder->Check(nIndex, true);
+    int nIndex = m_lbxSrcFolder->Append(_T("W:\\boomworks\\SrcCounter\\testcase\\"));
+    m_lbxSrcFolder->Check(nIndex, true);
 
-	m_cmbSrcTypes->Append(_T(".php"));
-	m_cmbSrcTypes->SetValue(_T(".php"));
+    m_cmbSrcTypes->Append(_T(".php"));
+    m_cmbSrcTypes->SetValue(_T(".php"));
 
 #endif
 
@@ -817,7 +832,7 @@ void SourceCounterDialog::OnBtnUiLangClick(wxCommandEvent& event)
 
 void SourceCounterDialog::OnBtnCheckUpdateClick(wxCommandEvent& event)
 {
-	wxLaunchDefaultBrowser(_T("http://down.boomworks.org/"), wxBROWSER_NEW_WINDOW);
+    wxLaunchDefaultBrowser(_T("http://down.boomworks.org/"), wxBROWSER_NEW_WINDOW);
 }
 
 void SourceCounterDialog::OnLstResultItemRClick(wxListEvent& event)
@@ -866,30 +881,30 @@ void SourceCounterDialog::OnMenuItemOpenSelected(wxCommandEvent& event)
         }
     */
     ///////////////////////////////////////////////////////////////////
-/*
-        wxString strCmd;
-        bool isOK = false;
-        wxFileType *ft = wxTheMimeTypesManager->GetFileTypeFromExtension(pFileInfo->m_strFileExtName.AfterLast('.'));
-        if (!ft)
-        {
-            strCmd = _T("notepad \"");
-            strCmd += pFileInfo->m_strFileFullPath;
-            strCmd += _T("\"");
-            isOK = true;
-        }
-        else
-        {
-            isOK = ft->GetOpenCommand (&strCmd, wxFileType::MessageParameters(pFileInfo->m_strFileFullPath,  wxEmptyString));
-            delete ft;
-        }
+    /*
+            wxString strCmd;
+            bool isOK = false;
+            wxFileType *ft = wxTheMimeTypesManager->GetFileTypeFromExtension(pFileInfo->m_strFileExtName.AfterLast('.'));
+            if (!ft)
+            {
+                strCmd = _T("notepad \"");
+                strCmd += pFileInfo->m_strFileFullPath;
+                strCmd += _T("\"");
+                isOK = true;
+            }
+            else
+            {
+                isOK = ft->GetOpenCommand (&strCmd, wxFileType::MessageParameters(pFileInfo->m_strFileFullPath,  wxEmptyString));
+                delete ft;
+            }
 
-        // Execute command
-        if (isOK)
-        {
-            wxExecute(strCmd, wxEXEC_ASYNC);
-            // wxExecute(strCmd, wxEXEC_SYNC);
-        }
-*/
+            // Execute command
+            if (isOK)
+            {
+                wxExecute(strCmd, wxEXEC_ASYNC);
+                // wxExecute(strCmd, wxEXEC_SYNC);
+            }
+    */
     ///////////////////////////////////////////////////////////////////
 }
 
@@ -903,9 +918,9 @@ void SourceCounterDialog::OnMenuItemOpenDirSelected(wxCommandEvent& event)
     wxString strCmd;
     strCmd = _T("explorer /select,") + pFileInfo->m_strFileFullPath;
 
-    #ifdef __WXMSW__
-      wxExecute(strCmd);
-    #endif
+#ifdef __WXMSW__
+    wxExecute(strCmd);
+#endif
 
 }
 
