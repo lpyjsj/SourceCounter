@@ -30,9 +30,9 @@ REM Delete 7z zip files
 del *.7z *.zip
 
 REM Make 7z file | 7z a -t7z Files.7z *.txt -r
-7z a -t7z SourceCounter-2.5.1.4.7z SourceCounter\ -mx7
+7z a -t7z SourceCounter-2.5.5.9.7z SourceCounter\ -mx7
 
 REM Make zip file
-7z a -tzip SourceCounter-2.5.1.4.zip SourceCounter\ -mx9
+7z a -tzip SourceCounter-2.5.5.9.zip SourceCounter\ -mx9
 
 REM End
