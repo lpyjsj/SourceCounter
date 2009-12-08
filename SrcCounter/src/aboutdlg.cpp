@@ -77,7 +77,7 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	BoxSizer3->Add(StaticText4, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("(C) 1999 - 2010 BoomWorks.Org"), wxDefaultPosition, wxSize(214,13), 0, _T("ID_STATICTEXT3"));
 	BoxSizer3->Add(StaticText3, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("mailto:boomworks@hotmail.com"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
+	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("mailto:boomworks@gmail.com"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
 	BoxSizer3->Add(StaticText5, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer4 = new wxBoxSizer(wxHORIZONTAL);
 	BoxSizer3->Add(BoxSizer4, 1, wxBOTTOM|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -102,8 +102,7 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	Connect(wxID_OK,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&AboutDlg::OnButton1Click);
 	//*)
 
-	// Set link to boomworks.net
-	//	BoxSizer3->Add(m_pLinkBMW, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	// Set link to boomworks.org
 	m_pLinkBMW = new wxHyperLink(this, ID_TXT_BMW, _("http://www.boomworks.org"));
 	BoxSizer4->Add(m_pLinkBMW, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	// Set Version by AutoVersioning tool
@@ -115,7 +114,6 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	// Get wx version infomation//
 	wxString msg = wxbuildinfo(long_f);
 	StaticText4->SetLabel(msg);
-
 }
 
 AboutDlg::~AboutDlg()
