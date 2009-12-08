@@ -43,6 +43,8 @@ const long AboutDlg::ID_STATICTEXT2 = wxNewId();
 const long AboutDlg::ID_STATICTEXT4 = wxNewId();
 const long AboutDlg::ID_STATICTEXT3 = wxNewId();
 const long AboutDlg::ID_STATICTEXT5 = wxNewId();
+const long AboutDlg::ID_STATICTEXT6 = wxNewId();
+const long AboutDlg::ID_STATICTEXT7 = wxNewId();
 const long AboutDlg::ID_BITMAPBUTTON1 = wxNewId();
 //*)
 
@@ -73,12 +75,16 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	BoxSizer3->Add(StaticText2, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("Label"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT4"));
 	BoxSizer3->Add(StaticText4, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
-	StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("(C) 1999 - 2009 BoomWorks.Org"), wxDefaultPosition, wxSize(214,13), 0, _T("ID_STATICTEXT3"));
+	StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("(C) 1999 - 2010 BoomWorks.Org"), wxDefaultPosition, wxSize(214,13), 0, _T("ID_STATICTEXT3"));
 	BoxSizer3->Add(StaticText3, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("mailto:boomworks@hotmail.com"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
 	BoxSizer3->Add(StaticText5, 0, wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer4 = new wxBoxSizer(wxHORIZONTAL);
 	BoxSizer3->Add(BoxSizer4, 1, wxBOTTOM|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("Thanks to:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT6"));
+	BoxSizer3->Add(StaticText6, 0, wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_BOTTOM, 5);
+	StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("shu_0706@hotmail.com - Korea translator"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT7"));
+	BoxSizer3->Add(StaticText7, 0, wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_BOTTOM, 10);
 	m_bmpBtnBMW = new wxBitmapButton(this, ID_BITMAPBUTTON1, wxBitmap(wxImage(_T("img\\www.boomworks.net--thumb.jpg"))), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW, wxDefaultValidator, _T("ID_BITMAPBUTTON1"));
 	m_bmpBtnBMW->SetDefault();
 	BoxSizer3->Add(m_bmpBtnBMW, 0, wxTOP|wxLEFT|wxRIGHT|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
@@ -104,7 +110,7 @@ AboutDlg::AboutDlg(wxWindow* parent,wxWindowID id)
 	wxString strVersion(AutoVersion::FULLVERSION_STRING, wxConvUTF8);
 	wxString strStatus(AutoVersion::STATUS, wxConvUTF8);
 
-	StaticText2->SetLabel(_T("Unicode version ") + strVersion + _T(" ") + strStatus);
+	StaticText2->SetLabel(_T("Version ") + strVersion + _T(" ") + strStatus);
 
 	// Get wx version infomation//
 	wxString msg = wxbuildinfo(long_f);

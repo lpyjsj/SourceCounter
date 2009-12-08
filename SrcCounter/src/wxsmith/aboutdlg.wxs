@@ -51,7 +51,7 @@
 							</object>
 							<object class="sizeritem">
 								<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
-									<label>(C) 1999 - 2009 BoomWorks.Org</label>
+									<label>(C) 1999 - 2010 BoomWorks.Org</label>
 									<size>214,13</size>
 								</object>
 								<flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -69,6 +69,20 @@
 								<flag>wxBOTTOM|wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 								<border>5</border>
 								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT6" variable="StaticText6" member="yes">
+									<label>Thanks to:</label>
+								</object>
+								<flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_BOTTOM</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT7" variable="StaticText7" member="yes">
+									<label>shu__0706@hotmail.com - Korea translator</label>
+								</object>
+								<flag>wxLEFT|wxEXPAND|wxALIGN_LEFT|wxALIGN_BOTTOM</flag>
+								<border>10</border>
 							</object>
 							<object class="sizeritem">
 								<object class="wxBitmapButton" name="ID_BITMAPBUTTON1" variable="m_bmpBtnBMW" member="yes">
